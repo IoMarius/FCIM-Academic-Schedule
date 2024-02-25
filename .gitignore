@@ -1,8 +1,8 @@
 *vsidx
-/bin/
-/obj/
-/.suo
-/Properties/AssemblyInfo.cs
+eProiect/bin/
+eProiect/obj/
+eProiect/.suo
+eProiect/Properties/AssemblyInfo.cs
 /Local.config
 .vs/
 
