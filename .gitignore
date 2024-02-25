@@ -4,4 +4,5 @@
 /.suo
 /Properties/AssemblyInfo.cs
 /Local.config
-.vs/FCIM-Academic-Schedules/config
+.vs/
+
