@@ -13,5 +13,10 @@ namespace eProiect.Controllers
         {
             return View();
         }
+
+        public ActionResult Tables()
+        {
+            return View();
+        }
     }
 }
