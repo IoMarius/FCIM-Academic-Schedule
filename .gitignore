@@ -1,1 +1,6 @@
 *vsidx
+/bin/
+/obj/
+/.suo
+/Properties/AssemblyInfo.cs
+/Local.config
