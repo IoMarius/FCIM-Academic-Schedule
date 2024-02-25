@@ -6,12 +6,18 @@ using System.Web.Mvc;
 
 namespace eProiect.Controllers
 {
-    public class HomeController : Controller
-    {
-        // GET: Home
-        public ActionResult Index()
-        {
-            return View();
-        }
-    }
+     public class HomeController : Controller
+     {
+          // GET: Home
+          public ActionResult Index()
+          {
+               return View();
+          }
+
+
+          public ActionResult Login()
+          {
+               return View();
+          }
+     }
 }
