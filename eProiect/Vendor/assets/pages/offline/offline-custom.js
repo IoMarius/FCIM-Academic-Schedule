@@ -3,7 +3,7 @@ $(document).ready(function($) {
         $(".browser iframe").each(function() {
                 var a=$(this).data("theme");
                 var doc=(this.contentWindow||this.documentWindow).document;
-            doc.open(), doc.write('<link rel="stylesheet" href="../files/bower_components/offline/css/offline-theme-'+a+'.css" /><link rel="stylesheet" href="../files/bower_components/offline/css/offline-language-english'+(a.match(/\-indicator$/)?"-indicator": "")+'.css" /><div data-phase="0" class="offline-ui offline-ui-down offline-ui-down-5s"><div class="offline-ui-content"></div><a class="offline-ui-retry"></a></div>'), doc.close()
+            doc.open(), doc.write('<link rel="stylesheet" href=""~/Vendor/bower_components/offline/css/offline-theme-'+a+'.css" /><link rel="stylesheet" href=""~/Vendor/bower_components/offline/css/offline-language-english'+(a.match(/\-indicator$/)?"-indicator": "")+'.css" /><div data-phase="0" class="offline-ui offline-ui-down offline-ui-down-5s"><div class="offline-ui-content"></div><a class="offline-ui-retry"></a></div>'), doc.close()
             }
         );
         var a=[[5,

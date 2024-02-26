@@ -53,13 +53,15 @@
                <div id="sidebar" class="users p-chat-user showChat">
                     @Html.Partial("_Sidebar")
                </div>
-       
-
+      
                <div class="pcoded-main-container">
                     <div class="pcoded-wrapper">
+                        <!--Sidebar-->
                          <nav class="pcoded-navbar">
                               @Html.Partial("_Navbar_main")
                          </nav>
+
+                        <!--Main content in page-->
                          <div class="pcoded-content">
                               @RenderBody()
                          </div>
