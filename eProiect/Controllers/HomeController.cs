@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace eProiect.Controllers
 {
+
      public class HomeController : Controller
      {
           // GET: Home
@@ -19,5 +20,12 @@ namespace eProiect.Controllers
           {
                return View();
           }
-     }
+ 
+
+        public ActionResult Tables()
+        {
+            return View();
+        }
+    }
+
 }

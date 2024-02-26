@@ -173,7 +173,6 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -5833,7 +5832,9 @@
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\Shared\_Layout_login.cshtml" />
+    <Content Include="Views\Shared\_Layout_login.cshtml" 
+    <Content Include="Views\Shared\_Preloader.cshtml" />
+    <Content Include="Views\Home\Tables.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
