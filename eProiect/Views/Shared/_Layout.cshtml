@@ -26,7 +26,6 @@
      @Styles.Render("~/bundles/style/css4")
      @Styles.Render("~/bundles/mCustomScrollbar/css5")
 
-
      @if (IsSectionDefined("Styles"))
      {@RenderSection("Styles", required: false)}
 
@@ -36,43 +35,10 @@
 
      <!-- Pre-loader start -->
      <div class="theme-loader">
-          <div class="ball-scale">
-               <div class='contain'>
-                    <div class="ring">
-                         <div class="frame"></div>
-                    </div>
-                    <div class="ring">
-                         <div class="frame"></div>
-                    </div>
-                    <div class="ring">
-                         <div class="frame"></div>
-                    </div>
-                    <div class="ring">
-                         <div class="frame">
-                         </div>
-                    </div>
-                    <div class="ring">
-                         <div class="frame"></div>
-                    </div>
-                    <div class="ring">
-                         <div class="frame"></div>
-                    </div>
-                    <div class="ring">
-                         <div class="frame"></div>
-                    </div>
-                    <div class="ring">
-                         <div class="frame"></div>
-                    </div>
-                    <div class="ring">
-                         <div class="frame"></div>
-                    </div>
-                    <div class="ring">
-                         <div class="frame"></div>
-                    </div>
-               </div>
-          </div>
+         @Html.Partial("_Preloader")
      </div>
      <!-- Pre-loader end -->
+
      <!-- Pre-loader end -->
      <div id="pcoded" class="pcoded">
           
