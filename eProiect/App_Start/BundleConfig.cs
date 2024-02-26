@@ -106,6 +106,18 @@ namespace eProiect.App_Start
             bundles.Add(new Bundle("~/bundles/script/js").Include(
                 "~/Vendor/assets/js/script.min.js"));
 
+               //------------------------FOR_LOGIN_PAGE_STYLE----------------------------------------------------------------------
+               bundles.Add(new StyleBundle("~/bundles/flag-icon/css").Include(
+                   "~/Vendor/assets/pages/flag-icon/flag-icon.min.css", new CssRewriteUrlTransform()));
+            
+               bundles.Add(new StyleBundle("~/bundles/bootstrap.min/css").Include(
+                   "~/Vendor/bower_components/bootstrap/css/bootstrap.min.css", new CssRewriteUrlTransform()));
+
+               //------------------------FOR_LOGIN_PAGE_SCRIPTS----------------------------------------------------------------------
+               bundles.Add(new Bundle("~/bundles/css-scrollbars/js").Include(
+               "~/Vendor/bower_components/modernizr/js/css-scrollbars.js"));
+
+
           }
 
      }
