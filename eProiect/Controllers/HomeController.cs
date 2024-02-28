@@ -19,12 +19,16 @@ namespace eProiect.Controllers
           {
                return View();
           }
-
-          public ActionResult Tables()
+          
+          public ActionResult LoginError()
           {
-                return View();
+               return View();
           }
 
+          public ActionResult Tables()
+        {
+            return View();
+        }
           public ActionResult Profile()
           {
                 return View();
