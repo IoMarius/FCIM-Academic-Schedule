@@ -23,6 +23,8 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerLaunchUrl>http://{ServiceIPAddress}</DockerLaunchUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -5796,11 +5798,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleConfig2.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Users\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -5831,11 +5837,12 @@
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
     <Content Include="Views\Home\Profile.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Shared\_Layout_login.cshtml" />
     <Content Include="Views\Shared\_Preloader.cshtml" />
     <Content Include="Views\Home\Tables.cshtml" />
-    <Content Include="Views\Home\LoginError.cshtml" />
+    <Content Include="Views\Login\LoginError.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -5845,9 +5852,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Data\" />
     <Folder Include="Vendor\assets\pages\ckeditor\samples\toolbarconfigurator\lib\" />
     <Folder Include="Vendor\assets\pages\j-pro\form_files\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\eProiect.BusinessLogic\eProiect.BusinessLogic.csproj">
+      <Project>{3dbfb6d0-2391-4bfc-b7bb-28ce31db5a90}</Project>
+      <Name>eProiect.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eProiect.Domain\eProiect.Domain.csproj">
+      <Project>{80f4d12e-efc8-4adb-a248-6091797bbaad}</Project>
+      <Name>eProiect.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,9 @@
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Debug\eProiect.Domain.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Debug\eProiect.Domain.pdb
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Debug\eProiect.Helper.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Debug\eProiect.Helper.pdb
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\obj\Debug\eProiect.Domain.csproj.AssemblyReference.cache
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\obj\Debug\eProiect.Domain.csproj.CoreCompileInputs.cache
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\obj\Debug\eProiect.Domain.csproj.CopyComplete
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\obj\Debug\eProiect.Domain.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\obj\Debug\eProiect.Domain.pdb

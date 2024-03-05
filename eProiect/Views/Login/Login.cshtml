@@ -1,34 +1,51 @@
 ﻿
 @{
-     ViewBag.Title = "LoginError";
+     ViewBag.Title = "Login";
      Layout = "~/Views/Shared/_Layout_login.cshtml";
 }
 
-
-<!-- Container-fluid starts -->
 <div class="container-fluid">
      <div class="row">
           <div class="col-sm-12">
                <!-- Authentication card start -->
+
                <div class="login-card card-block auth-body mr-auto ml-auto">
                     <form class="md-float-material">
-                         <div class="text-center">
+                         <div class="text-center d-none d-lg-block  d-xl-block">
                               <img src="~/Vendor/assets/images/auth/logo-dark.png" alt="logo.png">
                          </div>
                          <div class="auth-box">
                               <div class="row m-b-20">
                                    <div class="col-md-12">
-                                        <h3 class="text-left">Recover you password</h3>
+                                        <h3 class="text-left txt-primary">Sign In</h3>
                                    </div>
                               </div>
-                              <p class="text-inverse b-b-default text-right">Back to <a href="@Url.Action("Login", "Home")">Login.</a></p>
+                              <hr />
                               <div class="input-group">
-                                   <input type="text" class="form-control" placeholder="Your Email Address">
+                                   <input type="email" class="form-control" placeholder="Your Email Address">
                                    <span class="md-line"></span>
                               </div>
-                              <div class="row">
+                              <div class="input-group">
+                                   <input type="password" class="form-control" placeholder="Password">
+                                   <span class="md-line"></span>
+                              </div>
+                              <div class="row m-t-25 text-left">
+                                   <div class="col-12">
+                                        <div class="checkbox-fade fade-in-primary">
+                                             <label>
+                                                  <input type="checkbox" value="">
+                                                  <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                                                  <span class="text-inverse">Remember me</span>
+                                             </label>
+                                        </div>
+                                        <div class="forgot-phone text-right f-right">
+                                             <a href="@Url.Action("LoginError", "Login")" class="text-right f-w-600 text-inverse"> Forgot Password?</a>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div class="row m-t-30">
                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Reset Password</button>
+                                        <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign in</button>
                                    </div>
                               </div>
                               <hr />
@@ -41,7 +58,6 @@
                                         <img src="~/Vendor/assets/images/auth/Logo-small-bottom.png" alt="small-logo.png">
                                    </div>
                               </div>
-
                          </div>
                     </form>
                     <!-- end of form -->
@@ -52,4 +68,3 @@
      </div>
      <!-- end of row -->
 </div>
-<!-- end of container-fluid -->
