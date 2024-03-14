@@ -1,6 +1,0 @@
-C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Helper\bin\Debug\eProiect.Helper.dll
-C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Helper\bin\Debug\eProiect.Helper.pdb
-C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Helper\obj\Debug\eProiect.Helper.csproj.AssemblyReference.cache
-C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Helper\obj\Debug\eProiect.Helper.csproj.CoreCompileInputs.cache
-C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Helper\obj\Debug\eProiect.Helper.dll
-C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Helper\obj\Debug\eProiect.Helper.pdb
