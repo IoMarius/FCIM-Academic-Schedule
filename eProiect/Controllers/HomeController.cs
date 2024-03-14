@@ -16,10 +16,16 @@ namespace eProiect.Controllers
           }
 
           public ActionResult Tables()
-        {
-            return View();
-        }
+          {
+                return View();
+          }
+
           public ActionResult Profile()
+          {
+                return View();
+          }
+
+          public ActionResult Schedule() 
           {
                 return View();
           }
