@@ -13,7 +13,7 @@ h1 {
 table {
     border-collapse: collapse;
     table-layout: fixed;
-    width: 90%;
+    width: 95%;
     height: 10%;
     margin: 20px auto;
     background-color: #fff;
@@ -21,24 +21,136 @@ table {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.timetable-row {
+    max-height: 75px;
+    height: 75px;
+    min-height:75px;
+}
+
 th,
 td {
-    border: 1px solid #dee2e6;
-    padding: 10px;
+    border: 1px solid #e4e4e4;
     text-align: center;
-    width:20%;
+    width: 20%;
+}
+
+td{
+    padding: 7px;
 }
 
 th {
-    background-color: #f2f2f2;
-    color: #343a40;
+    background-color: #525b76;
+    color: white;
     width: 50%;
+    padding: 10px;
 }
+
+
 
 .highlight {
     background-color: #f8f9fa;
 }
 
 .special {
-    background-color: #f0f0f0;
+    background-color: #525b76;
+    font-weight: bold;
+    color:white;
 }
+
+.empty {
+    background-color: #f0f0f0b8;
+}
+
+.timetable-cell-acadgroup {
+    border-radius: 10px;
+    padding: 2px 8px;
+    background-color: #789aff;
+    color: white;
+}
+
+.timetable-cell-classroom {
+    border-radius: 10px;
+    padding: 2px 8px;
+    background-color: #7cbac1;
+    color: white;
+}
+
+.timetable-cell-class{
+    font-size:19px;
+}
+
+.mobile-timeinterval {
+    display:none;
+}
+
+#mobileTable{
+    display:none;
+}
+
+@media (max-width: 750px) {
+    #desktopTable{
+        display:none;
+    }
+
+    #mobileTable{
+        display:table;
+    }
+
+    .empty{
+        display:none;
+    }
+
+   
+    .special{
+        display:none;
+    }
+
+    th {
+        display: none;
+    }
+
+    table{
+        display:grid;
+    }
+
+    tr {
+        display: block;
+        text-align: center;
+    }
+
+    td {
+        display: block;
+        width: 100%;
+        padding: 30px;
+    }
+
+    .mobile-timeinterval {
+        font-size: 19px;
+        display: block;
+        width:min-content;
+        border-radius: 6px;
+        padding: 2px 8px;
+        background-color: #aaaaaa1f;
+    }
+
+    .timetable-cell-class{
+        font-size: 25px;
+    }
+
+    .timetable-cell-acadgroup {
+        border-radius: 10px;
+        padding: 2px 8px;
+        margin-right: 5px;
+        background-color: #789aff;
+        color: white;
+    }
+
+    .timetable-cell-classroom {
+        border-radius: 10px;
+        padding: 2px 8px;
+        margin-right: 5px;
+        background-color: #7cbac1;
+        color: white;
+    }
+}
+

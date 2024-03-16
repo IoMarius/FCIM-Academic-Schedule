@@ -10,50 +10,75 @@
     ScheduleFrame frame = new ScheduleFrame();
     UserSchedule sched = new UserSchedule();
 
-    sched.addLesson(new ScheduleCell("AMS", "Luni", "6-2" ,new TimeSpan(8, 0, 0), new TimeSpan(9, 30, 0)));
-    sched.addLesson(new ScheduleCell("TSI", "Luni","3-3", new TimeSpan(9, 45, 0), new TimeSpan(11, 15, 0)));
-    sched.addLesson(new ScheduleCell("LFAF", "Luni", "101", new TimeSpan(13, 30, 0), new TimeSpan(15, 0, 0)));
-    sched.addLesson(new ScheduleCell("Pizda măsii", "Marți", "512-B", new TimeSpan(9, 45, 0), new TimeSpan(11, 15, 0)));
+    sched.addLesson(new ScheduleCell("AMS", "lu", "6-2", "TI-221" ,new TimeSpan(8, 0, 0), new TimeSpan(9, 30, 0)));
+    sched.addLesson(new ScheduleCell("TSI", "lu","3-3", "TI-223", new TimeSpan(9, 45, 0), new TimeSpan(11, 15, 0)));
+    sched.addLesson(new ScheduleCell("LFAF", "lu", "101", "SI-221", new TimeSpan(13, 30, 0), new TimeSpan(15, 0, 0)));
+    sched.addLesson(new ScheduleCell("Lecțâie", "ma", "512-B", "TI-2210", new TimeSpan(9, 45, 0), new TimeSpan(11, 15, 0)));
+    sched.addLesson(new ScheduleCell("Lab. RC", "mi", "101-A", "IA-235", new TimeSpan(11, 30, 0), new TimeSpan(15, 00, 0)));
+    sched.addLesson(new ScheduleCell("Seminar TSI", "vi", "101-A", "SI-255", new TimeSpan(15, 15, 0), new TimeSpan(16, 45, 0)));
 }
 
 <div class="pcoded-inner-content">
     <div class="main-body">
         <!--Schedule here-->
-        <div class="page-wrapper">
-            <table>
-                
+        <div>
+            <table id="desktopTable">
                 <tr>
                     <th>Ora/Ziua</th>
-                    @{ //TIME INTERVALS ROW
-                        foreach(var interval in frame.TimeIntervals){
-                            <th>@interval.Item1.ToString("hh\\:mm") - @interval.Item2.ToString("hh\\:mm")</th>
+                    @{ //WEEKDAYS ROW
+                        foreach(var weekday in frame.WeekDays){
+                            if (sched.getBusyDays() == 5){
+                                if (weekday == "Sâmbătă"){
+                                    continue;
+                                }
+                            }
+                                
+                            <th>@weekday</th>
+                 
                         }
                     }
                 </tr>
-                @{ //WEEKDAYS ROW
-                    foreach(var weekday in frame.WeekDays){
-                        <tr>
-                            <td class="special">@weekday</td>
+                @{ // TIME INTERVALS ROWS
+                    foreach(var interval in frame.TimeIntervals){
+                        <tr class="timetable-row">
+                            <td class="special">@interval.Item1.ToString("hh\\:mm") - @interval.Item2.ToString("hh\\:mm")</td>
                             @{
-                                for (uint lessonNr = 0; lessonNr < 7; lessonNr++)
+                                for (uint cellNr = 0; cellNr < sched.getBusyDays(); cellNr++)
                                 {
-                                    if (sched.lessonPresent(weekday, lessonNr))
+                                    if (sched.existingLesson(interval.Item1, cellNr))
                                     {
-                                        var lesson = sched.getLesson(weekday, lessonNr);
-                                        <td>@lesson.Discipline<br/>@lesson.Classroom</td>
-                                    }else{
-                                        <td>:)</td>
-                                    }
+                                        var lesson = sched.getLesson(interval.Item1, cellNr);
+                                        <td rowspan="@lesson.LessonLengh.GetLength( )" class="table-cell">
+                                            <span class="mobile-timeinterval">
+                                                @lesson.StartTime.ToString("hh\\:mm") - @lesson.EndTime.ToString("hh\\:mm") <br/>
+                                            </span>
+                                            <div class="timetable-cell-content">
+                                                <span class="timetable-cell-class">
+                                                    @lesson.Discipline
+                                                    <br />
+                                                </span>
+                                                <span class="timetable-cell-classroom">
+                                                    @lesson.Classroom
+                                                </span>
+                                                &#8205;
+                                                <span class="timetable-cell-acadgroup">
+                                                    @lesson.AcademicGroup
 
+                                                </span>
+                                            </div>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="empty">&#8205; </td>
+                                    }
                                 }
                             }
                         </tr>
                     }
                 }
-
-                
-                
             </table>
+            <table id="mobileTable"></table>
         </div>
         <!--End Schedule-->
     </div>
