@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Web;
+using eProiect.Models.Enums;
 
 namespace eProiect.Models.Users
 {
@@ -13,13 +14,26 @@ namespace eProiect.Models.Users
         public TimeSpan EndTime { get; set; }
         public string WeekDay { get; set; }
         public string Classroom { get; set; }
-        public ScheduleCell(string _discipline, string _weekday, string _classroom,TimeSpan _start, TimeSpan _end)
+        public string AcademicGroup { get; set; }
+        public LessonLengh LessonLengh { get; set; }
+
+
+        public ScheduleCell(string _discipline, string _weekday, string _classroom, string _group, TimeSpan _start, TimeSpan _end)
         {
             Discipline= _discipline;
             StartTime= _start;
             EndTime= _end;
             WeekDay= _weekday;
             Classroom= _classroom;
+            AcademicGroup= _group;
+
+            //lojic for lesson length.
+            LessonLengh = new LessonLengh();
+            var lessonDiff  = _end.Subtract(_start);
+            if (lessonDiff.TotalMinutes > 0)
+                LessonLengh.SetLength((uint)lessonDiff.TotalMinutes / 90);
+            else
+                LessonLengh.SetLength(1);
         }
 
         public ScheduleCell()
@@ -32,7 +46,8 @@ namespace eProiect.Models.Users
     {
         private ScheduleCell[,] Schedule;
         private List<(string, uint)> WeekDayLookup; 
-        private List<(TimeSpan, uint)> TimeLookup; 
+        private List<(TimeSpan, uint)> TimeLookup;
+        private bool BusyOnWeekend;
 
         public UserSchedule()
         {
@@ -46,16 +61,18 @@ namespace eProiect.Models.Users
                 }
             }
         
+            BusyOnWeekend= false;
+
             //initializing lookuptables
             WeekDayLookup= new List<(string, uint)>();
             TimeLookup= new List<(TimeSpan, uint)>();
 
-            WeekDayLookup.Add(("Luni", 0));
-            WeekDayLookup.Add(("Marți", 1));
-            WeekDayLookup.Add(("Miercuri", 2));
-            WeekDayLookup.Add(("Joi", 3));
-            WeekDayLookup.Add(("Vineri", 4));
-            WeekDayLookup.Add(("Sâmbătă", 5));
+            WeekDayLookup.Add(("lu", 0));
+            WeekDayLookup.Add(("ma", 1));
+            WeekDayLookup.Add(("mi", 2));
+            WeekDayLookup.Add(("jo", 3));
+            WeekDayLookup.Add(("vi", 4));
+            WeekDayLookup.Add(("sm", 5));
 
             TimeLookup.Add((new TimeSpan(8, 0, 0), 0));
             TimeLookup.Add((new TimeSpan(9, 45, 0), 1));
@@ -86,24 +103,41 @@ namespace eProiect.Models.Users
             return 0;
         }
 
-        public bool lessonPresent(string weekday, uint lessonNr)
+        public bool existingLesson(TimeSpan startTime, uint lessonNr)
         {
-            if (__lookupWeekday(weekday) > 5 || lessonNr > 6)
+            if (__lookupTime(startTime) > 6 || lessonNr > 6)
                 return false;
 
-            if (Schedule[__lookupWeekday(weekday), lessonNr].Discipline != "NULL")
+            if (Schedule[lessonNr, __lookupTime(startTime)].Discipline != "NULL")
                 return true;
+
             return false;
         }
 
         public void addLesson(ScheduleCell lesson)
         {
             Schedule[__lookupWeekday(lesson.WeekDay), __lookupTime(lesson.StartTime)] = lesson;
+            if (lesson.WeekDay == "sm")
+                BusyOnWeekend = true;
         }
         
         public ScheduleCell getLesson(string weekday, uint lessonNr)
         {
             return Schedule[__lookupWeekday(weekday), lessonNr];
+        }
+
+        public ScheduleCell getLesson(TimeSpan startTime, uint lessonNr)
+        {
+            return Schedule[lessonNr, __lookupTime(startTime)];
+        }
+    
+        public uint getBusyDays()
+        {
+            if (!BusyOnWeekend)
+            {
+                return 5;
+            }
+            return 6;
         }
     }
 }
