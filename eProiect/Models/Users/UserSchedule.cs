@@ -2,30 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using eProiect.Models.Enums;
 
 namespace eProiect.Models.Users
 {
-    public class ScheduleCell
+
+    public class Lesson
     {
         public string Discipline { get; set; }
+        public string Type { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         public string WeekDay { get; set; }
         public string Classroom { get; set; }
         public string AcademicGroup { get; set; }
         public LessonLengh LessonLengh { get; set; }
+        public LessonWeekType WeekSpan { get; set; }
 
 
-        public ScheduleCell(string _discipline, string _weekday, string _classroom, string _group, TimeSpan _start, TimeSpan _end)
+
+        public Lesson(string _discipline, string _lessonType, string _weekday, string _classroom, 
+            string _group, TimeSpan _start, TimeSpan _end, LessonWeekType _weekSpan=LessonWeekType.FULL)
         {
             Discipline= _discipline;
+            Type= _lessonType;
             StartTime= _start;
             EndTime= _end;
             WeekDay= _weekday;
             Classroom= _classroom;
             AcademicGroup= _group;
+            WeekSpan= _weekSpan;
 
             //lojic for lesson length.
             LessonLengh = new LessonLengh();
@@ -36,33 +44,71 @@ namespace eProiect.Models.Users
                 LessonLengh.SetLength(1);
         }
 
-        public ScheduleCell()
+        public Lesson()
         {
             Discipline = "NULL";
         }
-    } 
 
+        public bool isNull()
+        {
+            if (Discipline == "NULL")
+                return true;
+            return false;
+        }
+
+        public static bool operator ==(Lesson left, Lesson right) {
+            if (
+                left.Type == right.Type &&
+                left.Discipline ==right.Discipline &&
+                left.WeekDay==right.WeekDay && 
+                left.AcademicGroup==right.AcademicGroup &&
+                left.WeekSpan==right.WeekSpan
+                )
+            {
+                return true;
+            }
+            return false;
+        }
+        
+        public static bool operator !=(Lesson left, Lesson right) {
+            if (
+                left.Type != right.Type ||
+                left.Discipline !=right.Discipline ||
+                left.WeekDay!=right.WeekDay ||
+                left.AcademicGroup != right.AcademicGroup ||
+                left.WeekSpan != right.WeekSpan
+                )
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    
     public class UserSchedule
     {
-        private ScheduleCell[,] Schedule;
+        private (Lesson, Lesson)[,] Schedule;
         private List<(string, uint)> WeekDayLookup; 
         private List<(TimeSpan, uint)> TimeLookup;
         private bool BusyOnWeekend;
+        public TimeSpan LatestClass;
 
         public UserSchedule()
         {
             //initializing the matrix with NULL instances of scheduleCells.
-            Schedule = new ScheduleCell[6, 7];
+            Schedule = new (Lesson, Lesson)[6, 7];
             for(int row=0; row < 6; row++)
             {
                 for(int col=0; col < 7; col++)
                 {
-                    Schedule[row, col] = new ScheduleCell();
+                    Schedule[row, col] = (new Lesson(), new Lesson());
                 }
             }
         
             BusyOnWeekend= false;
-
+            LatestClass = new TimeSpan(0, 0, 0);
+            
             //initializing lookuptables
             WeekDayLookup= new List<(string, uint)>();
             TimeLookup= new List<(TimeSpan, uint)>();
@@ -103,32 +149,62 @@ namespace eProiect.Models.Users
             return 0;
         }
 
+        //ADD SIMILAR LOGIC FOR REMOVING LESSONS
+        private void __update_latest_lesson(TimeSpan endTime)
+        {
+            if (TimeSpan.Compare(endTime, LatestClass)==1)
+            {
+                LatestClass = endTime;
+            }
+        }
+
         public bool existingLesson(TimeSpan startTime, uint lessonNr)
         {
             if (__lookupTime(startTime) > 6 || lessonNr > 6)
                 return false;
 
-            if (Schedule[lessonNr, __lookupTime(startTime)].Discipline != "NULL")
+            if (
+                Schedule[lessonNr, __lookupTime(startTime)].Item1.Discipline != "NULL" ||
+                Schedule[lessonNr, __lookupTime(startTime)].Item1.Discipline != "NULL"
+                )
                 return true;
 
             return false;
         }
 
-        public void addLesson(ScheduleCell lesson)
+        public void addLesson(Lesson lesson)
         {
-            Schedule[__lookupWeekday(lesson.WeekDay), __lookupTime(lesson.StartTime)] = lesson;
+            //if full add to both cells
+            if (lesson.WeekSpan == LessonWeekType.FULL) { 
+                Schedule[__lookupWeekday(lesson.WeekDay), __lookupTime(lesson.StartTime)].Item1 = lesson;
+                Schedule[__lookupWeekday(lesson.WeekDay), __lookupTime(lesson.StartTime)].Item2 = lesson;
+            }
+            else if(lesson.WeekSpan==LessonWeekType.EVEN)
+                Schedule[__lookupWeekday(lesson.WeekDay), __lookupTime(lesson.StartTime)].Item1 = lesson;
+            else if(lesson.WeekSpan==LessonWeekType.ODD)
+                Schedule[__lookupWeekday(lesson.WeekDay), __lookupTime(lesson.StartTime)].Item2 = lesson;
+
             if (lesson.WeekDay == "sm")
                 BusyOnWeekend = true;
+            __update_latest_lesson(lesson.EndTime);
         }
         
-        public ScheduleCell getLesson(string weekday, uint lessonNr)
+        public Lesson getLessonEven(string weekday, uint lessonNr)
         {
-            return Schedule[__lookupWeekday(weekday), lessonNr];
+            return Schedule[__lookupWeekday(weekday), lessonNr].Item1;
+        } 
+        public Lesson getLessonOdd(string weekday, uint lessonNr)
+        {
+            return Schedule[__lookupWeekday(weekday), lessonNr].Item2;
         }
 
-        public ScheduleCell getLesson(TimeSpan startTime, uint lessonNr)
+        public Lesson getLessonEven(TimeSpan startTime, uint lessonNr)
         {
-            return Schedule[lessonNr, __lookupTime(startTime)];
+            return Schedule[lessonNr, __lookupTime(startTime)].Item1;
+        }
+        public Lesson getLessonOdd(TimeSpan startTime, uint lessonNr)
+        {
+            return Schedule[lessonNr, __lookupTime(startTime)].Item2;
         }
     
         public uint getBusyDays()
@@ -139,5 +215,6 @@ namespace eProiect.Models.Users
             }
             return 6;
         }
+
     }
 }

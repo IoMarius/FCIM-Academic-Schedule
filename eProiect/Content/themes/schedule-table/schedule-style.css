@@ -1,4 +1,5 @@
-﻿body {
+﻿/*------------MAIN TABLE STYLES-----------------------------*/
+body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
@@ -16,9 +17,15 @@ table {
     width: 95%;
     height: 10%;
     margin: 20px auto;
-    background-color: #fff;
+    background-color: transparent;
+    /*
     border: 2px solid #dee2e6;
+    */
+
+    /*
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    */
 }
 
 .timetable-row {
@@ -29,6 +36,7 @@ table {
 
 th,
 td {
+    background-color: #fff;
     border: 1px solid #e4e4e4;
     text-align: center;
     width: 20%;
@@ -60,17 +68,22 @@ th {
 .empty {
     background-color: #f0f0f0b8;
 }
+/*----------TIMETABLE CELL SPANS--------------------------*/
+
+.span-attributes{
+    transform: scale(0.8)
+}
 
 .timetable-cell-acadgroup {
     border-radius: 10px;
-    padding: 2px 8px;
+    padding: 2px 6px;
     background-color: #789aff;
     color: white;
 }
 
 .timetable-cell-classroom {
     border-radius: 10px;
-    padding: 2px 8px;
+    padding: 2px 6px;
     background-color: #7cbac1;
     color: white;
 }
@@ -79,38 +92,93 @@ th {
     font-size:19px;
 }
 
+.hour-column {
+    width: 45%;
+}
+
+/*----------TIMETABLE ODD EVEN LESSONS--------------------------*/
+.timetable-label-even, .timetable-label-odd {
+    border-radius: 10px;
+    padding: 2px 6px;
+    background-color: #ac82fad4;
+    color: white;
+}
+
+.timetable-cell-divided {
+    display: flex;
+}
+
+.timetable-cell-content-even, .timetable-cell-content-odd {
+    width: 49%;
+    transform: scale(0.8);
+    display: block;
+    line-height: 1.6;
+}
+
+.separator-line {
+    background-color: #aaaaaa1f;
+    width: 2%;
+    border-radius: 29px;
+}
+
+/*-----MOBILE TOGGLE OFF------------------------------------------*/
 .mobile-timeinterval {
-    display:none;
+    display: none;
 }
 
 #mobileTable{
     display:none;
 }
 
-@media (max-width: 750px) {
-    #desktopTable{
-        display:none;
+/*-----NARROW WINDOWS STYLE------------------------------------------*/
+@media (max-width: 1250px){
+    .hour-column {
+        width: 36%;
     }
 
+    .timetable-intervals{
+        transform:rotate(-50deg)
+    }
+
+    .timetable-cell-content-even, .timetable-cell-content-odd {
+        transform: scale(0.7);
+    }
+}
+/*------MOBILE SCREENSIZE INDEPENDENT STYLES------------------------------------------*/
+
+.mobile-last-day {
+    border-radius: 0 0 15px 15px;
+    margin-bottom: 11px;
+}
+
+/*------MOBILE VIEW STYLES------------------------------------------*/
+@media (max-width: 750px) {
     #mobileTable{
         display:table;
     }
-
     .empty{
-        display:none;
+        
     }
 
-   
-    .special{
-        display:none;
-    }
-
-    th {
+    #desktopTable, .hour-column, .special, th {
         display: none;
     }
 
-    table{
-        display:grid;
+    .mobile-weekday {
+        padding: 5px;
+        border-radius: 15px 15px 0 0;
+        background-color: #525b76;
+        font-weight: bold;
+        font-size:20px;
+        color: white;
+    }
+
+    .mobile-table-header, .mobile-weekday {
+        height: 43px;
+    }
+
+    table {
+        display: grid;
     }
 
     tr {
@@ -126,9 +194,9 @@ th {
 
     .mobile-timeinterval {
         font-size: 19px;
-        display: block;
-        width:min-content;
-        border-radius: 6px;
+        display: inline-block;
+        width: min-content;
+        border-radius: 14px;
         padding: 2px 8px;
         background-color: #aaaaaa1f;
     }
@@ -151,6 +219,12 @@ th {
         margin-right: 5px;
         background-color: #7cbac1;
         color: white;
+    }
+
+    .timetable-cell-content-even, .timetable-cell-content-odd {
+        width: 100%; /* Undo width change */
+        transform: scale(1); /* Undo scale change */
+        display: inline-block; /* Undo display change (optional) */
     }
 }
 
