@@ -7,7 +7,7 @@ namespace eProiect.Models.Enums
 {
     public class LessonLengh
     {
-        
+
         private uint Length { get; set; }
 
         public LessonLengh()

@@ -5809,6 +5809,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Enums\LessonLengh.cs" />
+    <Compile Include="Models\Enums\WeekSpan.cs" />
     <Compile Include="Models\Schedule\Schedule.cs" />
     <Compile Include="Models\Users\UserLogin.cs" />
     <Compile Include="Models\Users\UserSchedule.cs" />
