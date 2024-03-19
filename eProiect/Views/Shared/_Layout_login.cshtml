@@ -39,20 +39,20 @@
 <body>
 
      <!-- Pre-loader start -->
-    @* <div class="theme-loader">
-          @Html.Partial("_Preloader")
-     </div>*@
+     @* <div class="theme-loader">
+               @Html.Partial("_Preloader")
+          </div>*@
      <!-- Pre-loader end -->
      <div id="pcoded" class="pcoded load-height">
           <div class="pcoded-overlay-box"></div>
           <div class="pcoded-container navbar-wrapper">
 
-               <nav class="navbar header-navbar pcoded-header auth-header" style="padding: 0 0 "  header-theme="theme1">
-                    <div class="navbar-wrapper"   >
-                         <div class="navbar-logo" style="width: 100%" logo-theme="theme1" navbar-theme="theme4">        
+               <nav class="navbar header-navbar pcoded-header auth-header" style="padding: 0 0 " header-theme="theme1">
+                    <div class="navbar-wrapper">
+                         <div class="navbar-logo" style="width: 100%" logo-theme="theme1" navbar-theme="theme4">
                               <a href="@Url.Action("Index", "Home")">
-                                   <img class="img-fluid"   src="~/Vendor/assets/images/logo.png" alt="Theme-Logo" />
-                              </a>                          
+                                   <img class="img-fluid" src="~/Vendor/assets/images/logo.png" alt="Theme-Logo" />
+                              </a>
                          </div>
                     </div>
                </nav>
@@ -65,7 +65,7 @@
 
           </section>
      </div>
-    
+
      <div class="footer bg-inverse">
           <p class="text-center">Copyright &copy; 2017 FLAT UI ADMIN , All rights reserved.</p>
      </div>
@@ -82,6 +82,7 @@
      @Scripts.Render("~/bundles/jquery-i18next/js")
      @Scripts.Render("~/bundles/script/js")
      @Scripts.Render("~/bundles/css-scrollbars/js")
+
 
 </body>
 </html>

@@ -1,0 +1,6 @@
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Helper\bin\Release\eProiect.Helper.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Helper\bin\Release\eProiect.Helper.pdb
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Helper\obj\Release\eProiect.Helper.csproj.AssemblyReference.cache
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Helper\obj\Release\eProiect.Helper.csproj.CoreCompileInputs.cache
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Helper\obj\Release\eProiect.Helper.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Helper\obj\Release\eProiect.Helper.pdb

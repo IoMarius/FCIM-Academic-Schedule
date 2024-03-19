@@ -43,7 +43,7 @@ namespace eProiect.Controllers
                     {
                          //ADD COOKIE
 
-                         return RedirectToAction("Index", "Home");
+                         return RedirectToAction("Index", "Home" );
                     }
                     else
                     {

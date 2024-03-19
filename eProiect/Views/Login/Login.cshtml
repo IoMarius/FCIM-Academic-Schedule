@@ -35,7 +35,7 @@
                          </div>
                          <div class="input-group">
                             
-                              @Html.ValidationMessageFor(UserLogin => UserLogin.Password, "", new { @class = "text-danger" })
+                             @Html.ValidationMessageFor(UserLogin => UserLogin.Password, "", new { @class = "text-danger" })
                               <input type="password" name="Password" id="Password" class="form-control" placeholder="Password" required/>
                               <span class="md-line"></span>
                          </div>
@@ -55,7 +55,7 @@
                                    </div>
                                    <div class="row m-t-30">
                                         <div class="col-md-12">
-                                             <button type="submit" value="Login" class="button btn btn-primary btn-md btn-block waves-effect text-center m-b-20" >Sign in</button>
+                                             <button type="submit" id="Login" class="button btn btn-primary btn-md btn-block waves-effect text-center m-b-20" >Sign in</button>
                                         </div>
                                    </div>
                               
