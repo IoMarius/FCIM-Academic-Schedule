@@ -30,7 +30,6 @@ namespace eProiect.Controllers
                     return View();
              
           }
-
           public ActionResult Schedule() 
           {
                 return View();
