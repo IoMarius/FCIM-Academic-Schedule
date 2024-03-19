@@ -24,7 +24,24 @@ namespace eProiect.Models.Schedule
             TimeIntervals.Add((new TimeSpan(17, 0, 0), new TimeSpan(18, 30, 0)));
             TimeIntervals.Add((new TimeSpan(18, 45, 0), new TimeSpan(20, 15, 0)));
         }
+
+        public DateTime getMondayDate()
+        {
+            DateTime today = DateTime.Today;
+            DayOfWeek currentDayOfWeek = today.DayOfWeek;
+
+            // Calculate the number of days to subtract to get to Monday
+            int daysToSubtract = ((int)currentDayOfWeek - (int)DayOfWeek.Monday + 7) % 7;
+
+            // Calculate the date of the Monday of the current week
+            return today.AddDays(-daysToSubtract);
+        }
+
+        public bool isEvenWeek()
+        {
+            if (getMondayDate().Day % 2 == 0)
+                return true;
+            return false;
+        }
     }
-
-
 }

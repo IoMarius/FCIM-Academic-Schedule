@@ -18,14 +18,6 @@ table {
     height: 10%;
     margin: 20px auto;
     background-color: transparent;
-    /*
-    border: 2px solid #dee2e6;
-    */
-
-    /*
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-    */
 }
 
 .timetable-row {
@@ -96,6 +88,13 @@ th {
     width: 45%;
 }
 
+.normal-scale {
+    transform: scale(1) !important;
+}
+
+.full-size {
+    justify-content:center;
+}
 /*----------TIMETABLE ODD EVEN LESSONS--------------------------*/
 .timetable-label-even, .timetable-label-odd {
     border-radius: 10px;
@@ -121,6 +120,15 @@ th {
     border-radius: 29px;
 }
 
+.unfocused {
+    filter: opacity(0.5) grayscale(1);
+}
+
+.empty-even, .empty-odd {
+    display: none !important;
+}
+
+
 /*-----MOBILE TOGGLE OFF------------------------------------------*/
 .mobile-timeinterval {
     display: none;
@@ -134,6 +142,10 @@ th {
 @media (max-width: 1250px){
     .hour-column {
         width: 36%;
+    }
+
+    .full-size {
+        justify-content: center;
     }
 
     .timetable-intervals{
@@ -151,13 +163,18 @@ th {
     margin-bottom: 11px;
 }
 
+
+
 /*------MOBILE VIEW STYLES------------------------------------------*/
 @media (max-width: 750px) {
-    #mobileTable{
-        display:table;
+    #mobileTable {
+        display: table;
+        margin-top: 8px;
     }
-    .empty{
-        
+
+    .mobile-weekday-name {
+        font-family: Arial, Helvetica, sans-serif;
+        margin-left: 12px
     }
 
     #desktopTable, .hour-column, .special, th {
@@ -169,8 +186,10 @@ th {
         border-radius: 15px 15px 0 0;
         background-color: #525b76;
         font-weight: bold;
-        font-size:20px;
+        font-size: 20px;
         color: white;
+        display: flex;
+        justify-content: flex-start;
     }
 
     .mobile-table-header, .mobile-weekday {
@@ -193,15 +212,21 @@ th {
     }
 
     .mobile-timeinterval {
-        font-size: 19px;
+        font-size: 23px;
         display: inline-block;
+        margin-top: -20px;
+        margin-bottom: 9px;
         width: min-content;
         border-radius: 14px;
         padding: 2px 8px;
         background-color: #aaaaaa1f;
     }
 
-    .timetable-cell-class{
+    .timetable-cell-content-even, .timetable-cell-content-odd, .timetable-cell-acadgroup, .timetable-cell-classroom{
+        font-size:18px;
+    }
+
+    .timetable-cell-class {
         font-size: 25px;
     }
 
@@ -222,9 +247,9 @@ th {
     }
 
     .timetable-cell-content-even, .timetable-cell-content-odd {
-        width: 100%; /* Undo width change */
-        transform: scale(1); /* Undo scale change */
-        display: inline-block; /* Undo display change (optional) */
+        width: 100%; 
+        transform: scale(1); 
+        display: inline-block; 
     }
 }
 

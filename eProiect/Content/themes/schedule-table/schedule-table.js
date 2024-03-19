@@ -34,7 +34,7 @@ function transformTable() {
                         transformedTable.deleteRow(transformedTable.rows.length - 2);
                     }
                 }
-            }        
+            } 
 
             // Clone attributes from original cell to the new cell
             var classList = cell.classList
