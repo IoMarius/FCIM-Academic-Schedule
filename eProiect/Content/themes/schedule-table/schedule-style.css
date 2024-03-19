@@ -1,0 +1,255 @@
+﻿/*------------MAIN TABLE STYLES-----------------------------*/
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #343a40;
+}
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 95%;
+    height: 10%;
+    margin: 20px auto;
+    background-color: transparent;
+}
+
+.timetable-row {
+    max-height: 75px;
+    height: 75px;
+    min-height:75px;
+}
+
+th,
+td {
+    background-color: #fff;
+    border: 1px solid #e4e4e4;
+    text-align: center;
+    width: 20%;
+}
+
+td{
+    padding: 7px;
+}
+
+th {
+    background-color: #525b76;
+    color: white;
+    width: 50%;
+    padding: 10px;
+}
+
+
+
+.highlight {
+    background-color: #f8f9fa;
+}
+
+.special {
+    background-color: #525b76;
+    font-weight: bold;
+    color:white;
+}
+
+.empty {
+    background-color: #f0f0f0b8;
+}
+/*----------TIMETABLE CELL SPANS--------------------------*/
+
+.span-attributes{
+    transform: scale(0.8)
+}
+
+.timetable-cell-acadgroup {
+    border-radius: 10px;
+    padding: 2px 6px;
+    background-color: #789aff;
+    color: white;
+}
+
+.timetable-cell-classroom {
+    border-radius: 10px;
+    padding: 2px 6px;
+    background-color: #7cbac1;
+    color: white;
+}
+
+.timetable-cell-class{
+    font-size:19px;
+}
+
+.hour-column {
+    width: 45%;
+}
+
+.normal-scale {
+    transform: scale(1) !important;
+}
+
+.full-size {
+    justify-content:center;
+}
+/*----------TIMETABLE ODD EVEN LESSONS--------------------------*/
+.timetable-label-even, .timetable-label-odd {
+    border-radius: 10px;
+    padding: 2px 6px;
+    background-color: #ac82fad4;
+    color: white;
+}
+
+.timetable-cell-divided {
+    display: flex;
+}
+
+.timetable-cell-content-even, .timetable-cell-content-odd {
+    width: 49%;
+    transform: scale(0.8);
+    display: block;
+    line-height: 1.6;
+}
+
+.separator-line {
+    background-color: #aaaaaa1f;
+    width: 2%;
+    border-radius: 29px;
+}
+
+.unfocused {
+    filter: opacity(0.5) grayscale(1);
+}
+
+.empty-even, .empty-odd {
+    display: none !important;
+}
+
+
+/*-----MOBILE TOGGLE OFF------------------------------------------*/
+.mobile-timeinterval {
+    display: none;
+}
+
+#mobileTable{
+    display:none;
+}
+
+/*-----NARROW WINDOWS STYLE------------------------------------------*/
+@media (max-width: 1250px){
+    .hour-column {
+        width: 36%;
+    }
+
+    .full-size {
+        justify-content: center;
+    }
+
+    .timetable-intervals{
+        transform:rotate(-50deg)
+    }
+
+    .timetable-cell-content-even, .timetable-cell-content-odd {
+        transform: scale(0.7);
+    }
+}
+/*------MOBILE SCREENSIZE INDEPENDENT STYLES------------------------------------------*/
+
+.mobile-last-day {
+    border-radius: 0 0 15px 15px;
+    margin-bottom: 11px;
+}
+
+
+
+/*------MOBILE VIEW STYLES------------------------------------------*/
+@media (max-width: 750px) {
+    #mobileTable {
+        display: table;
+        margin-top: 8px;
+    }
+
+    .mobile-weekday-name {
+        font-family: Arial, Helvetica, sans-serif;
+        margin-left: 12px
+    }
+
+    #desktopTable, .hour-column, .special, th {
+        display: none;
+    }
+
+    .mobile-weekday {
+        padding: 5px;
+        border-radius: 15px 15px 0 0;
+        background-color: #525b76;
+        font-weight: bold;
+        font-size: 20px;
+        color: white;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .mobile-table-header, .mobile-weekday {
+        height: 43px;
+    }
+
+    table {
+        display: grid;
+    }
+
+    tr {
+        display: block;
+        text-align: center;
+    }
+
+    td {
+        display: block;
+        width: 100%;
+        padding: 30px;
+    }
+
+    .mobile-timeinterval {
+        font-size: 23px;
+        display: inline-block;
+        margin-top: -20px;
+        margin-bottom: 9px;
+        width: min-content;
+        border-radius: 14px;
+        padding: 2px 8px;
+        background-color: #aaaaaa1f;
+    }
+
+    .timetable-cell-content-even, .timetable-cell-content-odd, .timetable-cell-acadgroup, .timetable-cell-classroom{
+        font-size:18px;
+    }
+
+    .timetable-cell-class {
+        font-size: 25px;
+    }
+
+    .timetable-cell-acadgroup {
+        border-radius: 10px;
+        padding: 2px 8px;
+        margin-right: 5px;
+        background-color: #789aff;
+        color: white;
+    }
+
+    .timetable-cell-classroom {
+        border-radius: 10px;
+        padding: 2px 8px;
+        margin-right: 5px;
+        background-color: #7cbac1;
+        color: white;
+    }
+
+    .timetable-cell-content-even, .timetable-cell-content-odd {
+        width: 100%; 
+        transform: scale(1); 
+        display: inline-block; 
+    }
+}
+

@@ -118,9 +118,14 @@ namespace eProiect.App_Start
                "~/Vendor/bower_components/modernizr/js/css-scrollbars.js"));
 
 
+                //------------------------SCHEDULE TABLE STYLE
+                bundles.Add(new StyleBundle("~/bundles/schedule-table/css").Include(
+                   "~/Content/themes/schedule-table/schedule-style.css", new CssRewriteUrlTransform()));
 
+                bundles.Add(new Bundle("~/bundles/schedule-table").Include(
+                "~/Content/themes/schedule-table/schedule-table.js"));
 
-          }
+        }
 
      }
 }

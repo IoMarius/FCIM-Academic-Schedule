@@ -26,6 +26,9 @@
      @Styles.Render("~/bundles/style/css4")
      @Styles.Render("~/bundles/mCustomScrollbar/css5")
 
+     
+     @Styles.Render("~/bundles/schedule-table/css")
+
      @if (IsSectionDefined("Styles"))
      {@RenderSection("Styles", required: false)}
 
@@ -92,6 +95,7 @@
      @Scripts.Render("~/bundles/demo-12/js")
      @Scripts.Render("~/bundles/mCustomScrollbar/js")
      @Scripts.Render("~/bundles/script/js")
+     @Scripts.Render("~/bundles/schedule-table")
 
 </body>
 </html>

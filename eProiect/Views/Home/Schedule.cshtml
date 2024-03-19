@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewBag.Title = "Schedule";
+}
+
+@using eProiect.Models.Users
+@using eProiect.Models.Schedule
+
+@{
+    ScheduleFrame frame = new ScheduleFrame();
+    UserSchedule sched = new UserSchedule();
+    sched.addLesson(new Lesson("AMS", "c.", "lu", "6-2", "TI-2210" ,new TimeSpan(8, 0, 0), new TimeSpan(9, 30, 0), eProiect.Models.Enums.LessonWeekType.EVEN));
+    sched.addLesson(new Lesson("LBB", "s.", "lu", "6-2", "TI-2210" ,new TimeSpan(8, 0, 0), new TimeSpan(9, 30, 0), eProiect.Models.Enums.LessonWeekType.ODD));
+    sched.addLesson(new Lesson("TSI", "curs" ,"lu","3-3", "TI-223", new TimeSpan(9, 45, 0), new TimeSpan(11, 15, 0)));
+    sched.addLesson(new Lesson("LFAF", "lab.", "lu", "101", "SI-221", new TimeSpan(13, 30, 0), new TimeSpan(15, 0, 0), eProiect.Models.Enums.LessonWeekType.EVEN));
+    sched.addLesson(new Lesson("ABABB", "c.", "lu", "507", "EBU-221", new TimeSpan(13, 30, 0), new TimeSpan(15, 0, 0), eProiect.Models.Enums.LessonWeekType.ODD));
+    sched.addLesson(new Lesson("Lecțâie", "sem.", "ma", "512-B", "TI-2210", new TimeSpan(9, 45, 0), new TimeSpan(11, 15, 0)));
+    sched.addLesson(new Lesson("RC", "lab.", "mi", "101-A", "IA-235", new TimeSpan(11, 30, 0), new TimeSpan(15, 00, 0)));
+    sched.addLesson(new Lesson("TSI", "sem.", "mi", "101-A", "SI-255", new TimeSpan(15, 15, 0), new TimeSpan(16, 45, 0)));
+    sched.addLesson(new Lesson("PC", "sem.", "vi","501", "IA-202", new TimeSpan(17, 00, 0), new TimeSpan(18, 30, 0)));
+    sched.addLesson(new Lesson("SDA", "c.", "ma","501", "IA-202", new TimeSpan(17, 00, 0), new TimeSpan(18, 30, 0)));
+    bool isEvenWeek = frame.isEvenWeek();
+}
+
+<div class="pcoded-inner-content">
+    <div class="main-body">
+        <!--Schedule here-->
+        <div>
+            <table id="desktopTable">
+                <tr>
+                    <th class="hour-column">Ora/Ziua</th>
+                    @{ //WEEKDAYS ROW
+                        foreach (var weekday in frame.WeekDays){
+                            if (sched.getBusyDays() == 5){
+                                if (weekday == "Sâmbătă"){
+                                    continue;
+                                }
+                            }
+
+                            <th class="mobile-weekday">
+                                <span class="mobile-weekday-name">@weekday</span>
+                            </th>
+                        }
+                    }
+                </tr>
+                @{ // TIME INTERVALS ROWS
+
+                    TimeSpan lastInsertedHour=new TimeSpan(0, 0, 0);
+                    foreach(var interval in frame.TimeIntervals){
+                        if(TimeSpan.Compare(lastInsertedHour, sched.LatestClass) == 0)
+                        {
+                            break;
+                        }
+                        <tr class="timetable-row">
+                            <td class="special">
+                                <div class="timetable-intervals">@interval.Item1.ToString("hh\\:mm") - @interval.Item2.ToString("hh\\:mm")</div="timetable-intervals">
+                            </td>
+                            @{
+                                for (uint cellNr = 0; cellNr < sched.getBusyDays(); cellNr++)
+                                {
+                                    if (sched.existingLesson(interval.Item1, cellNr))
+                                    {
+                                        var evenLesson = sched.getLessonEven(interval.Item1, cellNr);
+                                        var oddLesson = sched.getLessonOdd(interval.Item1, cellNr);
+                                        lastInsertedHour = evenLesson.EndTime;
+                                        lastInsertedHour = evenLesson.EndTime;
+
+                                        //NORMAL LESSON
+                                        if (evenLesson == oddLesson) {            
+                                            <td rowspan="@evenLesson.LessonLengh.GetLength( )" class="table-cell">
+                                                <span class="mobile-timeinterval">
+                                                    @evenLesson.StartTime.ToString("hh\\:mm") - @evenLesson.EndTime.ToString("hh\\:mm") <br/>
+                                                </span>
+                                                <div class="timetable-cell-content">
+                                                    <span class="timetable-cell-class">
+                                                        @evenLesson.Type @evenLesson.Discipline
+                                                        <br />
+                                                    </span>
+                                                    <span class="timetable-cell-classroom">
+                                                        @evenLesson.Classroom
+                                                    </span>
+                                                    &#8205;
+                                                    <span class="timetable-cell-acadgroup">
+                                                        @evenLesson.AcademicGroup
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        }
+                                        //EVEN AND ODD LESSONS
+                                        else
+                                        {
+
+                                            var oddClassParameter="";
+                                            var evenClassParameter = "";
+                                            var separatorClass = "";
+                                            var dividedCellClass = "";
+
+                                            if (evenLesson.Discipline == "NULL") {
+                                                evenClassParameter += "empty-even";
+                                                oddClassParameter += "normal-scale";
+                                                separatorClass += "empty-even";
+                                            }
+                                            else if(oddLesson.Discipline=="NULL"){
+                                                oddClassParameter += "empty-odd";
+                                                evenClassParameter += "normal-scale";
+                                                separatorClass = "empty-odd";
+                                            }
+
+                                            if (isEvenWeek) {
+                                                oddClassParameter += " unfocused";
+                                                dividedCellClass = " full-size";
+
+                                            }
+                                            else {
+                                                evenClassParameter += " unfocused";
+                                                dividedCellClass = " full-size";
+                                            }
+
+                                            <td class="timetable-tablecell">  
+                                                
+                                                @if (evenLesson.StartTime.ToString("hh\\:mm")!="00:00") 
+                                                { 
+                                                    <span class="mobile-timeinterval">
+                                                        @evenLesson.StartTime.ToString("hh\\:mm") - @evenLesson.EndTime.ToString("hh\\:mm") <br />
+                                                    </span>
+}
+                                                else
+                                                {
+                                                    <span class="mobile-timeinterval">
+                                                        @oddLesson.StartTime.ToString("hh\\:mm") - @oddLesson.EndTime.ToString("hh\\:mm") <br />
+                                                    </span>
+                                                }
+
+
+                                                <!--TWO DIVS, one left one right-->
+                                                <div class="timetable-cell-divided @dividedCellClass">
+
+                                                    <div class="timetable-cell-content-even @evenClassParameter">    
+                                                        <span class="timetable-cell-class">
+                                                            @evenLesson.Type @evenLesson.Discipline
+                                                            <br />
+                                                        </span>
+                                                        <span class="timetable-label-even span-attributes">Par</span>
+                                                        <span class="timetable-cell-classroom span-attributes">
+                                                            @evenLesson.Classroom
+                                                        </span>
+                                                        <br/>
+                                                        <span class="timetable-cell-acadgroup span-attributes">
+                                                            @evenLesson.AcademicGroup
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="separator-line @separatorClass" >&#8205;</div>
+                                                    
+                                                    
+                                                    <div class="timetable-cell-content-odd @oddClassParameter">
+                                                        <span class="timetable-cell-class">
+                                                            @oddLesson.Type @oddLesson.Discipline
+                                                            <br/>
+                                                        </span>
+                                                        <span class="timetable-label-odd span-attributes">Impar</span>
+                                                        <span class="timetable-cell-classroom span-attributes">
+                                                            @oddLesson.Classroom
+                                                        </span>
+                                                        <br/>
+                                                        <span class="timetable-cell-acadgroup span-attributes">
+                                                            @oddLesson.AcademicGroup
+
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                            </td>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <td class="empty">&#8205; </td>
+                                    }
+                                }
+                            }
+                        </tr>
+                    }
+                }
+            </table>
+            <table id="mobileTable"></table>
+        </div>
+        <!--End Schedule-->
+    </div>
+</div>
