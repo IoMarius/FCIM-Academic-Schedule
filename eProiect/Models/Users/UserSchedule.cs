@@ -165,7 +165,7 @@ namespace eProiect.Models.Users
 
             if (
                 Schedule[lessonNr, __lookupTime(startTime)].Item1.Discipline != "NULL" ||
-                Schedule[lessonNr, __lookupTime(startTime)].Item1.Discipline != "NULL"
+                Schedule[lessonNr, __lookupTime(startTime)].Item2.Discipline != "NULL"
                 )
                 return true;
 
