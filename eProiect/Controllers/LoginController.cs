@@ -34,15 +34,16 @@ namespace eProiect.Controllers
                     {
                          Credential = data.Credential,
                          Password = data.Password,
-                         LoginIp = data.LoginIp,
-                         LoginDateTime = DateTime.Now,
+                         LoginIp = Request.UserHostAddress ,
+                         LoginDateTime = DateTime.Now
                     };
                     ULoginResp resp = _session.UserLoginAction(uData);
+
                     if (resp.Status)
                     {
                          //ADD COOKIE
 
-                         return RedirectToAction("Index", "Home");
+                         return RedirectToAction("Index", "Home" );
                     }
                     else
                     {

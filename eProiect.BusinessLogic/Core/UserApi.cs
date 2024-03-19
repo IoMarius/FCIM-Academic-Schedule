@@ -19,7 +19,8 @@ namespace eProiect.BusinessLogic.Core
                // CREATE SESSION
 
                //RETURN SESSION AND STATUS TRUE
-
+               if (data.Credential == "vb" && data.Password == "vb")
+                    return new ULoginResp { Status = true };
                return new ULoginResp { Status = false };
           }
      }
