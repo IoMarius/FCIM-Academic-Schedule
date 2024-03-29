@@ -15,8 +15,7 @@ namespace eProiect.Domain.Entities.Academic.DBModel
         public int Id { get; set; }
 
         [StringLength(10, MinimumLength=3, ErrorMessage ="Incompliant classroom name size [3-10].")]
-        public string classroomName { get; set; }
-
-        public ICollection<Class> Classes { get; set; }
+        public string ClassroomName { get; set; }
     }
 }
+

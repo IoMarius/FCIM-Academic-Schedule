@@ -22,8 +22,5 @@ namespace eProiect.Domain.Entities.Schedule.DBModel
         [StringLength(2)] //lu ma mi jo vi sa
         public string ShortName { get; set; }
 
-
-        //NOT SURE
-        public ICollection<Class> Classes { get; set; }
     }
 }
