@@ -13,9 +13,6 @@ namespace eProiect.Controllers
 {
     public class LoginController : Controller
     {
-
-
-
           private readonly ISession _session;
           // GET: Register
           public LoginController()

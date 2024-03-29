@@ -9,7 +9,11 @@ using eProiect.Models.Enums;
 namespace eProiect.Models.Users
 {
 
+#pragma warning disable CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
+#pragma warning disable CS0660 // Type defines operator == or operator != but does not override Object.Equals(object o)
     public class Lesson
+#pragma warning restore CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
+#pragma warning restore CS0660 // Type defines operator == or operator != but does not override Object.Equals(object o)
     {
         public string Discipline { get; set; }
         public string Type { get; set; }
@@ -127,6 +131,7 @@ namespace eProiect.Models.Users
             TimeLookup.Add((new TimeSpan(15, 15, 0), 4));
             TimeLookup.Add((new TimeSpan(17, 0, 0), 5));
             TimeLookup.Add((new TimeSpan(18, 45, 0), 6));
+           
         }
 
         private uint __lookupTime(TimeSpan time)
@@ -202,6 +207,7 @@ namespace eProiect.Models.Users
         {
             return Schedule[lessonNr, __lookupTime(startTime)].Item1;
         }
+        
         public Lesson getLessonOdd(TimeSpan startTime, uint lessonNr)
         {
             return Schedule[lessonNr, __lookupTime(startTime)].Item2;
