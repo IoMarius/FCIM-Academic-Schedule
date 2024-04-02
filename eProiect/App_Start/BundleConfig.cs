@@ -125,7 +125,11 @@ namespace eProiect.App_Start
                 bundles.Add(new Bundle("~/bundles/schedule-table").Include(
                 "~/Content/themes/schedule-table/schedule-table.js"));
 
+                //----------------------LOGPAGE STYLES
+                bundles.Add(new StyleBundle("~/bundles/logpage-styles/css").Include(
+                "~/Vendor/assets/css/logpage-styles.css", new CssRewriteUrlTransform()));
+
         }
 
-     }
+    }
 }

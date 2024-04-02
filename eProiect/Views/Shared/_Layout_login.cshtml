@@ -4,84 +4,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-     <meta name="description" content="#">
-     <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
-     <meta name="author" content="#">
-     <!-- Favicon icon -->
-     <link rel="icon" href="~/Vendor/assets/images/favicon.ico" type="image/x-icon">
-     <!-- Google font-->
-     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
-     <!-- Required Fremwork -->
-     <!-- Required Fremwork -->
-     @Styles.Render("~/bundles/bootstrap/css")
-     <!-- themify-icons line icon -->
-     @Styles.Render("~/bundles/themify-icons/css1")
-     <!-- ico font -->
-     @Styles.Render("~/bundles/ico-font/css2")
-     <!-- Menu-Search css -->
-     @Styles.Render("~/bundles/menu-search/css3")
-     <!-- Style.css -->
-     @Styles.Render("~/bundles/style/css4")
-     @Styles.Render("~/bundles/mCustomScrollbar/css5")
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="#">
+    <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="#">
+    <!--Google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/Vendor/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <!-- Required Fremwork -->
+    <!-- Required Fremwork -->
+    @Styles.Render("~/bundles/bootstrap/css")
+    <!-- themify-icons line icon -->
+    @Styles.Render("~/bundles/themify-icons/css1")
+    <!-- ico font -->
+    @Styles.Render("~/bundles/ico-font/css2")
+    <!-- Menu-Search css -->
+    @Styles.Render("~/bundles/menu-search/css3")
+    <!-- Style.css -->
+    @Styles.Render("~/bundles/style/css4")
+    @Styles.Render("~/bundles/mCustomScrollbar/css5")
 
 
-     @Styles.Render("~/bundles/flag-icon/css")
-     @Styles.Render("~/bundles/bootstrap.min/css")
+    @Styles.Render("~/bundles/flag-icon/css")
+    @Styles.Render("~/bundles/bootstrap.min/css")
 
-     @if (IsSectionDefined("Styles"))
-     {@RenderSection("Styles", required: false)}
+    @Styles.Render("~/bundles/logpage-styles/css")
+
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
 
 
 </head>
 <body>
 
-     <!-- Pre-loader start -->
-     @* <div class="theme-loader">
-               @Html.Partial("_Preloader")
-          </div>*@
-     <!-- Pre-loader end -->
-     <div id="pcoded" class="pcoded load-height">
-          <div class="pcoded-overlay-box"></div>
-          <div class="pcoded-container navbar-wrapper">
+    <!-- Pre-loader start -->
+    @* <div class="theme-loader">
+             @Html.Partial("_Preloader")
+        </div>*@
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded load-height">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
 
-               <nav class="navbar header-navbar pcoded-header auth-header" style="padding: 0 0 " header-theme="theme1">
-                    <div class="navbar-wrapper">
-                         <div class="navbar-logo" style="width: 100%" logo-theme="theme1" navbar-theme="theme4">
-                              <a href="@Url.Action("Index", "Home")">
-                                   <img class="img-fluid" src="~/Vendor/assets/images/logo.png" alt="Theme-Logo" />
-                              </a>
-                         </div>
+            <nav class="navbar header-navbar pcoded-header auth-header" style="padding: 0 0 " header-theme="theme1">
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo" style="width: 100%" logo-theme="theme1" navbar-theme="theme4">
+                        <div class="logo-container">
+                            <span class="main-word rubik-400">Orar Academic</span>
+                            <span class="second-word rubik-500">FCIM</span>
+                        </div>
                     </div>
-               </nav>
-          </div>
-          <!-- Menu header end -->
-          <section class="login header p-fixed d-flex text-center bg-primary common-img-bg">
-               <!-- Container-fluid starts -->
-               @RenderBody()
-               <!-- end of container-fluid -->
+                </div>
+            </nav>
+        </div>
+        <!-- Menu header end -->
+        <section class="login header p-fixed d-flex text-center dotted-FCIM-bg">
+            <!-- Container-fluid starts -->
+            @RenderBody()
+            <!-- end of container-fluid -->
 
-          </section>
-     </div>
+        </section>
+    </div>
+
+    <!--
 
      <div class="footer bg-inverse">
-          <p class="text-center">Copyright &copy; 2017 FLAT UI ADMIN , All rights reserved.</p>
+          <p class="text-center">Cod Prod-Lux&trade;</p>
      </div>
+    -->
 
-     @Scripts.Render("~/bundles/jquery/js")
-     @Scripts.Render("~/bundles/jquery-ui/js")
-     @Scripts.Render("~/bundles/popper.js/js")
-     @Scripts.Render("~/bundles/bootstrap/js")
-     @Scripts.Render("~/bundles/jquery-slimscroll/js")
-     @Scripts.Render("~/bundles/modernizr/js")
-     @Scripts.Render("~/bundles/i18next/js")
-     @Scripts.Render("~/bundles/i18next-xhr-backend/js")
-     @Scripts.Render("~/bundles/i18next-browser-languagedetector/js")
-     @Scripts.Render("~/bundles/jquery-i18next/js")
-     @Scripts.Render("~/bundles/script/js")
-     @Scripts.Render("~/bundles/css-scrollbars/js")
+    @Scripts.Render("~/bundles/jquery/js")
+    @Scripts.Render("~/bundles/jquery-ui/js")
+    @Scripts.Render("~/bundles/popper.js/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/jquery-slimscroll/js")
+    @Scripts.Render("~/bundles/modernizr/js")
+    @Scripts.Render("~/bundles/i18next/js")
+    @Scripts.Render("~/bundles/i18next-xhr-backend/js")
+    @Scripts.Render("~/bundles/i18next-browser-languagedetector/js")
+    @Scripts.Render("~/bundles/jquery-i18next/js")
+    @Scripts.Render("~/bundles/script/js")
+    @Scripts.Render("~/bundles/css-scrollbars/js")
 
 
 </body>
