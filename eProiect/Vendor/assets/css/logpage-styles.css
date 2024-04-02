@@ -1,0 +1,90 @@
+﻿.invisible {
+    display: none !important;
+}
+
+.fail-auth-message-row {
+    display: flex !important;
+    background-color: #ffc55b;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.fail-auth-message-row i {
+    text-align: left;
+}
+
+.fail-auth-message-row span {
+    margin: 0 auto;
+}
+
+.warning-icon {
+    color: #cb8100;
+    font-size: 147%;
+    float: left;
+}
+
+.navbar-logo {
+    background-color: #151a2b !important;
+    padding: 12px;
+    font-size: 178%;
+}
+
+.schedule-icon{
+    font-size:20px;
+}
+
+.logo-container{
+    padding:10px;
+    /*
+    display:inline-flex;
+
+    */
+}
+
+.main-word {
+    color: white;
+    font-size: 95%;
+    text-transform: capitalize;
+}
+
+.dotted-FCIM-bg {
+    background-color: #006ab5;
+    background-image: url('/Content/themes/base/images/dot_bg_extralowop.svg');
+    background-size: cover; /* Fills the entire section */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents image tiling */
+}
+
+.second-word {
+    color: #4fa4ff;
+    font-weight: bold;
+}
+
+.rubik-500 {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.rubik-400 {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.pacifico-regular {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+@media (max-width:767px){
+
+    .fail-auth-message-row {
+        margin-top: 10px;
+        background-color: #ffc55b !important;
+    }
+}
