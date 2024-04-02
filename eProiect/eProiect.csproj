@@ -191,6 +191,7 @@
     <Content Include="Vendor\assets\css\ionicons.css" />
     <Content Include="Vendor\assets\css\jquery.mCustomScrollbar.css" />
     <Content Include="Vendor\assets\css\linearicons.css" />
+    <Content Include="Vendor\assets\css\logpage-styles.css" />
     <Content Include="Vendor\assets\css\pcoded-horizontal.min.css" />
     <Content Include="Vendor\assets\css\simple-line-icons.css" />
     <Content Include="Vendor\assets\css\style.css" />
