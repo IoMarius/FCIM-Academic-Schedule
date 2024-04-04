@@ -1,4 +1,5 @@
-﻿using eProiect.Domain.Entities.Responce;
+﻿using eProiect.BusinessLogic.DBModel;
+using eProiect.Domain.Entities.Responce;
 using eProiect.Domain.Entities.User;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,20 @@ namespace eProiect.BusinessLogic.Core
      {
           public ULoginResp RLoginUpService(ULoginData data)
           {
-               //Step 1 - SELECT FROM DB>Users WHERE data.
-               // PASSWORD == data.Password
+               UserCredential user;
+               using (var db = new UserContext())
+               {
+                    user = db.UserCredentials.FirstOrDefault(u => u.Email == data.Credential && u.Password == data.Password);
+               }
 
-               //Step 2 - IF object != NULL
-               // CREATE SESSION
-
-               //RETURN SESSION AND STATUS TRUE
-               if (data.Credential == "vb" && data.Password == "vb")
+               if (user != null)
+               {
                     return new ULoginResp { Status = true };
-               return new ULoginResp { Status = false };
+               }
+               else
+               {
+                    return new ULoginResp { Status = false };
+               }
           }
      }
 }
