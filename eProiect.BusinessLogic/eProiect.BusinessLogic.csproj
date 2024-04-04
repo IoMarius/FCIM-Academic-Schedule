@@ -57,6 +57,27 @@
     <Compile Include="Core\UserApi.cs" />
     <Compile Include="DbContext\UserContext.cs" />
     <Compile Include="Interfaces\ISession.cs" />
+    <Compile Include="Migrations\202403281521222_InitialModel.cs" />
+    <Compile Include="Migrations\202403281521222_InitialModel.Designer.cs">
+      <DependentUpon>202403281521222_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202403281526431_ModelTwo.cs" />
+    <Compile Include="Migrations\202403281526431_ModelTwo.Designer.cs">
+      <DependentUpon>202403281526431_ModelTwo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202403281543335_PreAlphaModel.cs" />
+    <Compile Include="Migrations\202403281543335_PreAlphaModel.Designer.cs">
+      <DependentUpon>202403281543335_PreAlphaModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202403281550400_PreAlphaModel1.cs" />
+    <Compile Include="Migrations\202403281550400_PreAlphaModel1.Designer.cs">
+      <DependentUpon>202403281550400_PreAlphaModel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202403291210039_PreAlphaModel11.cs" />
+    <Compile Include="Migrations\202403291210039_PreAlphaModel11.Designer.cs">
+      <DependentUpon>202403291210039_PreAlphaModel11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionBL.cs" />
   </ItemGroup>
@@ -74,6 +95,29 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+<<<<<<< HEAD
+=======
+  <ItemGroup>
+    <Folder Include="DBModel\Seed\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202403281521222_InitialModel.resx">
+      <DependentUpon>202403281521222_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403281526431_ModelTwo.resx">
+      <DependentUpon>202403281526431_ModelTwo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403281543335_PreAlphaModel.resx">
+      <DependentUpon>202403281543335_PreAlphaModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403281550400_PreAlphaModel1.resx">
+      <DependentUpon>202403281550400_PreAlphaModel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403291210039_PreAlphaModel11.resx">
+      <DependentUpon>202403291210039_PreAlphaModel11.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+>>>>>>> curs-entity
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

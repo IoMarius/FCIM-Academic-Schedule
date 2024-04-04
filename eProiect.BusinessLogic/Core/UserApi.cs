@@ -1,6 +1,7 @@
 ﻿using eProiect.BusinessLogic.DBModel;
 using eProiect.Domain.Entities.Responce;
 using eProiect.Domain.Entities.User;
+using eProiect.Domain.Entities.User.DBModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,4 +30,5 @@ namespace eProiect.BusinessLogic.Core
                }
           }
      }
+   
 }
