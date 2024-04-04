@@ -35,16 +35,17 @@
 
 .logo-container {
     padding: 10px;
-    /*
-    display:inline-flex;
-
-    */
 }
 
 .main-word {
     color: white;
     font-size: 95%;
     text-transform: capitalize;
+}
+
+.second-word {
+    color: #4fa4ff;
+    font-weight: bold;
 }
 
 .dotted-FCIM-bg {
@@ -55,10 +56,6 @@
     background-repeat: no-repeat; /* Prevents image tiling */
 }
 
-.second-word {
-    color: #4fa4ff;
-    font-weight: bold;
-}
 
 .rubik-500 {
     font-family: "Rubik", sans-serif;

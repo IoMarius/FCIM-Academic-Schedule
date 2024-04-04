@@ -5502,7 +5502,6 @@
     <Content Include="Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Vendor\assets\css\pcoded-horizontal.min.css.map" />
     <Content Include="Vendor\assets\css\style.css.map" />
     <Content Include="Vendor\assets\fonts\fontawesome-webfont.eot" />
@@ -5811,7 +5810,6 @@
     </Compile>
     <Compile Include="Models\Enums\LessonLengh.cs" />
     <Compile Include="Models\Enums\WeekSpan.cs" />
-    <Compile Include="Models\Schedule\Schedule.cs" />
     <Compile Include="Models\Users\UserLogin.cs" />
     <Compile Include="Models\Users\UserSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -5847,7 +5845,6 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Shared\_Layout_login.cshtml" />
     <Content Include="Views\Shared\_Preloader.cshtml" />
-    <Content Include="Views\Home\Tables.cshtml" />
     <Content Include="Views\Login\LoginError.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Schedule.cshtml" />

@@ -771,6 +771,10 @@ li.edge > ul {
         }
     }
 
+    .fast-animation {
+        transition: opacity 0.2s ease-in-out, width 0.2s ease-in-out; /* Adjust properties and duration */
+    }
+
     &[theme-layout="horizontal"] {
         &[pcoded-device-type="phone"] .pcoded-header {
             .pcoded-rl-header {
@@ -827,6 +831,7 @@ li.edge > ul {
                 .pcoded-brand a {
                     display: none;
                 }
+
                 opacity: 0;
                 visibility: hidden;
                 transform-origin: 50% 50%;
@@ -863,6 +868,7 @@ li.edge > ul {
             .menu-toggle {
                 float: right;
             }
+
             float: unset !important;
             float: none !important;
         }
@@ -912,7 +918,7 @@ li.edge > ul {
                     }
 
                     &.pcoded-trigger {
-                         > .pcoded-submenu > .pcoded-hasmenu.pcoded-trigger > .pcoded-submenu,
+                        > .pcoded-submenu > .pcoded-hasmenu.pcoded-trigger > .pcoded-submenu,
                         > .pcoded-submenu {
                             position: relative;
                         }
@@ -934,7 +940,7 @@ li.edge > ul {
         }
 
         .pcoded-navbar .pcoded-item > li.pcoded-hasmenu {
-             &.active > a:after,
+            &.active > a:after,
             &.pcoded-trigger > a:after,
             > a:after {
                 position: absolute;
@@ -942,7 +948,8 @@ li.edge > ul {
             }
         }
     }
-    &[theme-layout="horizontal"]{
+
+    &[theme-layout="horizontal"] {
         &[pcoded-device-type="phone"],
         &[pcoded-device-type="tablet"] {
             .pcoded-header {

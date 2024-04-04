@@ -26,6 +26,14 @@ table {
     min-height:75px;
 }
 
+.menu-lines{
+    font-size:20px;
+}
+
+.ti-menu{
+    padding: 10px 10px 10px 20px
+}
+
 th,
 td {
     background-color: #fff;
@@ -39,12 +47,30 @@ td{
 }
 
 th {
-    background-color: #525b76;
+    background-color: #151a2b;
     color: white;
     width: 50%;
     padding: 10px;
 }
 
+.logo-container {
+    font-size: 21px;
+}
+
+.navbar-logo {
+    display: flex !important;
+}
+
+.main-word {
+    color: white;
+    font-size: 95%;
+    text-transform: capitalize;
+}
+
+.second-word {
+    color: #4fa4ff;
+    font-weight: bold;
+}
 
 
 .highlight {
@@ -52,9 +78,9 @@ th {
 }
 
 .special {
-    background-color: #525b76;
+    background-color: #151a2b;
     font-weight: bold;
-    color:white;
+    color: white;
 }
 
 .empty {
@@ -128,6 +154,9 @@ th {
     display: none !important;
 }
 
+.navbar-logo {
+    background-color: #151a2b !important;
+}
 
 /*-----MOBILE TOGGLE OFF------------------------------------------*/
 .mobile-timeinterval {
@@ -163,14 +192,21 @@ th {
     margin-bottom: 11px;
 }
 
-
-
 /*------MOBILE VIEW STYLES------------------------------------------*/
 @media (max-width: 750px) {
     #mobileTable {
         display: table;
         margin-top: 8px;
     }
+
+    .navbar-logo {
+        flex-direction: row-reverse;
+        justify-content:space-between !important;
+    }
+   
+    .navbar-logo a:nth-child(1) { /* Select second anchor */
+      margin-right: 25%; /* Center text content */
+    }  
 
     .mobile-weekday-name {
         font-family: Arial, Helvetica, sans-serif;
@@ -184,7 +220,7 @@ th {
     .mobile-weekday {
         padding: 5px;
         border-radius: 15px 15px 0 0;
-        background-color: #525b76;
+        background-color: #151a2b;
         font-weight: bold;
         font-size: 20px;
         color: white;
