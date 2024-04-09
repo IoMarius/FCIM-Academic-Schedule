@@ -20,21 +20,6 @@ namespace eProiect.BusinessLogic.Core
      {
         internal ULoginResp RLoginUpService(ULoginData data)
         {
-            /*UserCredential user;
-            using (var db = new UserContext())
-            {
-                 user = db.UserCredentials.FirstOrDefault(u => u.Email == data.Credential && u.Password == data.Password);
-            }
-
-            if (user != null)
-            {
-                 return new ULoginResp { Status = true };
-            }
-            else
-            {
-                 return new ULoginResp { Status = false };
-            }*/
-
             //TEST ADDING USR
             /*using (var db = new UserContext())
             {
@@ -65,21 +50,6 @@ namespace eProiect.BusinessLogic.Core
             if (validate.IsValid(data.Credential))
             {
                 var pass = LoginHelper.HashGen(data.Password);
-
-               /* using (var db=new UserContext())
-                {
-                    foreach(var user in db.Users.Include(u=>u.Credentials))
-                    {
-                        if (user.Credentials.Password == pass && user.Credentials.Email == data.Credential)
-                        {
-                            System.Diagnostics.Debug.WriteLine("Trueno!");
-                        }
-                        else
-                        {
-                            System.Diagnostics.Debug.WriteLine("Untrueno :(");
-                        }
-                    }
-                }*/
 
                 using (var db=new UserContext())
                 {
