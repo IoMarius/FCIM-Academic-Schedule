@@ -7,13 +7,13 @@ namespace eProiect.BusinessLogic.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class PreAlphaModel11 : IMigrationMetadata
+    public sealed partial class _202404081116514_initialState : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PreAlphaModel11));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_202404081116514_initialState));
         
         string IMigrationMetadata.Id
         {
-            get { return "202403291210039_PreAlphaModel11"; }
+            get { return "202404081132441_202404081116514_initialState"; }
         }
         
         string IMigrationMetadata.Source

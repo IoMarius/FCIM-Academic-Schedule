@@ -55,9 +55,11 @@
     <Compile Include="Entities\Academic\DBModel\ClassRoom.cs" />
     <Compile Include="Entities\Academic\DBModel\Discipline.cs" />
     <Compile Include="Entities\Responce\ULoginResp.cs" />
-   <Compile Include="Entities\Schedule\DBModel\ClassType.cs" />
+    <Compile Include="Entities\Schedule\DBModel\ClassType.cs" />
     <Compile Include="Entities\Schedule\DBModel\Class.cs" />
     <Compile Include="Entities\Schedule\DBModel\WeekDay.cs" />
+    <Compile Include="Entities\User\DBModel\ReducedUser.cs" />
+    <Compile Include="Entities\User\DBModel\Session.cs" />
     <Compile Include="Entities\User\DBModel\UserCredential.cs" />
     <Compile Include="Entities\User\DBModel\UserDiscipline.cs" />
     <Compile Include="Entities\User\UserRole.cs" />

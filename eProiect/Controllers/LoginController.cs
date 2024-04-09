@@ -14,12 +14,14 @@ namespace eProiect.Controllers
     public class LoginController : Controller
     {
           private readonly ISession _session;
+
           // GET: Register
           public LoginController()
           {
                var bl = new BuissinesLogic();
                _session = bl.GetSessionBL();
           }
+
           // GET : Login
           [HttpPost]
           [ValidateAntiForgeryToken]
@@ -34,11 +36,15 @@ namespace eProiect.Controllers
                          LoginIp = Request.UserHostAddress ,
                          LoginDateTime = DateTime.Now
                     };
+
                     ULoginResp resp = _session.UserLoginAction(uData);
-                ViewBag.LogSuccess = resp.Status;
+                    ViewBag.LogSuccess = resp.Status;
                     if (resp.Status)
                     {
                          //ADD COOKIE
+                         //coogie
+                         HttpCookie cookie=_session.GenCookie(uData.Credential);
+                         ControllerContext.HttpContext.Response.Cookies.Add(cookie);
 
                          return RedirectToAction("Schedule", "Home" );
                     }
