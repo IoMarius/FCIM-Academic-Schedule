@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using eProiect.Models.Users;
 using eProiect.Domain.Entities.Responce;
+using eProiect.Atributes;
 
 namespace eProiect.Controllers
 {
@@ -25,6 +26,7 @@ namespace eProiect.Controllers
           // GET : Login
           [HttpPost]
           [ValidateAntiForgeryToken]
+        
           public ActionResult Login(UserLogin data)
           {
                if (ModelState.IsValid)
