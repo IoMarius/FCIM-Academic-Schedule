@@ -1,4 +1,6 @@
-﻿using eProiect.Domain.Entities.Responce;
+﻿using eProiect.Atributes;
+using eProiect.Domain.Entities.Responce;
+using eProiect.Domain.Entities.User;
 using eProiect.Extensions;
 using eProiect.Models.Users;
 using System;
@@ -46,6 +48,7 @@ namespace eProiect.Controllers
             return View();         
         }
 
+          [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult Schedule() 
         {
             SessionStatus();
@@ -63,5 +66,11 @@ namespace eProiect.Controllers
             };
             return View(UData);
         }
+          [UserMode(UserRole.admin, UserRole.teacher)]
+          public ActionResult Logout()
+          {
+               ClearSession();
+               return RedirectToAction("Login", "Login");
+          }
      }
 }

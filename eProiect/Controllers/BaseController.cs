@@ -32,6 +32,16 @@ namespace eProiect.Controllers
                 }
                 else
                 {
+                         ClearSession();
+                }
+            }
+            else
+            {
+                System.Web.HttpContext.Current.Session["LoginStatus"] = "logout";
+            }
+        }
+        public void ClearSession()
+          {
                     System.Web.HttpContext.Current.ClearError();
                     if (ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("X-KEY"))
                     {
@@ -43,12 +53,7 @@ namespace eProiect.Controllers
                         }
                     }
                     System.Web.HttpContext.Current.Session["LoginStatus"] = "logout";
-                }
-            }
-            else
-            {
-                System.Web.HttpContext.Current.Session["LoginStatus"] = "logout";
-            }
-        }
+
+          }
     }
 }
