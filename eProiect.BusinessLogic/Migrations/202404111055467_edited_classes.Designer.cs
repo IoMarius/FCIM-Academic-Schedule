@@ -7,13 +7,13 @@ namespace eProiect.BusinessLogic.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class Add_edited_DB : IMigrationMetadata
+    public sealed partial class edited_classes : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Add_edited_DB));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(edited_classes));
         
         string IMigrationMetadata.Id
         {
-            get { return "202404110824451_Add_edited_DB"; }
+            get { return "202404111055467_edited_classes"; }
         }
         
         string IMigrationMetadata.Source

@@ -59,7 +59,6 @@
     <Compile Include="Entities\Responce\ULoginResp.cs" />
     <Compile Include="Entities\Schedule\DBModel\ClassType.cs" />
     <Compile Include="Entities\Schedule\DBModel\Class.cs" />
-    <Compile Include="Entities\Schedule\DBModel\GroupToClasses.cs" />
     <Compile Include="Entities\Schedule\DBModel\WeekDay.cs" />
     <Compile Include="Entities\User\ReducedUser.cs" />
     <Compile Include="Entities\User\DBModel\Session.cs" />

@@ -63,9 +63,13 @@
     <Compile Include="DBContext\SessionContext.cs" />
     <Compile Include="DBContext\UserContext.cs" />
     <Compile Include="Interfaces\ISession.cs" />
-    <Compile Include="Migrations\202404110824451_Add_edited_DB.cs" />
-    <Compile Include="Migrations\202404110824451_Add_edited_DB.designer.cs">
-      <DependentUpon>202404110824451_Add_edited_DB.cs</DependentUpon>
+    <Compile Include="Migrations\202404111052494_Deleted_ClassToGroup_edited_Something.cs" />
+    <Compile Include="Migrations\202404111052494_Deleted_ClassToGroup_edited_Something.designer.cs">
+      <DependentUpon>202404111052494_Deleted_ClassToGroup_edited_Something.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404111055467_edited_classes.cs" />
+    <Compile Include="Migrations\202404111055467_edited_classes.designer.cs">
+      <DependentUpon>202404111055467_edited_classes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,8 +90,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202404110824451_Add_edited_DB.resx">
-      <DependentUpon>202404110824451_Add_edited_DB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202404111052494_Deleted_ClassToGroup_edited_Something.resx">
+      <DependentUpon>202404111052494_Deleted_ClassToGroup_edited_Something.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404111055467_edited_classes.resx">
+      <DependentUpon>202404111055467_edited_classes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

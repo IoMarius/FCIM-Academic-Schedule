@@ -24,8 +24,13 @@ namespace eProiect.Domain.Entities.Schedule.DBModel
         public UserDiscipline UserDiscipline { get; set; }
 
         [Required]
+        public int AcademicGroupId { get; set; }
+        public AcademicGroup AcademicGroup { get; set; }
+
+        [Required]
         public int ClassRoomId {  get; set; }
         public ClassRoom ClassRoom { get; set; }
+
 
         [Required]
         public int WeekDayId { get; set; }

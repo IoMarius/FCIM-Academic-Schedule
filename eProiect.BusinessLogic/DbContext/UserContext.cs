@@ -41,15 +41,8 @@ namespace eProiect.BusinessLogic.DBModel
         public virtual DbSet<Discipline> Disciplines { set; get; }
         public virtual DbSet<ClassType> ClassTypes { set; get; }
         public virtual DbSet<Students> Students { set; get; }
-        public virtual DbSet<GroupToClasses> GroupToClasses { set; get; }
         public virtual DbSet<AcademicGroup> AcademicGroups { set; get; }
-        protected override void OnModelCreating(DbModelBuilder builder)
-        {
-               builder.Entity<GroupToClasses>().HasKey(table => new {
-                    table.ClassId,
-                    table.AcademicGroupId
-               });
-        }
+     
 
      }    
 }
