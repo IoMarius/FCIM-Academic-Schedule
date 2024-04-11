@@ -15,7 +15,7 @@ namespace eProiect.BusinessLogic.DBContext
     public class SessionContext : DbContext
     {
         public SessionContext() :
-            base("name=eProiect")
+            base("name=eProiect1")
         {
             Database.SetInitializer<SessionContext>(null);
         }

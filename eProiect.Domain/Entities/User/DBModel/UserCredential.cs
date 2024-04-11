@@ -14,6 +14,7 @@ namespace eProiect.Domain.Entities.User.DBModel
         public int Id { get; set; }
 
         [Required]
+        [Index(IsUnique = true)]
         [Display(Name = "Email Address")]
         [StringLength(30)]
         public string Email { get; set; }

@@ -41,6 +41,7 @@ namespace eProiect.Domain.Entities.User
         //if level != guest treb sa aiba ce obiect/obiecte duce si ce tip/tipuri
 
         [Required]
+        public int UserCredentialId { get; set; }
         public UserCredential Credentials { get; set; }
         
     }
