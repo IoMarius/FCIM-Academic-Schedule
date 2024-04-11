@@ -71,6 +71,10 @@
     <Compile Include="Migrations\202404111055467_edited_classes.designer.cs">
       <DependentUpon>202404111055467_edited_classes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202404111107521_edited_UserCredentials.cs" />
+    <Compile Include="Migrations\202404111107521_edited_UserCredentials.designer.cs">
+      <DependentUpon>202404111107521_edited_UserCredentials.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionBL.cs" />
@@ -95,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202404111055467_edited_classes.resx">
       <DependentUpon>202404111055467_edited_classes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404111107521_edited_UserCredentials.resx">
+      <DependentUpon>202404111107521_edited_UserCredentials.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
