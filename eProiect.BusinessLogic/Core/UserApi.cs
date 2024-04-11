@@ -161,5 +161,21 @@ namespace eProiect.BusinessLogic.Core
 
             return reducedUser;
         }
+
+        internal void Test()
+        {
+            using(var db=new UserContext())
+            {
+                var thing = db.Classes
+                    .Include(c=>c.ClassRoom)
+                    .Include(c=>c.UserDiscipline)
+                    .Include(c=>c.UserDiscipline.Discipline)
+                    .Include(c=>c.UserDiscipline.User)
+                    .Include(c=>c.UserDiscipline.Type)
+
+                    .FirstOrDefault(c => c.UserDiscipline.Type.TypeName == "Laborator");
+                System.Diagnostics.Debug.WriteLine($"Name: {thing.UserDiscipline.Discipline.Name}");
+            }
+        }
     }
 }

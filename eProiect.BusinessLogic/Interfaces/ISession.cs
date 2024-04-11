@@ -17,5 +17,7 @@ namespace eProiect.BusinessLogic.Interfaces
           HttpCookie GenCookie(string loginCredential);
 
           ReducedUser GetUserByCookie(string cookieString);
-     }
+
+          void TestDb();
+    }
 }

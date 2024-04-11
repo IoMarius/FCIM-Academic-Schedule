@@ -27,5 +27,10 @@ namespace eProiect.BusinessLogic
         public ReducedUser GetUserByCookie(string cookieString){
             return UserByCookie(cookieString);
         }
+
+        public void TestDb()
+        {
+            Test();
+        }
     }
 }
