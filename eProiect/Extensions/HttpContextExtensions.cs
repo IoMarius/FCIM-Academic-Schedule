@@ -1,4 +1,5 @@
 ﻿using eProiect.Domain.Entities.User.DBModel;
+using eProiect.Domain.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
