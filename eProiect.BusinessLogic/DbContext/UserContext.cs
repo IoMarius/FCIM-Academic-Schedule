@@ -37,5 +37,6 @@ namespace eProiect.BusinessLogic.DBModel
         public virtual DbSet<ClassRoom> ClassRooms { set; get; }
         public virtual DbSet<Discipline> Disciplines { set; get; }
         public virtual DbSet<ClassType> ClassTypes { set; get; }
+        public virtual DbSet<AcademicGroup> AcademicGroups { set; get; }
     }    
 }

@@ -8,8 +8,8 @@ namespace eProiect.Domain.Entities.Academic
 {
     public enum ClassFrequency
     {
-        Weekly,
-        Even,
-        Odd
+        WEEKLY,
+        EVEN,
+        ODD
     }
 }

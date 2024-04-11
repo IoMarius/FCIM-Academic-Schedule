@@ -1,6 +1,7 @@
 ﻿using eProiect.BusinessLogic.Core;
 using eProiect.BusinessLogic.Interfaces;
 using eProiect.Domain.Entities.Responce;
+using eProiect.Domain.Entities.Schedule.DBModel;
 using eProiect.Domain.Entities.User;
 using eProiect.Domain.Entities.User.DBModel;
 using System;
@@ -28,9 +29,9 @@ namespace eProiect.BusinessLogic
             return UserByCookie(cookieString);
         }
 
-        public void TestDb()
+        public UserSchedule GetScheduleById(int id)
         {
-            Test();
+            return GetUserScheduleById(id);
         }
-    }
+     }
 }

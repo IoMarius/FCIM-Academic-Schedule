@@ -5821,12 +5821,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Enums\LessonLengh.cs" />
+    <Compile Include="Models\Enums\LessonLength.cs" />
     <Compile Include="Models\Enums\WeekSpan.cs" />
     <Compile Include="Models\Schedule\ScheduleFrame.cs" />
     <Compile Include="Models\Users\UserEsentialData.cs" />
     <Compile Include="Models\Users\UserLogin.cs" />
     <Compile Include="Models\Users\UserSchedule.cs" />
+    <Compile Include="Models\ViewModels\ScheduleViewData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

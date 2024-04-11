@@ -52,8 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Academic\ClassFrequency.cs" />
+    <Compile Include="Entities\Academic\DBModel\AcademicGroups.cs" />
     <Compile Include="Entities\Academic\DBModel\ClassRoom.cs" />
     <Compile Include="Entities\Academic\DBModel\Discipline.cs" />
+    <Compile Include="Entities\Academic\Lesson.cs" />
     <Compile Include="Entities\Responce\ULoginResp.cs" />
     <Compile Include="Entities\Schedule\DBModel\ClassType.cs" />
     <Compile Include="Entities\Schedule\DBModel\Class.cs" />
@@ -65,6 +67,8 @@
     <Compile Include="Entities\User\UserRole.cs" />
     <Compile Include="Entities\User\DBModel\User.cs" />
     <Compile Include="Entities\User\ULoginData.cs" />
+    <Compile Include="Entities\Schedule\UserSchedule.cs" />
+    <Compile Include="Entities\Academic\LessonLength.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

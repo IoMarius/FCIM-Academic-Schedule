@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace eProiect.Domain.Entities.Schedule.DBModel
 {
+
     public class Class
     {
         [Key]
@@ -21,10 +22,16 @@ namespace eProiect.Domain.Entities.Schedule.DBModel
         public Discipline Discipline { get; set; }
 
         [Required]
+        public AcademicGroup Group { get; set; }
+
+        [Required]
+        public User.User LeadingUser { get; set; }
+
+        [Required]
         public ClassType Type {get; set; }
 
         [Required]
-        public ClassRoom Classoom { get; set; }
+        public ClassRoom Classroom { get; set; }
 
         [Required]
         public WeekDay WeekDay { get; set; }
@@ -36,7 +43,7 @@ namespace eProiect.Domain.Entities.Schedule.DBModel
         public TimeSpan EndTime { get; set; }
 
         [Required]
-        [DefaultValue(ClassFrequency.Weekly)]
+        [DefaultValue(ClassFrequency.WEEKLY)]
         public ClassFrequency Frequency { get; set; }
     }
 }

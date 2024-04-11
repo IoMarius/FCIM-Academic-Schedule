@@ -16,6 +16,9 @@ namespace eProiect.Domain.Entities.Academic.DBModel
 
         [StringLength(10, MinimumLength=3, ErrorMessage ="Incompliant classroom name size [3-10].")]
         public string ClassroomName { get; set; }
+
+        [Required]
+        public int Floor { get; set; }
     }
 }
 

@@ -16,22 +16,23 @@ namespace eProiect.Models.Users
 #pragma warning restore CS0660 // Type defines operator == or operator != but does not override Object.Equals(object o)
     {
         public string Discipline { get; set; }
+        public string ShortName { get; set; }
         public string Type { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         public string WeekDay { get; set; }
         public string Classroom { get; set; }
         public string AcademicGroup { get; set; }
-        public LessonLengh LessonLengh { get; set; }
+        public LessonLength LessonLength { get; set; }
         public LessonWeekType WeekSpan { get; set; }
 
 
-
-        public Lesson(string _discipline, string _lessonType, string _weekday, string _classroom, 
+        public Lesson(string _discipline, string _shortname, string _lessonType, string _weekday, string _classroom, 
             string _group, TimeSpan _start, TimeSpan _end, LessonWeekType _weekSpan=LessonWeekType.FULL)
         {
             Discipline= _discipline;
-            Type= _lessonType;
+            ShortName = _shortname;
+            Type = _lessonType;
             StartTime= _start;
             EndTime= _end;
             WeekDay= _weekday;
@@ -40,17 +41,19 @@ namespace eProiect.Models.Users
             WeekSpan= _weekSpan;
 
             //lojic for lesson length.
-            LessonLengh = new LessonLengh();
-            var lessonDiff  = _end.Subtract(_start);
+            LessonLength = new LessonLength();
+
+            var lessonDiff = _end.Subtract(_start);
             if (lessonDiff.TotalMinutes > 0)
-                LessonLengh.SetLength((uint)lessonDiff.TotalMinutes / 90);
+                LessonLength.SetLength((uint)lessonDiff.TotalMinutes / 90);
             else
-                LessonLengh.SetLength(1);
+                LessonLength.SetLength(1);
         }
 
         public Lesson()
         {
             Discipline = "NULL";
+            LessonLength = new LessonLength(1);
         }
 
         public bool isNull()
@@ -92,9 +95,9 @@ namespace eProiect.Models.Users
     
     public class UserSchedule
     {
-        private (Lesson, Lesson)[,] Schedule;
-        private List<(string, uint)> WeekDayLookup; 
-        private List<(TimeSpan, uint)> TimeLookup;
+        public (Lesson, Lesson)[,] Schedule;
+        private readonly List<(string, uint)> WeekDayLookup; 
+        private readonly List<(TimeSpan, uint)> TimeLookup;
         private bool BusyOnWeekend;
         public TimeSpan LatestClass;
 
@@ -198,6 +201,7 @@ namespace eProiect.Models.Users
         {
             return Schedule[__lookupWeekday(weekday), lessonNr].Item1;
         } 
+        
         public Lesson getLessonOdd(string weekday, uint lessonNr)
         {
             return Schedule[__lookupWeekday(weekday), lessonNr].Item2;

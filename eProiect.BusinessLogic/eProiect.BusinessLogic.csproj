@@ -71,6 +71,26 @@
     <Compile Include="Migrations\202404081132441_202404081116514_initialState.Designer.cs">
       <DependentUpon>202404081132441_202404081116514_initialState.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202404091558392_UpdatedClassState.cs" />
+    <Compile Include="Migrations\202404091558392_UpdatedClassState.Designer.cs">
+      <DependentUpon>202404091558392_UpdatedClassState.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404100927424_UpdatedClassSate.cs" />
+    <Compile Include="Migrations\202404100927424_UpdatedClassSate.Designer.cs">
+      <DependentUpon>202404100927424_UpdatedClassSate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404100944210_UpdatedClassSate1.cs" />
+    <Compile Include="Migrations\202404100944210_UpdatedClassSate1.Designer.cs">
+      <DependentUpon>202404100944210_UpdatedClassSate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404101019578_UpdatedClassSate2.cs" />
+    <Compile Include="Migrations\202404101019578_UpdatedClassSate2.Designer.cs">
+      <DependentUpon>202404101019578_UpdatedClassSate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404102030259_update-classroom.cs" />
+    <Compile Include="Migrations\202404102030259_update-classroom.Designer.cs">
+      <DependentUpon>202404102030259_update-classroom.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionBL.cs" />
@@ -95,6 +115,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202404081132441_202404081116514_initialState.resx">
       <DependentUpon>202404081132441_202404081116514_initialState.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404091558392_UpdatedClassState.resx">
+      <DependentUpon>202404091558392_UpdatedClassState.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404100927424_UpdatedClassSate.resx">
+      <DependentUpon>202404100927424_UpdatedClassSate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404100944210_UpdatedClassSate1.resx">
+      <DependentUpon>202404100944210_UpdatedClassSate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404101019578_UpdatedClassSate2.resx">
+      <DependentUpon>202404101019578_UpdatedClassSate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404102030259_update-classroom.resx">
+      <DependentUpon>202404102030259_update-classroom.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

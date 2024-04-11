@@ -42,7 +42,6 @@ namespace eProiect.Domain.Entities.User
 
 
         [Required]
-        public UserCredential Credentials { get; set; }
-        
+        public UserCredential Credentials { get; set; }        
     }
 }

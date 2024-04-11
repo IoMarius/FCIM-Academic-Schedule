@@ -1,4 +1,4 @@
-﻿@model  eProiect.Models.Users.UserEsentialData
+﻿@model  eProiect.Models.ViewModels.ScheduleViewData
 @using eProiect.Domain.Entities.User
 
 <div class="navbar-wrapper">
@@ -76,17 +76,17 @@
                 <a href="#!">
                     <img src="~/Vendor/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
 
-                    <span> @Model.Name @Model.Surname </span>
+                    <span> @Model.UData.Name @Model.UData.Surname </span>
                     @{
-                        if (Model.Level == UserRole.guest)
+                        if (Model.UData.Level == UserRole.guest)
                         {
                             <span class="Navbar-profile-level-guest">Role: guest</span>
                         }
-                        else if (Model.Level == UserRole.teacher)
+                        else if (Model.UData.Level == UserRole.teacher)
                         {
                             <span class="Navbar-profile-level-teacher">Role: profesor</span>
                         }
-                        else if (Model.Level == UserRole.admin)
+                        else if (Model.UData.Level == UserRole.admin)
                         {
 
                             <span class="Navbar-profile-level-admin">Role: administrator</span>

@@ -1,12 +1,15 @@
 ﻿using eProiect.Domain.Entities.Responce;
+using eProiect.Domain.Entities.Schedule.DBModel;
 using eProiect.Domain.Entities.User;
 using eProiect.Domain.Entities.User.DBModel;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+
 
 namespace eProiect.BusinessLogic.Interfaces
 {
@@ -18,6 +21,6 @@ namespace eProiect.BusinessLogic.Interfaces
 
           ReducedUser GetUserByCookie(string cookieString);
 
-          void TestDb();
-    }
+          UserSchedule GetScheduleById(int id);
+     }
 }

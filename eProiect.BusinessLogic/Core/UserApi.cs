@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using eProiect.BusinessLogic.DBContext;
 using eProiect.BusinessLogic.DBModel;
+using eProiect.Domain.Entities.Academic;
 using eProiect.Domain.Entities.Responce;
+using eProiect.Domain.Entities.Schedule.DBModel;
 using eProiect.Domain.Entities.User;
 using eProiect.Domain.Entities.User.DBModel;
 using eProiect.Helper;
@@ -10,6 +12,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -161,21 +164,55 @@ namespace eProiect.BusinessLogic.Core
 
             return reducedUser;
         }
-
-        internal void Test()
+    
+        internal UserSchedule GetUserScheduleById(int Id)
         {
+            if (Id < 0 && Id != 0)
+                return null;
+
+            User user;
+            using (var db=new UserContext())
+            {
+                user=db.Users.FirstOrDefault(u=>u.Id== Id);
+            }
+
+            if(user==null)
+            {
+                return null;
+            }
+
+            UserSchedule schedule = new UserSchedule();
             using(var db=new UserContext())
             {
-                var thing = db.Classes
-                    .Include(c=>c.ClassRoom)
-                    .Include(c=>c.UserDiscipline)
-                    .Include(c=>c.UserDiscipline.Discipline)
-                    .Include(c=>c.UserDiscipline.User)
-                    .Include(c=>c.UserDiscipline.Type)
-
-                    .FirstOrDefault(c => c.UserDiscipline.Type.TypeName == "Laborator");
-                System.Diagnostics.Debug.WriteLine($"Name: {thing.UserDiscipline.Discipline.Name}");
+                var classes = db.Classes
+                    .Include(c=>c.LeadingUser)
+                    .Include(c => c.Discipline)  
+                    .Include(c => c.Type)       
+                    .Include(c => c.Group)        
+                    .Include(c => c.Classroom)   
+                    .Include(c => c.WeekDay)     
+                    .Where(c=>c.LeadingUser.Id==user.Id)
+                    .ToList();
+                
+                foreach(var lesson in classes)
+                {
+                    schedule.AddLesson(
+                        new Lesson(
+                            lesson.Discipline.Name,
+                            lesson.Discipline.ShortName,
+                            lesson.Type.TypeName,
+                            lesson.WeekDay.ShortName,
+                            lesson.Classroom.ClassroomName,
+                            lesson.Group.Name,
+                            lesson.StartTime,
+                            lesson.EndTime,
+                            lesson.Frequency
+                        )
+                    ) ;
+                }
             }
+
+            return schedule;
         }
-    }
+     }
 }

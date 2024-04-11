@@ -10,6 +10,6 @@ namespace eProiect.Domain.Entities.User
     {
         guest,
         teacher,
-        admin
+        admin   
     }
 }

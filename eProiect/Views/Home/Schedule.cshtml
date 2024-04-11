@@ -3,23 +3,14 @@
     ViewBag.Title = "Schedule";
 }
 
-@using eProiect.Models.Users
+
 @using eProiect.Models.Schedule
+@model eProiect.Models.ViewModels.ScheduleViewData
 
 @{
     ScheduleFrame frame = new ScheduleFrame();
-    UserSchedule sched = new UserSchedule();
-    sched.addLesson(new Lesson("AMS", "c.", "lu", "6-2", "TI-2210" ,new TimeSpan(8, 0, 0), new TimeSpan(9, 30, 0), eProiect.Models.Enums.LessonWeekType.EVEN));
-    sched.addLesson(new Lesson("LBB", "s.", "lu", "6-2", "TI-2210" ,new TimeSpan(8, 0, 0), new TimeSpan(9, 30, 0), eProiect.Models.Enums.LessonWeekType.ODD));
-    sched.addLesson(new Lesson("TSI", "curs" ,"lu","3-3", "TI-223", new TimeSpan(9, 45, 0), new TimeSpan(11, 15, 0)));
-    sched.addLesson(new Lesson("LFAF", "lab.", "lu", "101", "SI-221", new TimeSpan(13, 30, 0), new TimeSpan(15, 0, 0), eProiect.Models.Enums.LessonWeekType.EVEN));
-    sched.addLesson(new Lesson("ABABB", "c.", "lu", "507", "EBU-221", new TimeSpan(13, 30, 0), new TimeSpan(15, 0, 0), eProiect.Models.Enums.LessonWeekType.ODD));
-    sched.addLesson(new Lesson("Lecțâie", "sem.", "ma", "512-B", "TI-2210", new TimeSpan(9, 45, 0), new TimeSpan(11, 15, 0)));
-    sched.addLesson(new Lesson("RC", "lab.", "mi", "101-A", "IA-235", new TimeSpan(11, 30, 0), new TimeSpan(15, 00, 0)));
-    sched.addLesson(new Lesson("TSI", "sem.", "mi", "101-A", "SI-255", new TimeSpan(15, 15, 0), new TimeSpan(16, 45, 0)));
-    /* sched.addLesson(new Lesson("PC", "sem.", "vi","501", "IA-202", new TimeSpan(17, 00, 0), new TimeSpan(18, 30, 0)));*/
-    sched.addLesson(new Lesson("SDA", "c.", "ma","501", "IA-202", new TimeSpan(17, 00, 0), new TimeSpan(18, 30, 0)));
-    /* sched.addLesson(new Lesson("SDsdA", "c.", "sm", "501", "IA-20d2", new TimeSpan(18, 45, 0), new TimeSpan(20, 15, 0)));*/
+
+    var sched = Model.Schedule;
     bool isEvenWeek = frame.isEvenWeek();
 }
 
@@ -32,11 +23,13 @@
                     <th class="hour-column">Ora/Ziua</th>
                     @{ //WEEKDAYS ROW
                         foreach (var weekday in frame.WeekDays){
-                            if (sched.getBusyDays() == 5){
+                            System.Diagnostics.Debug.WriteLine($"put: {weekday}");
+
+                            /*if (sched.getBusyDays() == 5){
                                 if (weekday == "Sâmbătă"){
                                     continue;
                                 }
-                            }
+                            }*/
 
                             <th class="mobile-weekday">
                                 <span class="mobile-weekday-name">@weekday</span>
@@ -48,16 +41,17 @@
 
                     TimeSpan lastInsertedHour=new TimeSpan(0, 0, 0);
                     foreach(var interval in frame.TimeIntervals){
+                        //System.Diagnostics.Debug.WriteLine($"put interval: {interval}");
                         if(TimeSpan.Compare(lastInsertedHour, sched.LatestClass) == 0)
                         {
-                            break;
+                            //break;
                         }
                         <tr class="timetable-row">
                             <td class="special">
                                 <div class="timetable-intervals">@interval.Item1.ToString("hh\\:mm") - @interval.Item2.ToString("hh\\:mm")</div="timetable-intervals">
                             </td>
                             @{
-                                for (uint cellNr = 0; cellNr < sched.getBusyDays(); cellNr++)
+                                for (uint cellNr = 0; cellNr < 6; cellNr++)
                                 {
                                     if (sched.existingLesson(interval.Item1, cellNr))
                                     {
@@ -68,13 +62,13 @@
 
                                         //NORMAL LESSON
                                         if (evenLesson == oddLesson) {            
-                                            <td rowspan="@evenLesson.LessonLengh.GetLength( )" class="table-cell">
+                                            <td rowspan="@evenLesson.LessonLength.GetLength()" class="table-cell">
                                                 <span class="mobile-timeinterval">
                                                     @evenLesson.StartTime.ToString("hh\\:mm") - @evenLesson.EndTime.ToString("hh\\:mm") <br/>
                                                 </span>
                                                 <div class="timetable-cell-content">
                                                     <span class="timetable-cell-class">
-                                                        @evenLesson.Type @evenLesson.Discipline
+                                                        @evenLesson.Type.Substring(0,1).ToLower(). @evenLesson.ShortName
                                                         <br />
                                                     </span>
                                                     <span class="timetable-cell-classroom">
@@ -138,7 +132,7 @@
 
                                                     <div class="timetable-cell-content-even @evenClassParameter">    
                                                         <span class="timetable-cell-class">
-                                                            @evenLesson.Type @evenLesson.Discipline
+                                                            @evenLesson.Type.Substring(0,1).ToLower() @evenLesson.ShortName
                                                             <br />
                                                         </span>
                                                         <span class="timetable-label-even span-attributes">Par</span>
@@ -156,7 +150,7 @@
                                                     
                                                     <div class="timetable-cell-content-odd @oddClassParameter">
                                                         <span class="timetable-cell-class">
-                                                            @oddLesson.Type @oddLesson.Discipline
+                                                            @oddLesson.Type.Substring(0,1).ToLower(). @oddLesson.ShortName
                                                             <br/>
                                                         </span>
                                                         <span class="timetable-label-odd span-attributes">Impar</span>
@@ -176,7 +170,7 @@
                                     }
                                     else
                                     {
-                                        <td class="empty">&#8205; </td>
+                                        <td class="empty">&#8205;</td>
                                     }
                                 }
                             }
