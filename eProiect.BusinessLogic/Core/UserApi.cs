@@ -23,32 +23,32 @@ namespace eProiect.BusinessLogic.Core
      {
         internal ULoginResp RLoginUpService(ULoginData data)
         {
-               //TEST ADDING USR
-              /* using (var db = new UserContext())
-               {
-                   var newCredentials = new UserCredential
-                   {
-                       Email = "demol@gmail.com",
-                       Password = LoginHelper.HashGen("password")
-                   };
+            //TEST ADDING USR
+            using (var db = new UserContext())
+            {
+                var newCredentials = new UserCredential
+                {
+                    Email = "bemol@gmail.com",
+                    Password = LoginHelper.HashGen("12345678")
+                };
 
-                   var newUser = new User
-                   {
-                       Name = "Lipo",
-                       Surname = "Battery",
-                       CreatedDate = DateTime.Now,
-                       LastLogin = DateTime.Now,
-                       LastIp = "192.168.1.1",
-                       Credentials = newCredentials
-                   };
-                   db.UserCredentials.Add(newCredentials);
-                   db.Users.Add(newUser);
-                   db.SaveChanges();
-               }*/
-      
-                    //TEST
+                var newUser = new User
+                {
+                    Name = "Coco",
+                    Surname = "Jumbo",
+                    CreatedDate = DateTime.Now,
+                    LastLogin = DateTime.Now,
+                    LastIp = "192.168.1.1",
+                    Credentials = newCredentials
+                };
+                db.UserCredentials.Add(newCredentials);
+                db.Users.Add(newUser);
+                db.SaveChanges();
+            }
 
-                    User result;
+            //TEST
+
+            User result;
             var validate = new EmailAddressAttribute();
             if (validate.IsValid(data.Credential))
             {
@@ -184,7 +184,7 @@ namespace eProiect.BusinessLogic.Core
             UserSchedule schedule = new UserSchedule();
             using(var db=new UserContext())
             {
-                var classes = db.Classes
+                /*var classes = db.Classes
                     .Include(c=>c.LeadingUser)
                     .Include(c => c.Discipline)  
                     .Include(c => c.Type)       
@@ -192,18 +192,27 @@ namespace eProiect.BusinessLogic.Core
                     .Include(c => c.Classroom)   
                     .Include(c => c.WeekDay)     
                     .Where(c=>c.LeadingUser.Id==user.Id)
-                    .ToList();
+                    .ToList();*/
+
+                var classes = db.Classes
+                    .Include(c=>c.UserDiscipline)
+                    .Include(c=>c.UserDiscipline)
+                    .Include(c=>c.ClassRoom)
+                    .Include(c=>c.WeekDay)
+                    .Include(c=>c.UserDiscipline.Discipline)
+                    .Include(c=>c.UserDiscipline.User)
+                    .Where(c => c.UserDiscipline.UserId == user.Id);
                 
                 foreach(var lesson in classes)
                 {
                     schedule.AddLesson(
                         new Lesson(
-                            lesson.Discipline.Name,
-                            lesson.Discipline.ShortName,
-                            lesson.Type.TypeName,
+                            lesson.UserDiscipline.Discipline.Name,
+                            lesson.UserDiscipline.Discipline.ShortName,
+                            lesson.UserDiscipline.Type.TypeName,
                             lesson.WeekDay.ShortName,
-                            lesson.Classroom.ClassroomName,
-                            lesson.Group.Name,
+                            lesson.ClassRoom.ClassroomName,
+                            lesson.AcademicGroup.Name,
                             lesson.StartTime,
                             lesson.EndTime,
                             lesson.Frequency

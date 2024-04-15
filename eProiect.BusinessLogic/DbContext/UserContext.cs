@@ -20,7 +20,7 @@ namespace eProiect.BusinessLogic.DBModel
     public class UserContext : DbContext
     {
         public UserContext() :
-            base("name=eProiect1") //base connection
+            base("name=eProiect") //base connection
         {
             Database.SetInitializer<UserContext>(null);
         }

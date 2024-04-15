@@ -7,13 +7,13 @@ namespace eProiect.BusinessLogic.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class UpdatedClassSate2 : IMigrationMetadata
+    public sealed partial class DbRedo : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdatedClassSate2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DbRedo));
         
         string IMigrationMetadata.Id
         {
-            get { return "202404101019578_UpdatedClassSate2"; }
+            get { return "202404152021375_DbRedo"; }
         }
         
         string IMigrationMetadata.Source

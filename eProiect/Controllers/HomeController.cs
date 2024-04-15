@@ -6,6 +6,7 @@ using eProiect.Extensions;
 using eProiect.Models.Enums;
 using eProiect.Models.Users;
 using eProiect.Models.ViewModels;
+using eProiect.BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,7 +81,7 @@ namespace eProiect.Controllers
 
 
 
-            UserSchedule userSchedule = new UserSchedule();
+            Models.Users.UserSchedule userSchedule = new Models.Users.UserSchedule();
             var currentSchedule = _session.GetScheduleById(loggedInUser.Id);
 
             //var thingy = currentSchedule.Schedule[0, 3].Item1.Discipline;
