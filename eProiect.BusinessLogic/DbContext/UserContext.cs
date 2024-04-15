@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +20,7 @@ namespace eProiect.BusinessLogic.DBModel
     public class UserContext : DbContext
     {
         public UserContext() :
-            base("name=eProiect") //base connection
+            base("name=eProiect1") //base connection
         {
             Database.SetInitializer<UserContext>(null);
         }
@@ -34,9 +36,13 @@ namespace eProiect.BusinessLogic.DBModel
         public virtual DbSet<Class> Classes { set; get; }
 
 
+
         public virtual DbSet<ClassRoom> ClassRooms { set; get; }
         public virtual DbSet<Discipline> Disciplines { set; get; }
         public virtual DbSet<ClassType> ClassTypes { set; get; }
+        public virtual DbSet<Students> Students { set; get; }
         public virtual DbSet<AcademicGroup> AcademicGroups { set; get; }
-    }    
+     
+
+     }    
 }

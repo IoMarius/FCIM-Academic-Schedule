@@ -14,10 +14,12 @@ namespace eProiect.Domain.Entities.Academic.DBModel
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Discipline Name")]
         [StringLength(50, MinimumLength =2, ErrorMessage ="Discipline name incompliant with [1-50] size")]
         public string Name { get; set; }
  
         [Required]
+        [Display(Name = "Discipline Short Name")]
         [StringLength(15, MinimumLength =1)]
         public string ShortName { get; set; }
     }

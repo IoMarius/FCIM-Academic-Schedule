@@ -61,7 +61,7 @@ namespace eProiect.Controllers
             return View();         
         }
 
-          [UserMode(UserRole.admin, UserRole.teacher)]
+          /*[UserMode(UserRole.admin, UserRole.teacher)]*/
         public ActionResult Schedule() 
         {
             SessionStatus();

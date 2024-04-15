@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace eProiect.Domain.Entities.Academic.DBModel
 {
     public class AcademicGroup
-    {
+     {
         [Key]
         public int Id { get; set; }
 
@@ -17,5 +17,5 @@ namespace eProiect.Domain.Entities.Academic.DBModel
 
         [Required]
         public int Year { get; set; }
-    }
+     }
 }

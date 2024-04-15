@@ -15,12 +15,15 @@ namespace eProiect.Domain.Entities.User.DBModel
         public int Id { get; set; }
 
         [Required]
+        public int UserId { get; set; }
         public User User { get; set; }
 
         [Required]
+        public int DisciplineId { get; set; }
         public Discipline Discipline { get; set; }
 
         [Required]
+        public int ClassTypeId { get; set; }
         public ClassType Type { get; set; }
     }
 }

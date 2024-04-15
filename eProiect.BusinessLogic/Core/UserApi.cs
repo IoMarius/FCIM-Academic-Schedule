@@ -23,32 +23,32 @@ namespace eProiect.BusinessLogic.Core
      {
         internal ULoginResp RLoginUpService(ULoginData data)
         {
-            //TEST ADDING USR
-            /*using (var db = new UserContext())
-            {
-                var newCredentials = new UserCredential
-                {
-                    Email = "demol@gmail.com",
-                    Password = LoginHelper.HashGen("password")
-                };
+               //TEST ADDING USR
+              /* using (var db = new UserContext())
+               {
+                   var newCredentials = new UserCredential
+                   {
+                       Email = "demol@gmail.com",
+                       Password = LoginHelper.HashGen("password")
+                   };
 
-                var newUser = new User
-                {
-                    Name = "Lipo",
-                    Surname = "Battery",
-                    CreatedDate = DateTime.Now,
-                    LastLogin = DateTime.Now,
-                    LastIp = "192.168.1.1",
-                    Credentials = newCredentials
-                };
+                   var newUser = new User
+                   {
+                       Name = "Lipo",
+                       Surname = "Battery",
+                       CreatedDate = DateTime.Now,
+                       LastLogin = DateTime.Now,
+                       LastIp = "192.168.1.1",
+                       Credentials = newCredentials
+                   };
+                   db.UserCredentials.Add(newCredentials);
+                   db.Users.Add(newUser);
+                   db.SaveChanges();
+               }*/
+      
+                    //TEST
 
-                db.UserCredentials.Add(newCredentials);
-                db.Users.Add(newUser);
-                db.SaveChanges();
-            }*/
-            //TEST
-
-            User result;
+                    User result;
             var validate = new EmailAddressAttribute();
             if (validate.IsValid(data.Credential))
             {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eProiect.Domain.Entities.User.DBModel
+namespace eProiect.Domain.Entities.User
 {
     public class ReducedUser
     {
