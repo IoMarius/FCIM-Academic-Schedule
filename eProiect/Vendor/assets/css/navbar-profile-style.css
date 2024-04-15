@@ -1,0 +1,27 @@
+﻿/*.navbar-username-status-container{
+    display:block;
+}*/
+
+.Navbar-profile-level-teacher {
+    border-radius: 19px;
+    padding: 1px 7px;
+    background-color: #e76d6d;
+    color: white;
+    font-size: 13px;
+}
+
+.Navbar-profile-level-guest {
+    border-radius: 19px;
+    padding: 1px 7px;
+    background-color: #96c07d;
+    color: white;
+    font-size: 13px;
+}
+
+.Navbar-profile-level-admin {
+    border-radius: 19px;
+    padding: 1px 7px;
+    background-color: #ffbe51;
+    color: white;
+    font-size: 13px;
+}

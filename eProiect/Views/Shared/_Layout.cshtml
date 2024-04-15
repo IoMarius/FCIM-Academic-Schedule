@@ -1,6 +1,5 @@
 ﻿@using System.Web.Optimization
-
-
+`
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +27,7 @@
 
      
      @Styles.Render("~/bundles/schedule-table/css")
+     @Styles.Render("~/bundles/navbar-user-styles/css");
 
      @if (IsSectionDefined("Styles"))
      {@RenderSection("Styles", required: false)}
