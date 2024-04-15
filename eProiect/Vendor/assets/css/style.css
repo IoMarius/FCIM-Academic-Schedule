@@ -34,10 +34,15 @@ body {
   font-family: "Open Sans", sans-serif;
   background-attachment: fixed; }
 
+.iscollapsed {
+position: absolute;
+top: 0; }
+
 ul {
-  padding-left: 0;
-  list-style-type: none;
-  margin-bottom: 0; }
+    padding-left: 0;
+    list-style-type: none;
+    margin-bottom: 0;
+}
 
 *:focus {
   outline: none; }
@@ -6069,9 +6074,19 @@ table tbody .border-bottom-info td {
 /**  =====================
       Main-header css start
 ==========================  **/
+.user-profile__body{
+    
+}
 .header-navbar {
-  min-height: 80px;
-  padding: 0; }
+    min-height: 80px;
+    padding: 0;
+}
+.span-info__text{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(-10px);
+}
   .header-navbar .navbar-wrapper .navbar-logo {
     position: relative;
     -webkit-box-align: center;
@@ -6108,10 +6123,16 @@ table tbody .border-bottom-info td {
       display: none; }
   .header-navbar .navbar-wrapper .navbar-container .nav-left, .header-navbar .navbar-wrapper .navbar-container .nav-right {
     float: left;
+    margin-top: 4px;
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 0; }
     .header-navbar .navbar-wrapper .navbar-container .nav-left li, .header-navbar .navbar-wrapper .navbar-container .nav-right li {
       float: left;
-      line-height: 5;
+     /* line-height: 5;*/
+     margin-top: 10px;
       padding: 0 10px;
       position: relative; }
       @media only screen and (max-width: 575px) {
@@ -6146,9 +6167,9 @@ table tbody .border-bottom-info td {
     z-index: 99; }
     .header-navbar .navbar-wrapper .navbar-container .header-notification .badge, .header-navbar .navbar-wrapper .navbar-container .mega-menu-top .badge {
       border-radius: 100px;
-      right: 15px;
+      right: 10px;
       position: absolute;
-      top: 20px;
+      top: 0;
       padding: 4px; }
     .header-navbar .navbar-wrapper .navbar-container .header-notification .show-notification, .header-navbar .navbar-wrapper .navbar-container .mega-menu-top .show-notification, .header-navbar .navbar-wrapper .navbar-container .header-notification .profile-notification, .header-navbar .navbar-wrapper .navbar-container .mega-menu-top .profile-notification {
       background: #fff;

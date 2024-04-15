@@ -273,6 +273,11 @@ $dark-layout-color: #303548;
                     }
 
                     > a {
+                        display: flex;
+                        flex-direction: column;
+                        align-content: center;
+                        justify-content: center;
+                        align-items: center;
                         font-size: 16px;
 
                         > i {
@@ -303,7 +308,7 @@ $dark-layout-color: #303548;
 
                 .user-profile {
                     img {
-                        margin-right: 10px;
+                        /*margin-right: 10px;*/
                         width: 40px;
                     }
 
@@ -3271,9 +3276,9 @@ body {
         background-image: url("../images/pattern3.jpg");
     }
 
-    &[themebg-pattern="pattern4"] {
+/*    &[themebg-pattern="pattern4"] {
         background-image: url("../images/pattern4.jpg");
-    }
+    }*/
 
     &[themebg-pattern="pattern5"] {
         background-image: url("../images/pattern5.jpg");
@@ -4875,4 +4880,9 @@ body {
 }
 .mCS-minimal.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
     background-color: transparentize(nth($left-navbar-theme,1), 0.5) !important;
+}
+
+.user-profile__body{
+    display: flex;
+    flex-direction: row;
 }

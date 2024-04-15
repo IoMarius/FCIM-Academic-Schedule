@@ -73,30 +73,40 @@
             </li>
 
             <li class="user-profile header-notification">
-                <a href="#!">
+                <!--
+                    
+                <div class="navbar-user-info-block">
+                </div>
+                -->
+                <a href="#!" class="user-profile__body">
                     <img src="~/Vendor/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+                    
+                    <span class="span-info__text">
 
                     <span> @Model.UData.Name @Model.UData.Surname </span>
-                    @{
-                        if (Model.UData.Level == UserRole.guest)
-                        {
-                            <span class="Navbar-profile-level-guest">Role: guest</span>
-                        }
-                        else if (Model.UData.Level == UserRole.teacher)
-                        {
-                            <span class="Navbar-profile-level-teacher">Role: profesor</span>
-                        }
-                        else if (Model.UData.Level == UserRole.admin)
-                        {
 
-                            <span class="Navbar-profile-level-admin">Role: administrator</span>
-                        }
-                        else
-                        {
-                            <span class="Navbar-profile-level-invalid">Role: eronat</span>
-                        }
+                        @{
+                            if (Model.UData.Level == UserRole.guest)
+                            {
+                                <span class="Navbar-profile-level-guest">guest</span>
+                            }
+                            else if (Model.UData.Level == UserRole.teacher)
+                            {
+                                <span class="Navbar-profile-level-teacher">profesor</span>
+                            }
+                            else if (Model.UData.Level == UserRole.admin)
+                            {
+                                <span class="Navbar-profile-level-admin">administrator</span>
+                            }
+                            else
+                            {
+                                <span class="Navbar-profile-level-invalid">eronat</span>
+                            }
 
-                    }
+                        }
+                   
+                    </span>
+                
                     <i class="ti-angle-down"></i>
                 </a>
                 <ul class="show-notification profile-notification">

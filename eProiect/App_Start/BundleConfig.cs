@@ -7,11 +7,11 @@ using System.Web.Optimization;
 namespace eProiect.App_Start
 {
      public class BundleConfig
-     {
-          public static void RegistrerBoundles(BundleCollection bundles)
-          {
-               bundles.IgnoreList.Clear();
-            
+    {
+        public static void RegistrerBoundles(BundleCollection bundles)
+        {
+            bundles.IgnoreList.Clear();
+
             //----------STYLE-BUNDLES----------------------------------------------------
             //Bootstrap 
             bundles.Add(new StyleBundle("~/bundles/bootstrap/css").Include(
@@ -32,7 +32,7 @@ namespace eProiect.App_Start
             //style css
             bundles.Add(new StyleBundle("~/bundles/style/css4").Include(
                 "~/Vendor/assets/css/style.css", new CssRewriteUrlTransform()));
-            
+
             bundles.Add(new StyleBundle("~/bundles/mCustomScrollbar/css5").Include(
                 "~/Vendor/assets/css/jquery.mCustomScrollbar.css", new CssRewriteUrlTransform()));
 
@@ -41,7 +41,7 @@ namespace eProiect.App_Start
             //Jquery bundles
             bundles.Add(new Bundle("~/bundles/jquery/js").Include(
                 "~/Vendor/bower_components/jquery/js/jquery.min.js"));
-            
+
             bundles.Add(new Bundle("~/bundles/jquery-ui/js").Include(
                 "~/Vendor/bower_components/jquery-ui/js/jquery-ui.min.js"));
 
@@ -62,7 +62,7 @@ namespace eProiect.App_Start
             //Am chart
             bundles.Add(new Bundle("~/bundles/widget/amcharts").Include(
                 "~/Vendor/assets/pages/widget/amchart/amcharts.min.js"));
-            
+
             bundles.Add(new Bundle("~/bundles/widget/serial").Include(
                 "~/Vendor/assets/pages/widget/amchart/serial.min.js"));
 
@@ -106,28 +106,33 @@ namespace eProiect.App_Start
             bundles.Add(new Bundle("~/bundles/script/js").Include(
                 "~/Vendor/assets/js/script.min.js"));
 
-               //------------------------FOR_LOGIN_PAGE_STYLE----------------------------------------------------------------------
-               bundles.Add(new StyleBundle("~/bundles/flag-icon/css").Include(
-                   "~/Vendor/assets/pages/flag-icon/flag-icon.min.css", new CssRewriteUrlTransform()));
+            //------------------------FOR_LOGIN_PAGE_STYLE----------------------------------------------------------------------
+            bundles.Add(new StyleBundle("~/bundles/flag-icon/css").Include(
+                "~/Vendor/assets/pages/flag-icon/flag-icon.min.css", new CssRewriteUrlTransform()));
+
+            bundles.Add(new StyleBundle("~/bundles/bootstrap.min/css").Include(
+                "~/Vendor/bower_components/bootstrap/css/bootstrap.min.css", new CssRewriteUrlTransform()));
+
+            //------------------------FOR_LOGIN_PAGE_SCRIPTS----------------------------------------------------------------------
+            bundles.Add(new Bundle("~/bundles/css-scrollbars/js").Include(
+            "~/Vendor/bower_components/modernizr/js/css-scrollbars.js"));
+
+
+            //------------------------SCHEDULE TABLE STYLE
+            bundles.Add(new StyleBundle("~/bundles/schedule-table/css").Include(
+               "~/Content/themes/schedule-table/schedule-style.css", new CssRewriteUrlTransform()));
+
+            bundles.Add(new Bundle("~/bundles/schedule-table").Include(
+            "~/Content/themes/schedule-table/schedule-table.js"));
+
+            //----------------------LOGPAGE STYLES
+            bundles.Add(new StyleBundle("~/bundles/logpage-styles/css").Include(
+            "~/Vendor/assets/css/logpage-styles.css", new CssRewriteUrlTransform()));
             
-               bundles.Add(new StyleBundle("~/bundles/bootstrap.min/css").Include(
-                   "~/Vendor/bower_components/bootstrap/css/bootstrap.min.css", new CssRewriteUrlTransform()));
 
-               //------------------------FOR_LOGIN_PAGE_SCRIPTS----------------------------------------------------------------------
-               bundles.Add(new Bundle("~/bundles/css-scrollbars/js").Include(
-               "~/Vendor/bower_components/modernizr/js/css-scrollbars.js"));
-
-
-                //------------------------SCHEDULE TABLE STYLE
-                bundles.Add(new StyleBundle("~/bundles/schedule-table/css").Include(
-                   "~/Content/themes/schedule-table/schedule-style.css", new CssRewriteUrlTransform()));
-
-                bundles.Add(new Bundle("~/bundles/schedule-table").Include(
-                "~/Content/themes/schedule-table/schedule-table.js"));
-
-                //----------------------LOGPAGE STYLES
-                bundles.Add(new StyleBundle("~/bundles/logpage-styles/css").Include(
-                "~/Vendor/assets/css/logpage-styles.css", new CssRewriteUrlTransform()));
+            //---------------------NAVBAR-USER-INFO
+            bundles.Add(new StyleBundle("~/bundles/navbar-user-styles/css").Include(
+            "~/Vendor/assets/css/navbar-profile-style.css", new CssRewriteUrlTransform()));
 
         }
 

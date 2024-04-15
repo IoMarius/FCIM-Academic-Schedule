@@ -47,6 +47,7 @@ td{
 }
 
 th {
+    font-weight: 100;
     background-color: #151a2b;
     color: white;
     width: 50%;
@@ -79,7 +80,9 @@ th {
 
 .special {
     background-color: #151a2b;
+/*
     font-weight: bold;
+*/
     color: white;
 }
 
@@ -222,7 +225,9 @@ th {
 
     .mobile-weekday-name {
         font-family: Arial, Helvetica, sans-serif;
-        margin-left: 12px
+        font-weight: 100 !important;
+        margin-left: 12px;
+        
     }
 
     #desktopTable, .hour-column, .special, th {
@@ -230,6 +235,7 @@ th {
     }
 
     .mobile-weekday {
+        font-weight: 100;
         padding: 5px;
         border-radius: 15px 15px 0 0;
         background-color: #151a2b;
@@ -300,4 +306,6 @@ th {
         display: inline-block; 
     }
 }
+
+
 
