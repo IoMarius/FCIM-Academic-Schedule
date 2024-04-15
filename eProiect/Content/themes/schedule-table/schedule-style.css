@@ -167,6 +167,18 @@ th {
     display:none;
 }
 
+
+/*----Desktop Empty cells------------------------------------------------*/
+.covered {
+    color: #f0f0f0b8;
+    font-weight: bolder;
+    font-size: 32px;
+}
+
+.clickable:hover a {
+    color: #cecece;
+}
+
 /*-----NARROW WINDOWS STYLE------------------------------------------*/
 @media (max-width: 1250px){
     .hour-column {

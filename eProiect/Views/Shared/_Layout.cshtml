@@ -36,66 +36,67 @@
 </head>
 <body>
 
-     <!-- Pre-loader start -->
-     <div class="theme-loader">
-         @Html.Partial("_Preloader")
-     </div>
-     <!-- Pre-loader end -->
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        @Html.Partial("_Preloader")
+    </div>
+    <!-- Pre-loader end -->
 
-     <div id="pcoded" class="pcoded">
-          
-          <div class="pcoded-overlay-box"></div>
-          <div class="pcoded-container navbar-wrapper">
+    <div id="pcoded" class="pcoded">
 
-               <nav class="navbar header-navbar pcoded-header">
-                    @Html.Partial("_Navbar")
-               </nav>
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
 
-               <!-- Sidebar chat start -->
-               <div id="sidebar" class="users p-chat-user showChat">
-                    @Html.Partial("_Sidebar")
-               </div>
-      
-               <div class="pcoded-main-container">
-                    <div class="pcoded-wrapper">
-                        <!--Sidebar-->
-                         <nav class="pcoded-navbar">
-                              @Html.Partial("_Navbar_main")
-                         </nav>
+            <nav class="navbar header-navbar pcoded-header">
+                @Html.Partial("_Navbar")
+            </nav>
 
-                        <!--Main content in page-->
-                         <div class="pcoded-content">
-                              @RenderBody()
-                         </div>
+            <!-- Sidebar chat start -->
+            <div id="sidebar" class="users p-chat-user showChat">
+                @Html.Partial("_Sidebar")
+            </div>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <!--Sidebar-->
+                    <nav class="pcoded-navbar">
+                        @Html.Partial("_Navbar_main")
+                    </nav>
+
+                    <!--Main content in page-->
+                    <div class="pcoded-content">
+                        @RenderBody()
                     </div>
-               </div>
-          </div>
-     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-     @Scripts.Render("~/bundles/jquery/js")
+    @Scripts.Render("~/bundles/jquery/js")
 
-     @Scripts.Render("~/bundles/jquery-ui/js")
-     @Scripts.Render("~/bundles/popper.js/js")
+    @Scripts.Render("~/bundles/jquery-ui/js")
+    @Scripts.Render("~/bundles/popper.js/js")
 
-     @Scripts.Render("~/bundles/bootstrap/js")
-     @Scripts.Render("~/bundles/jquery-slimscroll/js")
-     @Scripts.Render("~/bundles/modernizr/js")
-     @Scripts.Render("~/bundles/widget/amcharts")
-     @Scripts.Render("~/bundles/widget/serial")
-     @Scripts.Render("~/bundles/chart.js/js")
-     @Scripts.Render("~/bundles/pages/todo")
-     @Scripts.Render("~/bundles/i18next/js")
-     @Scripts.Render("~/bundles/i18next-xhr-backend/js")
-     @Scripts.Render("~/bundles/i18next-browser-languagedetector/js")
-     @Scripts.Render("~/bundles/jquery-i18next/js")
-     @Scripts.Render("~/bundles/pages/dashboard")
-     @Scripts.Render("~/bundles/SmoothScroll/js")
-     @Scripts.Render("~/bundles/pcoded/js")
-     @Scripts.Render("~/bundles/demo-12/js")
-     @Scripts.Render("~/bundles/mCustomScrollbar/js")
-     @Scripts.Render("~/bundles/script/js")
-     @Scripts.Render("~/bundles/schedule-table")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/jquery-slimscroll/js")
+    @Scripts.Render("~/bundles/modernizr/js")
+    @Scripts.Render("~/bundles/widget/amcharts")
+    @Scripts.Render("~/bundles/widget/serial")
+    @Scripts.Render("~/bundles/chart.js/js")
+    @Scripts.Render("~/bundles/pages/todo")
+    @Scripts.Render("~/bundles/i18next/js")
+    @Scripts.Render("~/bundles/i18next-xhr-backend/js")
+    @Scripts.Render("~/bundles/i18next-browser-languagedetector/js")
+    @Scripts.Render("~/bundles/jquery-i18next/js")
+    @Scripts.Render("~/bundles/pages/dashboard")
+    @Scripts.Render("~/bundles/SmoothScroll/js")
+    @Scripts.Render("~/bundles/pcoded/js")
+    @Scripts.Render("~/bundles/demo-12/js")
+    @Scripts.Render("~/bundles/mCustomScrollbar/js")
+    @Scripts.Render("~/bundles/script/js")
+    @Scripts.Render("~/bundles/schedule-table")
 
+  
 </body>
 </html>

@@ -21,8 +21,6 @@ namespace eProiect.Controllers
           {
                var bl = new BuissinesLogic();
                _session = bl.GetSessionBL();
-
-            _session.TestDb();
           }
 
           // GET : Login
