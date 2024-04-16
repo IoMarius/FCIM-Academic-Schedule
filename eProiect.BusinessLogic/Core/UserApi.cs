@@ -24,7 +24,7 @@ namespace eProiect.BusinessLogic.Core
         internal ULoginResp RLoginUpService(ULoginData data)
         {
             //TEST ADDING USR
-            using (var db = new UserContext())
+            /*using (var db = new UserContext())
             {
                 var newCredentials = new UserCredential
                 {
@@ -44,7 +44,7 @@ namespace eProiect.BusinessLogic.Core
                 db.UserCredentials.Add(newCredentials);
                 db.Users.Add(newUser);
                 db.SaveChanges();
-            }
+            }*/
 
             //TEST
 

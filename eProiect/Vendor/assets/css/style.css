@@ -6084,7 +6084,7 @@ table tbody .border-bottom-info td {
 .span-info__text{
     display: inline-flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     transform: translateY(-10px);
 }
   .header-navbar .navbar-wrapper .navbar-logo {

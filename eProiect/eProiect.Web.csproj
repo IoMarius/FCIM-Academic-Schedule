@@ -5825,9 +5825,11 @@
     <Compile Include="Models\Enums\LessonLength.cs" />
     <Compile Include="Models\Enums\WeekSpan.cs" />
     <Compile Include="Models\Schedule\ScheduleFrame.cs" />
+    <Compile Include="Models\Schedule\SelectedClassInfo.cs" />
     <Compile Include="Models\Users\UserEsentialData.cs" />
     <Compile Include="Models\Users\UserLogin.cs" />
     <Compile Include="Models\Users\UserSchedule.cs" />
+    <Compile Include="Models\ViewModels\AddLessonData.cs" />
     <Compile Include="Models\ViewModels\ScheduleViewData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -5865,6 +5867,7 @@
     <Content Include="Views\Login\LoginError.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Schedule.cshtml" />
+    <Content Include="Views\Home\AddLesson.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

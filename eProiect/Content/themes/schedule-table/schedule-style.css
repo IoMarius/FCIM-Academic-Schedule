@@ -173,12 +173,19 @@ th {
 
 /*----Desktop Empty cells------------------------------------------------*/
 .covered {
-    color: #f0f0f0b8;
+    color: transparent;
     font-weight: bolder;
     font-size: 32px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
 }
 
-.clickable:hover a {
+.button-plus-sign{
+    margin:-4px;
+}
+
+.clickable:hover button {
     color: #cecece;
 }
 

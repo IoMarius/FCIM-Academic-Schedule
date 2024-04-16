@@ -13,6 +13,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using eProiect.Models.Schedule;
 
 namespace eProiect.Controllers
 {
@@ -138,7 +139,50 @@ namespace eProiect.Controllers
 
             return View(viewData);
         }
-          [UserMode(UserRole.admin, UserRole.teacher)]
+          
+        public ActionResult AddLesson()
+        {
+            var ClassInfo = Request.QueryString["linfo"];
+
+            var splitData= ClassInfo.Split('|');
+            string time= splitData[0];
+            int day = int.Parse(splitData[1]);
+
+            var splitTime = time.Split(':');
+            int hour= int.Parse(splitTime[0]);
+            int minutes = int.Parse(splitTime[1]);
+
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+            ReducedUser UData = new ReducedUser
+            {
+                Name = loggedInUser.Name,
+                Surname = loggedInUser.Surname,
+                CreatedDate = loggedInUser.CreatedDate,
+                Level = loggedInUser.Level
+            };
+
+            ScheduleViewData ViewData = new ScheduleViewData
+            {
+                ClassInfo = new SelectedClassInfo(new TimeSpan(hour, minutes, 0), day),
+                UData=new UserEsentialData
+                {
+                    Name=UData.Name,
+                    Surname=UData.Surname,
+                    CreatedDate=UData.CreatedDate,
+                    Level= UData.Level
+                }
+            };
+
+            return View(ViewData);
+        }
+
+        [HttpPost]
+        public ActionResult AddLesson(string lessonInfo)
+        {
+            return RedirectToAction("AddLesson", "Home", new {@linfo=lessonInfo});
+        }
+
+        [UserMode(UserRole.admin, UserRole.teacher)]
           public ActionResult Logout()
           {
                ClearSession();

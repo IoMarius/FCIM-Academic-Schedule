@@ -18,172 +18,185 @@
     <div class="main-body">
         <!--Schedule here-->
         <div>
-            <table id="desktopTable">
-                <tr>
-                    <th class="hour-column">Ora/Ziua</th>
-                    @{ //WEEKDAYS ROW
-                        foreach (var weekday in frame.WeekDays){
-                            System.Diagnostics.Debug.WriteLine($"put: {weekday}");
+            @using (Html.BeginForm("AddLesson", "Home", FormMethod.Post, new { autocomplete = "off" }))
+            {
+                <table id="desktopTable">
+                    <tr>
+                        <th class="hour-column">Ora/Ziua</th>
+                        @{ //WEEKDAYS ROW
+                            foreach (var weekday in frame.WeekDays)
+                            {
+                                System.Diagnostics.Debug.WriteLine($"put: {weekday}");
 
-                            /*if (sched.getBusyDays() == 5){
-                                if (weekday == "Sâmbătă"){
-                                    continue;
-                                }
-                            }*/
+                                /*if (sched.getBusyDays() == 5){
+                                    if (weekday == "Sâmbătă"){
+                                        continue;
+                                    }
+                                }*/
 
-                            <th class="mobile-weekday">
-                                <span class="mobile-weekday-name">@weekday</span>
-                            </th>
+                                <th class="mobile-weekday">
+                                    <span class="mobile-weekday-name">@weekday</span>
+                                </th>
+                            }
                         }
-                    }
-                </tr>
-                @{ // TIME INTERVALS ROWS
+                    </tr>
+                    @{ // TIME INTERVALS ROWS
 
-                    TimeSpan lastInsertedHour=new TimeSpan(0, 0, 0);
-                    foreach(var interval in frame.TimeIntervals){
-                        //System.Diagnostics.Debug.WriteLine($"put interval: {interval}");
-                        if(TimeSpan.Compare(lastInsertedHour, sched.LatestClass) == 0)
+                        TimeSpan lastInsertedHour = new TimeSpan(0, 0, 0);
+                        foreach (var interval in frame.TimeIntervals)
                         {
-                            //break;
-                        }
-                        <tr class="timetable-row">
-                            <td class="special">
-                                <div class="timetable-intervals">@interval.Item1.ToString("hh\\:mm") - @interval.Item2.ToString("hh\\:mm")</div>
-                            </td>
-                            @{
-                                for (uint cellNr = 0; cellNr < 6; cellNr++)
-                                {
-                                    if (sched.existingLesson(interval.Item1, cellNr))
+                            //System.Diagnostics.Debug.WriteLine($"put interval: {interval}");
+                            if (TimeSpan.Compare(lastInsertedHour, sched.LatestClass) == 0)
+                            {
+                                //break;
+                            }
+                            <tr class="timetable-row">
+                                <td class="special">
+                                    <div class="timetable-intervals">@interval.Item1.ToString("hh\\:mm") - @interval.Item2.ToString("hh\\:mm")</div>
+                                </td>
+                                @{
+                                    for (uint cellNr = 0; cellNr < 6; cellNr++)
                                     {
-                                        var evenLesson = sched.getLessonEven(interval.Item1, cellNr);
-                                        var oddLesson = sched.getLessonOdd(interval.Item1, cellNr);
-                                        lastInsertedHour = evenLesson.EndTime;
-                                        lastInsertedHour = evenLesson.EndTime;
-
-                                        //NORMAL LESSON
-                                        if (evenLesson == oddLesson) {            
-                                            <td rowspan="@evenLesson.LessonLength.GetLength()" class="table-cell">
-                                                <span class="mobile-timeinterval">
-                                                    @evenLesson.StartTime.ToString("hh\\:mm") - @evenLesson.EndTime.ToString("hh\\:mm") <br/>
-                                                </span>
-                                                <div class="timetable-cell-content">
-                                                    <span class="timetable-cell-class">
-                                                        @evenLesson.Type.Substring(0,1).ToLower(). @evenLesson.ShortName
-                                                        <br />
-                                                    </span>
-                                                    <span class="timetable-cell-classroom">
-                                                        @evenLesson.Classroom
-                                                    </span>
-                                                    &#8205;
-                                                    <span class="timetable-cell-acadgroup">
-                                                        @evenLesson.AcademicGroup
-                                                    </span>
-                                                </div>
-                                            </td>
-                                        }
-                                        //EVEN AND ODD LESSONS
-                                        else
+                                        if (sched.existingLesson(interval.Item1, cellNr))
                                         {
+                                            var evenLesson = sched.getLessonEven(interval.Item1, cellNr);
+                                            var oddLesson = sched.getLessonOdd(interval.Item1, cellNr);
+                                            lastInsertedHour = evenLesson.EndTime;
+                                            lastInsertedHour = evenLesson.EndTime;
 
-                                            var oddClassParameter="";
-                                            var evenClassParameter = "";
-                                            var separatorClass = "";
-                                            var dividedCellClass = "";
-
-                                            if (evenLesson.Discipline == "NULL") {
-                                                evenClassParameter += "empty-even";
-                                                oddClassParameter += "normal-scale";
-                                                separatorClass += "empty-even";
-                                            }
-                                            else if(oddLesson.Discipline=="NULL"){
-                                                oddClassParameter += "empty-odd";
-                                                evenClassParameter += "normal-scale";
-                                                separatorClass = "empty-odd";
-                                            }
-
-                                            if (isEvenWeek) {
-                                                oddClassParameter += " unfocused";
-                                                dividedCellClass = " full-size";
-
-                                            }
-                                            else {
-                                                evenClassParameter += " unfocused";
-                                                dividedCellClass = " full-size";
-                                            }
-
-                                            <td class="timetable-tablecell">  
-                                                
-                                                @if (evenLesson.StartTime.ToString("hh\\:mm")!="00:00") 
-                                                { 
+                                            //NORMAL LESSON
+                                            if (evenLesson == oddLesson)
+                                            {
+                                                <td rowspan="@evenLesson.LessonLength.GetLength()" class="table-cell">
                                                     <span class="mobile-timeinterval">
-                                                        @evenLesson.StartTime.ToString("hh\\:mm") - @evenLesson.EndTime.ToString("hh\\:mm") <br />
+                                                        @evenLesson.StartTime.ToString("hh\\:mm") - @evenLesson.EndTime.ToString("hh\\:mm") <br/>
                                                     </span>
-}
-                                                else
-                                                {
-                                                    <span class="mobile-timeinterval">
-                                                        @oddLesson.StartTime.ToString("hh\\:mm") - @oddLesson.EndTime.ToString("hh\\:mm") <br />
-                                                    </span>
-                                                }
-
-
-                                                <!--TWO DIVS, one left one right-->
-                                                <div class="timetable-cell-divided @dividedCellClass">
-
-                                                    <div class="timetable-cell-content-even @evenClassParameter">    
+                                                    <div class="timetable-cell-content">
                                                         <span class="timetable-cell-class">
-                                                            @evenLesson.Type.Substring(0,1).ToLower() @evenLesson.ShortName
+                                                            @evenLesson.Type.Substring(0, 1).ToLower(). @evenLesson.ShortName
                                                             <br />
                                                         </span>
-                                                        <span class="timetable-label-even span-attributes">Par</span>
-                                                        <span class="timetable-cell-classroom span-attributes">
+                                                        <span class="timetable-cell-classroom">
                                                             @evenLesson.Classroom
                                                         </span>
-                                                        <br/>
-                                                        <span class="timetable-cell-acadgroup span-attributes">
+                                                        &#8205;
+                                                        <span class="timetable-cell-acadgroup">
                                                             @evenLesson.AcademicGroup
                                                         </span>
                                                     </div>
+                                                </td>
+                                            }
+                                            //EVEN AND ODD LESSONS
+                                            else
+                                            {
 
-                                                    <div class="separator-line @separatorClass" >&#8205;</div>
-                                                    
-                                                    
-                                                    <div class="timetable-cell-content-odd @oddClassParameter">
-                                                        <span class="timetable-cell-class">
-                                                            @oddLesson.Type.Substring(0,1).ToLower(). @oddLesson.ShortName
+                                                var oddClassParameter = "";
+                                                var evenClassParameter = "";
+                                                var separatorClass = "";
+                                                var dividedCellClass = "";
+
+                                                if (evenLesson.Discipline == "NULL")
+                                                {
+                                                    evenClassParameter += "empty-even";
+                                                    oddClassParameter += "normal-scale";
+                                                    separatorClass += "empty-even";
+                                                }
+                                                else if (oddLesson.Discipline == "NULL")
+                                                {
+                                                    oddClassParameter += "empty-odd";
+                                                    evenClassParameter += "normal-scale";
+                                                    separatorClass = "empty-odd";
+                                                }
+
+                                                if (isEvenWeek)
+                                                {
+                                                    oddClassParameter += " unfocused";
+                                                    dividedCellClass = " full-size";
+
+                                                }
+                                                else
+                                                {
+                                                    evenClassParameter += " unfocused";
+                                                    dividedCellClass = " full-size";
+                                                }
+
+                                                <td class="timetable-tablecell">  
+                                                
+                                                    @if (evenLesson.StartTime.ToString("hh\\:mm") != "00:00")
+                                                    {
+                                                        <span class="mobile-timeinterval">
+                                                            @evenLesson.StartTime.ToString("hh\\:mm") - @evenLesson.EndTime.ToString("hh\\:mm") <br />
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="mobile-timeinterval">
+                                                            @oddLesson.StartTime.ToString("hh\\:mm") - @oddLesson.EndTime.ToString("hh\\:mm") <br />
+                                                        </span>
+                                                    }
+
+
+                                                    <!--TWO DIVS, one left one right-->
+                                                    <div class="timetable-cell-divided @dividedCellClass">
+
+                                                        <div class="timetable-cell-content-even @evenClassParameter">    
+                                                            <span class="timetable-cell-class">
+                                                                @evenLesson.Type.Substring(0, 1).ToLower() @evenLesson.ShortName
+                                                                <br />
+                                                            </span>
+                                                            <span class="timetable-label-even span-attributes">Par</span>
+                                                            <span class="timetable-cell-classroom span-attributes">
+                                                                @evenLesson.Classroom
+                                                            </span>
                                                             <br/>
-                                                        </span>
-                                                        <span class="timetable-label-odd span-attributes">Impar</span>
-                                                        <span class="timetable-cell-classroom span-attributes">
-                                                            @oddLesson.Classroom
-                                                        </span>
-                                                        <br/>
-                                                        <span class="timetable-cell-acadgroup span-attributes">
-                                                            @oddLesson.AcademicGroup
+                                                            <span class="timetable-cell-acadgroup span-attributes">
+                                                                @evenLesson.AcademicGroup
+                                                            </span>
+                                                        </div>
 
-                                                        </span>
+                                                        <div class="separator-line @separatorClass" >&#8205;</div>
+                                                    
+                                                    
+                                                        <div class="timetable-cell-content-odd @oddClassParameter">
+                                                            <span class="timetable-cell-class">
+                                                                @oddLesson.Type.Substring(0, 1).ToLower(). @oddLesson.ShortName
+                                                                <br/>
+                                                            </span>
+                                                            <span class="timetable-label-odd span-attributes">Impar</span>
+                                                            <span class="timetable-cell-classroom span-attributes">
+                                                                @oddLesson.Classroom
+                                                            </span>
+                                                            <br/>
+                                                            <span class="timetable-cell-acadgroup span-attributes">
+                                                                @oddLesson.AcademicGroup
+
+                                                            </span>
+                                                        </div>
+
                                                     </div>
+                                                </td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <td class="empty clickable">
 
-                                                </div>
+                                                <button class="covered" name="lessonInfo" type="submit" value="@interval.Item1.ToString("hh\\:mm")|@cellNr">
+                                                    <i class="ti-plus button-plus-sign"></i>
+                                                </button>
+                                            
                                             </td>
                                         }
                                     }
-                                    else
-                                    {
-                                        <td class="empty clickable">
-
-                                            <a id="addClass" class="covered" href="#">
-                                                <i class="ti-plus"></i>
-                                            </a>
-                                            
-                                        </td>
-                                    }
                                 }
-                            }
-                        </tr>
+                            </tr>
+                        }
                     }
-                }
-            </table>
+                </table>
+            
+            }
+
+
             <table id="mobileTable"></table>
         </div>
         <!--End Schedule-->

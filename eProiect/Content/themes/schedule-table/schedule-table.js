@@ -58,3 +58,4 @@ function transformTable() {
         transformedTable.rows[transformedTable.rows.length - 1].cells[0].classList.add("mobile-last-day");
     }
 }
+
