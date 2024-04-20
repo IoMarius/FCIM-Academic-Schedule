@@ -34,9 +34,41 @@ body {
   font-family: "Open Sans", sans-serif;
   background-attachment: fixed; }
 
+.row{
+    margin-bottom:10px;
+}
+
 .iscollapsed {
 position: absolute;
+width:100%;
 top: 0; }
+
+.select-category-addlesson {
+    display: flex;
+    border: 1px solid red;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+.selected-lesson-startime {
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 11px;
+    margin-right: 11px;
+    color: white;
+}
+
+.highlighted-lesson-info{
+    display:inline-flex;
+}
+
+.cancel-action {
+    background-color: orangered;
+    padding: 10px;
+    border-radius: 14px;
+    float:right;
+}
 
 ul {
     padding-left: 0;
@@ -7796,7 +7828,11 @@ body[themebg-pattern="pattern2"] {
 body[themebg-pattern="pattern3"] {
   background-image: url("../images/pattern3.jpg"); }
 body[themebg-pattern="pattern4"] {
+    /*
+
   background-image: url("../images/pattern4.jpg"); }
+    */
+}
 body[themebg-pattern="pattern5"] {
   background-image: url("../images/pattern5.jpg"); }
 body[themebg-pattern="pattern6"] {

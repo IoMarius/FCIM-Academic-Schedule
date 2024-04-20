@@ -39,7 +39,7 @@ namespace eProiect.Controllers
                          LoginDateTime = DateTime.Now
                     };
 
-                    ULoginResp resp = _session.UserLoginAction(uData);
+                    ActionResponse resp = _session.UserLoginAction(uData);
                     ViewBag.LogSuccess = resp.Status;
                     if (resp.Status)
                     {

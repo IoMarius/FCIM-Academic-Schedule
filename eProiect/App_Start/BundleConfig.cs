@@ -134,7 +134,9 @@ namespace eProiect.App_Start
             bundles.Add(new StyleBundle("~/bundles/navbar-user-styles/css").Include(
             "~/Vendor/assets/css/navbar-profile-style.css", new CssRewriteUrlTransform()));
 
+            //--------------------LESSONADD-SCRIPTS
+            bundles.Add(new Bundle("~/bundles/addlesson-selector/js").Include(
+            "~/Vendor/assets/js/update-lessonadd-selector.js"));
         }
-
     }
 }

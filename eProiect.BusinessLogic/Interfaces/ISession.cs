@@ -1,4 +1,5 @@
-﻿using eProiect.Domain.Entities.Responce;
+﻿using eProiect.Domain.Entities.Academic.DBModel;
+using eProiect.Domain.Entities.Responce;
 using eProiect.Domain.Entities.Schedule.DBModel;
 using eProiect.Domain.Entities.User;
 using eProiect.Domain.Entities.User.DBModel;
@@ -15,12 +16,20 @@ namespace eProiect.BusinessLogic.Interfaces
 {
      public interface ISession
      {
-          ULoginResp UserLoginAction(ULoginData data);
+          ActionResponse UserLoginAction(ULoginData data);
 
           HttpCookie GenCookie(string loginCredential);
 
           ReducedUser GetUserByCookie(string cookieString);
 
           UserSchedule GetScheduleById(int id);
+
+          List<AcademicGroup> GetAcadGroupsList();
+
+          List<AcademicGroup> GetAcadGroupsList(int year);
+
+          List<UserDiscipline> GetDisciplinesById(int id);
+
+          List<Type> GetUserPermittedClassTypes(int id);
      }
 }

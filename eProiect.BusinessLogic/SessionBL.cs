@@ -1,5 +1,6 @@
 ﻿using eProiect.BusinessLogic.Core;
 using eProiect.BusinessLogic.Interfaces;
+using eProiect.Domain.Entities.Academic.DBModel;
 using eProiect.Domain.Entities.Responce;
 using eProiect.Domain.Entities.Schedule.DBModel;
 using eProiect.Domain.Entities.User;
@@ -15,7 +16,7 @@ namespace eProiect.BusinessLogic
 {
      public class SessionBL : UserApi, ISession
      {
-        public ULoginResp UserLoginAction(ULoginData data)
+        public ActionResponse UserLoginAction(ULoginData data)
         {
             return RLoginUpService(data);
         }
@@ -33,5 +34,25 @@ namespace eProiect.BusinessLogic
         {
             return GetUserScheduleById(id);
         }
-     }
+
+        public List<AcademicGroup> GetAcadGroupsList()
+        {
+            return GetAcademicGroupsList();
+        }
+        
+        public List<AcademicGroup> GetAcadGroupsList(int year)
+        {
+            return GetAcademicGroupsList(year);
+        }
+
+        public List<UserDiscipline> GetDisciplinesById(int id)
+        {
+            return GetUserDisciplinesById(id);
+        }
+
+        public List<Type> GetUserPermittedClassTypes(int id)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

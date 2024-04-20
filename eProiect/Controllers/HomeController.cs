@@ -14,6 +14,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using eProiect.Models.Schedule;
+using eProiect.Domain.Entities.Academic.DBModel;
+using eProiect.BusinessLogic.DBModel;
+using eProiect.Domain.Entities.User.DBModel;
+using System.Configuration;
 
 namespace eProiect.Controllers
 {
@@ -27,7 +31,6 @@ namespace eProiect.Controllers
             _session=bl.GetSessionBL();
         }
     
-
         public ActionResult Index()
         {
             SessionStatus();
@@ -40,7 +43,7 @@ namespace eProiect.Controllers
             return View(loggedInUser); 
         }
         
-        public ActionResult Tables()       
+        public ActionResult Tables()
         {
            
             SessionStatus();
@@ -63,7 +66,7 @@ namespace eProiect.Controllers
             return View();         
         }
 
-          /*[UserMode(UserRole.admin, UserRole.teacher)]*/
+        /*[UserMode(UserRole.admin, UserRole.teacher)]*/
         public ActionResult Schedule() 
         {
             SessionStatus();
@@ -131,7 +134,7 @@ namespace eProiect.Controllers
             }
             
 
-            ScheduleViewData viewData = new ScheduleViewData
+            GeneralViewData viewData = new GeneralViewData
             {
                 Schedule = userSchedule,
                 UData = UData
@@ -139,51 +142,45 @@ namespace eProiect.Controllers
 
             return View(viewData);
         }
-          
-        public ActionResult AddLesson()
-        {
-            var ClassInfo = Request.QueryString["linfo"];
-
-            var splitData= ClassInfo.Split('|');
-            string time= splitData[0];
-            int day = int.Parse(splitData[1]);
-
-            var splitTime = time.Split(':');
-            int hour= int.Parse(splitTime[0]);
-            int minutes = int.Parse(splitTime[1]);
-
-            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
-            ReducedUser UData = new ReducedUser
-            {
-                Name = loggedInUser.Name,
-                Surname = loggedInUser.Surname,
-                CreatedDate = loggedInUser.CreatedDate,
-                Level = loggedInUser.Level
-            };
-
-            ScheduleViewData ViewData = new ScheduleViewData
-            {
-                ClassInfo = new SelectedClassInfo(new TimeSpan(hour, minutes, 0), day),
-                UData=new UserEsentialData
-                {
-                    Name=UData.Name,
-                    Surname=UData.Surname,
-                    CreatedDate=UData.CreatedDate,
-                    Level= UData.Level
-                }
-            };
-
-            return View(ViewData);
-        }
 
         [HttpPost]
-        public ActionResult AddLesson(string lessonInfo)
+        public ActionResult AddLesson(int sHour, int sMinutes, int sDay)
         {
-            return RedirectToAction("AddLesson", "Home", new {@linfo=lessonInfo});
+            return PartialView(
+                "AddLesson",
+                new SelectedClassInfo(sHour, sMinutes, sDay)
+            );
+        }
+        
+        [HttpPost]
+        public ActionResult GetOptionsByYear(int year)
+        {
+            List<AcademicGroup> groupList = new List<AcademicGroup>();
+
+            if (year == 0)
+            {
+                return Json(groupList);
+            }
+
+            groupList = _session.GetAcadGroupsList(year);
+            return Json(groupList);
+        }
+
+        [HttpGet]
+        public ActionResult GetLoggedUserDisciplines()
+        {
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+            if (loggedInUser == null)
+                return Json(new List<UserDiscipline>());
+
+            var discList=_session.GetDisciplinesById(loggedInUser.Id);
+
+
+            return Json(discList, JsonRequestBehavior.AllowGet);
         }
 
         [UserMode(UserRole.admin, UserRole.teacher)]
-          public ActionResult Logout()
+         public ActionResult Logout()
           {
                ClearSession();
                return RedirectToAction("Login", "Login");

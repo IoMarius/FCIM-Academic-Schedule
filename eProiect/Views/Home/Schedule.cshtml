@@ -5,7 +5,7 @@
 
 
 @using eProiect.Models.Schedule
-@model eProiect.Models.ViewModels.ScheduleViewData
+@model eProiect.Models.ViewModels.GeneralViewData
 
 @{
     ScheduleFrame frame = new ScheduleFrame();
@@ -14,26 +14,18 @@
     bool isEvenWeek = frame.isEvenWeek();
 }
 
-<div class="pcoded-inner-content">
-    <div class="main-body">
-        <!--Schedule here-->
-        <div>
-            @using (Html.BeginForm("AddLesson", "Home", FormMethod.Post, new { autocomplete = "off" }))
-            {
+<div id="static-container">
+    <div id="partial-view-container">
+        <div class="pcoded-inner-content">
+            <div class="main-body">
+                <!--Schedule here-->
+
                 <table id="desktopTable">
                     <tr>
                         <th class="hour-column">Ora/Ziua</th>
                         @{ //WEEKDAYS ROW
                             foreach (var weekday in frame.WeekDays)
                             {
-                                System.Diagnostics.Debug.WriteLine($"put: {weekday}");
-
-                                /*if (sched.getBusyDays() == 5){
-                                    if (weekday == "Sâmbătă"){
-                                        continue;
-                                    }
-                                }*/
-
                                 <th class="mobile-weekday">
                                     <span class="mobile-weekday-name">@weekday</span>
                                 </th>
@@ -45,11 +37,7 @@
                         TimeSpan lastInsertedHour = new TimeSpan(0, 0, 0);
                         foreach (var interval in frame.TimeIntervals)
                         {
-                            //System.Diagnostics.Debug.WriteLine($"put interval: {interval}");
-                            if (TimeSpan.Compare(lastInsertedHour, sched.LatestClass) == 0)
-                            {
-                                //break;
-                            }
+
                             <tr class="timetable-row">
                                 <td class="special">
                                     <div class="timetable-intervals">@interval.Item1.ToString("hh\\:mm") - @interval.Item2.ToString("hh\\:mm")</div>
@@ -69,7 +57,7 @@
                                             {
                                                 <td rowspan="@evenLesson.LessonLength.GetLength()" class="table-cell">
                                                     <span class="mobile-timeinterval">
-                                                        @evenLesson.StartTime.ToString("hh\\:mm") - @evenLesson.EndTime.ToString("hh\\:mm") <br/>
+                                                        @evenLesson.StartTime.ToString("hh\\:mm") - @evenLesson.EndTime.ToString("hh\\:mm") <br />
                                                     </span>
                                                     <div class="timetable-cell-content">
                                                         <span class="timetable-cell-class">
@@ -120,8 +108,8 @@
                                                     dividedCellClass = " full-size";
                                                 }
 
-                                                <td class="timetable-tablecell">  
-                                                
+                                                <td class="timetable-tablecell">
+
                                                     @if (evenLesson.StartTime.ToString("hh\\:mm") != "00:00")
                                                     {
                                                         <span class="mobile-timeinterval">
@@ -139,7 +127,7 @@
                                                     <!--TWO DIVS, one left one right-->
                                                     <div class="timetable-cell-divided @dividedCellClass">
 
-                                                        <div class="timetable-cell-content-even @evenClassParameter">    
+                                                        <div class="timetable-cell-content-even @evenClassParameter">
                                                             <span class="timetable-cell-class">
                                                                 @evenLesson.Type.Substring(0, 1).ToLower() @evenLesson.ShortName
                                                                 <br />
@@ -148,25 +136,25 @@
                                                             <span class="timetable-cell-classroom span-attributes">
                                                                 @evenLesson.Classroom
                                                             </span>
-                                                            <br/>
+                                                            <br />
                                                             <span class="timetable-cell-acadgroup span-attributes">
                                                                 @evenLesson.AcademicGroup
                                                             </span>
                                                         </div>
 
-                                                        <div class="separator-line @separatorClass" >&#8205;</div>
-                                                    
-                                                    
+                                                        <div class="separator-line @separatorClass">&#8205;</div>
+
+
                                                         <div class="timetable-cell-content-odd @oddClassParameter">
                                                             <span class="timetable-cell-class">
                                                                 @oddLesson.Type.Substring(0, 1).ToLower(). @oddLesson.ShortName
-                                                                <br/>
+                                                                <br />
                                                             </span>
                                                             <span class="timetable-label-odd span-attributes">Impar</span>
                                                             <span class="timetable-cell-classroom span-attributes">
                                                                 @oddLesson.Classroom
                                                             </span>
-                                                            <br/>
+                                                            <br />
                                                             <span class="timetable-cell-acadgroup span-attributes">
                                                                 @oddLesson.AcademicGroup
 
@@ -180,11 +168,11 @@
                                         else
                                         {
                                             <td class="empty clickable">
-
-                                                <button class="covered" name="lessonInfo" type="submit" value="@interval.Item1.ToString("hh\\:mm")|@cellNr">
+                                                                                                                                       
+                                                <button id="addLesson" class="covered plus-button" type="submit" name="lessonInfo" data-position-hour="@interval.Item1.Hours" data-position-minutes="@interval.Item1.Minutes" data-position-weekday-nr="@cellNr">
                                                     <i class="ti-plus button-plus-sign"></i>
                                                 </button>
-                                            
+
                                             </td>
                                         }
                                     }
@@ -193,12 +181,11 @@
                         }
                     }
                 </table>
-            
-            }
-
+              
 
             <table id="mobileTable"></table>
+            <!--End Schedule-->
+            </div>
         </div>
-        <!--End Schedule-->
     </div>
 </div>

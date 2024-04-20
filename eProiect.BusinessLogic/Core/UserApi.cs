@@ -2,6 +2,7 @@
 using eProiect.BusinessLogic.DBContext;
 using eProiect.BusinessLogic.DBModel;
 using eProiect.Domain.Entities.Academic;
+using eProiect.Domain.Entities.Academic.DBModel;
 using eProiect.Domain.Entities.Responce;
 using eProiect.Domain.Entities.Schedule.DBModel;
 using eProiect.Domain.Entities.User;
@@ -21,7 +22,7 @@ namespace eProiect.BusinessLogic.Core
 {
      public class UserApi
      {
-        internal ULoginResp RLoginUpService(ULoginData data)
+        internal ActionResponse RLoginUpService(ULoginData data)
         {
             //TEST ADDING USR
             /*using (var db = new UserContext())
@@ -62,7 +63,7 @@ namespace eProiect.BusinessLogic.Core
                 if (result == null)
                 {
                     System.Diagnostics.Debug.WriteLine("ULoginResp returned status {FALSE}. Incorrect password or username.");
-                    return new ULoginResp { Status = false, ActionStatusMsg = "The username or password is incorrect." };
+                    return new ActionResponse { Status = false, ActionStatusMsg = "The username or password is incorrect." };
                 }
 
                 using (var todo=new UserContext())
@@ -73,14 +74,14 @@ namespace eProiect.BusinessLogic.Core
                     todo.SaveChanges();
                 }
                 System.Diagnostics.Debug.WriteLine("ULoginResp returned status {TRUE}.");
-                return new ULoginResp { Status = true };
+                return new ActionResponse { Status = true };
             }
             else
             {
                 //logging with something other than email, like username
                 //but there are no usernames here I think..
                 System.Diagnostics.Debug.WriteLine("ULoginResp returned status {FALSE}. Invalid email address.");
-                return new ULoginResp { Status = false, ActionStatusMsg = "Invalid email address." };
+                return new ActionResponse { Status = false, ActionStatusMsg = "Invalid email address." };
             }
         }
 
@@ -223,5 +224,61 @@ namespace eProiect.BusinessLogic.Core
 
             return schedule;
         }
-     }
+
+        internal List<AcademicGroup> GetAcademicGroupsList()
+        {
+            List<AcademicGroup> groupList;
+            using(var db = new UserContext())
+            {
+                groupList = db.AcademicGroups.ToList();
+            }
+            if (groupList == null)
+                return null;
+
+            return groupList;
+        }
+        
+        internal List<AcademicGroup> GetAcademicGroupsList(int year)
+        {
+            List<AcademicGroup> groupList;
+            using(var db = new UserContext())
+            {
+                groupList = db.AcademicGroups
+                    .Where(a=>a.Year == year )
+                    .ToList();
+            }
+            if (groupList == null)
+                return null;
+
+            return groupList;
+        }
+
+        internal List<UserDiscipline> GetUserDisciplinesById(int id)
+        {
+            List<UserDiscipline> discList; //= new List<UserDiscipline>();
+            using (var db = new UserContext())
+            {
+                discList = db.UserDisciplines
+                    .Include(ud => ud.Discipline)
+                    .Include(ud => ud.User)
+                    .Include(ud => ud.Type)
+                    .Where(ud => ud.UserId == id).ToList();
+            }
+            if (discList == null) 
+                return new List<UserDiscipline>();
+           
+            return discList;
+        }
+
+        /*internal List<Type> GetPermittedClassTypes(int id)
+        {
+            List<Type> classTypeList = new List<Type>();
+            using(var db = new UserContext())
+            {
+                classTypeList=db.UserDisciplines.
+                    Where(ud=>ud.UserId== id)
+                    .ToList();
+            }
+        }*/
+    }
 }

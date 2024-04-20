@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eProiect.Domain.Entities.Responce
 {
-     public class ULoginResp
+     public class ActionResponse
      {
           public string ActionStatusMsg { get; set; }
           public bool Status { get; set; }
