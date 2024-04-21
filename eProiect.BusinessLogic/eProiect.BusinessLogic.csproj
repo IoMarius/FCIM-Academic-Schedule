@@ -78,6 +78,10 @@
       <DependentUpon>202404171310503_UpdateAcademicTeble.cs</DependentUpon>
 
     </Compile>
+    <Compile Include="Migrations\202404211100479_UserRole Change.cs" />
+    <Compile Include="Migrations\202404211100479_UserRole Change.designer.cs">
+      <DependentUpon>202404211100479_UserRole Change.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrgBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +111,9 @@
     <EmbeddedResource Include="Migrations\202404171310503_UpdateAcademicTeble.resx">
       <DependentUpon>202404171310503_UpdateAcademicTeble.cs</DependentUpon>
 
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404211100479_UserRole Change.resx">
+      <DependentUpon>202404211100479_UserRole Change.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

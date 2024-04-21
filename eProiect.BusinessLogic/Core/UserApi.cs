@@ -125,9 +125,10 @@ namespace eProiect.BusinessLogic.Core
                     Name = "Vasile",
                     Surname = "Berco",
                     Email = "bercovasile@gmail.com",
-                    Level = UserRole.teacher
+                    Level = UserRole.admin
                };
-               var acction =  AddNewUser(newUser);*/
+               var acction = AddNewUser(newUser);*/
+               /* DeleteUser(2006);*/
 
                User result;
                var validate = new EmailAddressAttribute();
@@ -380,6 +381,7 @@ namespace eProiect.BusinessLogic.Core
                {
                     Name = newUserData.Name,
                     Surname = newUserData.Surname,
+                    Level = newUserData.Level,
                     CreatedDate = DateTime.Now,
                     LastLogin = DateTime.Now,
                     Credentials = newCredentials
@@ -657,10 +659,10 @@ namespace eProiect.BusinessLogic.Core
                     };
                try
                {
-                    User _user;
+                    UserCredential _user;
                     using (var db = new UserContext())
                     {
-                         _user = db.Users.FirstOrDefault(g => g.Id == Id);
+                         _user = db.UserCredentials.FirstOrDefault(g => g.Id == Id);
                          if (_user == null)
                          {
                               return new ActionResponse
@@ -670,7 +672,9 @@ namespace eProiect.BusinessLogic.Core
                               };
                          }
 
-                         db.Users.Remove(_user);
+
+                         db.UserCredentials.Remove(_user);
+
                          db.SaveChanges();
                     }
                }
