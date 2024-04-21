@@ -54,6 +54,7 @@
     <Compile Include="CookieBaker.cs" />
     <Compile Include="LoginHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendEmail.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

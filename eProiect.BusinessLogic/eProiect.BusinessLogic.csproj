@@ -63,15 +63,25 @@
     <Compile Include="DBContext\FatherContext.cs" />
     <Compile Include="DBContext\SessionContext.cs" />
     <Compile Include="DBContext\UserContext.cs" />
+
     <Compile Include="Interfaces\IOrg.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Migrations\202404280857355_initialNewDbMigr.cs" />
     <Compile Include="Migrations\202404280857355_initialNewDbMigr.Designer.cs">
       <DependentUpon>202404280857355_initialNewDbMigr.cs</DependentUpon>
+
+    </Compile>
+    <Compile Include="Interfaces\IAdmin.cs" />
+    <Compile Include="Interfaces\ISession.cs" />
+    <Compile Include="Migrations\202404171310503_UpdateAcademicTeble.cs" />
+    <Compile Include="Migrations\202404171310503_UpdateAcademicTeble.designer.cs">
+      <DependentUpon>202404171310503_UpdateAcademicTeble.cs</DependentUpon>
+
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrgBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionAdminBL.cs" />
     <Compile Include="SessionBL.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -86,11 +96,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+
     <EmbeddedResource Include="Migrations\202404280857355_initialNewDbMigr.resx">
       <DependentUpon>202404280857355_initialNewDbMigr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404171310503_UpdateAcademicTeble.resx">
+      <DependentUpon>202404171310503_UpdateAcademicTeble.cs</DependentUpon>
+
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

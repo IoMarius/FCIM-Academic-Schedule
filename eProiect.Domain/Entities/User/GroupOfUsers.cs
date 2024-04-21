@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eProiect.BusinessLogic.Core
+namespace eProiect.Domain.Entities.User
 {
-     public class AdminApi : UserApi
+     public class GroupOfUsers
      {
-
+          public List<User> Users { get; set; }
      }
 }

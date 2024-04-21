@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Academic\AcademicGroupsList.cs" />
+    <Compile Include="Entities\Academic\GroupOfCassRooms.cs" />
+    <Compile Include="Entities\Academic\GroupOfDisciplines.cs" />
     <Compile Include="Entities\Academic\ClassFrequency.cs" />
     <Compile Include="Entities\Academic\DBModel\AcademicGroup.cs" />
     <Compile Include="Entities\Academic\DBModel\ClassRoom.cs" />
@@ -61,7 +64,12 @@
     <Compile Include="Entities\Schedule\DBModel\ClassType.cs" />
     <Compile Include="Entities\Schedule\DBModel\Class.cs" />
     <Compile Include="Entities\Schedule\DBModel\WeekDay.cs" />
+
     <Compile Include="Entities\Schedule\FreeClassroomRequest.cs" />
+
+    <Compile Include="Entities\User\GroupOfUsers.cs" />
+    <Compile Include="Entities\User\NewUserData.cs" />
+
     <Compile Include="Entities\User\ReducedUser.cs" />
     <Compile Include="Entities\User\DBModel\Session.cs" />
     <Compile Include="Entities\User\DBModel\UserCredential.cs" />
@@ -84,6 +92,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram3.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5990,6 +5990,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Atributes\UserModeAttribute.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -6044,6 +6045,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Schedule.cshtml" />
     <Content Include="Views\Home\AddLesson.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

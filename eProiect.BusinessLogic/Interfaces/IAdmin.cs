@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eProiect.BusinessLogic.Core
+namespace eProiect.BusinessLogic.Interfaces
 {
-     public class AdminApi : UserApi
+     public interface IAdmin : ISession
      {
-
      }
 }

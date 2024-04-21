@@ -7,14 +7,13 @@ namespace eProiect.BusinessLogic.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-
-    public sealed partial class initialNewDbMigr : IMigrationMetadata
+    public sealed partial class UpdateAcademicTeble : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initialNewDbMigr));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateAcademicTeble));
         
         string IMigrationMetadata.Id
         {
-            get { return "202404280857355_initialNewDbMigr"; }
+            get { return "202404171310503_UpdateAcademicTeble"; }
         }
         
         string IMigrationMetadata.Source

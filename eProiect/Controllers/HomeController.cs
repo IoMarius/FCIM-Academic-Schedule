@@ -206,6 +206,7 @@ namespace eProiect.Controllers
             }
 
 
+
             GeneralViewData viewData = new GeneralViewData
             {
                 Schedule = userSchedule,
