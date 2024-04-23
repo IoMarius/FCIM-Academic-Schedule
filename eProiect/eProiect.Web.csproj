@@ -3712,7 +3712,7 @@
     <Content Include="Vendor\assets\pages\data-table\js\pdfmake.min.js" />
     <Content Include="Vendor\assets\pages\data-table\js\vfs_fonts.js" />
     <Content Include="Vendor\assets\pages\edit-table\editable.js" />
-    <Content Include="Vendor\assets\pages\edit-table\jquery.tabledit.js" />
+    <Content Include="Vendor\assets\pages\edit-table\jquerytabledit.js" />
     <Content Include="Vendor\assets\pages\filer\custom-filer.js" />
     <Content Include="Vendor\assets\pages\filer\jquery.fileuploads.init.js" />
     <Content Include="Vendor\assets\pages\filer\php\ajax_remove_file.php" />
@@ -6046,6 +6046,10 @@
     <Content Include="Views\Home\Schedule.cshtml" />
     <Content Include="Views\Home\AddLesson.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Shared\_Layout _Admin.cshtml" />
+    <Content Include="Views\Admin\Disciplines.cshtml" />
+    <Content Include="Views\Admin\AcademicGroups.cshtml" />
+    <Content Include="Views\Admin\ClassRooms.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,38 @@
+﻿@model  eProiect.Models.ViewModels.GeneralViewData
+@{
+     ViewBag.Title = "ClassRooms";
+     Layout = "~/Views/Shared/_Layout _Admin.cshtml";
+}
+
+
+
+<thead>
+     <tr>
+          <th>#</th>
+          <th>Class Room Name</th>
+          <th>Floor</th>
+
+     </tr>
+</thead>
+<tbody>
+     @{
+          foreach (var classRoom in @Model.CassRoomsDataList.CassRooms)
+          {
+
+               <tr>
+                    <th scope="row">@classRoom.Id</th>
+                    <td class="tabledit-view-mode">
+                         <span class="tabledit-span">@classRoom.ClassroomName</span>
+                         <input class="tabledit-input form-control input-sm" type="text" name="Name" value="@classRoom.ClassroomName">
+                    </td>
+                    <td class="tabledit-view-mode">
+                         <span class="tabledit-span">@classRoom.Floor</span>
+                         <input class="tabledit-input form-control input-sm" type="text" name="Surname" value="@classRoom.Floor">
+                    </td>
+                 
+               </tr>
+          }
+
+     }
+
+</tbody>

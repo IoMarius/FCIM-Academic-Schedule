@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Web;
 using System.Web.Optimization;
+using System.Web.UI.WebControls;
 
 namespace eProiect.App_Start
 {
@@ -134,9 +137,25 @@ namespace eProiect.App_Start
             bundles.Add(new StyleBundle("~/bundles/navbar-user-styles/css").Include(
             "~/Vendor/assets/css/navbar-profile-style.css", new CssRewriteUrlTransform()));
 
+
             //--------------------LESSONADD-SCRIPTS
             bundles.Add(new Bundle("~/bundles/addlesson-selector/js").Include(
             "~/Vendor/assets/js/update-lessonadd-selector.js"));
+
+
+
+          // -----------------------Edit-table----------------------------------------------
+          
+               bundles.Add(new Bundle("~/bundles/edittables/js").Include(
+                "~/Vendor/assets/pages/edit-table/jquerytabledit.js"));
+
+               bundles.Add(new Bundle("~/bundles/edittables1/js").Include(
+               "~/Vendor/assets/pages/edit-table/editable.js"));
+      
+
+
+          
+
 
             bundles.Add(new StyleBundle("~/bundles/select2").Include(
             "~/Vendor/select2/css/select2-bootstrap-5-theme.css", new CssRewriteUrlTransform()));

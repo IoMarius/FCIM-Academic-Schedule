@@ -1,9 +1,53 @@
-﻿
+﻿@model  eProiect.Models.ViewModels.GeneralViewData
+@using eProiect.Domain.Entities.User;
 
 @{
-    ViewBag.Title = "Users";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+     ViewBag.Title = "Users";
+     Layout = "~/Views/Shared/_Layout _Admin.cshtml";
 }
 
-<h2>Users</h2>
+<thead>
+     <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Email</th>
+          <th>Role</th>
+     </tr>
+</thead>
+<tbody>
+     @{
+          foreach (var user in @Model.UDataList)
+          {
+
+               <tr id=@user.Id>
+                    <th scope="row" name = "userId" id = "userId">@user.Id </th>
+                    <td class="tabledit-view-mode">
+                         <span class="tabledit-span">@user.Name</span>
+                         <input class="tabledit-input form-control input-sm" type="text" name="userName" id="userName" value="@user.Name">
+                    </td>
+                    <td class="tabledit-view-mode">
+                         <span class="tabledit-span" id="SpanuserSurname" name ="SpanuserSurname" >@user.Surname</span>
+                         <input class="tabledit-input form-control input-sm" type="text" name="userSurname" id="userSurname" value="@user.Surname">
+                    </td>
+                    <td class="tabledit-view-mode">
+                         <span class="tabledit-span">@user.Email</span>
+                         <input class="tabledit-input form-control input-sm" type="text" name="userEmail" id="userEmail" value="@user.Email">
+                    </td>
+                    <td class="tabledit-view-mode">
+                         <span class="tabledit-span">@user.Level</span>
+                         <select class="tabledit-input form-control input-sm" name="userLevel" id="userLevel" disabled="" style="display:none;">
+                              <option value="1">@UserRole.teacher</option>
+                              <option value="2">@UserRole.admin</option>
+                              <option value="3">@UserRole.guest</option>
+                         </select>
+                    </td>
+
+               </tr>
+          }
+
+     }
+
+</tbody>
+
 

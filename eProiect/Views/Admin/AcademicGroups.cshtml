@@ -1,0 +1,42 @@
+﻿@model  eProiect.Models.ViewModels.GeneralViewData
+@{
+     ViewBag.Title = "AcademicGroups";
+     Layout = "~/Views/Shared/_Layout _Admin.cshtml";
+}
+
+
+
+<thead>
+     <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Year</th>
+
+     </tr>
+</thead>
+<tbody>
+     @{
+          foreach (var academicGroup in @Model.AcademicGroupsDataList.AcademicGroups)
+          {
+
+          <tr>
+               <th scope="row">@academicGroup.Id</th>
+               <td class="tabledit-view-mode">
+                    <span class="tabledit-span">@academicGroup.Name</span>
+                    <input class="tabledit-input form-control input-sm" type="text" name="Name" value="@academicGroup.Name">
+               </td>
+               <td class="tabledit-view-mode">
+                    <span class="tabledit-span">@academicGroup.Name</span>
+                    <select class="tabledit-input form-control input-sm" name="Year" disabled="" style="display:none;">
+                         <option value="1">I</option>
+                         <option value="2">II</option>
+                         <option value="3">III</option>
+                         <option value="3">IV</option>
+                    </select>
+               </td>
+          </tr>
+          }
+
+     }
+
+</tbody>

@@ -30,7 +30,7 @@ namespace eProiect.Controllers
         public HomeController()
         { 
         }
-    
+
         public ActionResult Index()
         {
             SessionStatus();
@@ -42,8 +42,9 @@ namespace eProiect.Controllers
             var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
             return View(loggedInUser); 
         }
-        
-        public ActionResult Tables()
+
+          [UserMode(UserRole.admin, UserRole.teacher)]
+          public ActionResult Tables()       
         {
            
             SessionStatus();
@@ -55,7 +56,8 @@ namespace eProiect.Controllers
             return View();
         }
 
-        public ActionResult UserProfile()
+          
+          public ActionResult UserProfile()
         {
             SessionStatus();
             if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
@@ -66,8 +68,9 @@ namespace eProiect.Controllers
             return View();         
         }
 
+
         [UserMode(UserRole.admin, UserRole.teacher)]
-        public ActionResult Schedule()
+        public ActionResult Schedule() 
         {
             SessionStatus();
             if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
@@ -215,12 +218,12 @@ namespace eProiect.Controllers
 
             return View(viewData);
         }
-
         //Move get post stuff to another controller
         //Home controller only for pages.
         //( Modify ajax requests :( )
 
-        [HttpGet]
+          [HttpGet]
+          [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetLoggedUserDisciplineTypes(int disciplineId)
         {
             var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
@@ -339,6 +342,7 @@ namespace eProiect.Controllers
         }
 
         [HttpPost]
+          [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetFreeClassroomsByFloor(FreeClassroomsMinimalRequest requestData)
         {
             /* var freeClassrooms = _organizational.GetFreeClassroomsByFloor(floor);

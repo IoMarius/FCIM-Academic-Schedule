@@ -1,16 +1,53 @@
-﻿<div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+﻿@model  eProiect.Models.ViewModels.GeneralViewData
+@using eProiect.Domain.Entities.User;
+
+<div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
 
 <div class="pcoded-inner-navbar main-menu">
-    <ul class="pcoded-item pcoded-left-item">
-        <!--Dashboard sidebar option-->
-        <!--Tables example (temporary)-->
-        <li class=" ">
-            <a href="@Url.Action("Schedule", "Home")">
-                <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
-                <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Dynamic Schedule</span>
-                <span class="pcoded-mcaret"></span>
-            </a>
-        </li>
-    </ul>
-     
+     <ul class="pcoded-item pcoded-left-item">
+          <!--Dashboard sidebar option-->
+          <!--Tables example (temporary)-->
+          <li class=" ">
+               <a href="@Url.Action("Schedule", "Home")">
+                    <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Dynamic Schedule</span>
+                    <span class="pcoded-mcaret"></span>
+               </a>
+          </li>
+          @{
+               if (Model.UData.Level == UserRole.admin)
+               {
+                    <li class=" ">
+                         <a href="@Url.Action("Users", "Admin")">
+                              <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
+                              <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Users</span>
+                              <span class="pcoded-mcaret"></span>
+                         </a>
+                    </li>
+                    <li class=" ">
+                         <a href="@Url.Action("Disciplines", "Admin")">
+                              <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
+                              <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Disciplines</span>
+                              <span class="pcoded-mcaret"></span>
+                         </a>
+                    </li>
+                    <li class=" ">
+                         <a href="@Url.Action("AcademicGroups", "Admin")">
+                              <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
+                              <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Academic Groups</span>
+                              <span class="pcoded-mcaret"></span>
+                         </a>
+                    </li>
+                    <li class=" ">
+                         <a href="@Url.Action("ClassRooms", "Admin")">
+                              <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
+                              <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Class Rooms</span>
+                              <span class="pcoded-mcaret"></span>
+                         </a>
+                    </li>
+               }
+
+          }
+     </ul>
+
 </div>

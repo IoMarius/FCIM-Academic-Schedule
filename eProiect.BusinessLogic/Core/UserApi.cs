@@ -122,13 +122,27 @@ namespace eProiect.BusinessLogic.Core
 
               /* var newUser = new NewUserData
                {
-                    Name = "Vasile",
-                    Surname = "Berco",
-                    Email = "bercovasile@gmail.com",
-                    Level = UserRole.admin
+                    Name = "Livia",
+                    Surname = "Livia",
+                    Email = "liv2003c@gmail.com",
+                    Level = UserRole.teacher
                };
                var acction = AddNewUser(newUser);*/
-               /* DeleteUser(2006);*/
+               /*DeleteUser(2008);*/
+
+               /*  var newDiscipline = new Discipline
+                 {
+                      Name = "Matematic speciale 1",
+                      ShortName = "MS1"
+                 };
+                 var action = AddNewDiscipline(newDiscipline);
+
+                 var newDiscipline1 = new Discipline
+                 {
+                      Name = "Matematic speciale 2",
+                      ShortName = "MS2"
+                 };
+                 var action1 = AddNewDiscipline(newDiscipline1);*/
 
                User result;
                var validate = new EmailAddressAttribute();
@@ -314,7 +328,7 @@ namespace eProiect.BusinessLogic.Core
 
                using (var db = new UserContext())
                {
-                    allUsers.Users = db.Users.ToList();
+                    allUsers.Users = db.Users.Include(u => u.Credentials).ToList();
                }
                return allUsers;
           }
@@ -362,7 +376,7 @@ namespace eProiect.BusinessLogic.Core
                }
 
 
-               var _password = Membership.GeneratePassword(12, 4);
+               var _password = Membership.GeneratePassword(12, 0);
                var  mesages = "This is your password " + _password;
                if (!SendEmail.SendEmailToUser(newUserData.Email,newUserData.Name, "Password for Shedules Platform" , mesages))
                     return new ActionResponse

@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Mail;
 using System.Net;
-using System.Globalization;
+using System.Net.Mail;
 
 namespace eProiect.Helper
 {
      public class SendEmail
-     { 
-          public static bool SendEmailToUser(string email , string name , string subject,  string body)
+     {
+          public static bool SendEmailToUser(string email, string name, string subject, string body)
           {
                try
                {
@@ -24,8 +19,8 @@ namespace eProiect.Helper
                          client.EnableSsl = true;
                          client.Credentials = new NetworkCredential("utmtest@mail.ru", "EBCTmsdZ6u7S54DNYCjp\r\n");
                          using (var message = new MailMessage(
-                             from: new MailAddress("utmtest@mail.ru", "Vasile Berco"),
-                             to: new MailAddress(email,  name)
+                             from: new MailAddress("utmtest@mail.ru", "FCIM Schedule bot"),
+                             to: new MailAddress(email, name)
                              ))
                          {
                               message.Subject = subject;
@@ -41,8 +36,6 @@ namespace eProiect.Helper
                     Console.WriteLine($"An error occurred: {ex.Message}");
                     return false; // Or do something else to indicate failure
                }
-
-
           }
      }
 }
