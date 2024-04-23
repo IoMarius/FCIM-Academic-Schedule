@@ -46,7 +46,6 @@ namespace eProiect.BusinessLogic.Core
                 db.Users.Add(newUser);
                 db.SaveChanges();
             }*/
-
             //TEST
 
             User result;
@@ -78,8 +77,6 @@ namespace eProiect.BusinessLogic.Core
             }
             else
             {
-                //logging with something other than email, like username
-                //but there are no usernames here I think..
                 System.Diagnostics.Debug.WriteLine("ULoginResp returned status {FALSE}. Invalid email address.");
                 return new ActionResponse { Status = false, ActionStatusMsg = "Invalid email address." };
             }
@@ -270,15 +267,17 @@ namespace eProiect.BusinessLogic.Core
             return discList;
         }
 
-        /*internal List<Type> GetPermittedClassTypes(int id)
+        internal List<ClassRoom> GetClassrooms(int floor)
         {
-            List<Type> classTypeList = new List<Type>();
-            using(var db = new UserContext())
+            List<ClassRoom> freeClassrooms=new List<ClassRoom>();
+            using (var db = new UserContext())
             {
-                classTypeList=db.UserDisciplines.
-                    Where(ud=>ud.UserId== id)
+                freeClassrooms = db.ClassRooms
+                    .Where(cr => !db.Classes.Any(cl => cl.ClassRoomId == cr.Id) && cr.Floor==floor)
                     .ToList();
             }
-        }*/
+
+            return freeClassrooms;
+        }
     }
 }

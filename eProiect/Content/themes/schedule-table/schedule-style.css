@@ -199,9 +199,9 @@ th {
         justify-content: center;
     }
 
-    .timetable-intervals{
+    /*.timetable-intervals{
         transform:rotate(-50deg)
-    }
+    }*/
 
     .timetable-cell-content-even, .timetable-cell-content-odd {
         transform: scale(0.7);

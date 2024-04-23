@@ -14,7 +14,7 @@
     bool isEvenWeek = frame.isEvenWeek();
 }
 
-<div id="static-container">
+<div id="schedule-container">
     <div id="partial-view-container">
         <div class="pcoded-inner-content">
             <div class="main-body">
@@ -169,7 +169,7 @@
                                         {
                                             <td class="empty clickable">
                                                                                                                              
-                                                <button id="addLesson" class="covered plus-button" type="submit" name="lessonInfo" data-position-hour="@interval.Item1.Hours" data-position-minutes="@interval.Item1.Minutes" data-position-weekday-nr="@cellNr">
+                                                <button id="addLesson" class="covered plus-button" type="submit" name="lessonInfo" data-position-time="@interval.Item1.ToString("hh\\:mm")" data-position-weekday-nr="@cellNr" data-position-hours="@interval.Item1.Hours" data-position-minutes="@interval.Item1.Minutes">
                                                     <i class="ti-plus button-plus-sign"></i>
                                                 </button>
 
@@ -187,5 +187,210 @@
             <!--End Schedule-->
             </div>
         </div>
+    </div>
+</div>
+<div id="addlesson-container" style="display:none;">
+    <div class="card">
+        <div class="card-body">
+            <div class="page-top-info" style="margin-bottom: -4px; display: inline-flex; align-items: center; width: 100%; justify-content: center">
+                <div class="highlighted-lesson-info">
+
+                    <span style="font-size: 30px; color: #303548; margin-right: 8px;">Perechea va fi plasată </span>
+                    <div style="background-color: #151a2b; border-radius: 9px ">
+                        <span id="selectedTime" class="selected-lesson-startime"></span>
+                        <span id="hour" style="display:none;">o</span>
+                        <span id="minute" style="display:none;">o</span>
+                        <span id="day" style="display:none;">o</span>
+                    </div>
+                </div>
+
+                
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <!--SELECTORS-->
+                    <div class="container p-0" style="margin:0">
+
+
+                        <!--Discipline,Type-->
+                        <div class="row">
+                            <div class="select-category-addlesson col-3"><span>Disciplina</span></div>
+                            <div class="col">
+                                <select id="disciplineSelector" name="select" class="form-control form-control-inverse">
+                                    <option disabled selected value="-1">disciplina</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="select-category-addlesson col-3"><span>Tipul perechii</span></div>
+                            <div class="col">
+                                <select id="typeSelector" name="select" class="form-control form-control-inverse">
+                                    <option disabled selected value="-1">tipul</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <!--Year selector, group-->
+                        <div class="row">
+                            <div class="select-category-addlesson col-3"><span>Anul de studii</span></div>
+                            <div class="col">
+                                <select id="yearSelector" name="select" class="yearSelect form-control form-control-inverse">
+                                    <option disabled selected value="-1">anul</option>
+                                    <option value="1">anul 1</option>
+                                    <option value="2">anul 2</option>
+                                    <option value="3">anul 3</option>
+                                    <option value="4">anul 4</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="multi-group-select" class="multi-selector closed">
+                            <div class="row">
+                                <div class="col-3" style=" display: flex; padding: 0; align-items: center; justify-content: flex-end;">
+                                    <button id="toggle-dropdown" class="dropdown-button">select groups</button>
+                                </div>
+                                <div class="col">
+                                    <div id="selected-options" class="selected-tags"></div>
+                                </div>
+                            </div>
+
+                            <div id="group-menu" class="closed" style="display:flex">
+                                <div class="col-3"></div>
+                                <div class="col">
+                                    <div id="dropdown-options" class="dropdown-content">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="group-select-row" class="row">
+                            <div class="select-category-addlesson col-3"><span>Grupa</span></div>
+                            <div class="col">
+                                <select id="groupSelector" name="select" class="form-control form-control-inverse">
+                                    <option disabled selected value="-1">grupa</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <!--Etajul, cabinetul-->
+                        <div class="row">
+
+                            <div class="select-category-addlesson col-3"><span>Etajul</span></div>
+                            <div class="col">
+                                <select id="floorSelector" name="select" class="form-control form-control-inverse">
+                                    <option disabled selected value="-1">etajul</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="select-category-addlesson col-3"><span>Cabinetul</span></div>
+                            <div class="col">
+                                <select id="classroomSelector" name="select" class="form-control form-control-inverse">
+                                    <option disabled selected value="-1">cabinetul</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
+                        <!--Even Odd radio buttons-->
+                        <div class="form-radio">
+                            <div class="row">
+                                <div class="col-3" style=" display: flex; align-items: center; justify-content: flex-end; padding-right: 0;">
+                                    <span>Frecvență:</span>
+                                </div>
+
+
+                                <div class="col-5">
+                                    <div class="radio radiofill radio-info" style="display: inline-flex; flex-direction: row-reverse;">
+                                        <label class="class-type-label">
+                                            <input type="radio" name="frequency" value="2" checked="checked">
+                                            <i class="helper"></i>Pară
+                                        </label>
+
+                                        <label class="class-type-label">
+                                            <input type="radio" name="frequency" value="1" checked="checked">
+                                            <i class="helper"></i>Impară
+                                        </label>
+
+                                        <label class="class-type-label">
+                                            <input type="radio" name="frequency" value="3" checked="checked">
+                                            <i class="helper"></i>Săptămânală
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Lesson duration-->
+                        <div class="form-radio">
+                            <div class="row">
+                                <div class="col-3" style=" display: flex; align-items: center; justify-content: flex-end; padding-right: 0;">
+                                    <span>Durată:</span>
+                                </div>
+
+                                <div class="col">
+                                    <div class="radio radiofill radio-info" style="display: inline-flex; flex-direction: row-reverse;">
+                                        <label class="class-type-label">
+                                            <input type="radio" name="length" value="1" checked="checked">
+                                            <i class="helper"></i>2 perechi
+                                        </label>
+
+                                        <label class="class-type-label">
+                                            <input type="radio" name="length" value="2" checked="checked">
+                                            <i class="helper"></i>1 pereche
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                <div class="col-5" style="display: flex; align-items: flex-end; flex-direction: column; justify-content: flex-end;">
+                    <!--CONFIRM BUTTONS-->
+                    
+                        
+                            <p>
+                                * perechile necesită aprobare de către administrator.
+                                Veți primi un mesaj pe poștă la aprobarea/dezaprobarea acesteia.
+                            </p>
+
+                       <div style="display: flex; align-items: flex-end; justify-content: space-around; width: 100%; ">
+                            <button id="submit-button-addlesson" type="submit">Confirmă <i class="ti-check"></i></button>
+                            
+                            <div class="cancel-action">
+                                <a class="go-back" style="font-size: 14.7px; " href="@Url.Action("Schedule", "Home")">Anulează <i class="ti-trash"></i></a>
+                            </div>
+
+                       </div>
+                    
+                </div>
+            </div>
+
+            
+            
+            
     </div>
 </div>

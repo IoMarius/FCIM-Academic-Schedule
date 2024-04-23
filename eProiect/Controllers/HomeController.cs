@@ -144,12 +144,9 @@ namespace eProiect.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddLesson(int sHour, int sMinutes, int sDay)
+        public ActionResult AddNewClass(ComposedClassInfo data, List<int> groupIds)
         {
-            return PartialView(
-                "AddLesson",
-                new SelectedClassInfo(sHour, sMinutes, sDay)
-            );
+            return null;//implement in db
         }
         
         [HttpPost]
@@ -166,6 +163,7 @@ namespace eProiect.Controllers
             return Json(groupList);
         }
 
+
         [HttpGet]
         public ActionResult GetLoggedUserDisciplines()
         {
@@ -174,9 +172,14 @@ namespace eProiect.Controllers
                 return Json(new List<UserDiscipline>());
 
             var discList=_session.GetDisciplinesById(loggedInUser.Id);
-
-
             return Json(discList, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult GetFreeClassroomsByFloor(int floor)
+        {
+            var freeClassrooms = _session.GetFreeClassroomsByFloor(floor);
+            return Json(freeClassrooms, JsonRequestBehavior.AllowGet);
         }
 
         [UserMode(UserRole.admin, UserRole.teacher)]

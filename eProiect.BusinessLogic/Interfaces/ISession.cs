@@ -30,6 +30,6 @@ namespace eProiect.BusinessLogic.Interfaces
 
           List<UserDiscipline> GetDisciplinesById(int id);
 
-          List<Type> GetUserPermittedClassTypes(int id);
+          List<ClassRoom> GetFreeClassroomsByFloor(int floor);
      }
 }

@@ -137,6 +137,9 @@ namespace eProiect.App_Start
             //--------------------LESSONADD-SCRIPTS
             bundles.Add(new Bundle("~/bundles/addlesson-selector/js").Include(
             "~/Vendor/assets/js/update-lessonadd-selector.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/select2").Include(
+            "~/Vendor/select2/css/select2-bootstrap-5-theme.css", new CssRewriteUrlTransform()));
         }
     }
 }

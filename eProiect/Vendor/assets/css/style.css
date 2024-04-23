@@ -43,17 +43,123 @@ body {
     width: 100%;
     top: 0;
 }
+/*
+    ----------------------------------------------------------------------------MULTISELECT-START
+*/
 
-.class-type-label{
-    margin-right:10px;
+.dropdown-content {
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 4px;
+    /*display: flex;
+    flex-direction: column;
+    width: fit-content;
+    padding: 3px;*/
+    /* border: 1px solid black;*/
+    /*margin-top: -12px;
+    padding-top:14px;
+    border-radius: 0 0 12px 12px;
+    background-color:#ddd;
+    margin-left:35px;*/
+}
+
+.option{
+    padding: 5px 10px;
+    /*border: solid 1px black;*/
+    cursor:pointer; 
+    width: 86px;
+}
+
+.listed {
+    display: flex;
+    justify-content: center;
+    /*border: 1px solid black;*/
+    margin: 2px;
+    border-radius: 8px;
+    background-color: #6f8ef5;
+    color:white;
+}
+
+.closed {
+    display: none !important;
+    margin-bottom: 0;
+}
+
+
+
+.selected {
+    /*background-color: aqua;*/
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3px;
+    border-radius: 9px;
+    background-color: #6f8ef5;
+    color: white;
+}
+
+.selected:hover {
+    background-color: #537afb;
+}
+
+.selected-tags {
+    border: 1px solid #cccccc;
+    min-height: 40.6px;
+    border-radius: 12px;
+    padding: 3px;
+    /*
+    display: flex;
+    height: 40.6px;
+    padding: 4px;
+    width: fit-content;
+    min-width: 15rem;
+    background-color: white;*/
+}
+
+.dropdown-button {
+    height: fit-content;
+    border-radius: 2px;
+    border: 1px solid black;
+    cursor: pointer;
+    /*
+    color: white;
+    background-color: #151a2b;
+    border: 0;
+    margin-right: -30px;
+    border-radius: 12px;
+    padding-right: 37px;
+    padding-left: 13px;
+    cursor:pointer;
+        margin-left: 35px;*/
+}
+
+.dropdown-button:hover {
+    background-color: #cecece;
+}
+
+
+.dropdown-button:focus {
+    outline: none;
+    background-color: #f7f7f7;
+}
+/*
+    ----------------------------------------------------------------------------MULTISELECT-END
+*/
+.class-type-label {
+    margin-right: 10px;
 }
 
 .select-category-addlesson {
     display: flex;
-    border: 1px solid red;
-    justify-content: center;
+    /*border: 1px solid red;*/
+    justify-content: flex-end;
+    /*justify-content: center;*/
     align-items: center;
-    font-size: 18px;
+    font-size: 14px;
+    padding-right:0;
 }
 
 .selected-lesson-startime {
@@ -69,11 +175,28 @@ body {
 }
 
 .cancel-action {
-    background-color: orangered;
-    padding: 10px;
-    border-radius: 14px;
-    float:right;
+    background-color: #efefef;
+    padding: 1px 6px;
+    border-radius: 2px;
+    /* float: right; */
+    border: 1px solid;
 }
+
+.cancel-action:hover {
+    background-color: #cecece;
+}
+
+.cancel-action:focus {
+    outline: none;
+    background-color: #f7f7f7;
+}
+
+go-back, go-back:hover, go-back:focus, go-back:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+
 
 ul {
     padding-left: 0;
@@ -9661,8 +9784,9 @@ body.menu-bottom #collapse-menu {
   border-color: #93BE52; }
 
 .form-control-inverse {
-  border-color: #303548;
-  color: #303548; }
+    border-radius: 12px;
+    color: #303548;
+}
   .form-control-inverse:focus {
     border-color: #303548; }
 

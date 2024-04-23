@@ -50,9 +50,9 @@ namespace eProiect.BusinessLogic
             return GetUserDisciplinesById(id);
         }
 
-        public List<Type> GetUserPermittedClassTypes(int id)
+        public List<ClassRoom> GetFreeClassroomsByFloor(int floor)
         {
-            throw new NotImplementedException();
+            return GetClassrooms(floor);
         }
     }
 }

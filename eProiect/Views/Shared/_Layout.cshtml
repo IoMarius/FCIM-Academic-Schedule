@@ -3,34 +3,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-     <meta name="description" content="#">
-     <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
-     <meta name="author" content="#">
-     <!-- Favicon icon -->
-     <link rel="icon" href="~/Vendor/assets/images/favicon.ico" type="image/x-icon">
-     <!-- Google font-->
-     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
-     <!-- Required Fremwork -->
-     @Styles.Render("~/bundles/bootstrap/css")
-     <!-- themify-icons line icon -->
-     @Styles.Render("~/bundles/themify-icons/css1")
-     <!-- ico font -->
-     @Styles.Render("~/bundles/ico-font/css2")
-     <!-- Menu-Search css -->
-     @Styles.Render("~/bundles/menu-search/css3")
-     <!-- Style.css -->
-     @Styles.Render("~/bundles/style/css4")
-     @Styles.Render("~/bundles/mCustomScrollbar/css5")
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="#">
+    <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="#">
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/Vendor/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 
-     
-     @Styles.Render("~/bundles/schedule-table/css")
-     @Styles.Render("~/bundles/navbar-user-styles/css");
 
-     @if (IsSectionDefined("Styles"))
-     {@RenderSection("Styles", required: false)}
+
+    <!-- Required Fremwork -->
+    @Styles.Render("~/bundles/bootstrap/css")
+    <!-- themify-icons line icon -->
+    @Styles.Render("~/bundles/themify-icons/css1")
+    <!-- ico font -->
+    @Styles.Render("~/bundles/ico-font/css2")
+    <!-- Menu-Search css -->
+    @Styles.Render("~/bundles/menu-search/css3")
+    <!-- Style.css -->
+    @Styles.Render("~/bundles/style/css4")
+    @Styles.Render("~/bundles/mCustomScrollbar/css5")
+
+
+    @Styles.Render("~/bundles/schedule-table/css")
+    @Styles.Render("~/bundles/navbar-user-styles/css");
+
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
 
 
 </head>
@@ -97,6 +100,7 @@
     @Scripts.Render("~/bundles/script/js")
     @Scripts.Render("~/bundles/schedule-table")
     @Scripts.Render("~/bundles/addlesson-selector/js");
+
 
 
 </body>
