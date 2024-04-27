@@ -26,12 +26,8 @@ namespace eProiect.Controllers
 {
      public class HomeController : BaseController
      {
-
-        private readonly ISession _session;
         public HomeController()
-        {
-            var bl=new BusinessLogic.BuissinesLogic();
-            _session=bl.GetSessionBL();
+        { 
         }
     
         public ActionResult Index()
@@ -73,12 +69,12 @@ namespace eProiect.Controllers
         public ActionResult GetLoggedUserDisciplineTypes(int disciplineId)
         {
             var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
-            var classTypes = _session.GetTypesByDisciplineForUser(disciplineId, loggedInUser.Id);
+            var classTypes = _organizational.GetTypesByDisciplineForUser(disciplineId, loggedInUser.Id);
             
             return Json(classTypes, JsonRequestBehavior.AllowGet);
         }
 
-        /*[UserMode(UserRole.admin, UserRole.teacher)]*/
+        [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult Schedule() 
         {
             SessionStatus();
@@ -98,7 +94,7 @@ namespace eProiect.Controllers
 
 
             Models.Users.UserSchedule userSchedule = new Models.Users.UserSchedule();
-            var currentSchedule = _session.GetScheduleById(loggedInUser.Id);
+            var currentSchedule = _organizational.GetScheduleById(loggedInUser.Id);
 
             //var thingy = currentSchedule.Schedule[0, 3].Item1.Discipline;
        
@@ -220,7 +216,7 @@ namespace eProiect.Controllers
                     
                 };
 
-                var result = _session.AddNewClass(newClass);
+                var result = _organizational.AddNewClass(newClass);
                 responses.Add(result); //NOT WORKING 
             }
 
@@ -237,7 +233,7 @@ namespace eProiect.Controllers
                 return Json(groupList);
             }
 
-            groupList = _session.GetAcadGroupsList(year);
+            groupList = _organizational.GetAcadGroupsList(year);
             return Json(groupList);
         }
 
@@ -249,16 +245,16 @@ namespace eProiect.Controllers
             if (loggedInUser == null)
                 return Json(new List<UserDiscipline>());
 
-            var discList=_session.GetDisciplinesById(loggedInUser.Id);
+            var discList=_organizational.GetDisciplinesById(loggedInUser.Id);
             return Json(discList, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult GetFreeClassroomsByFloor(FreeClassroomsMinimalRequest requestData)
         {
-            /* var freeClassrooms = _session.GetFreeClassroomsByFloor(floor);
+            /* var freeClassrooms = _organizational.GetFreeClassroomsByFloor(floor);
              return Json(freeClassrooms, JsonRequestBehavior.AllowGet);*/
-            var freeClassrooms = _session.GetFreeClassroomsByFloorAndTime(
+            var freeClassrooms = _organizational.GetFreeClassroomsByFloorAndTime(
                     new FreeClassroomsRequest()
                     {
                         Floor=requestData.Floor,

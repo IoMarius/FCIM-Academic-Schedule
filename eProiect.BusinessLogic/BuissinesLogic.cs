@@ -13,5 +13,10 @@ namespace eProiect.BusinessLogic
           {
                return new SessionBL();
           }
+
+          public IOrg GetOrgBl()
+          {
+                return new OrgBL();
+          }
      }
 }

@@ -23,22 +23,5 @@ namespace eProiect.BusinessLogic.Interfaces
           HttpCookie GenCookie(string loginCredential);
 
           ReducedUser GetUserByCookie(string cookieString);
-
-          UserSchedule GetScheduleById(int id);
-
-          List<AcademicGroup> GetAcadGroupsList();
-
-          List<AcademicGroup> GetAcadGroupsList(int year);
-
-          List<UserDiscipline> GetDisciplinesById(int id);
-
-          List<ClassRoom> GetFreeClassroomsByFloorAndTime(FreeClassroomsRequest data);
-
-          List<ClassType> GetTypesByDisciplineForUser(int disciplineId, int userId);
-
-       /*   List<ClassType> GetPermittedDisciplineTypes() */
-          ActionResponse AddNewClass(Class newClass);
-
-
      }
 }

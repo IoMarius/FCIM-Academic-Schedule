@@ -30,40 +30,5 @@ namespace eProiect.BusinessLogic
         public ReducedUser GetUserByCookie(string cookieString){
             return UserByCookie(cookieString);
         }
-
-        public UserSchedule GetScheduleById(int id)
-        {
-            return GetUserScheduleById(id);
-        }
-
-        public List<AcademicGroup> GetAcadGroupsList()
-        {
-            return GetAcademicGroupsList();
-        }
-        
-        public List<AcademicGroup> GetAcadGroupsList(int year)
-        {
-            return GetAcademicGroupsList(year);
-        }
-
-        public List<UserDiscipline> GetDisciplinesById(int id)
-        {
-            return GetUserDisciplinesById(id);
-        }
-
-        public List<ClassRoom> GetFreeClassroomsByFloorAndTime(FreeClassroomsRequest data)
-        {
-            return GetClassroomsFreeAtTime(data);
-        }
-
-        public ActionResponse AddNewClass(Class newClass)
-        {
-            return AddNewClassToDb(newClass);
-        }
-
-        public List<ClassType> GetTypesByDisciplineForUser(int disciplineId, int userId)
-        {
-            return GetUserDisciplineTypesByUserId(disciplineId, userId);
-        }
     }
 }

@@ -11,12 +11,14 @@ namespace eProiect.Controllers
 {
     public class BaseController : Controller
     {
-        private readonly ISession _session;
+        protected readonly ISession _session;
+        protected readonly IOrg _organizational;
 
         public BaseController()
         {
             var bl = new BuissinesLogic();
             _session=bl.GetSessionBL();
+            _organizational=bl.GetOrgBl();
         }
 
         public void SessionStatus()
