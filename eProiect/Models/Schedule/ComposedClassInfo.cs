@@ -8,7 +8,7 @@ namespace eProiect.Models.Schedule
 {
     public class ComposedClassInfo
     {
-        public int DisciplineId { get; set; }
+        public int UserDisciplineId { get; set; }
         public int TypeId {  get; set; }
         public int Year { get; set; }
         public int ClassroomId { get; set; }

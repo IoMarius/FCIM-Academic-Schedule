@@ -43,11 +43,16 @@ namespace eProiect.Models.Users
             //lojic for lesson length.
             LessonLength = new LessonLength();
 
-            var lessonDiff = _end.Subtract(_start);
-            if (lessonDiff.TotalMinutes > 0)
-                LessonLength.SetLength((uint)lessonDiff.TotalMinutes / 90);
-            else
+            if (_end - _start == new TimeSpan(1, 30, 0))
+            {
+                System.Diagnostics.Debug.WriteLine($"ONE<prs>{_classroom}");
                 LessonLength.SetLength(1);
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"TWO<prs>{_classroom}");
+                LessonLength.SetLength(2);
+            }
         }
 
         public Lesson()

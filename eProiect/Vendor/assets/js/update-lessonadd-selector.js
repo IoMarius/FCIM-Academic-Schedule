@@ -27,6 +27,25 @@ $(document).ready(function () {
         
     });
 
+    $("#disciplineSelector").click(function () {
+        console.error('thisval:', $(this).val());
+        if ($(this).val() != null) {
+            $.ajax({
+                url: "/Home/GetLoggedUserDisciplineTypes",
+                method: "GET",
+                data: { disciplineId:$(this).val() },
+                success: function (classTypes) {
+                    updateDisciplineTypeSelect(classTypes);
+                },
+
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX Error:", textStatus, errorThrown);
+                    console.error("Full jqXHR object:", jqXHR);
+                }
+            })
+        }
+    })
+
     $("#yearSelector").click(function (event) {
         var selectedYear = $(event.target).val();
         if (selectedYear != null) {
@@ -47,23 +66,11 @@ $(document).ready(function () {
         }
     });
 
-    $("#floorSelector").click(function (event) {
-        var selectedFloor = $(event.target).val();
-
-        if (selectedFloor != null) {
-            $.ajax({
-                url: "/Home/GetFreeClassroomsByFloor",
-                method: "POST",
-                data: { floor: selectedFloor },
-                success: function (data) {
-                    updateClassroomsSelect(data);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.error("AJAX Error:", textStatus, errorThrown);
-                    console.error("Full jqXHR object:", jqXHR);
-                }
-            });
-        }
+    // span clicks
+    // frequency clicks
+    // listen to both:
+    $(".class-param-radio").click( function(){
+        loadFreeClassrooms()
     });
 
     $("#typeSelector").click(function (event) {
@@ -73,13 +80,15 @@ $(document).ready(function () {
             //console.error(selectedType)
 
             if (selectedType === "1" /*for CURS*/) { 
-                //console.error("toggled multi (curs)")
+                console.error("toggled multi (curs)")
                 $("#group-select-row").toggleClass('closed');
                 $("#multi-group-select").removeClass('closed');
             } else{
-                //console.error("toggled single")
+                console.error("toggled single")
                 $("#group-select-row").removeClass('closed');
-                $("#multi-group-select").toggleClass('closed');
+                if (!$("#multi-group-select").hasClass('closed')) {
+                    $("#multi-group-select").toggleClass('closed');
+                }
             }
         }
     });
@@ -128,11 +137,9 @@ $(document).ready(function () {
         /*var sDiscipline = $('#disciplineSelector').find(':selected').val();
         var sType = $('#typeSelector').find(':selected').val();
         var sYear = $('#yearSelector').find(':selected').val();
-        var sGroup = $('#groupSelector').find(':selected').val();
         var sClassroom = $('#classroomSelector').find(':selected').val();
 
         //spans list, take val()
-        var sGroupsId = $('#selected-options').find('.selected');
 
         var sFequency = $("input[name='frequency']:checked").val();
         var sSpan = $("input[name='length']:checked").val();
@@ -140,34 +147,68 @@ $(document).ready(function () {
         var sMinute = $('#minute').val();
         var sDayNr = $('#day').val();*/
 
-        90
+        var sGroupsId = $('#selected-options').find('.selected');
+        var sGroup = $('#groupSelector').find(':selected').val();
+        
 
         //compose json data (no groups)
         var jsonClassData = {
-            discipline: $('#disciplineSelector').find(':selected').val(),
-            type: $('#typeSelector').find(':selected').val(),
-            year: $('#yearSelector').find(':selected').val(),
-            classroom: $('#classroomSelector').find(':selected').val(),
-            frequency: $("input[name='frequency']:checked").val(),
-            span: $("input[name='length']:checked").val(),
-            hours: $('#hour').val(),
-            minutes: $('#minute').val(),
-            daynr: $('#day').val(),
+            UserDisciplineId: $('#disciplineSelector').find(':selected').val(),
+            TypeId: $('#typeSelector').find(':selected').val(),
+            Year: $('#yearSelector').find(':selected').val(),
+            ClassroomId: $('#classroomSelector').find(':selected').val(),
+            Frequency: $("input[name='frequency']:checked").val(),
+            Span: $("input[name='length']:checked").val(),
+            Hours: $('#hour').val(),
+            Minutes: $('#minute').val(),
+            Day: $('#day').val(),
         }
         
+        
         //grouplist id's to json
-        var jsonGroups = {};
-        for (var i = 0; i < sGroupsId.length; i++) {
-            jsonGroups[i] = sGroupsId[i];
+        var jsonGroups = [];
+        if (sGroupsId.length != 0) {
+            sGroupsId.each(function (index) {
+                jsonGroups[index] = +$(this).val();
+            })
+        } else /*just one id for other classes types(!curs)*/{
+            jsonGroups[0] = +sGroup;
         }
 
-        if (sGroupsId.length != 0) {
-            for (var i = 0; i < sGroupsId.length; i++) {
-                jsonGroups[i] = sGroupsId[i];
+
+        /*console.error(jsonClassData)
+        console.error("groups:", jsonGroups)*/
+
+        $.ajax({
+            url: "/Home/AddNewClass",
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({ composedData: jsonClassData, groupIds: jsonGroups }),
+            success: function (responses) {
+                //notify user
+                console.error(responses)
+                $.each(responses, function (index, response) {
+                    if (response && typeof response === 'object') {
+                        if (response["Status"] == false) {
+                            $('#postStatus').empty()
+                            $('#postStatus').append(
+                                $('<div></div>').text("[" + (index + 1) + "]" + response["ActionStatusMsg"])
+                            )
+                        } else {
+                            //notify succes! exit page.
+                        }
+                    } 
+                    /*var text = $('#postStatus').text();*/
+                    //+ " resp[", index, "]", response.Status + " " + response.ActionStatusMsg);
+                })
+            },
+
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("AJAX Error:", textStatus, errorThrown);
+                console.error("Full jqXHR object:", jqXHR);
             }
-        } else /*just one id for other classes types(!curs)*/{
-            jsonGroups[1] = sGroup;
-        }
+        });
 
 
 
@@ -194,9 +235,43 @@ $(document).ready(function () {
         }
 
     });
+
+    $("#floorSelector").click(function () {
+        var selectorValue = $(this).val();
+        if (selectorValue != null && selectorValue != -1) {
+
+            loadFreeClassrooms()
+        }
+    });
 });
 
 
+function loadFreeClassrooms() {
+    jsonData = {
+        StartHour: $('#hour').val(),
+        StartMinute: $('#minute').val(),
+        Span: $("input[name='length']:checked").val(),
+        Floor: $("#floorSelector").find(':selected').val(),
+        WeekdayId: $('#day').val(),
+        Frequency: $("input[name='frequency']:checked").val()
+    }
+    $.ajax({
+        url: "/Home/GetFreeClassroomsByFloor",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify({ requestData: jsonData }),
+        success: function (data) {
+            console.error(data);
+            updateClassroomsSelect(data)
+        },
+
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error("AJAX Error:", textStatus, errorThrown);
+            console.error("Full jqXHR object:", jqXHR);
+        }
+    });
+}
 
 function loadDisciplineSelect() {
     $.ajax({
@@ -204,7 +279,7 @@ function loadDisciplineSelect() {
         method: "GET",
         success: function (data) {
             updateDisciplineSelect(data);
-            updateDisciplineTypeSelect(data);
+            /*updateDisciplineTypeSelect(data);*/
         },
 
         error: function (jqXHR, textStatus, errorThrown) {
@@ -217,10 +292,12 @@ function loadDisciplineSelect() {
 function updateClassroomsSelect(data) {
     $('#classroomSelector').empty();
     $('#classroomSelector').append(
-        $('<option disabled selected></option>').text("cabinetul")
+        $('<option disabled selected></option>').text("cabinetul").val(-1)
     );
 
+    
     $.each(data, function (index, item) {
+        console.error("id:"+item.Id+" name:"+item.ClassroomName)
         $('#classroomSelector').append(
             $('<option></option>').val(item.Id).text(item.ClassroomName)
         );
@@ -233,8 +310,8 @@ function updateDisciplineSelect(data) {
 
     var defaultOption = $('<option disabled selected></option>').text("disciplina").val(-1);
     $('#disciplineSelector').append(defaultOption);
-    $.each(data, function (index, item) {
-        var option = $('<option></option>').val(item.Discipline.Id).text(item.Discipline.Name);
+    $.each(data, function (index, item) { //////////////////////////////DID-STUFF//////DID-STUFF//////DID-STUFF//////DID-STUFF//////DID-STUFF///
+        var option = $('<option></option>').val(item.Id).text(item.Discipline.Name);
         $('#disciplineSelector').append(option);
     });
 }
@@ -246,7 +323,7 @@ function updateDisciplineTypeSelect(data) {
 
     $('#typeSelector').append(defaultOption);
      $.each(data, function (index, item) {
-         var option = $('<option></option>').val(item.ClassTypeId).text(item.Type.TypeName);
+         var option = $('<option></option>').val(item.Id).text(item.TypeName);
          $('#typeSelector').append(option);
     });
 }
@@ -271,7 +348,7 @@ function updateGroupSelect(data) {
 
     // Add options based on the received data
     $.each(data, function (index, item) {
-        var option = $('<option></option>').val(item["Year"]).text(item["Name"]);
+        var option = $('<option></option>').val(item.Id).text(item.Name);
 
         $('#groupSelector').append(option);
     });

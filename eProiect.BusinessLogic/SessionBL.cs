@@ -2,6 +2,7 @@
 using eProiect.BusinessLogic.Interfaces;
 using eProiect.Domain.Entities.Academic.DBModel;
 using eProiect.Domain.Entities.Responce;
+using eProiect.Domain.Entities.Schedule;
 using eProiect.Domain.Entities.Schedule.DBModel;
 using eProiect.Domain.Entities.User;
 using eProiect.Domain.Entities.User.DBModel;
@@ -50,9 +51,19 @@ namespace eProiect.BusinessLogic
             return GetUserDisciplinesById(id);
         }
 
-        public List<ClassRoom> GetFreeClassroomsByFloor(int floor)
+        public List<ClassRoom> GetFreeClassroomsByFloorAndTime(FreeClassroomsRequest data)
         {
-            return GetClassrooms(floor);
+            return GetClassroomsFreeAtTime(data);
+        }
+
+        public ActionResponse AddNewClass(Class newClass)
+        {
+            return AddNewClassToDb(newClass);
+        }
+
+        public List<ClassType> GetTypesByDisciplineForUser(int disciplineId, int userId)
+        {
+            return GetUserDisciplineTypesByUserId(disciplineId, userId);
         }
     }
 }

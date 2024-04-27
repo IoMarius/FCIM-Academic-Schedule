@@ -1,10 +1,12 @@
 ﻿using eProiect.Domain.Entities.Academic.DBModel;
 using eProiect.Domain.Entities.Responce;
+using eProiect.Domain.Entities.Schedule;
 using eProiect.Domain.Entities.Schedule.DBModel;
 using eProiect.Domain.Entities.User;
 using eProiect.Domain.Entities.User.DBModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
 using System.Text;
@@ -30,6 +32,13 @@ namespace eProiect.BusinessLogic.Interfaces
 
           List<UserDiscipline> GetDisciplinesById(int id);
 
-          List<ClassRoom> GetFreeClassroomsByFloor(int floor);
+          List<ClassRoom> GetFreeClassroomsByFloorAndTime(FreeClassroomsRequest data);
+
+          List<ClassType> GetTypesByDisciplineForUser(int disciplineId, int userId);
+
+       /*   List<ClassType> GetPermittedDisciplineTypes() */
+          ActionResponse AddNewClass(Class newClass);
+
+
      }
 }

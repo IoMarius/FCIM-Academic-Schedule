@@ -61,6 +61,7 @@
     <Compile Include="Entities\Schedule\DBModel\ClassType.cs" />
     <Compile Include="Entities\Schedule\DBModel\Class.cs" />
     <Compile Include="Entities\Schedule\DBModel\WeekDay.cs" />
+    <Compile Include="Entities\Schedule\FreeClassroomRequest.cs" />
     <Compile Include="Entities\User\ReducedUser.cs" />
     <Compile Include="Entities\User\DBModel\Session.cs" />
     <Compile Include="Entities\User\DBModel\UserCredential.cs" />

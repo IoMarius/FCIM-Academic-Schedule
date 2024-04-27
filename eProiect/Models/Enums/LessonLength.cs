@@ -17,20 +17,14 @@ namespace eProiect.Models.Enums
         }
 
         public LessonLength(uint _length)
-        {
-            if (Length > 0 && Length < 8)
-                Length = _length;
-            else
-                Length = 1;
+        {  
+            Length = _length; 
         }
 
         public uint GetLength() { return Length; }
         public void SetLength(uint _length)
         {
-            if (Length > 0 && Length < 8)
-                Length = _length;
-            else
-                Length = 1;
+            Length= _length;
         }
     }
 }

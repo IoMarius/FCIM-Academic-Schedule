@@ -6001,6 +6001,7 @@
     <Compile Include="Models\Enums\LessonLength.cs" />
     <Compile Include="Models\Enums\WeekSpan.cs" />
     <Compile Include="Models\Schedule\ComposedClassInfo.cs" />
+    <Compile Include="Models\Schedule\FreeClassroomsMinimalRequest.cs" />
     <Compile Include="Models\Schedule\ScheduleFrame.cs" />
     <Compile Include="Models\Users\UserEsentialData.cs" />
     <Compile Include="Models\Users\UserLogin.cs" />

@@ -88,8 +88,6 @@ body {
     margin-bottom: 0;
 }
 
-
-
 .selected {
     /*background-color: aqua;*/
     display: inline-flex;
@@ -99,6 +97,11 @@ body {
     border-radius: 9px;
     background-color: #6f8ef5;
     color: white;
+}
+
+.user-notice {
+    color: #969595;
+    margin-bottom: 0;
 }
 
 .selected:hover {

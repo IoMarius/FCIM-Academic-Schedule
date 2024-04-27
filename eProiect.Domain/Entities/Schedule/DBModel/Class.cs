@@ -32,7 +32,6 @@ namespace eProiect.Domain.Entities.Schedule.DBModel
         public int ClassRoomId {  get; set; }
         public ClassRoom ClassRoom { get; set; }
 
-
         [Required]
         public int WeekDayId { get; set; }
         public WeekDay WeekDay { get; set; }

@@ -34,7 +34,6 @@
                     </tr>
                     @{ // TIME INTERVALS ROWS
 
-                        TimeSpan lastInsertedHour = new TimeSpan(0, 0, 0);
                         foreach (var interval in frame.TimeIntervals)
                         {
 
@@ -49,8 +48,7 @@
                                         {
                                             var evenLesson = sched.getLessonEven(interval.Item1, cellNr);
                                             var oddLesson = sched.getLessonOdd(interval.Item1, cellNr);
-                                            lastInsertedHour = evenLesson.EndTime;
-                                            lastInsertedHour = evenLesson.EndTime;
+
 
                                             //NORMAL LESSON
                                             if (evenLesson == oddLesson)
@@ -59,19 +57,16 @@
                                                     <span class="mobile-timeinterval">
                                                         @evenLesson.StartTime.ToString("hh\\:mm") - @evenLesson.EndTime.ToString("hh\\:mm") <br />
                                                     </span>
+                                                    @{string classType;
+                                                        if (evenLesson.Type.Substring(0, 1).ToLower() == "l") { classType = "lab"; } else { classType = evenLesson.Type.Substring(0, 1).ToLower(); }
+                                                    }
                                                     <div class="timetable-cell-content">
-                                                        <span class="timetable-cell-class">
-                                                            @evenLesson.Type.Substring(0, 1).ToLower(). @evenLesson.ShortName
-                                                            <br />
-                                                        </span>
-                                                        <span class="timetable-cell-classroom">
-                                                            @evenLesson.Classroom
-                                                        </span>
+                                                        <span class="timetable-cell-class"> @classType. @evenLesson.ShortName<br /></span>
+                                                        <span class="timetable-cell-classroom">@evenLesson.Classroom</span>
                                                         &#8205;
-                                                        <span class="timetable-cell-acadgroup">
-                                                            @evenLesson.AcademicGroup
-                                                        </span>
+                                                        <span class="timetable-cell-acadgroup">@evenLesson.AcademicGroup</span>
                                                     </div>
+                                                    
                                                 </td>
                                             }
                                             //EVEN AND ODD LESSONS
@@ -282,6 +277,67 @@
                         </div>
 
 
+
+
+                        <!--Even Odd radio buttons-->
+                        <div class="form-radio">
+                            <div class="row">
+                                <div class="col-3" style=" display: flex; align-items: center; justify-content: flex-end; padding-right: 0;">
+                                    <span>Frecvență:</span>
+                                </div>
+
+
+                                <div class="col-5">
+                                    <div class="class-param-radio radio radiofill radio-info" style="display: inline-flex; flex-direction: row-reverse;">
+                                        <label class="class-type-label">
+                                            <input type="radio" name="frequency" value="1" checked="checked">
+                                            <i class="helper"></i>Pară
+                                        </label>
+
+                                        <label class="class-type-label">
+                                            <input type="radio" name="frequency" value="2" checked="checked">
+                                            <i class="helper"></i>Impară
+                                        </label>
+
+                                        <label class="class-type-label">
+                                            <input type="radio" name="frequency" value="0" checked="checked">
+                                            <i class="helper"></i>Săptămânală
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Lesson duration-->
+                        <div class="form-radio">
+                            <div class="row">
+                                <div class="col-3" style=" display: flex; align-items: center; justify-content: flex-end; padding-right: 0;">
+                                    <span>Durată:</span>
+                                </div>
+
+                                <div class="col">
+                                    <div class="class-param-radio radio radiofill radio-info" style="display: inline-flex; flex-direction: row-reverse;">
+                                        <label class="class-type-label">
+                                            <input type="radio" name="length" value="2" checked="checked">
+                                            <i class="helper"></i>2 perechi
+                                        </label>
+
+                                        <label class="class-type-label">
+                                            <input type="radio" name="length" value="1" checked="checked">
+                                            <i class="helper"></i>1 pereche
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <div class="col">
+                                <p class="user-notice">Disponibilitatea cabinetelor depinde de frecvența și durata perechii.</p>
+                            </div>
+                        </div>
+
                         <!--Etajul, cabinetul-->
                         <div class="row">
 
@@ -309,72 +365,15 @@
                         </div>
 
 
-
-
-                        <!--Even Odd radio buttons-->
-                        <div class="form-radio">
-                            <div class="row">
-                                <div class="col-3" style=" display: flex; align-items: center; justify-content: flex-end; padding-right: 0;">
-                                    <span>Frecvență:</span>
-                                </div>
-
-
-                                <div class="col-5">
-                                    <div class="radio radiofill radio-info" style="display: inline-flex; flex-direction: row-reverse;">
-                                        <label class="class-type-label">
-                                            <input type="radio" name="frequency" value="2" checked="checked">
-                                            <i class="helper"></i>Pară
-                                        </label>
-
-                                        <label class="class-type-label">
-                                            <input type="radio" name="frequency" value="1" checked="checked">
-                                            <i class="helper"></i>Impară
-                                        </label>
-
-                                        <label class="class-type-label">
-                                            <input type="radio" name="frequency" value="3" checked="checked">
-                                            <i class="helper"></i>Săptămânală
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--Lesson duration-->
-                        <div class="form-radio">
-                            <div class="row">
-                                <div class="col-3" style=" display: flex; align-items: center; justify-content: flex-end; padding-right: 0;">
-                                    <span>Durată:</span>
-                                </div>
-
-                                <div class="col">
-                                    <div class="radio radiofill radio-info" style="display: inline-flex; flex-direction: row-reverse;">
-                                        <label class="class-type-label">
-                                            <input type="radio" name="length" value="1" checked="checked">
-                                            <i class="helper"></i>2 perechi
-                                        </label>
-
-                                        <label class="class-type-label">
-                                            <input type="radio" name="length" value="2" checked="checked">
-                                            <i class="helper"></i>1 pereche
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
                     </div>
                 </div>
                 <div class="col-5" style="display: flex; align-items: flex-end; flex-direction: column; justify-content: flex-end;">
                     <!--CONFIRM BUTTONS-->
-                    
+                            <div id="postStatus" style="background-color:red">HERE ERROR</div>
                         
-                            <p>
-                                * perechile necesită aprobare de către administrator.
-                                Veți primi un mesaj pe poștă la aprobarea/dezaprobarea acesteia.
+                            <p class="user-notice m-b-10">
+                                Perechile necesită aprobare de către administrator.
+                                Veți primi un mesaj pe poșta electronică la aprobarea/dezaprobarea perechii.
                             </p>
 
                        <div style="display: flex; align-items: flex-end; justify-content: space-around; width: 100%; ">
@@ -393,4 +392,5 @@
             
             
     </div>
+</div>
 </div>

@@ -18,6 +18,9 @@ using eProiect.Domain.Entities.Academic.DBModel;
 using eProiect.BusinessLogic.DBModel;
 using eProiect.Domain.Entities.User.DBModel;
 using System.Configuration;
+using System.Text.RegularExpressions;
+using eProiect.Domain.Entities.Schedule.DBModel;
+using eProiect.Domain.Entities.Schedule;
 
 namespace eProiect.Controllers
 {
@@ -64,6 +67,15 @@ namespace eProiect.Controllers
             }
 
             return View();         
+        }
+
+        [HttpGet]
+        public ActionResult GetLoggedUserDisciplineTypes(int disciplineId)
+        {
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+            var classTypes = _session.GetTypesByDisciplineForUser(disciplineId, loggedInUser.Id);
+            
+            return Json(classTypes, JsonRequestBehavior.AllowGet);
         }
 
         /*[UserMode(UserRole.admin, UserRole.teacher)]*/
@@ -144,9 +156,75 @@ namespace eProiect.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNewClass(ComposedClassInfo data, List<int> groupIds)
+        public ActionResult AddNewClass(ComposedClassInfo composedData, List<int> groupIds)
         {
-            return null;//implement in db
+            //check for negatives!!!!!!!!!!!!!!
+            var properties = composedData.GetType().GetProperties();
+            foreach(var property in properties)
+            {
+                if(property.PropertyType== typeof(int))
+                {
+                    var propValue = property.GetValue(composedData);
+                    if(Convert.ToDouble(propValue) < 0)
+                    {
+                        return Json(new ActionResponse()
+                        {
+                            Status=false,
+                            ActionStatusMsg="Nu au fost selectati toti parametrii.",
+                        });
+                    }
+                }
+            }
+
+
+            TimeSpan startTime = new TimeSpan(composedData.Hours, composedData.Minutes, 0);
+            TimeSpan endTime;
+            if (composedData.Span == 1)
+            {
+                endTime = startTime + new TimeSpan(1, 30, 0);
+            }
+            else
+            {
+                if (startTime == new TimeSpan(11, 30, 0))
+                    endTime = startTime + new TimeSpan(3, 30, 0);
+                else
+                    endTime = startTime + new TimeSpan(3, 15, 0);
+            }
+
+            //get user 
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+
+            //goteeem!!!
+            //list if some groups are busy
+            List<ActionResponse> responses = new List<ActionResponse>();
+
+            foreach(var groupId in groupIds)
+            {
+                var newClass = new Class
+                {
+                    UserDiscipline = new UserDiscipline{ 
+                        Id=composedData.UserDisciplineId,
+                        ClassTypeId = composedData.TypeId,
+                        Type = new ClassType {Id = composedData.TypeId},
+                        
+                        //add user
+                        UserId = loggedInUser.Id,
+                        User = new User { Id=loggedInUser.Id}
+                    },
+                    AcademicGroup  = new AcademicGroup {   Id = groupId }, 
+                    ClassRoom      = new ClassRoom{ Id = composedData.ClassroomId }, 
+                    WeekDay        = new WeekDay{Id=composedData.Day+1},
+                    StartTime      = startTime,
+                    EndTime        = endTime,
+                    Frequency      = (Domain.Entities.Academic.ClassFrequency)composedData.Frequency,
+                    
+                };
+
+                var result = _session.AddNewClass(newClass);
+                responses.Add(result); //NOT WORKING 
+            }
+
+            return Json(responses);
         }
         
         [HttpPost]
@@ -176,9 +254,21 @@ namespace eProiect.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetFreeClassroomsByFloor(int floor)
+        public ActionResult GetFreeClassroomsByFloor(FreeClassroomsMinimalRequest requestData)
         {
-            var freeClassrooms = _session.GetFreeClassroomsByFloor(floor);
+            /* var freeClassrooms = _session.GetFreeClassroomsByFloor(floor);
+             return Json(freeClassrooms, JsonRequestBehavior.AllowGet);*/
+            var freeClassrooms = _session.GetFreeClassroomsByFloorAndTime(
+                    new FreeClassroomsRequest()
+                    {
+                        Floor=requestData.Floor,
+                        WeekdayId=requestData.WeekdayId+1,
+                        Span=requestData.Span,
+                        StartTime= new TimeSpan(requestData.StartHour, requestData.StartMinute, 0),
+                        Frequency= (Domain.Entities.Academic.ClassFrequency)requestData.Frequency
+                    }
+                );
+
             return Json(freeClassrooms, JsonRequestBehavior.AllowGet);
         }
 
