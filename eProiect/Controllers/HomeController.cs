@@ -44,6 +44,7 @@ namespace eProiect.Controllers
         }
 
           [UserMode(UserRole.admin, UserRole.teacher)]
+
           public ActionResult Tables()       
         {
            
