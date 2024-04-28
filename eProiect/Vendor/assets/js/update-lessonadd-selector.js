@@ -311,7 +311,7 @@ function updateDisciplineSelect(data) {
     var defaultOption = $('<option disabled selected></option>').text("disciplina").val(-1);
     $('#disciplineSelector').append(defaultOption);
     $.each(data, function (index, item) { //////////////////////////////DID-STUFF//////DID-STUFF//////DID-STUFF//////DID-STUFF//////DID-STUFF///
-        var option = $('<option></option>').val(item.Id).text(item.Discipline.Name);
+        var option = $('<option></option>').val(item.Id).text(item.Name);
         $('#disciplineSelector').append(option);
     });
 }

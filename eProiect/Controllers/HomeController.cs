@@ -92,7 +92,6 @@ namespace eProiect.Controllers
             };
 
 
-
             Models.Users.UserSchedule userSchedule = new Models.Users.UserSchedule();
             var currentSchedule = _organizational.GetScheduleById(loggedInUser.Id);
 
@@ -109,34 +108,103 @@ namespace eProiect.Controllers
                         var currentSchedOdd = currentSchedule.Schedule[row, col].Item2;
                         //System.Diagnostics.Debug.WriteLine($"[{row},{col}]{currentSchedEven.Discipline}-{currentSchedOdd.Discipline}");
 
-                        userSchedule.Schedule[row, col] = (
-                            new Lesson
-                            {
-                                Discipline =    currentSchedEven.Discipline,
-                                ShortName =     currentSchedOdd.ShortName,
-                                Type=           currentSchedEven.Type,
-                                StartTime =     currentSchedEven.StartTime,
-                                EndTime=        currentSchedEven.EndTime,
-                                WeekDay =       currentSchedEven.WeekDay,
-                                Classroom =     currentSchedEven.Classroom,
-                                AcademicGroup=  currentSchedEven.GroupName,
-                                LessonLength=   new LessonLength(currentSchedEven.LessonLength.GetLength()),               
-                                WeekSpan=       (LessonWeekType)currentSchedEven.WeekSpan
-                            },
-                            new Lesson
-                            {
-                                Discipline =    currentSchedOdd.Discipline,
-                                ShortName =     currentSchedOdd.ShortName,
-                                Type =          currentSchedOdd.Type,
-                                StartTime =     currentSchedOdd.StartTime,
-                                EndTime =       currentSchedOdd.EndTime,
-                                WeekDay =       currentSchedOdd.WeekDay,
-                                Classroom =     currentSchedOdd.Classroom,
-                                AcademicGroup = currentSchedOdd.GroupName,
-                                LessonLength =  new LessonLength(currentSchedOdd.LessonLength.GetLength()),
-                                WeekSpan =      (LessonWeekType)currentSchedOdd.WeekSpan
-                            }
-                        );
+                        
+
+                        if (currentSchedOdd.Type==null) {
+                            userSchedule.Schedule[row, col] = (
+                                new Lesson
+                                {
+                                    Discipline = currentSchedEven.Discipline,
+                                    ShortName = currentSchedEven.ShortName,
+                                    Type = currentSchedEven.Type,
+                                    StartTime = currentSchedEven.StartTime,
+                                    EndTime = currentSchedEven.EndTime,
+                                    WeekDay = currentSchedEven.WeekDay,
+                                    Classroom = currentSchedEven.Classroom,
+                                    AcademicGroup = currentSchedEven.GroupName,
+                                    LessonLength = new LessonLength(currentSchedEven.LessonLength.GetLength()),
+                                    WeekSpan = (LessonWeekType)currentSchedEven.WeekSpan
+                                },
+                                new Lesson
+                                {
+                                    Discipline = "NULL",
+                                    ShortName = "NULL",
+                                    Type = "NULL",
+                                    StartTime = new TimeSpan(0, 0, 0),
+                                    EndTime = new TimeSpan(0, 0, 0),
+                                    WeekDay = "NULL",
+                                    Classroom = "NULL",
+                                    AcademicGroup = "NULL",
+                                    LessonLength = new LessonLength(),
+                                    WeekSpan = (LessonWeekType.ODD)
+                                }
+                            );
+                        } 
+                        else if (currentSchedEven.Type == null)
+                        {
+                            userSchedule.Schedule[row, col] = (
+                                new Lesson
+                                {
+                                    Discipline = "NULL",
+                                    ShortName = "NULL",
+                                    Type = "NULL",
+                                    StartTime = new TimeSpan(0, 0, 0),
+                                    EndTime = new TimeSpan(0, 0, 0),
+                                    WeekDay = "NULL",
+                                    Classroom = "NULL",
+                                    AcademicGroup = "NULL",
+                                    LessonLength = new LessonLength(),
+                                    WeekSpan = (LessonWeekType.ODD)
+                                },
+                                new Lesson
+                                {
+                                    Discipline = currentSchedOdd.Discipline,
+                                    ShortName = currentSchedOdd.ShortName,
+                                    Type = currentSchedOdd.Type,
+                                    StartTime = currentSchedOdd.StartTime,
+                                    EndTime = currentSchedOdd.EndTime,
+                                    WeekDay = currentSchedOdd.WeekDay,
+                                    Classroom = currentSchedOdd.Classroom,
+                                    AcademicGroup = currentSchedOdd.GroupName,
+                                    LessonLength = new LessonLength(currentSchedOdd.LessonLength.GetLength()),
+                                    WeekSpan = (LessonWeekType)currentSchedOdd.WeekSpan
+                                }
+                            );
+                        }
+                        else
+                        {
+                            userSchedule.Schedule[row, col] = (
+                                new Lesson
+                                {
+                                    Discipline = currentSchedEven.Discipline,
+                                    ShortName = currentSchedEven.ShortName,
+                                    Type = currentSchedEven.Type,
+                                    StartTime = currentSchedEven.StartTime,
+                                    EndTime = currentSchedEven.EndTime,
+                                    WeekDay = currentSchedEven.WeekDay,
+                                    Classroom = currentSchedEven.Classroom,
+                                    AcademicGroup = currentSchedEven.GroupName,
+                                    LessonLength = new LessonLength(currentSchedEven.LessonLength.GetLength()),
+                                    WeekSpan = (LessonWeekType)currentSchedEven.WeekSpan
+                                },
+                                new Lesson
+                                {
+                                    Discipline = currentSchedOdd.Discipline,
+                                    ShortName = currentSchedOdd.ShortName,
+                                    Type = currentSchedOdd.Type,
+                                    StartTime = currentSchedOdd.StartTime,
+                                    EndTime = currentSchedOdd.EndTime,
+                                    WeekDay = currentSchedOdd.WeekDay,
+                                    Classroom = currentSchedOdd.Classroom,
+                                    AcademicGroup = currentSchedOdd.GroupName,
+                                    LessonLength = new LessonLength(currentSchedOdd.LessonLength.GetLength()),
+                                    WeekSpan = (LessonWeekType)currentSchedOdd.WeekSpan
+                                }
+                            );
+                        }
+                        
+                        //if even null
+                        //if odd null
                     }
                 }
             }
@@ -243,7 +311,7 @@ namespace eProiect.Controllers
         {
             var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
             if (loggedInUser == null)
-                return Json(new List<UserDiscipline>());
+                return Json(new List<Discipline>());
 
             var discList=_organizational.GetDisciplinesById(loggedInUser.Id);
             return Json(discList, JsonRequestBehavior.AllowGet);

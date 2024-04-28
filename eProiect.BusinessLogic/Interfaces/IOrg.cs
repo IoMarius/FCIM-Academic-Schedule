@@ -24,7 +24,7 @@ namespace eProiect.BusinessLogic.Interfaces
 
         List<AcademicGroup> GetAcadGroupsList(int year);
 
-        List<UserDiscipline> GetDisciplinesById(int id);
+        List<Discipline> GetDisciplinesById(int id);
 
         List<ClassRoom> GetFreeClassroomsByFloorAndTime(FreeClassroomsRequest data);
 

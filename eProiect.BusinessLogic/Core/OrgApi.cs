@@ -256,21 +256,23 @@ namespace eProiect.BusinessLogic.Core
             return groupList;
         }
 
-        internal List<UserDiscipline> GetUserDisciplinesById(int id)
+        internal List<Discipline> GetUserDisciplinesById(int id)
         {
-            List<UserDiscipline> discList; //= new List<UserDiscipline>();
+            List<Discipline> discList; //= new List<UserDiscipline>();
             using (var db = new UserContext())
             {
                 discList = db.UserDisciplines
                     .Include(ud => ud.Discipline)
                     .Include(ud => ud.User)
                     .Include(ud => ud.Type)
-                    .Where(ud => ud.UserId == id).ToList();
+                    .Where(ud => ud.UserId == id)
+                    .Select(ud => ud.Discipline)
+                    .ToList();
             }
             if (discList == null)
-                return new List<UserDiscipline>();
+                return new List<Discipline>();
 
-            return discList;
+            return discList.Distinct().ToList();
         }
 
         internal List<ClassType> GetUserDisciplineTypesByUserId(int disciplineId, int userId)

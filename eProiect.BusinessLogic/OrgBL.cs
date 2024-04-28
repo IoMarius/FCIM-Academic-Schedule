@@ -31,7 +31,7 @@ namespace eProiect.BusinessLogic
             return GetAcademicGroupsList(year);
         }
 
-        public List<UserDiscipline> GetDisciplinesById(int id)
+        public List<Discipline> GetDisciplinesById(int id)
         {
             return GetUserDisciplinesById(id);
         }
