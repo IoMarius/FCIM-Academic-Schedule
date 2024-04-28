@@ -16,6 +16,7 @@
 </thead>
 <tbody>
      @{
+         
           foreach (var classRoom in @Model.CassRoomsDataList.CassRooms)
           {
 
@@ -29,7 +30,7 @@
                          <span class="tabledit-span">@classRoom.Floor</span>
                          <input class="tabledit-input form-control input-sm" type="text" name="Surname" value="@classRoom.Floor">
                     </td>
-                 
+
                </tr>
           }
 
