@@ -7,13 +7,13 @@ namespace eProiect.BusinessLogic.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class DbRedo : IMigrationMetadata
+    public sealed partial class initialNewDbMigr : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DbRedo));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initialNewDbMigr));
         
         string IMigrationMetadata.Id
         {
-            get { return "202404152021375_DbRedo"; }
+            get { return "202404280857355_initialNewDbMigr"; }
         }
         
         string IMigrationMetadata.Source

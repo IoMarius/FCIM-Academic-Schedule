@@ -65,9 +65,9 @@
     <Compile Include="DBContext\UserContext.cs" />
     <Compile Include="Interfaces\IOrg.cs" />
     <Compile Include="Interfaces\ISession.cs" />
-    <Compile Include="Migrations\202404152021375_DbRedo.cs" />
-    <Compile Include="Migrations\202404152021375_DbRedo.Designer.cs">
-      <DependentUpon>202404152021375_DbRedo.cs</DependentUpon>
+    <Compile Include="Migrations\202404280857355_initialNewDbMigr.cs" />
+    <Compile Include="Migrations\202404280857355_initialNewDbMigr.Designer.cs">
+      <DependentUpon>202404280857355_initialNewDbMigr.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrgBL.cs" />
@@ -89,8 +89,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202404152021375_DbRedo.resx">
-      <DependentUpon>202404152021375_DbRedo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202404280857355_initialNewDbMigr.resx">
+      <DependentUpon>202404280857355_initialNewDbMigr.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

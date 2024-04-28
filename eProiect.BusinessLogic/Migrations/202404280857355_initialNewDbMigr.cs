@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class DbRedo : DbMigration
+    public partial class initialNewDbMigr : DbMigration
     {
         public override void Up()
         {
@@ -12,10 +12,11 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 10),
                         Year = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Id, unique: true);
             
             CreateTable(
                 "dbo.Classes",
@@ -180,6 +181,7 @@
             DropIndex("dbo.Classes", new[] { "AcademicGroupId" });
             DropIndex("dbo.Classes", new[] { "UserDisciplineId" });
             DropIndex("dbo.Classes", new[] { "Id" });
+            DropIndex("dbo.AcademicGroups", new[] { "Id" });
             DropTable("dbo.Students");
             DropTable("dbo.Sessions");
             DropTable("dbo.WeekDays");
