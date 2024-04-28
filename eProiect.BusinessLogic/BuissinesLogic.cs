@@ -1,4 +1,5 @@
 ﻿using eProiect.BusinessLogic.Interfaces;
+using eProiect.Domain.Entities.Academic.DBModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,24 @@ namespace eProiect.BusinessLogic
           {
                 return new OrgBL();
           }
+
+          public IAdmin GetAdminBL()
+          {
+               return new AdminBL();
+          }
+          public IAcademicGroup GetAcademicGroupBL()
+          {
+               return new AcademicGroupBL();
+          }
+          public IDiscipline GetDisciplineBL()
+          {
+               return new DisciplineBL();
+          }
+          public IClassRoom GetClassRoomBL()
+          {
+               return new ClassRoomBL();
+          }
+
+
      }
 }

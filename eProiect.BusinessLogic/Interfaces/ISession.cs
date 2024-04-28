@@ -31,21 +31,26 @@ namespace eProiect.BusinessLogic.Interfaces
 
           UserSchedule GetScheduleById(int id);
 
-          GroupOfUsers GetAllUsers();
-          GroupOfDisciplines GetAllDisciplines();
-          AcademicGroupsList GetAllAcademicGroups();
-          GroupOfCassRooms GetAllCassRooms();
-
+          /*GroupOfUsers GetAllUsers();
           ActionResponse AddNewUsers(NewUserData newUserData);
-          ActionResponse AddNewAcademicGroups(AcademicGroup academicGroup);
+          ActionResponse EditUsers(User editedUserData);
+          ActionResponse DeleteUsers(int Id);*/
+          
+          /*GroupOfDisciplines GetAllDisciplines();
           ActionResponse AddNewDisciplines(Discipline discipline);
-          ActionResponse AddNewClassRooms(ClassRoom classRoom);
+          ActionResponse EditDisciplines(Discipline updateDisciline);
+          ActionResponse DeleteDisciplines(int Id);*/
+          
+          /*AcademicGroupsList GetAllAcademicGroups();
+          ActionResponse AddNewAcademicGroups(AcademicGroup academicGroup);
+          ActionResponse EditAcademicGroups(AcademicGroup updateAcademicGroup);
+          ActionResponse DeleteAcademicGroups(int Id);*/
 
-          ActionResponse DeleteUsers(int Id);
-          ActionResponse DeleteDisciplines(int Id);
-          ActionResponse DeleteAcademicGroups(int Id);
+          /*GroupOfCassRooms GetAllCassRooms();
+          ActionResponse AddNewClassRooms(ClassRoom classRoom); 
+          ActionResponse EditClassRooms(ClassRoom updateClassRoom);
           ActionResponse DeleteClassRooms(int Id);
-        
+*/
 
      }
 }

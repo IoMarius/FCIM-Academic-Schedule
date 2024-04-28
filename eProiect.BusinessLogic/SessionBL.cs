@@ -1,6 +1,8 @@
 ﻿using eProiect.BusinessLogic.Core;
 using eProiect.BusinessLogic.Interfaces;
 
+using eProiect.BusinessLogic.Migrations;
+
 using eProiect.Domain.Entities.Academic;
 
 using eProiect.Domain.Entities.Academic.DBModel;
@@ -40,58 +42,74 @@ namespace eProiect.BusinessLogic
             return GetUserScheduleById(id);
         }
 
-          public GroupOfUsers GetAllUsers()
+         /* public GroupOfUsers GetAllUsers()
           {
                return GetAllUser();
           }
-          public GroupOfDisciplines GetAllDisciplines()
-          {
-               return GetAllDiscipline();
-          }
-          public AcademicGroupsList GetAllAcademicGroups()
-          {
-               return GetAllAcademicGroup();
-          }
-          public GroupOfCassRooms GetAllCassRooms()
-          {
-               return GetAllClassRoom();
-          }
-
           public ActionResponse AddNewUsers(NewUserData newUserData )
           {
                return AddNewUser(newUserData);
+          }
+          public ActionResponse EditUsers(User editedUserData)
+          {
+               return EditUser(editedUserData);
+          }
+          public ActionResponse DeleteUsers(int Id)
+          {
+               return DeleteUser(Id);
+          }*/
+         
+
+       /*   public AcademicGroupsList GetAllAcademicGroups()
+          {
+               return GetAllAcademicGroup();
           }
           public ActionResponse AddNewAcademicGroups(AcademicGroup academicGroup)
           {
                return AddNewAcademicGroup(academicGroup);
           }
-          public ActionResponse AddNewDisciplines( Discipline discipline )
+          public ActionResponse EditAcademicGroups(AcademicGroup updateacademicGroup)
           {
-               return AddNewDiscipline(discipline);
-          }
-          public ActionResponse AddNewClassRooms(ClassRoom classRoom)
-          {
-               return AddNewClassRoom(classRoom);
-          }
-          
-          public ActionResponse DeleteUsers(int Id)
-          {
-               return DeleteUser(Id);
-          }
-          public ActionResponse DeleteDisciplines(int Id)
-          {
-               return DeleteDiscipline(Id);
+               return EditAcademicGroup( updateAcademicGroupData);
           }
           public ActionResponse DeleteAcademicGroups(int Id)
           {
                return DeleteAcademicGroup(Id);
           }
+        */
+          /*public GroupOfCassRooms GetAllCassRooms()
+          {
+               return GetAllClassRoom();
+          }
+          public ActionResponse AddNewClassRooms(ClassRoom classRoom)
+          {
+               return AddNewClassRoom(classRoom);
+          }
+          public ActionResponse EditClassRooms(ClassRoom updatedClassRoomData)
+          {
+               return EditClassRoom( updatedClassRoomData);
+          }
           public ActionResponse DeleteClassRooms(int Id)
           {
                return DeleteClassRoom(Id);
           }
-
-
+*/
+         /* public GroupOfDisciplines GetAllDisciplines()
+          {
+               return GetAllDiscipline();
+          }
+          public ActionResponse AddNewDisciplines( Discipline discipline )
+          {
+               return AddNewDiscipline(discipline);
+          }
+          public ActionResponse EditDisciplines(Discipline updateDiscipline)
+          {
+               return new EditDiscipline( updateDiscipline);
+          }
+          public ActionResponse DeleteDisciplines(int Id)
+          {
+               return DeleteDiscipline(Id);
+          }*/
      }
 
 

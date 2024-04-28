@@ -120,15 +120,15 @@ namespace eProiect.BusinessLogic.Core
 
                //TEST
 
-              /* var newUser = new NewUserData
+          /*     var newUser = new NewUserData
                {
-                    Name = "Livia",
-                    Surname = "Livia",
-                    Email = "liv2003c@gmail.com",
+                    Name = "Ion",
+                    Surname = "Ionescu",
+                    Email = "bercovasile@gmail.com",
                     Level = UserRole.teacher
                };
                var acction = AddNewUser(newUser);*/
-               /*DeleteUser(2008);*/
+               /*DeleteUser(1);*/
 
                /*  var newDiscipline = new Discipline
                  {
@@ -322,7 +322,7 @@ namespace eProiect.BusinessLogic.Core
                return schedule;
           }
 
-          internal GroupOfUsers GetAllUser()
+         /* internal GroupOfUsers GetAllUser()
           {
                var allUsers = new GroupOfUsers();
 
@@ -332,37 +332,6 @@ namespace eProiect.BusinessLogic.Core
                }
                return allUsers;
           }
-          internal GroupOfDisciplines GetAllDiscipline()
-          {
-               var allDisciplines = new GroupOfDisciplines();
-
-               using (var db = new UserContext())
-               {
-                    allDisciplines.Disciplines = db.Disciplines.ToList();
-               }
-               return allDisciplines;
-          }
-          internal GroupOfCassRooms GetAllClassRoom()
-          {
-               var allCassRooms = new GroupOfCassRooms();
-
-               using (var db = new UserContext())
-               {
-                    allCassRooms.CassRooms = db.ClassRooms.ToList();
-               }
-               return allCassRooms;
-          }
-          internal AcademicGroupsList GetAllAcademicGroup()
-          {
-               var allAcademicGroups = new AcademicGroupsList();
-
-               using (var db = new UserContext())
-               {
-                    allAcademicGroups.AcademicGroups = db.AcademicGroups.ToList();
-               }
-               return allAcademicGroups;
-          }
-
           internal ActionResponse AddNewUser(NewUserData newUserData)
           {
                var validate = new EmailAddressAttribute();
@@ -462,138 +431,119 @@ namespace eProiect.BusinessLogic.Core
                }
 
           }
-          internal ActionResponse AddNewAcademicGroup(AcademicGroup academicGroup)
+          internal ActionResponse DeleteUser(int Id)
           {
-               var newAcademicGroup = new AcademicGroup
-               {
-                    Name = academicGroup.Name,
-                    Year = academicGroup.Year
-               };
-
-               using (var db = new UserContext())
-               {
-
-                    try
+               if (Id < 0 && Id != 0)
+                    return new ActionResponse
                     {
-                         db.AcademicGroups.Add(newAcademicGroup);
-                         db.SaveChanges();
-
-                    }
-                    catch (DbUpdateException ex)
+                         ActionStatusMsg = "Invalid ID",
+                         Status = false
+                    };
+               try
+               {
+                    UserCredential _user;
+                    using (var db = new UserContext())
                     {
-                         if (ex.InnerException != null)
+                         _user = db.UserCredentials.FirstOrDefault(g => g.Id == Id);
+                         if (_user == null)
                          {
-
-                              // Check if inner exception is SqlException
-                              if (ex.InnerException is SqlException sqlEx)
-                              {
-                                   // Handle SqlException
-                                   if (sqlEx.Number == 2601) // SQL Server error number for unique constraint violation
-                                   {
-                                        return new ActionResponse
-                                        {
-                                             ActionStatusMsg = "Duplicate key error occurred: " + sqlEx.Message,
-                                             Status = false
-                                        };
-                                   }
-                                   else
-                                   {
-                                        return new ActionResponse
-                                        {
-                                             ActionStatusMsg = "Other SQL Server error occurred: " + sqlEx.Message,
-                                             Status = false
-                                        };
-                                   }
-                              }
                               return new ActionResponse
                               {
-                                   ActionStatusMsg = "Inner Exception: " + ex.InnerException.Message,
+                                   ActionStatusMsg = "User not found or invalid ID",
                                    Status = false
                               };
                          }
-                         return new ActionResponse
-                         {
-                              ActionStatusMsg = "DbUpdateException occurred: " + ex.Message,
-                              Status = false
-                         };
+
+
+                         db.UserCredentials.Remove(_user);
+
+                         db.SaveChanges();
                     }
-                    catch (Exception ex)
-                    {
-                         // Handle other exceptions
-                         return new ActionResponse
-                         {
-                              ActionStatusMsg = "An error occurred: " + ex.Message,
-                              Status = false
-                         };
-                    }
-                    return new ActionResponse { Status = true };
                }
+               catch (Exception ex)
+               {
+                    return new ActionResponse
+                    {
+                         ActionStatusMsg = $"An error occurred while updating user data: {ex.Message}",
+                         Status = false
+                    };
+               }
+               return new ActionResponse
+               {
+                    ActionStatusMsg = "User data updated successfully",
+                    Status = true
+               };
           }
-          internal ActionResponse AddNewClassRoom(ClassRoom classRoom)
+          internal ActionResponse EditUser(User newUserData)
           {
-               var newClassRoom = new ClassRoom
-               {
-                    ClassroomName = classRoom.ClassroomName,
-                    Floor = classRoom.Floor
-               };
-               using (var db = new UserContext())
+               if (newUserData == null)
                {
 
-                    try
+                    return new ActionResponse
                     {
-                         db.ClassRooms.Add(newClassRoom);
-                         db.SaveChanges();
+                         ActionStatusMsg = "Null parametre user",
+                         Status = false
+                    };
+               }
+               var validate = new EmailAddressAttribute();
+               if (!validate.IsValid(newUserData.Credentials.Email))
 
-                    }
-                    catch (DbUpdateException ex)
+               {
+                    return new ActionResponse
                     {
-                         if (ex.InnerException != null)
+                         ActionStatusMsg = "Is'n valid Email",
+                         Status = false
+                    };
+               }
+               try
+               {
+                    using (var db = new UserContext())
+                    {
+                         var _user = db.Users.Include(u => u.Credentials).FirstOrDefault(u => u.Id == newUserData.Id);
+                         if (_user == null)
                          {
-
-                              // Check if inner exception is SqlException
-                              if (ex.InnerException is SqlException sqlEx)
-                              {
-                                   // Handle SqlException
-                                   if (sqlEx.Number == 2601) // SQL Server error number for unique constraint violation
-                                   {
-                                        return new ActionResponse
-                                        {
-                                             ActionStatusMsg = "Duplicate key error occurred: " + sqlEx.Message,
-                                             Status = false
-                                        };
-                                   }
-                                   else
-                                   {
-                                        return new ActionResponse
-                                        {
-                                             ActionStatusMsg = "Other SQL Server error occurred: " + sqlEx.Message,
-                                             Status = false
-                                        };
-                                   }
-                              }
                               return new ActionResponse
                               {
-                                   ActionStatusMsg = "Inner Exception: " + ex.InnerException.Message,
+                                   ActionStatusMsg = "User not found or invalid ID",
                                    Status = false
                               };
                          }
-                         return new ActionResponse
-                         {
-                              ActionStatusMsg = "DbUpdateException occurred: " + ex.Message,
-                              Status = false
-                         };
+
+                         _user.Name = newUserData.Name;
+                         _user.Surname = newUserData.Surname;
+                         _user.Credentials.Email = newUserData.Credentials.Email;
+                         _user.Level = newUserData.Level;
+                         db.SaveChanges();
                     }
-                    catch (Exception ex)
-                    {
-                         // Handle other exceptions
-                         return new ActionResponse
-                         {
-                              ActionStatusMsg = "An error occurred: " + ex.Message,
-                              Status = false
-                         };
-                    }
-                    return new ActionResponse { Status = true };
                }
+               catch (Exception ex)
+               {
+                    return new ActionResponse
+                    {
+                         ActionStatusMsg = $"An error occurred while updating user data: {ex.Message}",
+                         Status = false
+                    };
+               }
+               return new ActionResponse
+               {
+                    ActionStatusMsg = "User data updated successfully",
+                    Status = true
+               };
+
+
+
+          }
+*/
+
+          /*internal GroupOfDisciplines GetAllDiscipline()
+          {
+               var allDisciplines = new GroupOfDisciplines();
+
+               using (var db = new UserContext())
+               {
+                    allDisciplines.Disciplines = db.Disciplines.ToList();
+               }
+               return allDisciplines;
           }
           internal ActionResponse AddNewDiscipline(Discipline discipline)
           {
@@ -662,49 +612,43 @@ namespace eProiect.BusinessLogic.Core
                     return new ActionResponse { Status = true };
                }
           }
-
-          internal ActionResponse DeleteUser(int Id)
+          internal ActionResponse EditDiscipline(Discipline updatedDisciplineData)
           {
-               if (Id < 0 && Id != 0)
-                    return new ActionResponse
-                    {
-                         ActionStatusMsg = "Invalid ID",
-                         Status = false
-                    };
                try
                {
-                    UserCredential _user;
                     using (var db = new UserContext())
                     {
-                         _user = db.UserCredentials.FirstOrDefault(g => g.Id == Id);
-                         if (_user == null)
+                         var discipline = db.Disciplines.FirstOrDefault(d => d.Id == updatedDisciplineData.Id);
+                         if (discipline == null)
                          {
                               return new ActionResponse
                               {
-                                   ActionStatusMsg = "User not found or invalid ID",
+                                   ActionStatusMsg = "Discipline not found or invalid ID",
                                    Status = false
                               };
                          }
 
-
-                         db.UserCredentials.Remove(_user);
+                         // Update discipline properties
+                         discipline.Name = updatedDisciplineData.Name;
+                         discipline.ShortName = updatedDisciplineData.ShortName;
 
                          db.SaveChanges();
                     }
+
+                    return new ActionResponse
+                    {
+                         ActionStatusMsg = "Discipline data updated successfully",
+                         Status = true
+                    };
                }
                catch (Exception ex)
                {
                     return new ActionResponse
                     {
-                         ActionStatusMsg = $"An error occurred while updating user data: {ex.Message}",
+                         ActionStatusMsg = $"An error occurred while updating discipline data: {ex.Message}",
                          Status = false
                     };
                }
-               return new ActionResponse
-               {
-                    ActionStatusMsg = "User data updated successfully",
-                    Status = true
-               };
           }
           internal ActionResponse DeleteDiscipline(int Id)
           {
@@ -747,146 +691,85 @@ namespace eProiect.BusinessLogic.Core
                     Status = true
                };
 
-          }
-          internal ActionResponse DeleteAcademicGroup(int Id)
+          }*/
+          
+          
+          /*internal AcademicGroupsList GetAllAcademicGroup()
           {
-               if (Id < 0 && Id != 0)
-                    return new ActionResponse
-                    {
-                         ActionStatusMsg = "Invalid ID",
-                         Status = false
-                    };
-               try
+               var allAcademicGroups = new AcademicGroupsList();
+
+               using (var db = new UserContext())
                {
-                    AcademicGroup _academicGroup;
-                    using (var db = new UserContext())
+                    allAcademicGroups.AcademicGroups = db.AcademicGroups.ToList();
+               }
+               return allAcademicGroups;
+          }
+          internal ActionResponse AddNewAcademicGroup(AcademicGroup academicGroup)
+          {
+               var newAcademicGroup = new AcademicGroup
+               {
+                    Name = academicGroup.Name,
+                    Year = academicGroup.Year
+               };
+
+               using (var db = new UserContext())
+               {
+
+                    try
                     {
-                         _academicGroup = db.AcademicGroups.FirstOrDefault(g => g.Id == Id);
-                         if (_academicGroup == null)
+                         db.AcademicGroups.Add(newAcademicGroup);
+                         db.SaveChanges();
+
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                         if (ex.InnerException != null)
                          {
+
+                              // Check if inner exception is SqlException
+                              if (ex.InnerException is SqlException sqlEx)
+                              {
+                                   // Handle SqlException
+                                   if (sqlEx.Number == 2601) // SQL Server error number for unique constraint violation
+                                   {
+                                        return new ActionResponse
+                                        {
+                                             ActionStatusMsg = "Duplicate key error occurred: " + sqlEx.Message,
+                                             Status = false
+                                        };
+                                   }
+                                   else
+                                   {
+                                        return new ActionResponse
+                                        {
+                                             ActionStatusMsg = "Other SQL Server error occurred: " + sqlEx.Message,
+                                             Status = false
+                                        };
+                                   }
+                              }
                               return new ActionResponse
                               {
-                                   ActionStatusMsg = "Academic group not found or invalid ID",
+                                   ActionStatusMsg = "Inner Exception: " + ex.InnerException.Message,
                                    Status = false
                               };
                          }
-
-                         db.AcademicGroups.Remove(_academicGroup);
-                         db.SaveChanges();
-                    }
-               }
-               catch (Exception ex)
-               {
-                    return new ActionResponse
-                    {
-                         ActionStatusMsg = $"An error occurred while updating academic group data: {ex.Message}",
-                         Status = false
-                    };
-               }
-               return new ActionResponse
-               {
-                    ActionStatusMsg = "Academic group data updated successfully",
-                    Status = true
-               };
-          }
-          internal ActionResponse DeleteClassRoom(int Id)
-          {
-               if (Id < 0 && Id != 0)
-                    return new ActionResponse
-                    {
-                         ActionStatusMsg = "Invalid ID",
-                         Status = false
-                    };
-               try
-               {
-                    ClassRoom _classRoom;
-                    using (var db = new UserContext())
-                    {
-                         _classRoom = db.ClassRooms.FirstOrDefault(c => c.Id == Id);
-                         if (_classRoom == null)
+                         return new ActionResponse
                          {
-                              return new ActionResponse
-                              {
-                                   ActionStatusMsg = "Nu a fost gasita ClassRoom sau este id invalid",
-                                   Status = false
-                              };
-                         }
-
-                         db.ClassRooms.Remove(_classRoom);
-                         db.SaveChanges();
+                              ActionStatusMsg = "DbUpdateException occurred: " + ex.Message,
+                              Status = false
+                         };
                     }
-               }
-               catch (Exception ex)
-               {
-                    return new ActionResponse
+                    catch (Exception ex)
                     {
-                         ActionStatusMsg = $"A aparut o eroare la stergerea ClassRoom: {ex.Message}",
-                         Status = false
-                    };
-               }
-               return new ActionResponse
-               {
-                    ActionStatusMsg = "ClassRoom a fost stearsa cu succes",
-                    Status = true
-               };
-          }
-
-          internal ActionResponse EditUser(User newUserData)
-          {
-               if (newUserData == null)
-               {
-                    return new ActionResponse
-                    {
-                         ActionStatusMsg = "Null parametre user",
-                         Status = false
-                    };
-               }
-               var validate = new EmailAddressAttribute();
-               if (!validate.IsValid(newUserData.Credentials.Email))
-               {
-                    return new ActionResponse
-                    {
-                         ActionStatusMsg = "Is'n valid Email",
-                         Status = false
-                    };
-               }
-               try
-               {
-                    using (var db = new UserContext())
-                    {
-                         var _user = db.Users.Include(u => u.Credentials).FirstOrDefault(u => u.Id == newUserData.Id);
-                         if (_user == null)
+                         // Handle other exceptions
+                         return new ActionResponse
                          {
-                              return new ActionResponse
-                              {
-                                   ActionStatusMsg = "User not found or invalid ID",
-                                   Status = false
-                              };
-                         }
-
-                         _user.Name = newUserData.Name;
-                         _user.Surname = newUserData.Surname;
-                         _user.Credentials.Email = newUserData.Credentials.Email;
-                         db.Users.Remove(_user);
-                         db.SaveChanges();
+                              ActionStatusMsg = "An error occurred: " + ex.Message,
+                              Status = false
+                         };
                     }
+                    return new ActionResponse { Status = true };
                }
-               catch (Exception ex)
-               {
-                    return new ActionResponse
-                    {
-                         ActionStatusMsg = $"An error occurred while updating user data: {ex.Message}",
-                         Status = false
-                    };
-               }
-               return new ActionResponse
-               {
-                    ActionStatusMsg = "User data updated successfully",
-                    Status = true
-               };
-
-
-
           }
           internal ActionResponse EditAcademicGroup(AcademicGroup newAcademicGroupData)
           {
@@ -936,42 +819,124 @@ namespace eProiect.BusinessLogic.Core
 
 
           }
-          internal ActionResponse EditDiscipline(Discipline updatedDisciplineData)
+          internal ActionResponse DeleteAcademicGroup(int Id)
           {
+               if (Id < 0 && Id != 0)
+                    return new ActionResponse
+                    {
+                         ActionStatusMsg = "Invalid ID",
+                         Status = false
+                    };
                try
                {
+                    AcademicGroup _academicGroup;
                     using (var db = new UserContext())
                     {
-                         var discipline = db.Disciplines.FirstOrDefault(d => d.Id == updatedDisciplineData.Id);
-                         if (discipline == null)
+                         _academicGroup = db.AcademicGroups.FirstOrDefault(g => g.Id == Id);
+                         if (_academicGroup == null)
                          {
                               return new ActionResponse
                               {
-                                   ActionStatusMsg = "Discipline not found or invalid ID",
+                                   ActionStatusMsg = "Academic group not found or invalid ID",
                                    Status = false
                               };
                          }
 
-                         // Update discipline properties
-                         discipline.Name = updatedDisciplineData.Name;
-                         discipline.ShortName = updatedDisciplineData.ShortName;
-
+                         db.AcademicGroups.Remove(_academicGroup);
                          db.SaveChanges();
                     }
-
-                    return new ActionResponse
-                    {
-                         ActionStatusMsg = "Discipline data updated successfully",
-                         Status = true
-                    };
                }
                catch (Exception ex)
                {
                     return new ActionResponse
                     {
-                         ActionStatusMsg = $"An error occurred while updating discipline data: {ex.Message}",
+                         ActionStatusMsg = $"An error occurred while updating academic group data: {ex.Message}",
                          Status = false
                     };
+               }
+               return new ActionResponse
+               {
+                    ActionStatusMsg = "Academic group data updated successfully",
+                    Status = true
+               };
+          }*/
+
+
+          /*internal GroupOfCassRooms GetAllClassRoom()
+          {
+               var allCassRooms = new GroupOfCassRooms();
+
+               using (var db = new UserContext())
+               {
+                    allCassRooms.CassRooms = db.ClassRooms.ToList();
+               }
+               return allCassRooms;
+          }
+          internal ActionResponse AddNewClassRoom(ClassRoom classRoom)
+          {
+               var newClassRoom = new ClassRoom
+               {
+                    ClassroomName = classRoom.ClassroomName,
+                    Floor = classRoom.Floor
+               };
+
+               using (var db = new UserContext())
+               {
+
+                    try
+                    {
+                         db.ClassRooms.Add(newClassRoom);
+                         db.SaveChanges();
+
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                         if (ex.InnerException != null)
+                         {
+
+                              // Check if inner exception is SqlException
+                              if (ex.InnerException is SqlException sqlEx)
+                              {
+                                   // Handle SqlException
+                                   if (sqlEx.Number == 2601) // SQL Server error number for unique constraint violation
+                                   {
+                                        return new ActionResponse
+                                        {
+                                             ActionStatusMsg = "Duplicate key error occurred: " + sqlEx.Message,
+                                             Status = false
+                                        };
+                                   }
+                                   else
+                                   {
+                                        return new ActionResponse
+                                        {
+                                             ActionStatusMsg = "Other SQL Server error occurred: " + sqlEx.Message,
+                                             Status = false
+                                        };
+                                   }
+                              }
+                              return new ActionResponse
+                              {
+                                   ActionStatusMsg = "Inner Exception: " + ex.InnerException.Message,
+                                   Status = false
+                              };
+                         }
+                         return new ActionResponse
+                         {
+                              ActionStatusMsg = "DbUpdateException occurred: " + ex.Message,
+                              Status = false
+                         };
+                    }
+                    catch (Exception ex)
+                    {
+                         // Handle other exceptions
+                         return new ActionResponse
+                         {
+                              ActionStatusMsg = "An error occurred: " + ex.Message,
+                              Status = false
+                         };
+                    }
+                    return new ActionResponse { Status = true };
                }
           }
           internal ActionResponse EditClassRoom(ClassRoom updatedClassRoomData)
@@ -1012,6 +977,48 @@ namespace eProiect.BusinessLogic.Core
                     };
                }
           }
+          internal ActionResponse DeleteClassRoom(int Id)
+          {
+               if (Id < 0 && Id != 0)
+                    return new ActionResponse
+                    {
+                         ActionStatusMsg = "Invalid ID",
+                         Status = false
+                    };
+               try
+               {
+                    ClassRoom _classRoom;
+                    using (var db = new UserContext())
+                    {
+                         _classRoom = db.ClassRooms.FirstOrDefault(c => c.Id == Id);
+                         if (_classRoom == null)
+                         {
+                              return new ActionResponse
+                              {
+                                   ActionStatusMsg = "Nu a fost gasita ClassRoom sau este id invalid",
+                                   Status = false
+                              };
+                         }
+
+                         db.ClassRooms.Remove(_classRoom);
+                         db.SaveChanges();
+                    }
+               }
+               catch (Exception ex)
+               {
+                    return new ActionResponse
+                    {
+                         ActionStatusMsg = $"A aparut o eroare la stergerea ClassRoom: {ex.Message}",
+                         Status = false
+                    };
+               }
+               return new ActionResponse
+               {
+                    ActionStatusMsg = "ClassRoom a fost stearsa cu succes",
+                    Status = true
+               };
+          }*/
+
      }
 
 }
