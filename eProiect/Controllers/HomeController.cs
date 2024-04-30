@@ -108,8 +108,6 @@ namespace eProiect.Controllers
                         var currentSchedOdd = currentSchedule.Schedule[row, col].Item2;
                         //System.Diagnostics.Debug.WriteLine($"[{row},{col}]{currentSchedEven.Discipline}-{currentSchedOdd.Discipline}");
 
-                        
-
                         if (currentSchedOdd.Type==null) {
                             userSchedule.Schedule[row, col] = (
                                 new Lesson
@@ -202,9 +200,7 @@ namespace eProiect.Controllers
                                 }
                             );
                         }
-                        
-                        //if even null
-                        //if odd null
+
                     }
                 }
             }
@@ -231,11 +227,15 @@ namespace eProiect.Controllers
                     var propValue = property.GetValue(composedData);
                     if(Convert.ToDouble(propValue) < 0)
                     {
-                        return Json(new ActionResponse()
+                        var responseList = new List<ActionResponse>
                         {
-                            Status=false,
-                            ActionStatusMsg="Nu au fost selectati toti parametrii.",
-                        });
+                            new ActionResponse()
+                            {
+                                Status = false,
+                                ActionStatusMsg = "Nu au fost selectati toti parametrii.",
+                            }
+                        };
+                        return Json(responseList);
                     }
                 }
             }
@@ -275,7 +275,7 @@ namespace eProiect.Controllers
                         UserId = loggedInUser.Id,
                         User = new User { Id=loggedInUser.Id}
                     },
-                    AcademicGroup  = new AcademicGroup {   Id = groupId }, 
+                    AcademicGroup  = new AcademicGroup {   Id = groupId , Year=composedData.Year}, 
                     ClassRoom      = new ClassRoom{ Id = composedData.ClassroomId }, 
                     WeekDay        = new WeekDay{Id=composedData.Day+1},
                     StartTime      = startTime,

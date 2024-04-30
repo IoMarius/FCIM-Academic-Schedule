@@ -13,6 +13,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 
+
+//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
+//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
+//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
+//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
+//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
+//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
+//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
+//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
+//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
+
+
 namespace eProiect.BusinessLogic.Core
 {
     public class OrgApi
@@ -84,29 +96,35 @@ namespace eProiect.BusinessLogic.Core
 
             using (var db = new UserContext())
             {
-                //check group busy overlap
-                //System.Diagnostics.Debug.WriteLine($"grpId: {newClass.AcademicGroup.Id}");
-
+               
                 //check overlap with own schedule, if busy as a human.
                 var overlapWithSelf = db.Classes
                     .Include(c => c.UserDiscipline)
                     .Include(c => c.WeekDay)
                     .Include(c => c.UserDiscipline.User)
+                    .Include(c => c.UserDiscipline.Type)
+                    .Include(c => c.AcademicGroup)
                     .FirstOrDefault(c =>
                         c.UserDiscipline.User.Id == newClass.UserDiscipline.User.Id &&
                         c.WeekDay.Id == newClass.WeekDay.Id &&
                         ((c.StartTime == newClass.StartTime) || (c.EndTime == newClass.EndTime))
                     );
+                
 
-                //+ duplicates 
                 if (overlapWithSelf != null)
                 {
-                    return new ActionResponse()
+                    if(
+                        !((overlapWithSelf.UserDiscipline.Type.Id==newClass.UserDiscipline.Type.Id) &&
+                        (overlapWithSelf.AcademicGroup.Year==newClass.AcademicGroup.Year))
+                      )
                     {
-                        ActionStatusMsg = $"Deja există perechi în acest interval: {newClass.StartTime:hh\\:mm}-{newClass.EndTime:hh\\:mm}",
-                        OverlapClassId = overlapWithSelf.Id,
-                        Status = false
-                    };
+                        return new ActionResponse()
+                        {
+                            ActionStatusMsg = $"Deja există perechi în acest interval: {newClass.StartTime:hh\\:mm}-{newClass.EndTime:hh\\:mm}",
+                            OverlapClassId = overlapWithSelf.Id,
+                            Status = false
+                        };
+                    }
                 }
 
                 var overlapBusyGroup = db.Classes
@@ -116,7 +134,7 @@ namespace eProiect.BusinessLogic.Core
                         ((c.StartTime == newClass.StartTime) || (c.EndTime == newClass.EndTime))
                     );
 
-                if (overlapBusyGroup != null) //TEST////TEST////TEST////TEST////TEST////TEST////TEST////TEST//
+                if (overlapBusyGroup != null) 
                 {
                     //get group name
                     var overlapGroup = db.AcademicGroups.FirstOrDefault(ag => ag.Id == newClass.AcademicGroup.Id);
@@ -180,15 +198,18 @@ namespace eProiect.BusinessLogic.Core
                 }
             }
 
+            AcademicGroup groupNameMessage;
             //insert stage
             using (var db = new UserContext())
             {
+                groupNameMessage = db.AcademicGroups.FirstOrDefault(ag => ag.Id == newClass.AcademicGroup.Id);
+
                 //get tables UserDiscipline, AcademicGroup, ClassRoom, Weekday, types
                 var userDiscipline = db.UserDisciplines
                     .Include(ud => ud.User)
                     .Include(ud => ud.Discipline)
                     .Include(ud => ud.Type)
-                    .FirstOrDefault(ud => /*ud.ClassTypeId == newClass.UserDiscipline.ClassTypeId &&*/ ud.DisciplineId == newClass.UserDiscipline.Id);//does not work
+                    .FirstOrDefault(ud =>  ud.DisciplineId == newClass.UserDiscipline.Id && ud.ClassTypeId ==newClass.UserDiscipline.Type.Id);//does not work
 
                 var classType = db.ClassTypes
                     .FirstOrDefault(ud => ud.Id == newClass.UserDiscipline.Type.Id);
@@ -225,7 +246,8 @@ namespace eProiect.BusinessLogic.Core
                 }
             }
 
-            return new ActionResponse { Status = true };
+
+            return new ActionResponse { Status = true , ActionStatusMsg = $"Succes ({groupNameMessage.Name})"};
         }
 
         internal List<AcademicGroup> GetAcademicGroupsList()
@@ -313,7 +335,7 @@ namespace eProiect.BusinessLogic.Core
                 ///MISSING-FREQUENCY//////MISSING-FREQUENCY//////MISSING-FREQUENCY//////MISSING-FREQUENCY//////MISSING-FREQUENCY///
 
                 //scot toate cabinetele de pe etaj
-                var classRoomsonFloor = db.ClassRooms.Where(cr => cr.Floor == data.Floor).ToList();
+               var classRoomsonFloor = db.ClassRooms.Where(cr => cr.Floor == data.Floor).ToList();
 
                 //caut cabinetele ocupate la ora dată //fixit
                 var busyClassrooms = db.Classes.Where(cl =>

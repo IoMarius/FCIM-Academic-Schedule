@@ -17,7 +17,11 @@ $(document).ready(function () {
             case 4: weekdayName = "Vineri"; break;
             case 5: weekdayName = "Sambata"; break;
         }
-        $("#selectedTime").text(positionTime + ' ' + weekdayName);
+        $("#selectedTime").text(positionTime + ' ' + weekdayName); 
+
+        $("#constructor-weekday").text(weekdayName);
+        $("#constructor-time").text(positionTime).attr("data-start-time", positionTime);
+        updateConstructorTime(positionTime)
 
         $('#hour').val($(this).data("positionHours"));
         $('#minute').val($(this).data("positionMinutes"));
@@ -28,8 +32,13 @@ $(document).ready(function () {
     });
 
     $("#disciplineSelector").click(function () {
-        console.error('thisval:', $(this).val());
+       // console.error('thisval:', $(this).val());
         if ($(this).val() != null) {
+
+            //update constructor
+            var disciplineShortname = $('#disciplineSelector').find(':selected').data("shortname")
+            $('#constructorDisName').text(disciplineShortname)
+
             $.ajax({
                 url: "/Home/GetLoggedUserDisciplineTypes",
                 method: "GET",
@@ -69,8 +78,27 @@ $(document).ready(function () {
     // span clicks
     // frequency clicks
     // listen to both:
-    $(".class-param-radio").click( function(){
+    $(".class-param-radio").click(function () {
         loadFreeClassrooms()
+
+        //update constructor
+        //frequency
+        var checkedFrequency = $("input[name='frequency']:checked").data('frequency')
+        if (checkedFrequency == 'par') {
+            $('#constructorFrequency').toggleClass('timetable-label-even margin-left-3px').text('par')
+        } else if (checkedFrequency == 'impar') {
+            $('#constructorFrequency').toggleClass('timetable-label-odd margin-left-3px').text('impar')
+        } else {
+            $('#constructorFrequency').removeClass().text('');
+        }
+
+
+
+
+        //timespan
+        var startTime = $("#constructor-time").data("startTime");
+        updateConstructorTime(startTime)
+     
     });
 
     $("#typeSelector").click(function (event) {
@@ -79,12 +107,20 @@ $(document).ready(function () {
         if (selectedType != undefined && selectedType != null) {
             //console.error(selectedType)
 
+            //update constructor
+            var typeName = $('#typeSelector').find(':selected').data("typename")
+            if (typeName == "Laborator") {
+                $('#constructorDisType').text("lab.")
+            } else {
+                $('#constructorDisType').text(typeName[0].toLowerCase() +'.')
+            }
+
             if (selectedType === "1" /*for CURS*/) { 
-                console.error("toggled multi (curs)")
+               // console.error("toggled multi (curs)")
                 $("#group-select-row").toggleClass('closed');
                 $("#multi-group-select").removeClass('closed');
             } else{
-                console.error("toggled single")
+               // console.error("toggled single")
                 $("#group-select-row").removeClass('closed');
                 if (!$("#multi-group-select").hasClass('closed')) {
                     $("#multi-group-select").toggleClass('closed');
@@ -131,6 +167,10 @@ $(document).ready(function () {
             dropdownMenu.toggleClass("closed")
     });
 
+    $("#cancel-button-addlesson").click(function () {
+        window.location.href = "/Home/Schedule";
+    })
+
     $("#submit-button-addlesson").click(function () {
 
         //old vars
@@ -149,7 +189,7 @@ $(document).ready(function () {
 
         var sGroupsId = $('#selected-options').find('.selected');
         var sGroup = $('#groupSelector').find(':selected').val();
-        
+
 
         //compose json data (no groups)
         var jsonClassData = {
@@ -187,21 +227,38 @@ $(document).ready(function () {
             data: JSON.stringify({ composedData: jsonClassData, groupIds: jsonGroups }),
             success: function (responses) {
                 //notify user
-                console.error(responses)
+                //console.error(responses)
+
+                var addStatus = false;
+                $.each(responses, function (index, response) {
+                    if (response && typeof response === 'object') {
+                        console.error(response["Status"])
+                        if (response["Status"]) {
+                            addStatus = true;
+                            return;
+                        } 
+                    }
+                });
+                if (addStatus) {
+                    window.location.href = "/Home/Schedule";
+                }
+
+                $('#postStatus').empty();
+                
                 $.each(responses, function (index, response) {
                     if (response && typeof response === 'object') {
                         if (response["Status"] == false) {
-                            $('#postStatus').empty()
                             $('#postStatus').append(
-                                $('<div></div>').text("[" + (index + 1) + "]" + response["ActionStatusMsg"])
+                                $('<div></div>').text((index + 1) + ". " + response["ActionStatusMsg"]).toggleClass("response-message-card error-response-addclass")
                             )
+
                         } else {
-                            //notify succes! exit page.
+                            $('#postStatus').append(
+                                $('<div></div>').text((index + 1) + ". " + response["ActionStatusMsg"]).toggleClass("response-message-card success-response-addclass")
+                            )
                         }
-                    } 
-                    /*var text = $('#postStatus').text();*/
-                    //+ " resp[", index, "]", response.Status + " " + response.ActionStatusMsg);
-                })
+                    }
+                });
             },
 
             error: function (jqXHR, textStatus, errorThrown) {
@@ -238,13 +295,56 @@ $(document).ready(function () {
 
     $("#floorSelector").click(function () {
         var selectorValue = $(this).val();
+        if (selectorValue != null) {
+            $("#constructorClassroom").text("cabinet");
+        }
+        
         if (selectorValue != null && selectorValue != -1) {
-
             loadFreeClassrooms()
+        }
+    });
+
+    $("#classroomSelector").click(function (event) {
+        if (event != null) {
+            $("#constructorClassroom").text(
+                $("#classroomSelector").find(':selected').text()
+            )
         }
     });
 });
 
+function updateConstructorTime(startTime) {
+    var endTime;
+    var checkedSpan = $("input[name='length']:checked").val()
+    if (checkedSpan == 2) {
+        if (startTime == "11:30") {
+            endTime = addTime(startTime, 3, 30);
+        } else {
+            endTime = addTime(startTime, 3, 15);
+        }
+    } else {
+        endTime = addTime(startTime, 1, 30);
+    }
+
+    $('#constructor-time').empty();
+    $('#constructor-time').text(startTime + " - " + endTime);
+}
+
+function addTime(startTime, hours, minutes) {
+    // Parse the starting time into a Date object
+    const parsedTime = new Date(`2024-04-29 ${startTime}`); // Replace with a real date if needed
+
+    // Convert individual units to milliseconds and add them together
+    const milliseconds = (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
+
+    // Add the duration to the time
+    parsedTime.setTime(parsedTime.getTime() + milliseconds);
+
+    // Format the resulting time (optional)
+    const formattedTime = parsedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12:false });
+
+    return formattedTime;
+}
 
 function loadFreeClassrooms() {
     jsonData = {
@@ -262,7 +362,7 @@ function loadFreeClassrooms() {
         dataType: "json",
         data: JSON.stringify({ requestData: jsonData }),
         success: function (data) {
-            console.error(data);
+           // console.error(data);
             updateClassroomsSelect(data)
         },
 
@@ -297,7 +397,7 @@ function updateClassroomsSelect(data) {
 
     
     $.each(data, function (index, item) {
-        console.error("id:"+item.Id+" name:"+item.ClassroomName)
+        //console.error("id:"+item.Id+" name:"+item.ClassroomName)
         $('#classroomSelector').append(
             $('<option></option>').val(item.Id).text(item.ClassroomName)
         );
@@ -311,7 +411,7 @@ function updateDisciplineSelect(data) {
     var defaultOption = $('<option disabled selected></option>').text("disciplina").val(-1);
     $('#disciplineSelector').append(defaultOption);
     $.each(data, function (index, item) { //////////////////////////////DID-STUFF//////DID-STUFF//////DID-STUFF//////DID-STUFF//////DID-STUFF///
-        var option = $('<option></option>').val(item.Id).text(item.Name);
+        var option = $('<option></option>').val(item.Id).text(item.Name).attr("data-shortname", item.ShortName);
         $('#disciplineSelector').append(option);
     });
 }
@@ -323,7 +423,7 @@ function updateDisciplineTypeSelect(data) {
 
     $('#typeSelector').append(defaultOption);
      $.each(data, function (index, item) {
-         var option = $('<option></option>').val(item.Id).text(item.TypeName);
+         var option = $('<option></option>').val(item.Id).text(item.TypeName).attr('data-typename', item.TypeName);
          $('#typeSelector').append(option);
     });
 }

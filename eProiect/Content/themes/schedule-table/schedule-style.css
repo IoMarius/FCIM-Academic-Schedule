@@ -80,7 +80,8 @@ th {
 
 .special {
     background-color: #151a2b;
-/*
+    writing-mode: vertical-rl;
+    /*
     font-weight: bold;
 */
     color: white;
@@ -114,7 +115,7 @@ th {
 }
 
 .hour-column {
-    width: 45%;
+    width: 16%;
 }
 
 .normal-scale {
@@ -191,9 +192,11 @@ th {
 
 /*-----NARROW WINDOWS STYLE------------------------------------------*/
 @media (max-width: 1250px){
-    .hour-column {
+    /*.hour-column {
         width: 36%;
-    }
+    }*/
+
+
 
     .full-size {
         justify-content: center;
@@ -220,6 +223,10 @@ th {
         display: table;
         margin-top: 8px;
     }
+
+    /*.empty{
+        display:none;
+    }*/
 
     .navbar-logo {
         flex-direction: row-reverse;

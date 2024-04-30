@@ -20,9 +20,9 @@
             <div class="main-body">
                 <!--Schedule here-->
 
-                <table id="desktopTable">
+                <table id="desktopTable" style=" box-shadow: 3px 3.8px 11.5px rgba(0, 0, 0, 0.075), 31px 40px 92px rgba(0, 0, 0, 0.15);">
                     <tr>
-                        <th class="hour-column">Ora/Ziua</th>
+                        <th class="hour-column"></th>
                         @{ //WEEKDAYS ROW
                             foreach (var weekday in frame.WeekDays)
                             {
@@ -64,7 +64,11 @@
                                                         <span class="timetable-cell-class"> @classType. @evenLesson.ShortName<br /></span>
                                                         <span class="timetable-cell-classroom">@evenLesson.Classroom</span>
                                                         &#8205;
-                                                        <span class="timetable-cell-acadgroup">@evenLesson.AcademicGroup</span>
+                                                        
+                                                        @{if (evenLesson.Type != "Curs"){
+                                                            <span class="timetable-cell-acadgroup">@evenLesson.AcademicGroup</span>
+                                                        }}
+                                                        
                                                     </div>
                                                     
                                                 </td>
@@ -132,9 +136,11 @@
                                                                 @evenLesson.Classroom
                                                             </span>
                                                             <br />
-                                                            <span class="timetable-cell-acadgroup span-attributes">
-                                                                @evenLesson.AcademicGroup
-                                                            </span>
+                                                            @{if (evenLesson.Type != "Curs")
+                                                                {
+                                                                    <span class="timetable-cell-acadgroup">@evenLesson.AcademicGroup</span>
+                                                                }}
+                                                            
                                                         </div>
 
                                                         <div class="separator-line @separatorClass">&#8205;</div>
@@ -150,10 +156,10 @@
                                                                 @oddLesson.Classroom
                                                             </span>
                                                             <br />
-                                                            <span class="timetable-cell-acadgroup span-attributes">
-                                                                @oddLesson.AcademicGroup
-
-                                                            </span>
+                                                            @{if (evenLesson.Type != "Curs")
+                                                            {
+                                                                <span class="timetable-cell-acadgroup">@oddLesson.AcademicGroup</span>
+                                                            }}
                                                         </div>
 
                                                     </div>
@@ -180,12 +186,26 @@
 
             <table id="mobileTable"></table>
             <!--End Schedule-->
+
+            <div>
+                <div class="mobile-addlesson">
+                    not implemented
+                    <i class="ti-plus" style="font-size: 4rem;"></i>
+                </div>
+            </div>
+
+
             </div>
         </div>
     </div>
 </div>
 <div id="addlesson-container" style="display:none;">
-    <div class="card">
+    <!--
+        
+    <div class="cleardiv" style=" height: 28px;">
+    </div>
+    -->
+    <div class="card" style=" margin: 10px 27px 10px 27px;">
         <div class="card-body">
             <div class="page-top-info" style="margin-bottom: -4px; display: inline-flex; align-items: center; width: 100%; justify-content: center">
                 <div class="highlighted-lesson-info">
@@ -198,14 +218,11 @@
                         <span id="day" style="display:none;">o</span>
                     </div>
                 </div>
-
-                
-
             </div>
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" style="margin: 0 27px 0 27px;">
         <div class="card-body">
             <div class="row">
                 <div class="col">
@@ -288,17 +305,17 @@
                                 <div class="col-5">
                                     <div class="class-param-radio radio radiofill radio-info" style="display: inline-flex; flex-direction: row-reverse;">
                                         <label class="class-type-label">
-                                            <input type="radio" name="frequency" value="1" checked="checked">
+                                            <input type="radio" name="frequency" value="1" checked="checked" data-frequency="par">
                                             <i class="helper"></i>Pară
                                         </label>
 
                                         <label class="class-type-label">
-                                            <input type="radio" name="frequency" value="2" checked="checked">
+                                            <input type="radio" name="frequency" value="2" checked="checked" data-frequency="impar">
                                             <i class="helper"></i>Impară
                                         </label>
 
                                         <label class="class-type-label">
-                                            <input type="radio" name="frequency" value="0" checked="checked">
+                                            <input type="radio" name="frequency" value="0" checked="checked" data-frequency="0">
                                             <i class="helper"></i>Săptămânală
                                         </label>
                                     </div>
@@ -353,7 +370,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="margin-bottom:0">
                             <div class="select-category-addlesson col-3"><span>Cabinetul</span></div>
                             <div class="col">
                                 <select id="classroomSelector" name="select" class="form-control form-control-inverse">
@@ -367,22 +384,56 @@
                 </div>
                 <div class="col-5" style="display: flex; align-items: flex-end; flex-direction: column; justify-content: flex-end;">
                     <!--CONFIRM BUTTONS-->
-                            <div id="postStatus" style="background-color:red">HERE ERROR</div>
-                        
-                            <p class="user-notice m-b-10">
-                                Perechile necesită aprobare de către administrator.
-                                Veți primi un mesaj pe poșta electronică la aprobarea/dezaprobarea perechii.
-                            </p>
+                    <div class="class-constructor-block col">
 
-                       <div style="display: flex; align-items: flex-end; justify-content: space-around; width: 100%; ">
-                            <button id="submit-button-addlesson" type="submit">Confirmă <i class="ti-check"></i></button>
-                            
-                            <div class="cancel-action">
-                                <a class="go-back" style="font-size: 14.7px; " href="@Url.Action("Schedule", "Home")">Anulează <i class="ti-trash"></i></a>
+                        <div class="class-card-wrapper" style="width: 50%;">
+                            <div style="display: flex; ">
+                                <div class="empty-square"></div>
+                                <div id="constructor-weekday" class="constructor-weekday"></div>
                             </div>
 
-                       </div>
-                    
+                            <div style="display: flex; height: 40%; ">
+                                <div class="constructor-time"><div id="constructor-time" class="rotate-stuff-90"></div></div>
+                                <div class="constructor-content">
+                                    <div style="display: inline-flex;">
+                                        <span id="constructorDisType" class="timetable-cell-class" style=" margin-right: 2px;"><br></span>
+                                        <span id="constructorDisName" class="timetable-cell-class">disciplină<br></span>
+                                    </div>
+
+                                    <div style=" display: flex; flex-direction: column; align-items: center;">
+                                        <span class="timetable-cell-acadgroup m-b-5">@Model.UData.Surname.Substring(0, 1). @Model.UData.Name</span>
+                                        <div style="display:inline-flex">
+                                            <span id="constructorClassroom" class="timetable-cell-classroom">cabinet</span>
+                                            <span id="constructorFrequency" class="m-r-1"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="width: 100%;">
+                        <div id="postStatus" class="col response-messages-addclass"></div>
+                    </div>
+
+                    <p class="user-notice m-b-10">
+                        Perechile necesită aprobare de către administrator.
+                        Veți primi un mesaj pe poșta electronică la aprobarea/dezaprobarea perechii.
+                    </p>
+
+
+                    @*<div class="row" style="display: flex; align-items: flex-end; justify-content: space-around; width: 100%; ">
+
+                        <div class="cancel-action">
+                            <a class="go-back" style="font-size: 14.7px; " href="@Url.Action("Schedule", "Home")">Anulează <i class="ti-trash"></i></a>
+                        </div>*
+                    </div>*@
+                    <div class="addlesson-buttons-row">
+                        <button id="submit-button-addlesson" type="submit" class="addlesson-button addlesson-button-confirm" style="width: 80%;">Confirmă <i class="ti-check"></i></button>
+                        <button id="cancel-button-addlesson" class="addlesson-button addlesson-button-deny" style="width: 17%;"> <i class="ti-trash"></i></button>
+                    </div>
+
+
                 </div>
             </div>
 

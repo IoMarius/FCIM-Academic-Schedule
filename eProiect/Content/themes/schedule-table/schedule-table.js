@@ -17,17 +17,19 @@ function transformTable() {
         for (var j = 0; j < originalTable.rows.length; j++) {
             var cell = originalTable.rows[j].cells[i];
 
-            if (cell.className == "empty") {
+            if (cell.className == "empty clickable") {
                 continue;
-            } 
+            }
 
             var newRow = transformedTable.insertRow();
             var newCell = newRow.insertCell();
 
+
+            //not working anymore!
             if (j == 0) {
                 newRow.className = "mobile-table-header";
                 if (transformedTable.rows.length - 2 >= 0) {
-                    var rowBefore= transformedTable.rows[transformedTable.rows.length - 2];
+                    var rowBefore = transformedTable.rows[transformedTable.rows.length - 2];
                     if (rowBefore.cells[0].className != "mobile-weekday") {
                         rowBefore.cells[0].classList.add("mobile-last-day");
                     } else {

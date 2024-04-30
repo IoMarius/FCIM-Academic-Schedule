@@ -43,10 +43,156 @@ body {
     width: 100%;
     top: 0;
 }
+
+.addlesson-buttons-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.addlesson-button {
+    height: 38px;
+    width: 48%;
+    border: none;
+    border-radius: 12px;
+    font-size: 19px;
+}
+
+.addlesson-button:focus {
+    outline: none;
+    box-shadow: inset 7px 9px 24px rgba(0, 0, 0, 0.16);
+}
+
+.addlesson-button-confirm:hover {
+    background: #8cb64d;
+    color: white;
+}
+
+.addlesson-button-deny:hover {
+    background: #da0000;
+    color: white;
+}
+
+/*
+    ----------------------------------------------------------------------------MOBILE-ADDLESSON
+*/
+.mobile-addlesson {
+    display: none;   
+}
+
+
+@media (max-width: 750px){
+    .mobile-addlesson {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /*font-size: 4rem;*/
+    }
+}
+/*
+    ----------------------------------------------------------------------------MOBILE-ADDLESSON
+*/
+/*
+    ----------------------------------------------------------------------------ERROR-LIST_ADD-START
+*/
+.response-messages-addclass {
+    display: flex;
+    flex-direction: column;
+    /*border: 1px solid red;*/
+    padding-left: 0;
+}
+
+.response-message-card {
+    border-radius: 6px;
+    padding: 4px 9px 4px 9px;
+    margin-top: 4px;
+    color: white;
+    margin-left: -15px;
+}
+
+.error-response-addclass {
+    background-color: #ff3f3f;
+    
+}
+
+.success-response-addclass {
+    background-color: #5ca603;
+}
+/*
+    ----------------------------------------------------------------------------ERROR-LIST_ADD-END
+*/
+
+/*
+    ----------------------------------------------------------------------------CLASS-CONSTRUCTOR_START
+*/
+
+.show-border {
+    border: 1px solid red;
+}
+
+
+
+.rotate-stuff-90 {
+    writing-mode: vertical-lr;
+}
+/*
+    ----------------------------------------------------------------------------CLASS-CONSTRUCTOR_END
+*/
+.class-constructor-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid #939393;*/
+    border-radius: 17px;
+    /*background-color: #efefef;*/
+    box-shadow: inset 0px 0.9px 11.5px rgba(0, 0, 0, 0.085), inset 10px 9px 92px rgba(0, 0, 0, 0.17);
+}
+
+.constructor-content {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 85%;
+    justify-content: center;
+    /*border: 1px solid #cccccc;*/
+    border-radius: 0 0 6px 0px;
+    box-shadow: 1px 0.9px 11.5px rgba(0, 0, 0, 0.085), 10px 9px 92px rgba(0, 0, 0, 0.17);
+}
+
+
+.constructor-time {
+    background-color: #151a2b;
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 22px 0 0 22px;
+}
+
+.empty-square {
+    width: 15%;
+    background-color: transparent;
+}
+
+.constructor-weekday {
+    background-color: #151a2b;
+    width: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 22px 22px 0 0;
+    padding: 1px;
+}
+
+.margin-left-3px {
+    margin-left: 3px;
+}
 /*
     ----------------------------------------------------------------------------MULTISELECT-START
 */
-
 .dropdown-content {
     background-color: #f0f0f0;
     border-radius: 12px;
