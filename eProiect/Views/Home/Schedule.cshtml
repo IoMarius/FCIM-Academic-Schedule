@@ -57,9 +57,9 @@
                                             {
                                                 <td rowspan="@evenLesson.LessonLength.GetLength()" class="table-cell">
                                                     <div class="edit-lesson-row">
-                                                        <button id="editLessonButton" class="edit-lesson-button closed"><i class="ti-pencil"></i></button>
+                                                        <button id="editLessonButton" data-class-id="@evenLesson.Id" class="edit-lesson-button closed"><i class="ti-pencil"></i></button>                                                        
                                                     </div>
-
+                                                    
                                                     <span class="mobile-timeinterval">
                                                         @evenLesson.StartTime.ToString("hh\\:mm") - @evenLesson.EndTime.ToString("hh\\:mm") <br />
                                                     </span>
@@ -140,7 +140,7 @@
                                                    
                                                                 
                                                           
-                                                            <div class="timetable-cell-class">@evenLesson.Type.Substring(0, 1).ToLower(). @evenLesson.ShortName<button id="editLessonButton" class="edit-lesson-button closed" style="margin-left: 7px;"><i class="ti-pencil"></i></button></div>
+                                                            <div class="timetable-cell-class">@evenLesson.Type.Substring(0, 1).ToLower(). @evenLesson.ShortName<button id="editLessonButton" data-class-id="@evenLesson.Id" class="edit-lesson-button closed" style="margin-left: 7px;"><i class="ti-pencil"></i></button></div>
                                                             <span class="timetable-label-even span-attributes">Par</span>
                                                            
                                                             @{if (evenLesson.Type != "Curs")
@@ -156,7 +156,7 @@
 
                                                         <div class="timetable-cell-content-odd @oddClassParameter">
 
-                                                            <div class="timetable-cell-class">@oddLesson.Type.Substring(0, 1).ToLower(). @oddLesson.ShortName <button id="editLessonButton" class="edit-lesson-button closed" style="margin-left: 7px;"><i class="ti-pencil"></i></button></div>
+                                                            <div class="timetable-cell-class">@oddLesson.Type.Substring(0, 1).ToLower(). @oddLesson.ShortName <button id="editLessonButton" data-class-id="@oddLesson.Id" class="edit-lesson-button closed" style="margin-left: 7px;"><i class="ti-pencil"></i></button></div>
                                                             <span class="timetable-label-odd span-attributes">Impar</span>
                                                             <span class="timetable-cell-classroom span-attributes">@oddLesson.Classroom</span>
                                                            
@@ -363,7 +363,7 @@
 
                             <div class="select-category-addlesson col-3"><span>Etajul</span></div>
                             <div class="col">
-                                <select id="floorSelector" name="select" class="form-control form-control-inverse">
+                                <select id="floorSelector"  name="select" class="floor-selector form-control form-control-inverse">
                                     <option disabled selected value="-1">etajul</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -378,7 +378,7 @@
                         <div class="row" style="margin-bottom:0">
                             <div class="select-category-addlesson col-3"><span>Cabinetul</span></div>
                             <div class="col">
-                                <select id="classroomSelector" name="select" class="form-control form-control-inverse">
+                                <select id="classroomSelector" name="select" class="classroom-selector form-control form-control-inverse">
                                     <option disabled selected value="-1">cabinetul</option>
                                 </select>
                             </div>
@@ -447,4 +447,205 @@
             
     </div>
 </div>
+</div>
+
+<div id="modlesson-container" style="display:none;">
+    <!--
+
+    <div class="cleardiv" style=" height: 28px;">
+    </div>
+    -->
+    <div class="card" style=" margin: 10px 27px 10px 27px;">
+        <div class="card-body">
+            <div class="page-top-info" style="margin-bottom: -4px; display: inline-flex; align-items: center; width: 100%; justify-content: center">
+                <div class="highlighted-lesson-info">
+                    <span style="font-size: 30px; color: #303548; margin-right: 8px;">Editare pereche</span>     
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="margin: 0 27px 0 27px;">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <!--SELECTORS-->
+                    <div class="container p-0" style="margin:0">
+
+                        <!--Weekday, Start time-->
+                        <div class="row">
+                            <div class="select-category-addlesson col-3"><span>Ziua</span></div>
+                            <div class="col">
+                                <select id="disciplineSelector" name="select" class="form-control form-control-inverse">
+                                    <option disabled selected value="-1">ziua</option>
+                                    <option value="1">Luni</option>
+                                    <option value="2">Marți</option>
+                                    <option value="3">Miercuri</option>
+                                    <option value="4">Joi</option>
+                                    <option value="5">Vineri</option>
+                                    <option value="6">Sâmbătă</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="select-category-addlesson col-3"><span>Ora de început</span></div>
+                            <div class="col">
+                                <select id="typeSelector" name="select" class="form-control form-control-inverse">
+                                    <option disabled selected value="-1">ora</option>
+                                    <option data-hours="8" data-minutes="30">08:00</option>
+                                    <option data-hours="9" data-minutes="45">09:45</option>
+                                    <option data-hours="11" data-minutes="30">11:30</option>
+                                    <option data-hours="13" data-minutes="30">13:30</option>
+                                    <option data-hours="15" data-minutes="15">15:15</option>
+                                    <option data-hours="17" data-minutes="0">17:00</option>
+                                    <option data-hours="18" data-minutes="45">18:45</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <!--Even Odd radio buttons-->
+                        <div class="form-radio">
+                            <div class="row">
+                                <div class="col-3" style=" display: flex; align-items: center; justify-content: flex-end; padding-right: 0;">
+                                    <span>Frecvență:</span>
+                                </div>
+
+
+                                <div class="col-5">
+                                    <div class="class-param-radio radio radiofill radio-info" style="display: inline-flex; flex-direction: row-reverse;">
+                                        <label class="class-type-label">
+                                            <input type="radio" name="frequency" value="1" checked="checked" data-frequency="par">
+                                            <i class="helper"></i>Pară
+                                        </label>
+
+                                        <label class="class-type-label">
+                                            <input type="radio" name="frequency" value="2" checked="checked" data-frequency="impar">
+                                            <i class="helper"></i>Impară
+                                        </label>
+
+                                        <label class="class-type-label">
+                                            <input type="radio" name="frequency" value="0" checked="checked" data-frequency="0">
+                                            <i class="helper"></i>Săptămânală
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Lesson duration-->
+                        <div class="form-radio">
+                            <div class="row">
+                                <div class="col-3" style=" display: flex; align-items: center; justify-content: flex-end; padding-right: 0;">
+                                    <span>Durată:</span>
+                                </div>
+
+                                <div class="col">
+                                    <div class="class-param-radio radio radiofill radio-info" style="display: inline-flex; flex-direction: row-reverse;">
+                                        <label class="class-type-label">
+                                            <input type="radio" name="length" value="2" checked="checked">
+                                            <i class="helper"></i>2 perechi
+                                        </label>
+
+                                        <label class="class-type-label">
+                                            <input type="radio" name="length" value="1" checked="checked">
+                                            <i class="helper"></i>1 pereche
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <div class="col">
+                                <p class="user-notice">Disponibilitatea cabinetelor depinde de frecvența și durata perechii.</p>
+                            </div>
+                        </div>
+
+                        <!--Etajul, cabinetul-->
+                        <div class="row">
+
+                            <div class="select-category-addlesson col-3"><span>Etajul</span></div>
+                            <div class="col">
+                                <select id="floorSelector" name="select" class="floor-selector form-control form-control-inverse">
+                                    <option disabled selected value="-1">etajul</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:0">
+                            <div class="select-category-addlesson col-3"><span>Cabinetul</span></div>
+                            <div class="col">
+                                <select id="classroomSelector" name="select" class="classroom-selector form-control form-control-inverse">
+                                    <option disabled selected value="-1">cabinetul</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-5" style="display: flex; align-items: flex-end; flex-direction: column; justify-content: flex-end;">
+                    <!--CONFIRM BUTTONS-->
+                    <div class="class-constructor-block col">
+
+                        <div class="class-card-wrapper" style="width: 50%;">
+                            <div style="display: flex; ">
+                                <div class="empty-square"></div>
+                                <div id="constructor-weekday" class="constructor-weekday"></div>
+                            </div>
+
+                            <div style="display: flex; height: 40%; ">
+                                <div class="constructor-time"><div id="constructor-time" class="rotate-stuff-90"></div></div>
+                                <div class="constructor-content">
+                                    <div style="display: inline-flex;">
+                                        <span id="constructorDisType" class="timetable-cell-class" style=" margin-right: 2px;"><br></span>
+                                        <span id="constructorDisName" class="timetable-cell-class">disciplină<br></span>
+                                    </div>
+
+                                    <div style=" display: flex; flex-direction: column; align-items: center;">
+                                        <span class="timetable-cell-acadgroup m-b-5">@Model.UData.Surname.Substring(0, 1). @Model.UData.Name</span>
+                                        <div style="display:inline-flex">
+                                            <span id="constructorClassroom" class="timetable-cell-classroom">cabinet</span>
+                                            <span id="constructorFrequency" class="m-r-1"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="width: 100%;">
+                        <div id="postStatus" class="col response-messages-addclass"></div>
+                    </div>
+                    @*<div class="row" style="display: flex; align-items: flex-end; justify-content: space-around; width: 100%; ">
+
+                            <div class="cancel-action">
+                                <a class="go-back" style="font-size: 14.7px; " href="@Url.Action("Schedule", "Home")">Anulează <i class="ti-trash"></i></a>
+                            </div>*
+                        </div>*@
+                    <div class="addlesson-buttons-row">
+                        <button id="submit-button-modlesson" type="submit" class="addlesson-button addlesson-button-confirm" style="width: 80%;">Salvează</button>
+                        <button id="cancel-button-modlesson" class="addlesson-button addlesson-button-deny" style="width: 17%;"> <i class="ti-close"></i></button>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
 </div>

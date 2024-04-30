@@ -63,6 +63,7 @@ namespace eProiect.BusinessLogic.Core
                 {
                     schedule.AddLesson(
                         new Lesson(
+                            lesson.Id,
                             lesson.UserDiscipline.Discipline.Name,
                             lesson.UserDiscipline.Discipline.ShortName,
                             lesson.UserDiscipline.Type.TypeName,

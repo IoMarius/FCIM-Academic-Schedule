@@ -10,12 +10,23 @@ $(document).ready(function () {
         //toggle activated not activated styles
     });
 
+    $('.edit-lesson-button').click(function () {
+        $("#schedule-container").css("display", "none");
+        $("#modlesson-container").css("display", "block");
+
+        /*$("#lessonIdspan").text(
+            $('.edit-lesson-button').data("classId")
+        )*/
+        //get selected lesson by ID
+        //figure out how to set default settings to one of the lesson.
+    });
+
     $(".plus-button").click(function () {
         var positionTime = $(this).data("positionTime");
         var dataWeekdayNr = $(this).data("positionWeekdayNr");
 
         $("#schedule-container").css("display", "none");
-        $("#addlesson-container").css("display", "block");
+        $("#modlesson-container").css("display", "block");
 
         var weekdayName;
         switch (dataWeekdayNr) {

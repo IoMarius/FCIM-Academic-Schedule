@@ -12,6 +12,7 @@ namespace eProiect.Domain.Entities.Academic
     
     public class Lesson
     {
+        public int Id { get; set; }
         public string Discipline { get; set; }
         public string ShortName { get; set; }
         public User.User LeadingUser { get; set; }
@@ -24,9 +25,10 @@ namespace eProiect.Domain.Entities.Academic
         public LessonLength LessonLength { get; set; }
         public ClassFrequency WeekSpan { get; set; }
 
-        public Lesson(string _discipline, string _shortname, string _lessonType, string _weekday, string _classroom,
+        public Lesson(int _id, string _discipline, string _shortname, string _lessonType, string _weekday, string _classroom,
             string _group, TimeSpan _start, TimeSpan _end, ClassFrequency _weekSpan = ClassFrequency.WEEKLY)
         {
+            Id = _id;
             Discipline = _discipline;
             ShortName = _shortname;
             Type = _lessonType;

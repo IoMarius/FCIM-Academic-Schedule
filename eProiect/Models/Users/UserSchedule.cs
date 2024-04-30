@@ -15,6 +15,7 @@ namespace eProiect.Models.Users
 #pragma warning restore CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
 #pragma warning restore CS0660 // Type defines operator == or operator != but does not override Object.Equals(object o)
     {
+        public int Id { get; set; }
         public string Discipline { get; set; }
         public string ShortName { get; set; }
         public string Type { get; set; }
@@ -27,9 +28,10 @@ namespace eProiect.Models.Users
         public LessonWeekType WeekSpan { get; set; }
 
 
-        public Lesson(string _discipline, string _shortname, string _lessonType, string _weekday, string _classroom, 
+        public Lesson(int _id, string _discipline, string _shortname, string _lessonType, string _weekday, string _classroom, 
             string _group, TimeSpan _start, TimeSpan _end, LessonWeekType _weekSpan=LessonWeekType.FULL)
         {
+            Id = _id;
             Discipline= _discipline;
             ShortName = _shortname;
             Type = _lessonType;

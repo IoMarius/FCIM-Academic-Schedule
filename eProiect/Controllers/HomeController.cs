@@ -65,17 +65,8 @@ namespace eProiect.Controllers
             return View();         
         }
 
-        [HttpGet]
-        public ActionResult GetLoggedUserDisciplineTypes(int disciplineId)
-        {
-            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
-            var classTypes = _organizational.GetTypesByDisciplineForUser(disciplineId, loggedInUser.Id);
-            
-            return Json(classTypes, JsonRequestBehavior.AllowGet);
-        }
-
         [UserMode(UserRole.admin, UserRole.teacher)]
-        public ActionResult Schedule() 
+        public ActionResult Schedule()
         {
             SessionStatus();
             if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
@@ -84,11 +75,12 @@ namespace eProiect.Controllers
             }
 
             var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
-            UserEsentialData UData= new UserEsentialData { 
-                Name=loggedInUser.Name,
-                Surname=loggedInUser.Surname,
-                CreatedDate=loggedInUser.CreatedDate,
-                Level=loggedInUser.Level
+            UserEsentialData UData = new UserEsentialData
+            {
+                Name = loggedInUser.Name,
+                Surname = loggedInUser.Surname,
+                CreatedDate = loggedInUser.CreatedDate,
+                Level = loggedInUser.Level
             };
 
 
@@ -96,8 +88,8 @@ namespace eProiect.Controllers
             var currentSchedule = _organizational.GetScheduleById(loggedInUser.Id);
 
             //var thingy = currentSchedule.Schedule[0, 3].Item1.Discipline;
-       
-            if(currentSchedule!= null)
+
+            if (currentSchedule != null)
             {
                 //transfering on tho another.... not optimized at all...
                 for (int row = 0; row < 6; row++)
@@ -108,10 +100,12 @@ namespace eProiect.Controllers
                         var currentSchedOdd = currentSchedule.Schedule[row, col].Item2;
                         //System.Diagnostics.Debug.WriteLine($"[{row},{col}]{currentSchedEven.Discipline}-{currentSchedOdd.Discipline}");
 
-                        if (currentSchedOdd.Type==null) {
+                        if (currentSchedOdd.Type == null)
+                        {
                             userSchedule.Schedule[row, col] = (
                                 new Lesson
                                 {
+                                    Id = currentSchedEven.Id,
                                     Discipline = currentSchedEven.Discipline,
                                     ShortName = currentSchedEven.ShortName,
                                     Type = currentSchedEven.Type,
@@ -125,6 +119,7 @@ namespace eProiect.Controllers
                                 },
                                 new Lesson
                                 {
+                                    Id = 0,
                                     Discipline = "NULL",
                                     ShortName = "NULL",
                                     Type = "NULL",
@@ -137,12 +132,13 @@ namespace eProiect.Controllers
                                     WeekSpan = (LessonWeekType.ODD)
                                 }
                             );
-                        } 
+                        }
                         else if (currentSchedEven.Type == null)
                         {
                             userSchedule.Schedule[row, col] = (
                                 new Lesson
                                 {
+                                    Id = 0,
                                     Discipline = "NULL",
                                     ShortName = "NULL",
                                     Type = "NULL",
@@ -156,6 +152,7 @@ namespace eProiect.Controllers
                                 },
                                 new Lesson
                                 {
+                                    Id = currentSchedOdd.Id,
                                     Discipline = currentSchedOdd.Discipline,
                                     ShortName = currentSchedOdd.ShortName,
                                     Type = currentSchedOdd.Type,
@@ -174,6 +171,7 @@ namespace eProiect.Controllers
                             userSchedule.Schedule[row, col] = (
                                 new Lesson
                                 {
+                                    Id = currentSchedEven.Id,
                                     Discipline = currentSchedEven.Discipline,
                                     ShortName = currentSchedEven.ShortName,
                                     Type = currentSchedEven.Type,
@@ -187,6 +185,7 @@ namespace eProiect.Controllers
                                 },
                                 new Lesson
                                 {
+                                    Id = currentSchedOdd.Id,
                                     Discipline = currentSchedOdd.Discipline,
                                     ShortName = currentSchedOdd.ShortName,
                                     Type = currentSchedOdd.Type,
@@ -204,7 +203,7 @@ namespace eProiect.Controllers
                     }
                 }
             }
-            
+
 
             GeneralViewData viewData = new GeneralViewData
             {
@@ -213,6 +212,37 @@ namespace eProiect.Controllers
             };
 
             return View(viewData);
+        }
+
+        //Move get post stuff to another controller
+        //Home controller only for pages.
+        //( Modify ajax requests :( )
+
+
+        [HttpGet]
+        public ActionResult GetLoggedUserDisciplineTypes(int disciplineId)
+        {
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+            var classTypes = _organizational.GetTypesByDisciplineForUser(disciplineId, loggedInUser.Id);
+            
+            return Json(classTypes, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetLoggedUserDisciplines()
+        {
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+            if (loggedInUser == null)
+                return Json(new List<Discipline>());
+
+            var discList = _organizational.GetDisciplinesById(loggedInUser.Id);
+            return Json(discList, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetClassById(int classId)
+        {
+            return null;
         }
 
         [HttpPost]
@@ -303,18 +333,6 @@ namespace eProiect.Controllers
 
             groupList = _organizational.GetAcadGroupsList(year);
             return Json(groupList);
-        }
-
-
-        [HttpGet]
-        public ActionResult GetLoggedUserDisciplines()
-        {
-            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
-            if (loggedInUser == null)
-                return Json(new List<Discipline>());
-
-            var discList=_organizational.GetDisciplinesById(loggedInUser.Id);
-            return Json(discList, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
