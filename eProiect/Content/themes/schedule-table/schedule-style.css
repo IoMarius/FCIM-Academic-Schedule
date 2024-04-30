@@ -125,6 +125,19 @@ th {
 .full-size {
     justify-content:center;
 }
+
+.table-cell:hover {
+    box-shadow: inset 0px 5px 24px rgba(0, 0, 0, 0.14);
+}
+
+.timetable-cell-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 90%;
+}
+
 /*----------TIMETABLE ODD EVEN LESSONS--------------------------*/
 .timetable-label-even, .timetable-label-odd {
     border-radius: 10px;
@@ -136,6 +149,7 @@ th {
 .timetable-cell-divided {
     display: flex;
 }
+
 
 .timetable-cell-content-even, .timetable-cell-content-odd {
     width: 49%;

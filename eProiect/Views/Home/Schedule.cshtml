@@ -62,13 +62,10 @@
                                                     }
                                                     <div class="timetable-cell-content">
                                                         <span class="timetable-cell-class"> @classType. @evenLesson.ShortName<br /></span>
-                                                        <span class="timetable-cell-classroom">@evenLesson.Classroom</span>
-                                                        &#8205;
-                                                        
                                                         @{if (evenLesson.Type != "Curs"){
                                                             <span class="timetable-cell-acadgroup">@evenLesson.AcademicGroup</span>
                                                         }}
-                                                        
+                                                        <span class="timetable-cell-classroom">@evenLesson.Classroom</span>                                              
                                                     </div>
                                                     
                                                 </td>
@@ -132,14 +129,11 @@
                                                                 <br />
                                                             </span>
                                                             <span class="timetable-label-even span-attributes">Par</span>
-                                                            <span class="timetable-cell-classroom span-attributes">
-                                                                @evenLesson.Classroom
-                                                            </span>
                                                             <br />
-                                                            @{if (evenLesson.Type != "Curs")
-                                                                {
-                                                                    <span class="timetable-cell-acadgroup">@evenLesson.AcademicGroup</span>
-                                                                }}
+                                                            @{if (evenLesson.Type != "Curs"){
+                                                                <span class="timetable-cell-acadgroup">@evenLesson.AcademicGroup</span>
+                                                            }}
+                                                            <span class="timetable-cell-classroom span-attributes">@evenLesson.Classroom</span>
                                                             
                                                         </div>
 
