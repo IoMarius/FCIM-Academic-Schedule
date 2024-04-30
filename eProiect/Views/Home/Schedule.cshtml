@@ -22,7 +22,9 @@
 
                 <table id="desktopTable" style=" box-shadow: 3px 3.8px 11.5px rgba(0, 0, 0, 0.075), 31px 40px 92px rgba(0, 0, 0, 0.15);">
                     <tr>
-                        <th class="hour-column"></th>
+                        <th class="hour-column">
+                            <button id="enableTableEditButton" class="enable-edit-button"><i id="editIconTable" class="ti-pencil-alt"></i><i id="stopEditIconTable" class="ti-check closed"></i></button>
+                        </th>
                         @{ //WEEKDAYS ROW
                             foreach (var weekday in frame.WeekDays)
                             {
@@ -54,6 +56,10 @@
                                             if (evenLesson == oddLesson)
                                             {
                                                 <td rowspan="@evenLesson.LessonLength.GetLength()" class="table-cell">
+                                                    <div class="edit-lesson-row">
+                                                        <button id="editLessonButton" class="edit-lesson-button closed"><i class="ti-pencil"></i></button>
+                                                    </div>
+
                                                     <span class="mobile-timeinterval">
                                                         @evenLesson.StartTime.ToString("hh\\:mm") - @evenLesson.EndTime.ToString("hh\\:mm") <br />
                                                     </span>
@@ -61,11 +67,18 @@
                                                         if (evenLesson.Type.Substring(0, 1).ToLower() == "l") { classType = "lab"; } else { classType = evenLesson.Type.Substring(0, 1).ToLower(); }
                                                     }
                                                     <div class="timetable-cell-content">
-                                                        <span class="timetable-cell-class"> @classType. @evenLesson.ShortName<br /></span>
-                                                        @{if (evenLesson.Type != "Curs"){
-                                                            <span class="timetable-cell-acadgroup">@evenLesson.AcademicGroup</span>
-                                                        }}
-                                                        <span class="timetable-cell-classroom">@evenLesson.Classroom</span>                                              
+
+                                                        @*<span class="timetable-cell-class"> @classType. @evenLesson.ShortName</span>*@
+                                                        
+                                                        <span class="timetable-cell-class"> @classType. @evenLesson.ShortName</span>
+                                                        
+
+                                                      
+                                                        @{if (evenLesson.Type != "Curs")
+                                                            {
+                                                                <span class="timetable-cell-acadgroup">@evenLesson.AcademicGroup</span>
+                                                            }}
+                                                        <span class="timetable-cell-classroom">@evenLesson.Classroom</span>
                                                     </div>
                                                     
                                                 </td>
@@ -104,7 +117,7 @@
                                                     dividedCellClass = " full-size";
                                                 }
 
-                                                <td class="timetable-tablecell">
+                                                <td class="table-cell">
 
                                                     @if (evenLesson.StartTime.ToString("hh\\:mm") != "00:00")
                                                     {
@@ -124,36 +137,33 @@
                                                     <div class="timetable-cell-divided @dividedCellClass">
 
                                                         <div class="timetable-cell-content-even @evenClassParameter">
-                                                            <span class="timetable-cell-class">
-                                                                @evenLesson.Type.Substring(0, 1).ToLower() @evenLesson.ShortName
-                                                                <br />
-                                                            </span>
+                                                   
+                                                                
+                                                          
+                                                            <div class="timetable-cell-class">@evenLesson.Type.Substring(0, 1).ToLower(). @evenLesson.ShortName<button id="editLessonButton" class="edit-lesson-button closed" style="margin-left: 7px;"><i class="ti-pencil"></i></button></div>
                                                             <span class="timetable-label-even span-attributes">Par</span>
-                                                            <br />
-                                                            @{if (evenLesson.Type != "Curs"){
-                                                                <span class="timetable-cell-acadgroup">@evenLesson.AcademicGroup</span>
-                                                            }}
+                                                           
+                                                            @{if (evenLesson.Type != "Curs")
+                                                                {
+                                                                    <span class="timetable-cell-acadgroup">@evenLesson.AcademicGroup</span>
+                                                                }}
                                                             <span class="timetable-cell-classroom span-attributes">@evenLesson.Classroom</span>
-                                                            
+
                                                         </div>
 
                                                         <div class="separator-line @separatorClass">&#8205;</div>
 
 
                                                         <div class="timetable-cell-content-odd @oddClassParameter">
-                                                            <span class="timetable-cell-class">
-                                                                @oddLesson.Type.Substring(0, 1).ToLower(). @oddLesson.ShortName
-                                                                <br />
-                                                            </span>
+
+                                                            <div class="timetable-cell-class">@oddLesson.Type.Substring(0, 1).ToLower(). @oddLesson.ShortName <button id="editLessonButton" class="edit-lesson-button closed" style="margin-left: 7px;"><i class="ti-pencil"></i></button></div>
                                                             <span class="timetable-label-odd span-attributes">Impar</span>
-                                                            <span class="timetable-cell-classroom span-attributes">
-                                                                @oddLesson.Classroom
-                                                            </span>
-                                                            <br />
+                                                            <span class="timetable-cell-classroom span-attributes">@oddLesson.Classroom</span>
+                                                           
                                                             @{if (evenLesson.Type != "Curs")
-                                                            {
-                                                                <span class="timetable-cell-acadgroup">@oddLesson.AcademicGroup</span>
-                                                            }}
+                                                                {
+                                                                    <span class="timetable-cell-acadgroup">@oddLesson.AcademicGroup</span>
+                                                                }}
                                                         </div>
 
                                                     </div>
@@ -193,6 +203,7 @@
         </div>
     </div>
 </div>
+
 <div id="addlesson-container" style="display:none;">
     <!--
         

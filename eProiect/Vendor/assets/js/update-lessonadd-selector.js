@@ -1,6 +1,15 @@
 
 $(document).ready(function () {
    
+    $('#enableTableEditButton').click(function () {
+        //hide undhide this one
+        $('.edit-lesson-button').toggleClass('closed');
+        $('#editIconTable').toggleClass('closed');
+        $('#stopEditIconTable').toggleClass('closed');
+
+        //toggle activated not activated styles
+    });
+
     $(".plus-button").click(function () {
         var positionTime = $(this).data("positionTime");
         var dataWeekdayNr = $(this).data("positionWeekdayNr");

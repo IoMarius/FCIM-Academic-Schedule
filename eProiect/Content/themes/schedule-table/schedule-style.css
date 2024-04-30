@@ -101,6 +101,7 @@ th {
     padding: 2px 6px;
     background-color: #789aff;
     color: white;
+    margin-top: 3px;
 }
 
 .timetable-cell-classroom {
@@ -108,6 +109,7 @@ th {
     padding: 2px 6px;
     background-color: #7cbac1;
     color: white;
+    margin-top: 2px;
 }
 
 .timetable-cell-class{
@@ -116,6 +118,7 @@ th {
 
 .hour-column {
     width: 16%;
+    background: #449efe;
 }
 
 .normal-scale {
@@ -126,9 +129,7 @@ th {
     justify-content:center;
 }
 
-.table-cell:hover {
-    box-shadow: inset 0px 5px 24px rgba(0, 0, 0, 0.14);
-}
+
 
 .timetable-cell-content {
     display: flex;
@@ -154,8 +155,12 @@ th {
 .timetable-cell-content-even, .timetable-cell-content-odd {
     width: 49%;
     transform: scale(0.8);
-    display: block;
+    /*display: block;*/
     line-height: 1.6;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
 }
 
 .separator-line {
@@ -202,6 +207,20 @@ th {
 
 .clickable:hover button {
     color: #cecece;
+}
+
+.plus-button{
+    cursor: pointer;
+}
+
+.plus-button:focus {
+    outline:none;
+}
+
+@media (min-width: 751px) {
+    /*.table-cell:hover {
+        box-shadow: inset 0px 5px 24px rgba(0, 0, 0, 0.14);
+    }*/
 }
 
 /*-----NARROW WINDOWS STYLE------------------------------------------*/
@@ -296,7 +315,7 @@ th {
     .mobile-timeinterval {
         font-size: 23px;
         display: inline-block;
-        margin-top: -20px;
+        margin-top: 4px;
         margin-bottom: 9px;
         width: min-content;
         border-radius: 14px;
