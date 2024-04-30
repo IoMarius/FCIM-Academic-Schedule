@@ -952,7 +952,6 @@
     <Content Include="Vendor\assets\js\rating.js" />
     <Content Include="Vendor\assets\js\script.js" />
     <Content Include="Vendor\assets\js\script.min.js" />
-    <Content Include="Vendor\assets\js\SmoothScroll.js" />
     <Content Include="Vendor\assets\js\swiper-custom.js" />
     <Content Include="Vendor\assets\js\update-lessonadd-selector.js" />
     <Content Include="Vendor\assets\pages\accordion\accordion.js" />

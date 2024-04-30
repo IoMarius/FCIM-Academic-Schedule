@@ -91,8 +91,8 @@ namespace eProiect.App_Start
             bundles.Add(new Bundle("~/bundles/pages/dashboard").Include(
                 "~/Vendor/assets/pages/dashboard/custom-dashboard.min.js"));
 
-            bundles.Add(new Bundle("~/bundles/SmoothScroll/js").Include(
-                "~/Vendor/assets/js/SmoothScroll.js"));
+            /*bundles.Add(new Bundle("~/bundles/SmoothScroll/js").Include(
+                "~/Vendor/assets/js/SmoothScroll.js"));*/
 
             bundles.Add(new Bundle("~/bundles/pcoded/js").Include(
                 "~/Vendor/assets/js/pcoded.min.js"));
