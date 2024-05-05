@@ -379,5 +379,23 @@ namespace eProiect.BusinessLogic.Core
 
             return freeClassrooms;
         }
+
+
+        internal Class GetClass(int id)
+        {
+            Class result;
+            using(var db=new UserContext())
+            {
+                result = db.Classes
+                    .Include(cl => cl.ClassRoom)
+                    .Include(cl => cl.AcademicGroup)
+                    .Include(cl => cl.WeekDay)
+                    .Include(cl => cl.UserDiscipline)
+                    .Include(cl => cl.UserDiscipline.Type)
+                    .Include(cl => cl.UserDiscipline.Discipline)
+                    .FirstOrDefault(cl=>cl.Id==id);
+            }
+            return result;
+        }
     }
 }

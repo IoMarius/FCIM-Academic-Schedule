@@ -18,18 +18,69 @@ namespace eProiect.BusinessLogic.Interfaces
     /// </summary>
     public interface IOrg 
     {
+        /// <summary>
+        /// Queries the database for all classes linked to the 
+        /// user with the provided ID, returning an instance of
+        /// "UserSchedule" class.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>UserSchedule</returns>
         UserSchedule GetScheduleById(int id);
 
+        /// <summary>
+        /// Queries the database table "AcademicGroups" selecting all
+        /// academic groups available.
+        /// </summary>
+        /// <returns>List of class instance "AcademicGroup".</returns>
         List<AcademicGroup> GetAcadGroupsList();
 
+        /// <summary>
+        /// (Overloaded "GetAcadGroupsList()")
+        /// Queries the database table "AcademicGroups" selecting all
+        /// academic groups of a coresponding year.
+        /// </summary>
+        /// <param name="year">Academic group year</param>
+        /// <returns></returns>
         List<AcademicGroup> GetAcadGroupsList(int year);
 
+        /// <summary>
+        /// Queries the database table "UserDisciplines" for the disciplines
+        /// linked to the user.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>List of instances of "Discipline" class</returns>
         List<Discipline> GetDisciplinesById(int id);
 
+        /// <summary>
+        /// Queries the database table "Classrooms" for free classrooms at
+        /// given parameters(weekday, time, span, frequency);
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         List<ClassRoom> GetFreeClassroomsByFloorAndTime(FreeClassroomsRequest data);
 
+        /// <summary>
+        /// Queries the database table "UserDisciplines" for "Types" of disciplines
+        /// of an user.
+        /// </summary>
+        /// <param name="disciplineId"></param>
+        /// <param name="userId"></param>
+        /// <returns>List of instances of "ClassType"</returns>
         List<ClassType> GetTypesByDisciplineForUser(int disciplineId, int userId);
 
+        /// <summary>
+        /// Queries the database table "Classes" for a single class
+        /// with the given id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Returns an instance of "Class"</returns>
+        Class GetClassById(int id);
+
+        /// <summary>
+        /// Adds a new entry in the table "Classes".
+        /// </summary>
+        /// <param name="newClass"></param>
+        /// <returns>Returns status of the action.</returns>
         ActionResponse AddNewClass(Class newClass);
     }
 }

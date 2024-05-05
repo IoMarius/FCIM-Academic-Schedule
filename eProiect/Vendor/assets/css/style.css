@@ -157,7 +157,11 @@ body {
 .edit-lesson-row {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: -17px;
+   /* margin-bottom: -17px;*/
+}
+
+.margin-bottom-min-23 {
+    margin-bottom: -23px;
 }
 
 .edit-lesson-button {
@@ -185,6 +189,7 @@ body {
 .class-constructor-block {
     display: flex;
     justify-content: center;
+    min-height: 276.4px;
     align-items: center;
     /* border: 1px solid #939393;*/
     border-radius: 17px;
@@ -207,7 +212,7 @@ body {
 
 .constructor-time {
     background-color: #151a2b;
-    width: 15%;
+    width: 26px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -216,7 +221,7 @@ body {
 }
 
 .empty-square {
-    width: 15%;
+    width: 26px;
     background-color: transparent;
 }
 
@@ -358,14 +363,15 @@ body {
 
 .selected-lesson-startime {
     font-size: 30px;
-    font-weight: bold;
+   /* font-weight: bold;*/
     margin-left: 11px;
     margin-right: 11px;
     color: white;
 }
 
 .highlighted-lesson-info{
-    display:inline-flex;
+    display:flex;
+    align-content: space-between;
 }
 
 .cancel-action {

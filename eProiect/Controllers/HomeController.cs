@@ -218,7 +218,6 @@ namespace eProiect.Controllers
         //Home controller only for pages.
         //( Modify ajax requests :( )
 
-
         [HttpGet]
         public ActionResult GetLoggedUserDisciplineTypes(int disciplineId)
         {
@@ -242,7 +241,8 @@ namespace eProiect.Controllers
         [HttpGet]
         public ActionResult GetClassById(int classId)
         {
-            return null;
+            var resultClass=_organizational.GetClassById(classId);
+            return Json(resultClass, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

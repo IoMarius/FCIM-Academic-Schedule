@@ -16,6 +16,7 @@ namespace eProiect.BusinessLogic
 {
     public class OrgBL : OrgApi, IOrg
     {
+        
         public UserSchedule GetScheduleById(int id)
         {
             return GetUserScheduleById(id);
@@ -49,6 +50,11 @@ namespace eProiect.BusinessLogic
         public List<ClassType> GetTypesByDisciplineForUser(int disciplineId, int userId)
         {
             return GetUserDisciplineTypesByUserId(disciplineId, userId);
+        }
+
+        public Class GetClassById(int id)
+        {
+            return GetClass(id);
         }
     }
 }
