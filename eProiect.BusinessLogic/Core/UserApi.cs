@@ -65,7 +65,7 @@ namespace eProiect.BusinessLogic.Core
                 if (result == null)
                 {
                    // System.Diagnostics.Debug.WriteLine("ULoginResp returned status {FALSE}. Incorrect password or username.");
-                    return new ActionResponse { Status = false, ActionStatusMsg = "The username or password is incorrect." };
+                    return new ActionResponse { Status = false, ActionStatusMsg = "Email sau parolă greșită" };
                 }
 
                 using (var todo=new UserContext())
@@ -81,7 +81,7 @@ namespace eProiect.BusinessLogic.Core
             else
             {
                 //System.Diagnostics.Debug.WriteLine("ULoginResp returned status {FALSE}. Invalid email address.");
-                return new ActionResponse { Status = false, ActionStatusMsg = "Invalid email address." };
+                return new ActionResponse { Status = false, ActionStatusMsg = "Adresă email invalidă" };
             }
         }
 

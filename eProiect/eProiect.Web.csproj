@@ -5999,6 +5999,7 @@
     </Compile>
     <Compile Include="Models\Enums\LessonLength.cs" />
     <Compile Include="Models\Enums\WeekSpan.cs" />
+    <Compile Include="Models\Requests\EditClassRequest.cs" />
     <Compile Include="Models\Schedule\ComposedClassInfo.cs" />
     <Compile Include="Models\Schedule\FreeClassroomsMinimalRequest.cs" />
     <Compile Include="Models\Schedule\ScheduleFrame.cs" />

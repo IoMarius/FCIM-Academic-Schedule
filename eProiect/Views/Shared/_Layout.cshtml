@@ -65,9 +65,27 @@
                     <nav class="pcoded-navbar">
                         @Html.Partial("_Navbar_main")
                     </nav>
-
+                    
                     <!--Main content in page-->
                     <div class="pcoded-content">
+                        <div id="staticAlert" class="static-alert closed">
+                            <div id="deleteDecisionBlock">
+                                <span>Sigur doriți să ștergeți perechea dată?</span>
+                                <div style="display: flex; width: 100%; margin-top: 10px; justify-content: space-between;">
+                                    <button id="confirmLessonDelete" class="addlesson-button addlesson-button-confirm">Confirmă</button>
+                                    <button id="denyLessonDelete" class="addlesson-button addlesson-button-deny">Renunță</button>
+                                </div>
+                            </div>
+
+                            <div id="deleteStatusBlock" class="closed">
+                                <div style="display: flex; justify-content: center;">
+                                    <div id="resultIcon"></div>
+                                </div>
+                                <div style="display: flex; justify-content: center;">
+                                    <span id="resultText"></span>
+                                </div>
+                            </div>
+                        </div>
                         @RenderBody()
                     </div>
                 </div>

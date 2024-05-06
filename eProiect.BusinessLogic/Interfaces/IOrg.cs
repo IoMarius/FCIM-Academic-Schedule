@@ -80,7 +80,23 @@ namespace eProiect.BusinessLogic.Interfaces
         /// Adds a new entry in the table "Classes".
         /// </summary>
         /// <param name="newClass"></param>
-        /// <returns>Returns status of the action.</returns>
+        /// <returns>Status of the action.</returns>
         ActionResponse AddNewClass(Class newClass);
+
+
+        /// <summary>
+        /// Edit an existing entry from table "Classses"
+        /// where modifiedClasss.Id is met.
+        /// </summary>
+        /// <param name="modifiedClasss"></param>
+        /// <returns>Status of the action.</returnsa>
+        ActionResponse EditExistingClass(Class modifiedClasss);
+
+        /// <summary>
+        /// Delete recors from "Classes" table by Id.
+        /// </summary>
+        /// <param name="id">Existing "Class" Id</param>
+        /// <returns>ActionResponse</returns>
+        ActionResponse DeleteClassById(int id);
     }
 }

@@ -1,4 +1,4 @@
-
+﻿
 using eProiect.Atributes;
 using eProiect.Domain.Entities.Responce;
 using eProiect.Domain.Entities.User;
@@ -21,6 +21,7 @@ using System.Configuration;
 using System.Text.RegularExpressions;
 using eProiect.Domain.Entities.Schedule.DBModel;
 using eProiect.Domain.Entities.Schedule;
+using eProiect.Models.Requests;
 
 namespace eProiect.Controllers
 {
@@ -245,6 +246,7 @@ namespace eProiect.Controllers
             return Json(resultClass, JsonRequestBehavior.AllowGet);
         }
 
+
         [HttpPost]
         public ActionResult AddNewClass(ComposedClassInfo composedData, List<int> groupIds)
         {
@@ -352,6 +354,87 @@ namespace eProiect.Controllers
                 );
 
             return Json(freeClassrooms, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult EditExistingClassroom(EditClassRequest data)
+        {
+            //check equality.
+            var UDClass = _organizational.GetClassById(data.ClassId);
+            var oldClassParam = new EditClassRequest()
+            {
+                ClassId = UDClass.Id,
+                WeekdayId = UDClass.WeekDayId,
+                StartHours = UDClass.StartTime.Hours,
+                StartMinutes = UDClass.StartTime.Minutes,
+                Span = UDClass.EndTime - UDClass.StartTime == new TimeSpan(1, 30, 0) ? 1 : 2,
+                Frequency = (int)UDClass.Frequency,
+                Floor = UDClass.ClassRoom.Floor,
+                ClassroomId = UDClass.ClassRoomId,
+                UserDisciplineId = UDClass.UserDisciplineId,
+                ClassTypeId = UDClass.UserDiscipline.ClassTypeId,
+                AcademicGroupId = UDClass.AcademicGroupId,
+                AcademicGroupYear = UDClass.AcademicGroup.Year
+            };
+
+            if (data.Equals(oldClassParam))
+            {
+                return Json(new ActionResponse() {Status=false, ActionStatusMsg="Nu au fost efectuate schimbări"});
+            }
+
+            //compare edit class requests..
+    
+
+            //get endtime by startime and span
+            TimeSpan startTime = new TimeSpan(data.StartHours, data.StartMinutes, 0);
+            TimeSpan endTime;
+            if (data.Span == 1)
+            {
+                endTime = startTime + new TimeSpan(1, 30, 0);
+            }
+            else
+            {
+                if (startTime == new TimeSpan(11, 30, 0))
+                    endTime = startTime + new TimeSpan(3, 30, 0);
+                else
+                    endTime = startTime + new TimeSpan(3, 15, 0);
+            }
+
+            //get user 
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+
+            //map to class
+            var editClass = new Class()
+            {
+                Id = data.ClassId,
+                UserDiscipline = new UserDiscipline
+                {
+                    Id = data.UserDisciplineId,
+                    ClassTypeId = data.ClassTypeId,
+                    Type = new ClassType { Id = data.ClassTypeId },
+
+                    //add user
+                    UserId = loggedInUser.Id,
+                    User = new User { Id = loggedInUser.Id }
+                },
+                AcademicGroup = new AcademicGroup { Id = data.AcademicGroupId, Year = data.AcademicGroupYear },
+                ClassRoom = new ClassRoom { Id = data.ClassroomId },
+                WeekDay = new WeekDay { Id = data.WeekdayId },
+                StartTime = startTime,
+                EndTime = endTime,
+                Frequency = (Domain.Entities.Academic.ClassFrequency)data.Frequency,
+            };
+
+            var response = _organizational.EditExistingClass(editClass);
+
+            return Json(response);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteClass(int id)
+        {
+            var result = _organizational.DeleteClassById(id);
+            return Json(result);
         }
 
         [UserMode(UserRole.admin, UserRole.teacher)]

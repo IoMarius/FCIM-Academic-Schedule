@@ -3,7 +3,7 @@ $(document).ready(function () {
    
     $('#enableTableEditButton').click(function () {
         //hide undhide this one
-        $('.edit-lesson-button').toggleClass('closed');
+        $('.mod-lesson-button').toggleClass('closed');
         $('#editIconTable').toggleClass('closed');
         $('#stopEditIconTable').toggleClass('closed');
         $('.edit-lesson-row').toggleClass('margin-bottom-min-23');
@@ -240,7 +240,7 @@ $(document).ready(function () {
                 var addStatus = false;
                 $.each(responses, function (index, response) {
                     if (response && typeof response === 'object') {
-                        console.error(response["Status"])
+                        //console.error(response["Status"])
                         if (response["Status"]) {
                             addStatus = true;
                             return;
@@ -332,14 +332,118 @@ $(document).ready(function () {
         }
     });
 
-
     //EDIT-LESSON-LISTENERS
+    $(".delete-lesson-button").click(function () {
+        $("#allContent").toggleClass("blur");
+        $("#confirmLessonDelete").data("classId", $(this).data("classId"))
+        //put in confirm 
+        //prompt!
+        $("#staticAlert").toggleClass("closed");
+    });
+    //listen to confirm
+    $("#confirmLessonDelete").click(function () {
+        var classId = $(this).data("classId")
+        if (classId != null) {
+            $.ajax({
+                url: "/Home/DeleteClass",
+                type: "POST",
+                data: { id: classId },
+
+                success: function (response) {
+                    $("#deleteDecisionBlock").toggleClass("closed");
+                    $("#deleteStatusBlock").toggleClass("closed");
+                    if (response.Status) {
+                        //show true
+                        
+                        $("#resultIcon").addClass("succes-checkmark");
+                        $("#resultIcon").append(
+                            $("<i></i>").addClass("ti-check")
+                        );
+
+                        $("#resultText").text(
+                            response.ActionStatusMsg
+                        );
+
+                        setTimeout(function () {
+                            window.location.href = "/Home/Schedule";
+                        }, 2000);
+
+                    } else {
+                        $("#resultIcon").addClass("fail-checkmark");
+                        $("#resultIcon").append(
+                            $("<i></i>").addClass("ti-close")
+                        );
+
+                        $("#resultText").text(
+                            response.ActionStatusMsg
+                        );
+
+                        setTimeout(function () {
+                            $("#staticAlert").toggleClass("closed");
+                        }, 2000);
+                    }
+                    
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX Error:", textStatus, errorThrown);
+                    console.error("Full jqXHR object:", jqXHR);
+                }
+            });
+        }
+    });
+    //else
+    $("#denyLessonDelete").click(function () {
+        $("#allContent").toggleClass("blur");
+        $("#staticAlert").toggleClass("closed");
+    });
+
     $("#cancel-button-modlesson").click(function () {
         window.location.href = "/Home/Schedule";
     })
 
     $("#submit-button-modlesson").click(function () {
-        //gather json data.
+        modifyClassRequest = {
+            ClassId: $("#editClassData").data("id"),
+            WeekdayId: $('#modWeekdaySelector').find(':selected').val(),
+            StartHours: $('#modStartimeSelector').find(':selected').data("hours"),
+            StartMinutes: $('#modStartimeSelector').find(':selected').data("minutes"),
+            Span: $("input[name='modLength']:checked").val(),
+            Floor: $('#modFloorSelector').find(':selected').val(),
+            Frequency: $("input[name='modFrequency']:checked").val(),
+            ClassroomId: $('#modClassroomSelector').find(':selected').val(),
+            UserDisciplineId: $("#editClassData").data("user-discipline-id"),
+            ClassTypeId: $("#editClassData").data("class-type-id"),
+            AcademicGroupId: $("#editClassData").data("acad-group-id"),
+            AcademicGroupYear: $("#editClassData").data("acad-group-year")
+        }
+
+        $.ajax({
+            url: "/Home/EditExistingClassroom",
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({ data: modifyClassRequest }),
+
+            success: function (response) {
+                $('#modPostStatus').empty()
+                if (response.Status) {
+                    $('#modPostStatus').append(
+                        $('<div></div>').text(response.ActionStatusMsg).toggleClass('response-message-card success-response-addclass')
+                    );
+                    //set timer.. 
+                    //disable buttons.
+                    window.location.href = "/Home/Schedule";
+                } else {
+                    $('#modPostStatus').append(
+                        $('<div></div>').text(response.ActionStatusMsg).toggleClass('response-message-card error-response-addclass')
+                    );
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("AJAX Error:", textStatus, errorThrown);
+                console.error("Full jqXHR object:", jqXHR);
+            }
+        });
     })
 
     $("#modClassroomSelector").click(function (event) {
@@ -471,10 +575,19 @@ $(document).ready(function () {
             data: { classId: id },
 
             success: function (classData) {
+                //init put preloader on page + blur
+                $("#modClassSection").toggleClass("loading-blur");
+
                 $("#editedClassInfo").text(classData.UserDiscipline.Type.TypeName + ' ' + classData.UserDiscipline.Discipline.Name);
                 $("#editClassAcadgroup").text(classData.AcademicGroup.Name);
 
+                $("#editClassData").data("id", classData.Id);
+                $("#editClassData").data("user-discipline-id", classData.UserDiscipline.Id);
+                $("#editClassData").data("class-type-id", classData.UserDiscipline.Type.Id);
+                $("#editClassData").data("acad-group-id", classData.AcademicGroup.Id);
+                $("#editClassData").data("acad-group-year", classData.AcademicGroup.Year);
 
+                
                 //set discipline
                 $("#modConstructorDisName").text(classData.UserDiscipline.Discipline.ShortName)
 
@@ -544,7 +657,7 @@ $(document).ready(function () {
                     Frequency: $("input[name='modFrequency']:checked").val() 
                 })
 
-
+                $("#modClassSection").toggleClass("loading-blur");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error("AJAX Error:", textStatus, errorThrown);

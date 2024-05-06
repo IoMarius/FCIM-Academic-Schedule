@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Security;
 
 
 //DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
@@ -88,7 +89,7 @@ namespace eProiect.BusinessLogic.Core
                 return new ActionResponse()
                 {
                     Status = false,
-                    ActionStatusMsg = "Eroare !"
+                    ActionStatusMsg = "Internal error."
                 };
             }
             //to check before insertion !!
@@ -243,7 +244,7 @@ namespace eProiect.BusinessLogic.Core
                 }
                 else
                 {
-                    return new ActionResponse { Status = false, ActionStatusMsg = "Internal server error." };
+                    return new ActionResponse { Status = false, ActionStatusMsg = "Internal server error" };
                 }
             }
 
@@ -380,6 +381,158 @@ namespace eProiect.BusinessLogic.Core
             return freeClassrooms;
         }
 
+        internal ActionResponse EditClass(Class editedClass)
+        {
+            if (editedClass == null)
+            {
+                return new ActionResponse() { Status = false, ActionStatusMsg = "Interal error" };
+            }
+
+            //checkups
+            using (var db = new UserContext())
+            {
+                //overlap with self
+                var selfOverlap = db.Classes
+                    .Include(c => c.UserDiscipline)
+                    .Include(c => c.WeekDay)
+                    .Include(c => c.UserDiscipline.User)
+                    .Include(c => c.UserDiscipline.Type)
+                    .Include(c => c.UserDiscipline.Discipline)
+                    .Include(c => c.AcademicGroup)
+                    .FirstOrDefault(c =>
+                        c.UserDiscipline.User.Id == editedClass.UserDiscipline.User.Id &&
+                        c.WeekDay.Id == editedClass.WeekDay.Id &&
+                        c.Id != editedClass.Id &&
+                        ((c.StartTime == editedClass.StartTime) || (c.EndTime == editedClass.EndTime))
+                    );
+
+                if (selfOverlap != null)
+                {
+                    return new ActionResponse()
+                    {
+                        Status = false,
+                        ActionStatusMsg = $"Suneți ocupat în perioada selectată: {selfOverlap.UserDiscipline.Type.TypeName} {selfOverlap.UserDiscipline.Discipline.Name}, {selfOverlap.AcademicGroup.Name}"
+                    };
+                }
+
+                //overlap with group
+                var groupOverlap = db.Classes
+                    .FirstOrDefault(
+                        c => c.AcademicGroupId == editedClass.AcademicGroup.Id &&
+                        c.WeekDayId == editedClass.WeekDay.Id &&
+                        c.Id != editedClass.Id &&
+                        ((c.StartTime == editedClass.StartTime) || (c.EndTime == editedClass.EndTime))
+                    );
+
+                if (groupOverlap != null)
+                {
+                    return new ActionResponse()
+                    {
+                        Status = false,
+                        ActionStatusMsg = "Grupa academică este ocupată în timpul selectat",
+                        OverlapClassId = groupOverlap.Id
+                    };
+                }
+
+                //midtime overlap with double span classes
+                if (editedClass.EndTime - editedClass.StartTime != new TimeSpan(1, 30, 0))
+                {
+
+                    TimeSpan midTimeSpan;
+                    //check pausa del masa
+                    if (editedClass.StartTime == new TimeSpan(11, 30, 0))
+                    {
+                        midTimeSpan = editedClass.EndTime - new TimeSpan(2, 0, 0);
+                    }
+                    else
+                    {
+                        midTimeSpan = editedClass.EndTime - new TimeSpan(1, 45, 0); //30 + 15 min accounts for pauză
+                    }
+
+                    var startsMidtime = db.Classes
+                        .Include(c => c.AcademicGroup)
+                        .Include(c => c.UserDiscipline)
+                        .Include(c => c.UserDiscipline.Type)
+                        .Include(c => c.UserDiscipline.Discipline)
+                        .Include(c => c.UserDiscipline.User)
+                        .FirstOrDefault(c =>
+                        c.AcademicGroupId == editedClass.AcademicGroup.Id &&
+                        c.WeekDayId == editedClass.WeekDay.Id &&
+                        c.StartTime == midTimeSpan && 
+                        c.Id != editedClass.Id
+                    );
+
+                    var endsMidtime = db.Classes
+                        .Include(c => c.AcademicGroup)
+                        .Include(c => c.UserDiscipline)
+                        .Include(c => c.UserDiscipline.Type)
+                        .Include(c => c.UserDiscipline.Discipline)
+                        .Include(c => c.UserDiscipline.User)
+                        .FirstOrDefault(c =>
+                        c.AcademicGroupId == editedClass.AcademicGroup.Id &&
+                        c.WeekDayId == editedClass.WeekDay.Id &&
+                        c.EndTime == midTimeSpan && 
+                        c.Id != editedClass.Id
+                    );
+
+                    if (startsMidtime != null || endsMidtime!=null)
+                    {            
+                        return new ActionResponse()
+                        {
+                            Status = false,
+                            ActionStatusMsg = "Grupa academică este ocupată în timpul selectat",
+                            OverlapClassId= startsMidtime!=null? startsMidtime.Id:endsMidtime.Id
+                        };
+                    }
+                }
+            }
+
+            //edit in db
+            using(var db=new UserContext())
+            {
+                var underEditClass = db.Classes
+                    .Include(cl => cl.ClassRoom)
+                    .Include(cl => cl.WeekDay)
+                    .FirstOrDefault(cl => cl.Id == editedClass.Id);
+
+                if (underEditClass is null) {
+                    return new ActionResponse()
+                    {
+                        Status = false,
+                        ActionStatusMsg = "Internal error"
+                    };
+                }
+
+                //get objects with corresponding ID's
+                //classroom
+                var classroomEdit = db.ClassRooms
+                    .FirstOrDefault(cr => cr.Id == editedClass.ClassRoom.Id);
+
+                var weekdayEdit=db.WeekDays
+                    .FirstOrDefault(wd=>wd.Id == editedClass.WeekDay.Id);
+
+                if(classroomEdit is null || weekdayEdit is null) {
+                    return new ActionResponse()
+                    {
+                        Status = false,
+                        ActionStatusMsg = "Internal error"
+                    };
+                }
+
+
+                underEditClass.ClassRoom = classroomEdit;
+                underEditClass.WeekDay = weekdayEdit;
+                underEditClass.StartTime = editedClass.StartTime;
+                underEditClass.EndTime = editedClass.EndTime;
+                underEditClass.Frequency = editedClass.Frequency;
+
+
+                db.Entry(underEditClass).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return new ActionResponse() {Status=true, ActionStatusMsg="Salvat"};
+        }
 
         internal Class GetClass(int id)
         {
@@ -396,6 +549,36 @@ namespace eProiect.BusinessLogic.Core
                     .FirstOrDefault(cl=>cl.Id==id);
             }
             return result;
+        }
+
+        internal ActionResponse RemoveUserClassById(int id)
+        {
+            Class toDelete;
+            using (var db=new UserContext())
+            {
+                toDelete=db.Classes.FirstOrDefault(cl=>cl.Id==id);
+            }
+            
+            if(toDelete is null) {
+                return new ActionResponse()
+                {
+                    Status = false,
+                    ActionStatusMsg = "Pereche inexistentă"
+                };
+            }
+
+            using (var db=new UserContext())
+            {
+                db.Classes.Attach(toDelete);
+                db.Classes.Remove(toDelete);
+                db.SaveChanges();
+            }
+
+            return new ActionResponse()
+            {
+                Status = true,
+                ActionStatusMsg = "Perechea a fost ștearsă cu succes"
+            };
         }
     }
 }

@@ -56,5 +56,15 @@ namespace eProiect.BusinessLogic
         {
             return GetClass(id);
         }
+
+        public ActionResponse EditExistingClass(Class modifiedClasss)
+        {
+            return EditClass(modifiedClasss);
+        }
+
+        public ActionResponse DeleteClassById(int id)
+        {
+            return RemoveUserClassById(id);
+        }
     }
 }
