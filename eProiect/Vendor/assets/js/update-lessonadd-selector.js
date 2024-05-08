@@ -355,10 +355,10 @@ $(document).ready(function () {
                     if (response.Status) {
                         //show true
                         
-                        $("#resultIcon").addClass("succes-checkmark");
                         $("#resultIcon").append(
                             $("<i></i>").addClass("ti-check")
                         );
+                        $("#resultIcon").addClass("succes-checkmark");
 
                         $("#resultText").text(
                             response.ActionStatusMsg
