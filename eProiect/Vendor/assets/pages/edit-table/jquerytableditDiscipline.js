@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * Tabledit v1.2.3 (https://github.com/markcell/jQuery-Tabledit)
  * Copyright (c) 2015 Celso Marques
  * Licensed under MIT (https://github.com/markcell/jQuery-Tabledit/blob/master/LICENSE)
@@ -198,7 +198,7 @@ if (typeof jQuery === 'undefined') {
                                        </div></div>';
 
                         // Add toolbar column cells.
-                        $table.find('tr:gt(0)').append('<td style="white-space: nowrap; width: 1%;">' + toolbar + '</td>');
+                        $table.find('tr:gt(0)').append('<td  >' + toolbar + '</td>');
                     }
                 }
             }
@@ -296,22 +296,20 @@ if (typeof jQuery === 'undefined') {
                  }
 
                  // Extract id from the th element
-                 var userId = $(td).closest('tr').attr('name');;
+                 var id = $(td).closest('tr').attr('name');;
                  var token = $('input[name="__RequestVerificationToken"]').val();
                  // Send AJAX request to server
-                 var userData = {
-                      Id: userId,
+                 var disciplineData = {
+                      Id: id,
                       Name: $(td).parent('tr').find("input[name='Name']").val(),
-                      Surname: $(td).parent('tr').find("input[name='Surname']").val(),
-                      Email: $(td).parent('tr').find("input[name='Email']").val(),
-                      Level: $(td).parent('tr').find("select[name='Role']").val()
+                      ShortName: $(td).parent('tr').find("input[name='ShortName']").val(),    
                  };
 
                  $.ajax({
-                      url: '/Admin/EditUserData',
+                      url: '/Admin/EditDisciplineData',
                       type: 'POST',
                       contentType: 'application/json',
-                      data: JSON.stringify(userData),
+                      data: JSON.stringify(disciplineData),
                       headers: {
                            // Include the anti-forgery token in the request headers
                            "__RequestVerificationToken": token
@@ -362,13 +360,27 @@ if (typeof jQuery === 'undefined') {
                 // Enable identifier hidden input.
                 $(td).parent('tr').find('input.tabledit-identifier').attr('disabled', false);
                 // Send AJAX request to server.
-                var ajaxResult = ajax(settings.buttons.delete.action);
+                
                 // Disable identifier hidden input.
                 $(td).parents('tr').find('input.tabledit-identifier').attr('disabled', true);
 
-                if (ajaxResult === false) {
-                    return;
-                }
+                var id = $(td).closest('tr').attr('name');;
+                 $.ajax({
+                      url: '/Admin/DeleteDiscipline',
+                      type: 'POST',
+                      contentType: 'application/json',
+                      data: JSON.stringify({ disciplineIdForDeleted: id }), // Trimitem obiectul JSON care conține ID-ul utilizatorului
+                      dataType: "json",
+                      success: function (response) {
+                           console.log(response);
+                           // Alte acțiuni după trimiterea cu succes a datelor
+                      },
+                      error: function (xhr, status, error) {
+                           console.error('Eroare la trimiterea datelor către server:', error);
+                           // Gestionarea erorilor în cazul în care trimiterea datelor eșuează
+                      }
+                 });
+               
 
                 // Add class "deleted" to row.
                 $(td).parent('tr').addClass('tabledit-deleted-row');

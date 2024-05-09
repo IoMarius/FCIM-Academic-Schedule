@@ -297,9 +297,9 @@ th {
         height: 43px;
     }
 
-    table {
+    /*table {
         display: grid;
-    }
+    }*/
 
     tr {
         display: block;
