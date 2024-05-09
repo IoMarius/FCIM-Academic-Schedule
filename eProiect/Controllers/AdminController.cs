@@ -12,6 +12,8 @@ using eProiect.Atributes;
 using eProiect.Domain.Entities.User;
 using eProiect.Domain.Entities.Academic;
 using eProiect.Domain.Entities.User.DBModel;
+using eProiect.Domain.Entities.Academic.DBModel;
+using AutoMapper.Configuration.Annotations;
 
 namespace eProiect.Controllers
 {
@@ -33,9 +35,11 @@ namespace eProiect.Controllers
                _discipline = bl.GetDisciplineBL();
           }
 
-
+          /// <summary>
+          /// Retrieves a list of disciplines for administrative purposes.
+          /// </summary>
+          /// <returns>An ActionResult representing the Disciplines view populated with discipline data.</returns>
           [UserMode(UserRole.admin)]
-          
           public ActionResult Users()
           {
                SessionStatus();
@@ -83,10 +87,70 @@ namespace eProiect.Controllers
                return View(viewData);
           }
 
+
+          [UserMode(UserRole.admin)]
+          public ActionResult AddUser()
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
+
+               GeneralViewData viewData = new GeneralViewData();
+
+               var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+               UserEsentialData UData = new UserEsentialData
+               {
+                    Name = loggedInUser.Name,
+                    Surname = loggedInUser.Surname,
+                    CreatedDate = loggedInUser.CreatedDate,
+                    Level = loggedInUser.Level
+               };
+               viewData.UData = UData;
+
+               return View(viewData);
+          }
+
           [HttpPost]
           [UserMode(UserRole.admin)]
-          
-          public ActionResult SaveUser(UserEsentialData userData)
+          public ActionResult AddUser( UserEsentialData userEsentialData )
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
+
+               if (ModelState.IsValid)
+               {
+                    var newUserData = new NewUserData
+                    {
+                         Name = userEsentialData.Name,
+                         Surname = userEsentialData.Surname,
+                         Level = userEsentialData.Level,
+                         Email = userEsentialData.Email
+                    };
+
+                    var response = _admin.AddNewUsers(newUserData);
+
+                    return Json(new { success = response.Status, message = response.ActionStatusMsg });
+               }
+               else
+               {
+                    // Return validation error message
+                    return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+               }
+          }
+
+          /// <summary>
+          /// Edits user data based on the provided UserEsentialData object.
+          /// </summary>
+          /// <param name="userData">The UserEsentialData object containing the updated user data.</param>
+          /// <returns>A JSON object indicating the success or failure of the operation along with a message.</returns>
+          [HttpPost]
+          [UserMode(UserRole.admin)]
+          public ActionResult EditUserData(UserEsentialData userData)
           {
                SessionStatus();
                if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
@@ -131,9 +195,53 @@ namespace eProiect.Controllers
                }
           }
 
+          /// <summary>
+          /// Deletes a user based on the provided user ID.
+          /// </summary>
+          /// <param name="userIdForDeleted">The ID of the user to be deleted.</param>
+          /// <returns>A JSON object indicating the success or failure of the operation along with a message.</returns>
+          [HttpPost]
           [UserMode(UserRole.admin)]
-          
+          public ActionResult DeleteUser(int userIdForDeleted)
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
 
+               if (ModelState.IsValid)
+               {
+                    try
+                    {
+                         // Call session method to edit user
+                         var response = _admin.DeleteUsers(userIdForDeleted);
+                         // Return success or failure message
+                         return Json(new { success = response.Status, message = response.ActionStatusMsg });
+                    }
+                    catch (Exception ex)
+                    {
+                         // Handle any exceptions
+                         return Json(new { success = false, message = "An error occurred while delete user " + ex.Message });
+                    }
+               }
+               else
+               {
+                    // Return validation error message
+                    return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+               }
+          }
+
+
+
+
+
+
+          /// <summary>
+          /// Retrieves a list of disciplines for administrative purposes.
+          /// </summary>
+          /// <returns>An ActionResult representing the Disciplines view populated with discipline data.</returns>
+          [UserMode(UserRole.admin)]
           public ActionResult Disciplines()
           {
                SessionStatus();
@@ -158,11 +266,150 @@ namespace eProiect.Controllers
 
                return View(viewData);
           }
-
-
+          
           [UserMode(UserRole.admin)]
-         
+          public ActionResult AddDiscipline()
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
 
+               GeneralViewData viewData = new GeneralViewData();
+
+               var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+               UserEsentialData UData = new UserEsentialData
+               {
+                    Name = loggedInUser.Name,
+                    Surname = loggedInUser.Surname,
+                    CreatedDate = loggedInUser.CreatedDate,
+                    Level = loggedInUser.Level
+               };
+               viewData.UData = UData;
+
+               return View(viewData);
+          }
+
+          [HttpPost]
+          [UserMode(UserRole.admin)]
+          public ActionResult AddDiscipline(Discipline disciplinesData)
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
+
+               if (ModelState.IsValid)
+               {
+                    var newDisciplinesData = new Discipline
+                    {
+                         Name = disciplinesData.Name,
+                         ShortName = disciplinesData.ShortName
+                    };
+
+                    var response = _discipline.AddNewDisciplines(newDisciplinesData);
+
+                    return Json(new { success = response.Status, message = response.ActionStatusMsg });
+               }
+               else
+               {
+                    // Return validation error message
+                    return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+               }
+          }
+
+          /// <summary>
+          /// Edits a discipline's data based on the provided Discipline object.
+          /// </summary>
+          /// <param name="discipline">The Discipline object containing the updated discipline data.</param>
+          /// <returns>A JSON object indicating the success or failure of the operation along with a message.</returns>
+          [HttpPost]
+          [UserMode(UserRole.admin)]
+          public ActionResult EditDisciplineData(Discipline discipline)
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
+
+               if (ModelState.IsValid)
+               {
+                    try
+                    {
+                         // Construct edited user data
+                         var editedDisciplineData = new Discipline
+                         {
+                              Id = discipline.Id,
+                              Name = discipline.Name,
+                              ShortName = discipline.ShortName
+                         };
+
+                         // Call session method to edit user
+                         var response = _discipline.EditDisciplines(editedDisciplineData);
+                             
+                         // Return success or failure message
+                         return Json(new { success = response.Status, message = response.ActionStatusMsg });
+                    }
+                    catch (Exception ex)
+                    {
+                         // Handle any exceptions
+                         return Json(new { success = false, message = "An error occurred while editing disciplines data: " + ex.Message });
+                    }
+               }
+               else
+               {
+                    // Return validation error message
+                    return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+               }
+          }
+
+          /// <summary>
+          /// Deletes a discipline based on the provided discipline ID.
+          /// </summary>
+          /// <param name="disciplineIdForDeleted">The ID of the discipline to be deleted.</param>
+          /// <returns>A JSON object indicating the success or failure of the operation along with a message.</returns>
+          [HttpPost]
+          [UserMode(UserRole.admin)]
+          public ActionResult DeleteDiscipline(int disciplineIdForDeleted)
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
+
+               if (ModelState.IsValid)
+               {
+                    try
+                    {
+                         // Call session method to edit user
+                         var response = _discipline.DeleteDisciplines(disciplineIdForDeleted);
+                         // Return success or failure message
+                         return Json(new { success = response.Status, message = response.ActionStatusMsg });
+                    }
+                    catch (Exception ex)
+                    {
+                         // Handle any exceptions
+                         return Json(new { success = false, message = "An error occurred while delete discipline " + ex.Message });
+                    }
+               }
+               else
+               {
+                    // Return validation error message
+                    return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+               }
+          }
+
+
+
+          /// <summary>
+          /// Retrieves a list of academic groups for administrative purposes.
+          /// </summary>
+          /// <returns>An ActionResult representing the AcademicGroups view populated with academic group data.</returns>
+          [UserMode(UserRole.admin)]
           public ActionResult AcademicGroups()
           {
                SessionStatus();
@@ -189,8 +436,148 @@ namespace eProiect.Controllers
           }
 
           [UserMode(UserRole.admin)]
-          
+          public ActionResult AddAcademicGroup()
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
 
+               GeneralViewData viewData = new GeneralViewData();
+
+               var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+               UserEsentialData UData = new UserEsentialData
+               {
+                    Name = loggedInUser.Name,
+                    Surname = loggedInUser.Surname,
+                    CreatedDate = loggedInUser.CreatedDate,
+                    Level = loggedInUser.Level
+               };
+               viewData.UData = UData;
+
+               return View(viewData);
+          }
+
+          [HttpPost]
+          [UserMode(UserRole.admin)]
+          public ActionResult AddAcademicGroup(AcademicGroup academicGroupData)
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
+
+               if (ModelState.IsValid)
+               {
+                    var newAcademicGroupData = new AcademicGroup
+                    {
+                         Name = academicGroupData.Name,
+                         Year = academicGroupData.Year
+                    };
+
+                    var response = _academicGroup.AddNewAcademicGroups(newAcademicGroupData);
+
+                    return Json(new { success = response.Status, message = response.ActionStatusMsg });
+               }
+               else
+               {
+                    // Return validation error message
+                    return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+               }
+          }
+
+          /// <summary>
+          /// Edits an academic group's data based on the provided AcademicGroup object.
+          /// </summary>
+          /// <param name="academicGroup">The AcademicGroup object containing the updated academic group data.</param>
+          /// <returns>A JSON object indicating the success or failure of the operation along with a message.</returns>
+          [HttpPost]
+          [UserMode(UserRole.admin)]
+          public ActionResult EditAcademicGroupData(AcademicGroup academicGroup)
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
+
+               if (ModelState.IsValid)
+               {
+                    try
+                    {
+                         // Construct edited user data
+                         var editedAcademicGroup = new AcademicGroup
+                         {
+                              Id = academicGroup.Id,
+                              Name = academicGroup.Name,
+                              Year = academicGroup.Year
+                         };
+
+                         // Call session method to edit user
+                         var response = _academicGroup.EditAcademicGroups(editedAcademicGroup);
+
+                         // Return success or failure message
+                         return Json(new { success = response.Status, message = response.ActionStatusMsg });
+                    }
+                    catch (Exception ex)
+                    {
+                         // Handle any exceptions
+                         return Json(new { success = false, message = "An error occurred while editing group data: " + ex.Message });
+                    }
+               }
+               else
+               {
+                    // Return validation error message
+                    return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+               }
+          }
+
+          /// <summary>
+          /// Deletes an academic group based on the provided academic group ID.
+          /// </summary>
+          /// <param name="academicGroupIdForDeleted">The ID of the academic group to be deleted.</param>
+          /// <returns>A JSON object indicating the success or failure of the operation along with a message.</returns>
+          [HttpPost]
+          [UserMode(UserRole.admin)]
+          public ActionResult DeleteAcademicGroup(int academicGroupIdForDeleted)
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
+
+               if (ModelState.IsValid)
+               {
+                    try
+                    {
+                         // Call session method to edit user
+                         var response = _academicGroup.DeleteAcademicGroups(academicGroupIdForDeleted);
+                         // Return success or failure message
+                         return Json(new { success = response.Status, message = response.ActionStatusMsg });
+                    }
+                    catch (Exception ex)
+                    {
+                         // Handle any exceptions
+                         return Json(new { success = false, message = "An error occurred while delete academic group " + ex.Message });
+                    }
+               }
+               else
+               {
+                    // Return validation error message
+                    return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+               }
+          }
+
+
+
+          /// <summary>
+          /// Retrieves a list of classrooms for administrative purposes.
+          /// </summary>
+          /// <returns>An ActionResult representing the ClassRooms view populated with classroom data.</returns>
+          [UserMode(UserRole.admin)]
           public ActionResult ClassRooms()
           {
                SessionStatus();
@@ -215,5 +602,142 @@ namespace eProiect.Controllers
 
                return View(viewData);
           }
+
+          [UserMode(UserRole.admin)]
+          public ActionResult AddClassRoom()
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
+
+               GeneralViewData viewData = new GeneralViewData();
+
+               var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+               UserEsentialData UData = new UserEsentialData
+               {
+                    Name = loggedInUser.Name,
+                    Surname = loggedInUser.Surname,
+                    CreatedDate = loggedInUser.CreatedDate,
+                    Level = loggedInUser.Level
+               };
+               viewData.UData = UData;
+
+               return View(viewData);
+          }
+
+          [HttpPost]
+          [UserMode(UserRole.admin)]
+          public ActionResult AddClassRoom(ClassRoom classRoomData)
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
+
+               if (ModelState.IsValid)
+               {
+                    var newClassRoomDataData = new ClassRoom
+                    {
+                         ClassroomName = classRoomData.ClassroomName,
+                         Floor = classRoomData.Floor
+                    };
+
+                    var response = _classRoom.AddNewClassRooms(newClassRoomDataData);
+
+                    return Json(new { success = response.Status, message = response.ActionStatusMsg });
+               }
+               else
+               {
+                    // Return validation error message
+                    return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+               }
+          }
+
+          /// <summary>
+          /// Edits a classroom's data based on the provided ClassRoom object.
+          /// </summary>
+          /// <param name="classRoom">The ClassRoom object containing the updated classroom data.</param>
+          /// <returns>A JSON object indicating the success or failure of the operation along with a message.</returns>
+          [HttpPost]
+          [UserMode(UserRole.admin)]
+          public ActionResult EditClassRoomData(ClassRoom classRoom)
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
+
+               if (ModelState.IsValid)
+               {
+                    try
+                    {
+                         // Construct edited user data
+                         var editedClassRoom = new ClassRoom
+                         {
+                              Id = classRoom.Id,
+                              ClassroomName = classRoom.ClassroomName,
+                              Floor = classRoom.Floor
+                         };
+
+                         // Call session method to edit user
+                         var response = _classRoom.EditClassRooms(editedClassRoom);
+
+                         // Return success or failure message
+                         return Json(new { success = response.Status, message = response.ActionStatusMsg });
+                    }
+                    catch (Exception ex)
+                    {
+                         // Handle any exceptions
+                         return Json(new { success = false, message = "An error occurred while editing classRoom data: " + ex.Message });
+                    }
+               }
+               else
+               {
+                    // Return validation error message
+                    return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+               }
+          }
+
+          /// <summary>
+          /// Deletes a classroom based on the provided classroom ID.
+          /// </summary>
+          /// <param name="classRoomIdForDeleted">The ID of the classroom to be deleted.</param>
+          /// <returns>A JSON object indicating the success or failure of the operation along with a message.</returns>
+          [HttpPost]
+          [UserMode(UserRole.admin)]
+          public ActionResult DeleteClassRoom(int classRoomIdForDeleted)
+          {
+               SessionStatus();
+               if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+               {
+                    return RedirectToAction("Login", "Login");
+               }
+
+               if (ModelState.IsValid)
+               {
+                    try
+                    {
+                         // Call session method to edit user
+                         var response = _classRoom.DeleteClassRooms(classRoomIdForDeleted);
+                         // Return success or failure message
+                         return Json(new { success = response.Status, message = response.ActionStatusMsg });
+                    }
+                    catch (Exception ex)
+                    {
+                         // Handle any exceptions
+                         return Json(new { success = false, message = "An error occurred while delete academic group " + ex.Message });
+                    }
+               }
+               else
+               {
+                    // Return validation error message
+                    return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+               }
+          }
+
      }
 }

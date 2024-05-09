@@ -7,3 +7,17 @@ C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\obj\Release\
 C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\obj\Release\eProiect.Domain.csproj.CopyComplete
 C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\obj\Release\eProiect.Domain.dll
 C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\obj\Release\eProiect.Domain.pdb
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\eProiect.Domain.dll.config
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\EntityFramework.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\MDD4All.EnterpriseArchitect.Logging.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\MDD4All.EnterpriseArchitect.Manipulations.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\MDD4All.EnterpriseArchitect.SvgGenerator.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\MDD4All.SpecIF.DataModels.DiagramInterchange.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\MDD4All.SVG.DataModels.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\NLog.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\System.Drawing.Common.dll
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\eProiect.Helper.dll.config
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\EntityFramework.xml
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\bercovasile\Desktop\FCIM-Academic-Schedule\eProiect.Domain\bin\Release\NLog.xml

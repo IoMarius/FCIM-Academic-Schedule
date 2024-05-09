@@ -1,0 +1,101 @@
+﻿@model  eProiect.Models.ViewModels.GeneralViewData
+@using eProiect.Domain.Entities.User;
+
+@{
+     ViewBag.Title = "AddUserPage";
+     Layout = "~/Views/Shared/_Layout _Admin.cshtml";
+}
+
+<div class="page-header card">
+     <div class="row align-items-end">
+          <div class="col-lg-8">
+               <div class="page-header-title">
+                    <i class="icofont icofont-clip-board bg-c-blue"></i>
+                    <div class="d-inline">
+                         <h4>Add Discipline Form</h4>
+                         <span>
+                              This form is for adding discipline.
+                         </span>
+                    </div>
+               </div>
+          </div>
+          <div class="col-lg-4">
+               <div class="page-header-breadcrumb">
+                    <ul class="breadcrumb-title">
+                         <li class="breadcrumb-item">
+                              <a href="@Url.Action("Schedule", "Home")">
+                                   <i class="icofont icofont-home"></i>
+                              </a>
+                         </li>
+                         <li class="breadcrumb-item">
+                              <a href="@Url.Action("Disciplines", "Admin")">Disciplines</a>
+                         </li>
+                         <li class="breadcrumb-item">
+                              <a href="@Url.Action("AddDiscipline", "Admin")"> Add Discipline</a>
+                         </li>
+                    </ul>
+               </div>
+          </div>
+     </div>
+</div>
+
+<div class="page-body">
+
+     <div class="row">
+          <div class="col-sm-12">
+               <!-- Post comment card start -->
+               <div class="card">
+                   @* <div class="card-header">
+                         <h5>Post Your Comment Here</h5>
+                         <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+                         <div class="card-header-right"> <i class="icofont icofont-spinner-alt-5"></i> </div>
+                    </div>*@
+                    <div class="card-block">
+                         <div class="j-wrapper j-wrapper-640">
+                              <div class="j-pro" id="j-pro">
+                                   <div class="j-content">
+                                        <!-- start name -->
+                                        <div class="j-row">
+                                             <div class="j-span6 j-unit">
+                                                  <div class="j-input">
+                                                       <label class="j-icon-left" for="diciplineName">
+                                                            <i class="icofont icofont-book-alt"></i>
+                                                       </label>
+                                                       <input type="text" id="diciplineName" name="disciplineName" placeholder="Name of discipline" class="name-group">
+                                                  </div>
+                                             </div>
+                                             <div class="j-span6 j-unit">
+                                                  <div class="j-input">
+                                                       <label class="j-icon-left" for="shortName">
+                                                            <i class="icofont icofont-paper"></i>
+                                                       </label>
+                                                       <input type="text" id="shortName" name="disciplineShortName" placeholder="ShortName of discipline" class="name-group">
+                                                  </div>
+                                             </div>
+                                        </div>
+                                        <!-- end name -->
+                                        <!-- start  -->
+
+
+                                        <div class="j-unit">
+                                             <span class="j-error-message" id="error_span" style=" align-content: center; height: 48px; display: none; "></span>
+                                        </div>
+
+                                        <!-- end  -->
+                                        <!-- start response from server -->
+                                        <div class="j-response"></div>
+                                        <!-- end response from server -->
+                                   </div>
+                                   <!-- end /.content -->
+                                   <div class="j-footer">
+                                        <button id="submit" class="btn btn-primary" onclick="send_discipline()">Add Discipline</button>
+                                   </div>
+                                   <!-- end /.footer -->
+                              </div>
+                         </div>
+                    </div>
+               </div>
+               <!-- Post comment card end -->
+          </div>
+     </div>
+</div>

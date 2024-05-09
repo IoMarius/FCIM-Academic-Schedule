@@ -1,5 +1,5 @@
 ﻿@using System.Web.Optimization
-
+@model  eProiect.Models.ViewModels.GeneralViewData
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,26 +30,13 @@
      @Styles.Render("~/bundles/schedule-table/css")
      @Styles.Render("~/bundles/navbar-user-styles/css");
 
+     @Styles.Render("~/bundles/j-pro-modern/css");
+
      @if (IsSectionDefined("Styles"))
      {@RenderSection("Styles", required: false)}
 
-@*Favicon icon*@
-     <!--<link rel="icon" href="~/Vendor/assets/images/favicon.ico" type="image/x-icon">-->
-     @*Google font*@
-     <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">-->
-     @* Required Fremwork *@
-     <!--<link rel="stylesheet" type="text/css" href="~/Vendor/bower_components/bootstrap/css/bootstrap.min.css">-->
-     @* themify-icons line icon *@
-     <!--<link rel="stylesheet" type="text/css" href="~/Vendor/assets/icon/themify-icons/themify-icons.css">-->
-     @* ico font *@
-     <!--<link rel="stylesheet" type="text/css" href="~/Vendor/assets/icon/icofont/css/icofont.css">-->
-     @* flag icon framework css *@
-     <!--<link rel="stylesheet" type="text/css" href="~/Vendor/assets/pages/flag-icon/flag-icon.min.css">-->
-     @* Menu-Search css *@
-     <!--<link rel="stylesheet" type="text/css" href="~/Vendor/assets/pages/menu-search/css/component.css">-->
-     @* Style.css *@
-     <!--<link rel="stylesheet" type="text/css" href="~/Vendor/assets/css/style.css">
-     <link rel="stylesheet" type="text/css" href="~/Vendor/assets/css/jquery.mCustomScrollbar.css">-->
+
+   
 
 </head>
 <body>
@@ -83,31 +70,15 @@
 
                          <!--Main content in page-->
                          <div class="pcoded-content">
-                              <div class="main-body">
-                                   <div class="page-wrapper">
-                                        <div class="page-body">
+                              <div class="pcoded-inner-content">
+
+                                   <div class="main-body">
+                                        <div class="page-wrapper">
+
                                              <!-- Edit With Button card start -->
-                                             <div class="card">
-                                                  <div class="card-header">
-                                                       <h5>Edit With Button</h5>
-                                                       <span>Click on buttons to perform actions</span>
-                                                       <button type="button" class="btn btn-primary waves-effect waves-light add" onclick="add_row();">
-                                                            Add Row
-                                                       </button>
-                                                  </div>
-                                                  <div class="card-block">
-
-                                                       <div id="static-div-users">
-                                                            <div class="table-responsive">
-                                                                 <table class="table table-striped table-bordered" id="example-2">
-
-                                                                      @RenderBody()
-                                                                 </table>
-                                                            </div>
-                                                       </div>
-                                                  </div>
-                                             </div>
+                                             @RenderBody()
                                              <!-- Edit With Button card end -->
+
                                         </div>
                                    </div>
                               </div>
@@ -137,81 +108,42 @@
      @Scripts.Render("~/bundles/i18next-browser-languagedetector/js")
      @Scripts.Render("~/bundles/jquery-i18next/js")
      @Scripts.Render("~/bundles/pages/dashboard")
-     @Scripts.Render("~/bundles/SmoothScroll/js")
      @Scripts.Render("~/bundles/pcoded/js")
      @Scripts.Render("~/bundles/demo-12/js")
      @Scripts.Render("~/bundles/mCustomScrollbar/js")
      @Scripts.Render("~/bundles/script/js")
-     @Scripts.Render("~/bundles/schedule-table")
-     @Scripts.Render("~/bundles/edittables/js")
-     @Scripts.Render("~/bundles/edittables1/js")
-     @Scripts.Render("/bundles/script-edit-table/js")
 
-     <script type="text/javascript">
-
- /*         $(document).ready(function () {
-               $('#static-div-users').click(function (event) {
-                    console.error(event.target.id);
-                    if (event.target.id === 'saveButton') {
-                        // var button = event.target;
-                        
-                         var userData = {
-                              Id: $('#userId').text(),
-                              Name: $("input[name='Name']").val(),
-                              Surname: $("input[name='Surname']").val(),
-                              Email: $("input[name='Email']").val(),
-                              Level: $('#userLevel').find(':selected').val() // corectare aici
-                         };
-                         $.ajax({
-                              url: '/Admin/SaveUser',
-                              type: 'POST',
-                              contentType: 'application/json',
-                              data: JSON.stringify(userData),
-                              daratype: "json",
-                              success: function (response) {
-                                   console.log('Datele au fost trimise cu succes la backend:', response);
-                         console.error(userData);
-                                   // Poți adăuga aici acțiuni suplimentare după ce datele sunt trimise cu succes
-                              },
-                              error: function (xhr, status, error) {
-                                   console.error('Eroare la trimiterea datelor la backend:', error);
-                                   // Poți adăuga aici tratamentul erorilor în cazul în care trimiterea datelor eșuează
-                              }
-                         });
-                    }
-               });
-          });*/
-
-          /*$('#saveButton').click(function () {
-
-               var test = $('#Name').value;
-               console.error(test)
-               var userData = {
-                    UserId: $('#userId').text(),
-                    UserName: $("input[name='Name']").val(),
-                    UserSurname: $("input[name='Surname']").val(),
-                    UserEmail: $("input[name='Email']").val(),
-                    UserLevel: $("input[name='userLevl']").val()
-               };
-               console.error(userData);
-               $.ajax({
-                    url: '/Admin/SaveUser',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(userData),
-                    daratype: "json",
-                    success: function (response) {
-                         console.log('Datele au fost trimise cu succes la backend:', response);
-                         // Poți adăuga aici acțiuni suplimentare după ce datele sunt trimise cu succes
-                    },
-                    error: function (xhr, status, error) {
-                         console.error('Eroare la trimiterea datelor la backend:', error);
-                         // Poți adăuga aici tratamentul erorilor în cazul în care trimiterea datelor eșuează
-                    }
-               });
-          });*/
+     @Scripts.Render("~/bundles/CheckValues/js")
+     @Scripts.Render("~/bundles/SendPagesNewValues/js")
 
 
-     </script>
+     @{
+
+          if (Model.AcademicGroupsDataList != null)
+          {
+
+               @Scripts.Render("~/bundles/edittablesAG/js")
+               @Scripts.Render("~/bundles/editableAG/js")
+          }
+          else if (Model.CassRoomsDataList != null)
+          {
+               @Scripts.Render("~/bundles/editableCR/js")
+               @Scripts.Render("~/bundles/edittablesCR/js")
+
+          }
+          else if (Model.DisciplinesDataList != null)
+          {
+               @Scripts.Render("~/bundles/edittablesD/js")
+               @Scripts.Render("~/bundles/editableD/js")
+          }
+          else if (Model.UDataList != null)
+          {
+               @Scripts.Render("~/bundles/edittablesU/js")
+               @Scripts.Render("~/bundles/editableU/js")
+          }
+
+     }
+
+
 </body>
 </html>

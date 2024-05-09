@@ -335,6 +335,8 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\Admin\CheckValues.js" />
+    <Content Include="Content\themes\Admin\SendPagesNewValues.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -391,6 +393,8 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\themes\schedule-table\schedule-table.js" />
+    <None Include="Properties\PublishProfiles\fcim - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -3741,8 +3745,14 @@
     <Content Include="Vendor\assets\pages\data-table\js\jszip.min.js" />
     <Content Include="Vendor\assets\pages\data-table\js\pdfmake.min.js" />
     <Content Include="Vendor\assets\pages\data-table\js\vfs_fonts.js" />
-    <Content Include="Vendor\assets\pages\edit-table\editable.js" />
-    <Content Include="Vendor\assets\pages\edit-table\jquerytabledit.js" />
+    <Content Include="Vendor\assets\pages\edit-table\editableAG.js" />
+    <Content Include="Vendor\assets\pages\edit-table\editableD.js" />
+    <Content Include="Vendor\assets\pages\edit-table\editableU.js" />
+    <Content Include="Vendor\assets\pages\edit-table\editableCR.js" />
+    <Content Include="Vendor\assets\pages\edit-table\jquerytableditClassRoom.js" />
+    <Content Include="Vendor\assets\pages\edit-table\jquerytableditAcademicGroup.js" />
+    <Content Include="Vendor\assets\pages\edit-table\jquerytableditDiscipline.js" />
+    <Content Include="Vendor\assets\pages\edit-table\jquerytableditUser.js" />
     <Content Include="Vendor\assets\pages\filer\custom-filer.js" />
     <Content Include="Vendor\assets\pages\filer\jquery.fileuploads.init.js" />
     <Content Include="Vendor\assets\pages\filer\php\ajax_remove_file.php" />
@@ -6080,6 +6090,10 @@
     <Content Include="Views\Admin\Disciplines.cshtml" />
     <Content Include="Views\Admin\AcademicGroups.cshtml" />
     <Content Include="Views\Admin\ClassRooms.cshtml" />
+    <Content Include="Views\Admin\AddUser.cshtml" />
+    <Content Include="Views\Admin\AddDiscipline.cshtml" />
+    <Content Include="Views\Admin\AddAcademicGroup.cshtml" />
+    <Content Include="Views\Admin\AddClassRoom.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
