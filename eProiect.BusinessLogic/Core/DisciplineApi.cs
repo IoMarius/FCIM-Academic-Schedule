@@ -88,7 +88,11 @@ namespace eProiect.BusinessLogic.Core
                               Status = false
                          };
                     }
-                    return new ActionResponse { Status = true };
+                    return new ActionResponse 
+                    {
+                         ActionStatusMsg = "Discipline was successfully added.",
+                         Status = true
+                    };
                }
           }
           internal ActionResponse EditDiscipline(Discipline updatedDisciplineData)

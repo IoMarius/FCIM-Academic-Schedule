@@ -15,7 +15,7 @@ namespace eProiect.BusinessLogic.DBContext
     public class FatherContext : DbContext
     {
         public FatherContext() :
-            base("name=eProiect1")
+            base("name=eProiect")
         {
         }
 

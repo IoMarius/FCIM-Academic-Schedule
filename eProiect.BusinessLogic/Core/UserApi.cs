@@ -9,6 +9,7 @@ using eProiect.Domain.Entities.Schedule.DBModel;
 using eProiect.Domain.Entities.User;
 using eProiect.Domain.Entities.User.DBModel;
 using eProiect.Helper;
+using NLog.Filters;
 using System;
 
 using System.ComponentModel.DataAnnotations;
@@ -119,15 +120,16 @@ namespace eProiect.BusinessLogic.Core
                  }*/
 
                //TEST
+              /* var admin = new AdminApi();
 
-          /*     var newUser = new NewUserData
+               var newUser = new NewUserData
                {
                     Name = "Ion",
                     Surname = "Ionescu",
                     Email = "bercovasile@gmail.com",
-                    Level = UserRole.teacher
+                    Level = UserRole.admin
                };
-               var acction = AddNewUser(newUser);*/
+               var acction = admin.AddNewUser(newUser);*/
                /*DeleteUser(1);*/
 
                /*  var newDiscipline = new Discipline

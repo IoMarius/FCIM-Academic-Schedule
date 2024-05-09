@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eProiect.BusinessLogic.Interfaces;
 
 namespace eProiect.BusinessLogic.Core
 {
@@ -17,10 +18,12 @@ namespace eProiect.BusinessLogic.Core
      {
           internal AcademicGroupsList GetAllAcademicGroup()
           {
+
                var allAcademicGroups = new AcademicGroupsList();
 
                using (var db = new UserContext())
                {
+                    
                     allAcademicGroups.AcademicGroups = db.AcademicGroups.ToList();
                }
                return allAcademicGroups;
@@ -89,7 +92,11 @@ namespace eProiect.BusinessLogic.Core
                               Status = false
                          };
                     }
-                    return new ActionResponse { Status = true };
+                    return new ActionResponse 
+                    {
+                         ActionStatusMsg = "Academic Group was successfully added.",
+                         Status = true
+                    };
                }
           }
           internal ActionResponse EditAcademicGroup(AcademicGroup newAcademicGroupData)

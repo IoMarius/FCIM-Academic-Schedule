@@ -26,7 +26,7 @@ namespace eProiect.BusinessLogic.Core
                }
                return allUsers;
           }
-          internal ActionResponse AddNewUser(NewUserData newUserData)
+          public ActionResponse AddNewUser(NewUserData newUserData)
           {
                var validate = new EmailAddressAttribute();
                if (!validate.IsValid(newUserData.Email))
@@ -39,15 +39,9 @@ namespace eProiect.BusinessLogic.Core
                }
 
 
+
                var _password = Membership.GeneratePassword(12, 0);
                var mesages = "This is your password " + _password;
-               if (!SendEmail.SendEmailToUser(newUserData.Email, newUserData.Name, "Password for Shedules Platform", mesages))
-                    return new ActionResponse
-                    {
-                         ActionStatusMsg = "The messaging service is temporarily not working",
-                         Status = false
-                    };
-
                var newCredentials = new UserCredential
                {
                     Email = newUserData.Email,
@@ -63,6 +57,12 @@ namespace eProiect.BusinessLogic.Core
                     LastLogin = DateTime.Now,
                     Credentials = newCredentials
                };
+               if (!SendEmail.SendEmailToUser(newUserData.Email, newUserData.Name, "Password for Shedules Platform", mesages)) 
+                    return new ActionResponse
+                    {
+                         ActionStatusMsg = "The messaging service is temporarily not working or email is wrong!",
+                         Status = false
+                    };
 
                using (var db = new UserContext())
                {
@@ -71,6 +71,7 @@ namespace eProiect.BusinessLogic.Core
                     {
                          db.UserCredentials.Add(newCredentials);
                          db.Users.Add(newUser);
+
                          db.SaveChanges();
 
                     }
@@ -121,7 +122,12 @@ namespace eProiect.BusinessLogic.Core
                               Status = false
                          };
                     }
-                    return new ActionResponse { Status = true };
+                    return new ActionResponse 
+                    {
+                         ActionStatusMsg = "User succesed added ",
+                         Status = true 
+                    };
+
                }
 
           }
@@ -135,11 +141,12 @@ namespace eProiect.BusinessLogic.Core
                     };
                try
                {
-                    UserCredential _user;
+                    User _user;
                     using (var db = new UserContext())
                     {
-                         _user = db.UserCredentials.FirstOrDefault(g => g.Id == Id);
-                         if (_user == null)
+                         _user = db.Users.FirstOrDefault(g => g.Id == Id);
+                         var _userCredentials = db.UserCredentials.FirstOrDefault(c => c.Id == _user.UserCredentialId);
+                         if (_user == null || _userCredentials == null)
                          {
                               return new ActionResponse
                               {
@@ -147,9 +154,7 @@ namespace eProiect.BusinessLogic.Core
                                    Status = false
                               };
                          }
-
-
-                         db.UserCredentials.Remove(_user);
+                         db.UserCredentials.Remove(_userCredentials);
 
                          db.SaveChanges();
                     }

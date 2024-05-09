@@ -117,12 +117,12 @@
     <Compile Include="Interfaces\IDiscipline.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Migrations\202404171310503_UpdateAcademicTeble.cs" />
-    <Compile Include="Migrations\202404171310503_UpdateAcademicTeble.designer.cs">
+    <Compile Include="Migrations\202404171310503_UpdateAcademicTeble.Designer.cs">
       <DependentUpon>202404171310503_UpdateAcademicTeble.cs</DependentUpon>
 
     </Compile>
     <Compile Include="Migrations\202404211100479_UserRole Change.cs" />
-    <Compile Include="Migrations\202404211100479_UserRole Change.designer.cs">
+    <Compile Include="Migrations\202404211100479_UserRole Change.Designer.cs">
       <DependentUpon>202404211100479_UserRole Change.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
