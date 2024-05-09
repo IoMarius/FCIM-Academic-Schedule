@@ -445,8 +445,6 @@ go-back, go-back:hover, go-back:focus, go-back:active {
     color: inherit;
 }
 
-
-
 ul {
     padding-left: 0;
     list-style-type: none;
@@ -8199,7 +8197,7 @@ table tbody .border-bottom-info td {
     -webkit-transform: rotate(180deg);
             transform: rotate(180deg); }
 
-body[themebg-pattern="pattern1"] {
+/*body[themebg-pattern="pattern1"] {
   background-image: url("../images/pattern1.jpg"); }
 body[themebg-pattern="pattern2"] {
   background-image: url("../images/pattern2.jpg"); }
@@ -8220,7 +8218,7 @@ body[themebg-pattern="pattern7"] {
 body[themebg-pattern="pattern8"] {
   background-image: url("../images/pattern8.jpg"); }
 body[themebg-pattern="pattern9"] {
-  background-image: url("../images/pattern9.jpg"); }
+  background-image: url("../images/pattern9.jpg"); }*/
 
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item li .pcoded-submenu li.active > a,
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item li .pcoded-submenu li:hover > a {
