@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * Tabledit v1.2.3 (https://github.com/markcell/jQuery-Tabledit)
  * Copyright (c) 2015 Celso Marques
  * Licensed under MIT (https://github.com/markcell/jQuery-Tabledit/blob/master/LICENSE)
@@ -116,7 +116,7 @@ if (typeof jQuery === 'undefined') {
 
                         $td.each(function() {
                             // Get text of this cell.
-                            var text = $(this).text();
+                            var text = $(this).text().trim();
 
                             // Add pointer as cursor.
                             if (!settings.editButton) {
@@ -124,7 +124,7 @@ if (typeof jQuery === 'undefined') {
                             }
 
                             // Create span element.
-                            var span = '<span class="tabledit-span">' + text + '</span>';
+                            var span = '<span class="tabledit-span">' + text.trim() + '</span>';
 
                             // Check if exists the third parameter of editable array.
                             if (typeof settings.columns.editable[i][2] !== 'undefined') {
@@ -144,7 +144,7 @@ if (typeof jQuery === 'undefined') {
                                 input += '</select>';
                             } else {
                                 // Create text input element.
-                                var input = '<input class="tabledit-input ' + settings.inputClass + '" type="text" name="' + settings.columns.editable[i][1] + '" value="' + $(this).text() + '" style="display: none;" disabled>';
+                                var input = '<input class="tabledit-input ' + settings.inputClass + '" type="text" name="' + settings.columns.editable[i][1] + '" value="' + $(this).text().trim() + '" style="display: none;" disabled>';
                             }
 
                             // Add elements and class "view" to table cell.
@@ -198,7 +198,7 @@ if (typeof jQuery === 'undefined') {
                                        </div></div>';
 
                         // Add toolbar column cells.
-                        $table.find('tr:gt(0)').append('<td style="white-space: nowrap; width: 1%;">' + toolbar + '</td>');
+                        $table.find('tr:gt(0)').append('<td  >' + toolbar + '</td>');
                     }
                 }
             }
@@ -281,29 +281,63 @@ if (typeof jQuery === 'undefined') {
                 });
             },
             submit: function(td) {
+                 var ajaxResult = ajax(settings.buttons.edit.action);
+                 var isValid = true;
+                 $(td).parent('tr').find('td').each(function () {
+                      if ($(this).text().trim() === '') {
+                           isValid = false;
+                           return false; // exit each loop early if validation fails
+                      }
+                 });
 
-                // Send AJAX request to server.
-                var ajaxResult = ajax(settings.buttons.edit.action);
+                 if (!isValid) {
+                      console.error('Data validation failed. Please fill in all fields.');
+                      return;
+                 }
 
-                if (ajaxResult === false) {
-                    return;
-                }
+                 // Extract id from the th element
+                 var id = $(td).closest('tr').attr('name');;
+                 var token = $('input[name="__RequestVerificationToken"]').val();
+                 // Send AJAX request to server
+                 var disciplineData = {
+                      Id: id,
+                      Name: $(td).parent('tr').find("input[name='Name']").val(),
+                      ShortName: $(td).parent('tr').find("input[name='ShortName']").val(),    
+                 };
 
-                $(td).each(function() {
-                    // Get input element.
-                    var $input = $(this).find('.tabledit-input');
-                    // Set span text with input/select new value.
-                    if ($input.is('select')) {
-                        $(this).find('.tabledit-span').text($input.find('option:selected').text());
-                    } else {
-                        $(this).find('.tabledit-span').text($input.val());
-                    }
-                    // Change to view mode.
-                    Mode.view(this);
-                });
-
-                // Set last edited column and row.
-                $lastEditedRow = $(td).parent('tr');
+                 $.ajax({
+                      url: '/Admin/EditDisciplineData',
+                      type: 'POST',
+                      contentType: 'application/json',
+                      data: JSON.stringify(disciplineData),
+                      headers: {
+                           // Include the anti-forgery token in the request headers
+                           "__RequestVerificationToken": token
+                      },
+                      dataType: "json",
+                      success: function (response) {
+                           console.log(response);
+                           // Additional actions after successful data submission
+                      },
+                      error: function (xhr, status, error) {
+                           console.error('Error sending data to the backend:', error);
+                           // Error handling if data submission fails
+                      }
+                 });
+                 $(td).each(function () {
+                      // Get input element.
+                      var $input = $(this).find('.tabledit-input');
+                      // Set span text with input/select new value.
+                      if ($input.is('select')) {
+                           $(this).find('.tabledit-span').text($input.find('option:selected').text());
+                      } else {
+                           $(this).find('.tabledit-span').text($input.val());
+                      }
+                      // Change to view mode.
+                      Mode.view(this);
+                 });
+                 // Set last edited column and row
+                 $lastEditedRow = $(td).parent('tr');
             }
         };
 
@@ -326,13 +360,27 @@ if (typeof jQuery === 'undefined') {
                 // Enable identifier hidden input.
                 $(td).parent('tr').find('input.tabledit-identifier').attr('disabled', false);
                 // Send AJAX request to server.
-                var ajaxResult = ajax(settings.buttons.delete.action);
+                
                 // Disable identifier hidden input.
                 $(td).parents('tr').find('input.tabledit-identifier').attr('disabled', true);
 
-                if (ajaxResult === false) {
-                    return;
-                }
+                var id = $(td).closest('tr').attr('name');;
+                 $.ajax({
+                      url: '/Admin/DeleteDiscipline',
+                      type: 'POST',
+                      contentType: 'application/json',
+                      data: JSON.stringify({ disciplineIdForDeleted: id }), // Trimitem obiectul JSON care conține ID-ul utilizatorului
+                      dataType: "json",
+                      success: function (response) {
+                           console.log(response);
+                           // Alte acțiuni după trimiterea cu succes a datelor
+                      },
+                      error: function (xhr, status, error) {
+                           console.error('Eroare la trimiterea datelor către server:', error);
+                           // Gestionarea erorilor în cazul în care trimiterea datelor eșuează
+                      }
+                 });
+               
 
                 // Add class "deleted" to row.
                 $(td).parent('tr').addClass('tabledit-deleted-row');

@@ -1,6 +1,11 @@
+
 ﻿using eProiect.Domain.Entities.Academic.DBModel;
 using eProiect.Domain.Entities.Responce;
 using eProiect.Domain.Entities.Schedule;
+
+﻿using eProiect.Domain.Entities.Academic;
+using eProiect.Domain.Entities.Academic.DBModel;
+
 using eProiect.Domain.Entities.Schedule.DBModel;
 using eProiect.Domain.Entities.User;
 using eProiect.Domain.Entities.User.DBModel;
@@ -23,5 +28,7 @@ namespace eProiect.BusinessLogic.Interfaces
           HttpCookie GenCookie(string loginCredential);
 
           ReducedUser GetUserByCookie(string cookieString);
+
+
      }
 }

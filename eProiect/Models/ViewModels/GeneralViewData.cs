@@ -1,4 +1,8 @@
+
 ﻿using eProiect.Domain.Entities.Academic.DBModel;
+
+﻿using eProiect.Domain.Entities.Academic;
+
 using eProiect.Models.Schedule;
 using eProiect.Models.Users;
 using System;
@@ -12,5 +16,11 @@ namespace eProiect.Models.ViewModels
     {
         public UserSchedule Schedule { get; set; }
         public UserEsentialData UData {  get; set; }
+
+        public List<UserEsentialData> UDataList { get; set; }
+        public GroupOfDisciplines DisciplinesDataList { get; set; }
+        public GroupOfCassRooms CassRoomsDataList { get; set; }
+        public AcademicGroupsList AcademicGroupsDataList { get; set;}
+
     }
 }

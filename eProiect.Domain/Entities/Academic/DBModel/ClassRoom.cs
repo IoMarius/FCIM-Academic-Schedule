@@ -17,6 +17,8 @@ namespace eProiect.Domain.Entities.Academic.DBModel
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Required]
+        [Index(IsUnique = true)]
         [StringLength(10, MinimumLength=3, ErrorMessage ="Incompliant classroom name size [3-10].")]
         public string ClassroomName { get; set; }
 

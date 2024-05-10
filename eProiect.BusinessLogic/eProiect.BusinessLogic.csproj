@@ -44,9 +44,36 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="MDD4All.EnterpriseArchitect.Logging, Version=2.0.1.3, Culture=neutral, PublicKeyToken=dfd4bdb117292732, processorArchitecture=MSIL">
+      <HintPath>..\packages\MDD4All.EnterpriseArchitect.Logging.2.0.1.3\lib\netstandard2.0\MDD4All.EnterpriseArchitect.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="MDD4All.EnterpriseArchitect.Manipulations, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dfd4bdb117292732, processorArchitecture=MSIL">
+      <HintPath>..\packages\MDD4All.EnterpriseArchitect.Manipulations.3.0.3.275\lib\netstandard2.0\MDD4All.EnterpriseArchitect.Manipulations.dll</HintPath>
+    </Reference>
+    <Reference Include="MDD4All.EnterpriseArchitect.SvgGenerator, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dfd4bdb117292732, processorArchitecture=MSIL">
+      <HintPath>..\packages\MDD4All.EnterpriseArchitect.SvgGenerator.3.3.0.272\lib\netstandard2.0\MDD4All.EnterpriseArchitect.SvgGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="MDD4All.SpecIF.DataModels.DiagramInterchange, Version=3.0.0.3, Culture=neutral, PublicKeyToken=dfd4bdb117292732, processorArchitecture=MSIL">
+      <HintPath>..\packages\MDD4All.SpecIF.DataModels.DiagramInterchange.3.0.0.3\lib\netstandard2.0\MDD4All.SpecIF.DataModels.DiagramInterchange.dll</HintPath>
+    </Reference>
+    <Reference Include="MDD4All.SVG.DataModels, Version=3.0.0.3, Culture=neutral, PublicKeyToken=dfd4bdb117292732, processorArchitecture=MSIL">
+      <HintPath>..\packages\MDD4All.SVG.DataModels.3.0.0.3\lib\netstandard2.0\MDD4All.SVG.DataModels.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.5.0.0\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,18 +83,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcademicGroupBL.cs" />
+    <Compile Include="AdminBL.cs" />
     <Compile Include="BuissinesLogic.cs" />
+    <Compile Include="ClassRoomBL.cs" />
+    <Compile Include="Core\AcademicGroupApi.cs" />
     <Compile Include="Core\AdminApi.cs" />
     <Compile Include="Core\OrgApi.cs" />
+    <Compile Include="Core\ClassRoomApi.cs" />
+    <Compile Include="Core\DisciplineApi.cs" />
     <Compile Include="Core\UserApi.cs" />
     <Compile Include="DBContext\FatherContext.cs" />
     <Compile Include="DBContext\SessionContext.cs" />
     <Compile Include="DBContext\UserContext.cs" />
     <Compile Include="Interfaces\IOrg.cs" />
     <Compile Include="Interfaces\ISession.cs" />
-    <Compile Include="Migrations\202404280857355_initialNewDbMigr.cs" />
-    <Compile Include="Migrations\202404280857355_initialNewDbMigr.Designer.cs">
-      <DependentUpon>202404280857355_initialNewDbMigr.cs</DependentUpon>
+    <Compile Include="DisciplineBL.cs" />
+    <Compile Include="Interfaces\IAcademicGroup.cs" />
+    <Compile Include="Interfaces\IAdmin.cs" />
+    <Compile Include="Interfaces\IClassRoom.cs" />
+    <Compile Include="Interfaces\IDiscipline.cs" />
+    <Compile Include="Migrations\202404171310503_UpdateAcademicTeble.cs" />
+    <Compile Include="Migrations\202404171310503_UpdateAcademicTeble.Designer.cs">
+      <DependentUpon>202404171310503_UpdateAcademicTeble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404211100479_UserRole Change.cs" />
+    <Compile Include="Migrations\202404211100479_UserRole Change.Designer.cs">
+      <DependentUpon>202404211100479_UserRole Change.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrgBL.cs" />
@@ -89,8 +131,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202404280857355_initialNewDbMigr.resx">
-      <DependentUpon>202404280857355_initialNewDbMigr.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202404171310503_UpdateAcademicTeble.resx">
+      <DependentUpon>202404171310503_UpdateAcademicTeble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404211100479_UserRole Change.resx">
+      <DependentUpon>202404211100479_UserRole Change.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

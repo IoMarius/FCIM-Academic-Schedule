@@ -8,8 +8,8 @@ namespace eProiect.Domain.Entities.User
 {
     public enum UserRole
     {
-        guest,
-        teacher,
-        admin   
+        guest = 0,
+        teacher = 1,
+        admin = 2
     }
 }

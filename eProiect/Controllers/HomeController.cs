@@ -30,7 +30,7 @@ namespace eProiect.Controllers
         public HomeController()
         { 
         }
-    
+
         public ActionResult Index()
         {
             SessionStatus();
@@ -42,8 +42,10 @@ namespace eProiect.Controllers
             var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
             return View(loggedInUser); 
         }
-        
-        public ActionResult Tables()
+
+          [UserMode(UserRole.admin, UserRole.teacher)]
+
+          public ActionResult Tables()       
         {
            
             SessionStatus();
@@ -55,7 +57,8 @@ namespace eProiect.Controllers
             return View();
         }
 
-        public ActionResult UserProfile()
+          
+          public ActionResult UserProfile()
         {
             SessionStatus();
             if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
@@ -66,8 +69,9 @@ namespace eProiect.Controllers
             return View();         
         }
 
+
         [UserMode(UserRole.admin, UserRole.teacher)]
-        public ActionResult Schedule()
+        public ActionResult Schedule() 
         {
             SessionStatus();
             if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
@@ -206,6 +210,7 @@ namespace eProiect.Controllers
             }
 
 
+
             GeneralViewData viewData = new GeneralViewData
             {
                 Schedule = userSchedule,
@@ -214,14 +219,19 @@ namespace eProiect.Controllers
 
             return View(viewData);
         }
-
         //Move get post stuff to another controller
         //Home controller only for pages.
         //( Modify ajax requests :( )
 
-        [HttpGet]
+          [HttpGet]
+          [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetLoggedUserDisciplineTypes(int disciplineId)
         {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
             var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
             var classTypes = _organizational.GetTypesByDisciplineForUser(disciplineId, loggedInUser.Id);
             
@@ -229,8 +239,14 @@ namespace eProiect.Controllers
         }
 
         [HttpGet]
+        [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetLoggedUserDisciplines()
         {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
             var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
             if (loggedInUser == null)
                 return Json(new List<Discipline>());
@@ -240,16 +256,29 @@ namespace eProiect.Controllers
         }
 
         [HttpGet]
+        [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetClassById(int classId)
         {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
             var resultClass=_organizational.GetClassById(classId);
             return Json(resultClass, JsonRequestBehavior.AllowGet);
         }
 
 
         [HttpPost]
+        [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult AddNewClass(ComposedClassInfo composedData, List<int> groupIds)
         {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
             //check for negatives!!!!!!!!!!!!!!
             var properties = composedData.GetType().GetProperties();
             foreach(var property in properties)
@@ -324,8 +353,14 @@ namespace eProiect.Controllers
         }
         
         [HttpPost]
+        [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetOptionsByYear(int year)
         {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
             List<AcademicGroup> groupList = new List<AcademicGroup>();
 
             if (year == 0)
@@ -338,8 +373,14 @@ namespace eProiect.Controllers
         }
 
         [HttpPost]
+          [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetFreeClassroomsByFloor(FreeClassroomsMinimalRequest requestData)
         {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
             /* var freeClassrooms = _organizational.GetFreeClassroomsByFloor(floor);
              return Json(freeClassrooms, JsonRequestBehavior.AllowGet);*/
             var freeClassrooms = _organizational.GetFreeClassroomsByFloorAndTime(
@@ -357,8 +398,14 @@ namespace eProiect.Controllers
         }
 
         [HttpPost]
+        [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult EditExistingClassroom(EditClassRequest data)
         {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
             //check equality.
             var UDClass = _organizational.GetClassById(data.ClassId);
             var oldClassParam = new EditClassRequest()
@@ -431,8 +478,14 @@ namespace eProiect.Controllers
         }
 
         [HttpPost]
+        [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult DeleteClass(int id)
         {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
             var result = _organizational.DeleteClassById(id);
             return Json(result);
         }

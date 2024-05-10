@@ -16,7 +16,7 @@ namespace eProiect.Domain.Entities.Academic.DBModel
           public int Id { get; set; }
 
           [Required]
-
+          [Index(IsUnique = true)]
           [StringLength(10, MinimumLength =6)]
           public string Name { get; set; }
 

@@ -1,5 +1,10 @@
 ﻿using eProiect.BusinessLogic.Core;
 using eProiect.BusinessLogic.Interfaces;
+
+using eProiect.BusinessLogic.Migrations;
+
+using eProiect.Domain.Entities.Academic;
+
 using eProiect.Domain.Entities.Academic.DBModel;
 using eProiect.Domain.Entities.Responce;
 using eProiect.Domain.Entities.Schedule;
@@ -30,5 +35,9 @@ namespace eProiect.BusinessLogic
         public ReducedUser GetUserByCookie(string cookieString){
             return UserByCookie(cookieString);
         }
-    }
+
+
+     }
+
+
 }

@@ -58,6 +58,7 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+
     <Reference Include="Microsoft.AspNetCore.Antiforgery, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Antiforgery.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Antiforgery.dll</HintPath>
     </Reference>
@@ -136,6 +137,22 @@
     <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
     </Reference>
+
+    <Reference Include="MDD4All.EnterpriseArchitect.Logging, Version=2.0.1.3, Culture=neutral, PublicKeyToken=dfd4bdb117292732, processorArchitecture=MSIL">
+      <HintPath>..\packages\MDD4All.EnterpriseArchitect.Logging.2.0.1.3\lib\netstandard2.0\MDD4All.EnterpriseArchitect.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="MDD4All.EnterpriseArchitect.Manipulations, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dfd4bdb117292732, processorArchitecture=MSIL">
+      <HintPath>..\packages\MDD4All.EnterpriseArchitect.Manipulations.3.0.3.275\lib\netstandard2.0\MDD4All.EnterpriseArchitect.Manipulations.dll</HintPath>
+    </Reference>
+    <Reference Include="MDD4All.EnterpriseArchitect.SvgGenerator, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dfd4bdb117292732, processorArchitecture=MSIL">
+      <HintPath>..\packages\MDD4All.EnterpriseArchitect.SvgGenerator.3.3.0.272\lib\netstandard2.0\MDD4All.EnterpriseArchitect.SvgGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="MDD4All.SpecIF.DataModels.DiagramInterchange, Version=3.0.0.3, Culture=neutral, PublicKeyToken=dfd4bdb117292732, processorArchitecture=MSIL">
+      <HintPath>..\packages\MDD4All.SpecIF.DataModels.DiagramInterchange.3.0.0.3\lib\netstandard2.0\MDD4All.SpecIF.DataModels.DiagramInterchange.dll</HintPath>
+    </Reference>
+    <Reference Include="MDD4All.SVG.DataModels, Version=3.0.0.3, Culture=neutral, PublicKeyToken=dfd4bdb117292732, processorArchitecture=MSIL">
+      <HintPath>..\packages\MDD4All.SVG.DataModels.3.0.0.3\lib\netstandard2.0\MDD4All.SVG.DataModels.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -191,6 +208,7 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+
     <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.Bson.1.0.1\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
     </Reference>
@@ -240,6 +258,18 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.5.0.0\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -305,6 +335,8 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\Admin\CheckValues.js" />
+    <Content Include="Content\themes\Admin\SendPagesNewValues.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -361,6 +393,8 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\themes\schedule-table\schedule-table.js" />
+    <None Include="Properties\PublishProfiles\fcim - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -3711,8 +3745,14 @@
     <Content Include="Vendor\assets\pages\data-table\js\jszip.min.js" />
     <Content Include="Vendor\assets\pages\data-table\js\pdfmake.min.js" />
     <Content Include="Vendor\assets\pages\data-table\js\vfs_fonts.js" />
-    <Content Include="Vendor\assets\pages\edit-table\editable.js" />
-    <Content Include="Vendor\assets\pages\edit-table\jquery.tabledit.js" />
+    <Content Include="Vendor\assets\pages\edit-table\editableAG.js" />
+    <Content Include="Vendor\assets\pages\edit-table\editableD.js" />
+    <Content Include="Vendor\assets\pages\edit-table\editableU.js" />
+    <Content Include="Vendor\assets\pages\edit-table\editableCR.js" />
+    <Content Include="Vendor\assets\pages\edit-table\jquerytableditClassRoom.js" />
+    <Content Include="Vendor\assets\pages\edit-table\jquerytableditAcademicGroup.js" />
+    <Content Include="Vendor\assets\pages\edit-table\jquerytableditDiscipline.js" />
+    <Content Include="Vendor\assets\pages\edit-table\jquerytableditUser.js" />
     <Content Include="Vendor\assets\pages\filer\custom-filer.js" />
     <Content Include="Vendor\assets\pages\filer\jquery.fileuploads.init.js" />
     <Content Include="Vendor\assets\pages\filer\php\ajax_remove_file.php" />
@@ -5990,6 +6030,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Atributes\UserModeAttribute.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -6044,6 +6085,15 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Schedule.cshtml" />
     <Content Include="Views\Home\AddLesson.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Shared\_Layout _Admin.cshtml" />
+    <Content Include="Views\Admin\Disciplines.cshtml" />
+    <Content Include="Views\Admin\AcademicGroups.cshtml" />
+    <Content Include="Views\Admin\ClassRooms.cshtml" />
+    <Content Include="Views\Admin\AddUser.cshtml" />
+    <Content Include="Views\Admin\AddDiscipline.cshtml" />
+    <Content Include="Views\Admin\AddAcademicGroup.cshtml" />
+    <Content Include="Views\Admin\AddClassRoom.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
