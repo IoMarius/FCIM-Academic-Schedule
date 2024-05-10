@@ -89,37 +89,23 @@
     <Compile Include="ClassRoomBL.cs" />
     <Compile Include="Core\AcademicGroupApi.cs" />
     <Compile Include="Core\AdminApi.cs" />
-
     <Compile Include="Core\OrgApi.cs" />
-
     <Compile Include="Core\ClassRoomApi.cs" />
     <Compile Include="Core\DisciplineApi.cs" />
-
     <Compile Include="Core\UserApi.cs" />
     <Compile Include="DBContext\FatherContext.cs" />
     <Compile Include="DBContext\SessionContext.cs" />
     <Compile Include="DBContext\UserContext.cs" />
-
-
     <Compile Include="Interfaces\IOrg.cs" />
     <Compile Include="Interfaces\ISession.cs" />
-    <Compile Include="Migrations\202404280857355_initialNewDbMigr.cs" />
-    <Compile Include="Migrations\202404280857355_initialNewDbMigr.Designer.cs">
-      <DependentUpon>202404280857355_initialNewDbMigr.cs</DependentUpon>
-
-    </Compile>
-
     <Compile Include="DisciplineBL.cs" />
     <Compile Include="Interfaces\IAcademicGroup.cs" />
-
     <Compile Include="Interfaces\IAdmin.cs" />
     <Compile Include="Interfaces\IClassRoom.cs" />
     <Compile Include="Interfaces\IDiscipline.cs" />
-    <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Migrations\202404171310503_UpdateAcademicTeble.cs" />
     <Compile Include="Migrations\202404171310503_UpdateAcademicTeble.Designer.cs">
       <DependentUpon>202404171310503_UpdateAcademicTeble.cs</DependentUpon>
-
     </Compile>
     <Compile Include="Migrations\202404211100479_UserRole Change.cs" />
     <Compile Include="Migrations\202404211100479_UserRole Change.Designer.cs">
@@ -145,13 +131,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-
-    <EmbeddedResource Include="Migrations\202404280857355_initialNewDbMigr.resx">
-      <DependentUpon>202404280857355_initialNewDbMigr.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202404171310503_UpdateAcademicTeble.resx">
       <DependentUpon>202404171310503_UpdateAcademicTeble.cs</DependentUpon>
-
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202404211100479_UserRole Change.resx">
       <DependentUpon>202404211100479_UserRole Change.cs</DependentUpon>

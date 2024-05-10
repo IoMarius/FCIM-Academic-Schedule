@@ -306,7 +306,7 @@ if (typeof jQuery === 'undefined') {
                     };
 
                     $.ajax({
-                         url: '/Admin/EditAcademicGroupDataa',
+                         url: '/Admin/EditAcademicGroupData',
                          type: 'POST',
                          contentType: 'application/json',
                          data: JSON.stringify(editedAcedemicGroupData),

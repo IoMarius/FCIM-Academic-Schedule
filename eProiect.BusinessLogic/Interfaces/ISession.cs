@@ -29,28 +29,6 @@ namespace eProiect.BusinessLogic.Interfaces
 
           ReducedUser GetUserByCookie(string cookieString);
 
-          UserSchedule GetScheduleById(int id);
-
-          /*GroupOfUsers GetAllUsers();
-          ActionResponse AddNewUsers(NewUserData newUserData);
-          ActionResponse EditUsers(User editedUserData);
-          ActionResponse DeleteUsers(int Id);*/
-          
-          /*GroupOfDisciplines GetAllDisciplines();
-          ActionResponse AddNewDisciplines(Discipline discipline);
-          ActionResponse EditDisciplines(Discipline updateDisciline);
-          ActionResponse DeleteDisciplines(int Id);*/
-          
-          /*AcademicGroupsList GetAllAcademicGroups();
-          ActionResponse AddNewAcademicGroups(AcademicGroup academicGroup);
-          ActionResponse EditAcademicGroups(AcademicGroup updateAcademicGroup);
-          ActionResponse DeleteAcademicGroups(int Id);*/
-
-          /*GroupOfCassRooms GetAllCassRooms();
-          ActionResponse AddNewClassRooms(ClassRoom classRoom); 
-          ActionResponse EditClassRooms(ClassRoom updateClassRoom);
-          ActionResponse DeleteClassRooms(int Id);
-*/
 
      }
 }
