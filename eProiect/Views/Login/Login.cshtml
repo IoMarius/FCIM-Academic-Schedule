@@ -16,7 +16,7 @@
                     <div class="auth-box">
                         <div class="row m-b-20">
                             <div class="col-md-12">
-                                <h3 class="text-left txt-primary">Sign In</h3>
+                                <h3 class="text-left txt-primary">Logare</h3>
                             </div>
                         </div>
                         <hr />
@@ -27,13 +27,13 @@
                         <div class="input-group">
 
                             @Html.ValidationMessageFor(UserLogin => UserLogin.Credential, "", new { @class = "text-danger" })
-                            <input type="text" name="Credential" id="Credential" class="form-control" placeholder="Username" required>
+                            <input type="text" name="Credential" id="Credential" class="form-control" placeholder="Email" required>
                             <span class="md-line"></span>
                         </div>
                         <div class="input-group">
 
                             @Html.ValidationMessageFor(UserLogin => UserLogin.Password, "", new { @class = "text-danger" })
-                            <input type="password" name="Password" id="Password" class="form-control" placeholder="Password" required />
+                            <input type="password" name="Password" id="Password" class="form-control" placeholder="Parolă" required />
                             <span class="md-line"></span>
                         </div>
                         <div class="row m-t-25 text-left">
@@ -46,13 +46,14 @@
                                     </label>
                                 </div>
                                 <div class="forgot-phone text-right f-right">
-                                    <a href="@Url.Action("LoginError", "Login")" class="text-right f-w-600 text-inverse"> Forgot Password?</a>
+                                    <a href="@Url.Action("LoginError", "Login")" class="text-right f-w-600 text-inverse">Ai uitat parola?</a>
                                 </div>
                             </div>
                         </div>
                         <div class="row m-t-30" style="margin: 0; margin-bottom: 0.7rem; justify-content: space-between;">
                             @*button btn btn-primary btn-md btn-block waves-effect text-center m-b-20*@
-                            <button type="submit" id="Login" name="LoginButton" class="button btn btn-primary text-center" style="width:100%">Sign in</button>                            
+                            <button type="submit" id="Login" name="LoginButton" class="button btn btn-primary text-center" style="width:100%">Logare</button>                            
+                            <button id="backToSchedule" class="button btn btn-primary text-center" style="width: 100%; margin-top: 6px; margin-bottom: -13px; }">Înapoi la orar</button>
                         </div>
 
                         @{

@@ -94,7 +94,13 @@
     @Scripts.Render("~/bundles/jquery-i18next/js")
     @Scripts.Render("~/bundles/script/js")
     @Scripts.Render("~/bundles/css-scrollbars/js")
-
+    <script>
+        $(document).ready(function () {
+            $('#backToSchedule').click(function () {
+                window.location.href = "/Home/GuestSchedule";
+            })
+        })
+    </script>
 
 </body>
 </html>
