@@ -370,11 +370,12 @@ namespace eProiect.Controllers
         [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetOptionsByYear(int year)
         {
-            SessionStatus();
+            /*SessionStatus();
             if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
             {
                 return RedirectToAction("Login", "Login");
-            }
+            }*/
+
             List<AcademicGroup> groupList = new List<AcademicGroup>();
 
             if (year == 0)

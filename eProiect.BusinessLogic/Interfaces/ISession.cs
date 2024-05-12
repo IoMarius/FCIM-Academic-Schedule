@@ -4,7 +4,6 @@ using eProiect.Domain.Entities.Responce;
 using eProiect.Domain.Entities.Schedule;
 
 ﻿using eProiect.Domain.Entities.Academic;
-using eProiect.Domain.Entities.Academic.DBModel;
 
 using eProiect.Domain.Entities.Schedule.DBModel;
 using eProiect.Domain.Entities.User;

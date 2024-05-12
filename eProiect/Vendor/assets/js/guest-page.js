@@ -1,12 +1,4 @@
 ﻿$(document).ready(function () {
-    var docHeight = $(window).height();
-    var footerHeight = $('#footer').height();
-    var footerTop = $('#footer').position().top + footerHeight;
-
-    if (footerTop < docHeight) {
-        $('#footer').css('margin-top', 10 + (docHeight - footerTop) + 'px');
-    }
-
     initScheduleTable();
     var lastSelectedGroup=-1;
     var lastSelectedYear=-1;
@@ -19,8 +11,7 @@
     $('#yearGuestSelector').click(function () {
         var yearId = $(this).find(':selected').val();
         if (yearId != null && yearId > 0) {
-            if (yearId != lastSelectedYear) {
-               
+            if (yearId != lastSelectedYear) {               
                 loadAcademicGroupsByYear(yearId);
             }
         }
@@ -41,7 +32,6 @@
 });
 
 function loadAcademicGroupsByYear(year) {
-    //var groupsList;
     if (year != null) {
         if (year > 0 && year < 5) {
             $.ajax({
@@ -62,7 +52,6 @@ function loadAcademicGroupsByYear(year) {
             });
         }
     }
-    //return groupsList
 }
 
 function loadAcademicGroupClasses(groupId) {
@@ -177,6 +166,7 @@ function insertClassesIntoSchedule(classes) {
 function insertOptionsInSelect(elementId ,jsonOptions, defaultOption) {
     $(elementId).empty();    
     $(elementId).append(defaultOption)
+    
 
     $.each(jsonOptions, function (index, item) {
         $(elementId).append(

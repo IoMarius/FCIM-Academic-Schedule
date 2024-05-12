@@ -34,7 +34,7 @@ namespace eProiect.Controllers
                 }
                 else
                 {
-                         ClearSession();
+                    ClearSession();
                 }
             }
             else

@@ -100,7 +100,7 @@ namespace eProiect.BusinessLogic.Core
             }
         }
 
-          internal HttpCookie Cookie(string loginCredential)
+        internal HttpCookie Cookie(string loginCredential)
           {
                var apiCookie = new HttpCookie("X-KEY")
                {

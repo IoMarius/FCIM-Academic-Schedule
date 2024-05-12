@@ -17,8 +17,8 @@ namespace eProiect
         {
             // Code that runs on application startup
            AreaRegistration.RegisterAllAreas();
-           RouteConfig.RegisterRoutes(RouteTable.Routes);
-           BundleConfig.RegistrerBoundles(BundleTable.Bundles);
-          }
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegistrerBoundles(BundleTable.Bundles);
+        }
     }
 }
