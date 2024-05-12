@@ -366,7 +366,7 @@ namespace eProiect.Controllers
         }
         
 
-        [HttpPost]
+        [HttpGet]
         [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetOptionsByYear(int year)
         {
