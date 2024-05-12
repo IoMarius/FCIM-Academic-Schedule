@@ -164,6 +164,7 @@ namespace eProiect.App_Start
 
             bundles.Add(new StyleBundle("~/bundles/select2").Include(
             "~/Vendor/select2/css/select2-bootstrap-5-theme.css", new CssRewriteUrlTransform()));
+
         
    
 
@@ -188,8 +189,15 @@ namespace eProiect.App_Start
                "~/Content/themes/Admin/CheckValues.js"));
                bundles.Add(new Bundle("~/bundles/SendPagesNewValues/js").Include(
               "~/Content/themes/Admin/SendPagesNewValues.js"));
-          }
+         
 
-     }
+            bundles.Add(new StyleBundle("~/bundles/guest-layout-styles/css").Include(
+            "~/Vendor/assets/css/guest-layout-styles.css", new CssRewriteUrlTransform()));
+
+            //---------------------GUEST-PAGE-SCRIPTS
+            bundles.Add(new Bundle("~/bundles/guest-page/js").Include(
+            "~/Vendor/assets/js/guest-page.js"));
+        }
+    }
 
 }

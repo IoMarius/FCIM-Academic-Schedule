@@ -38,12 +38,39 @@ namespace eProiect.BusinessLogic.Core
 
         internal ActionResponse RLoginUpService(ULoginData data)
         {
-           
-               User result;
-               var validate = new EmailAddressAttribute();
-               if (validate.IsValid(data.Credential))
-               {
-                    var pass = LoginHelper.HashGen(data.Password);
+            //TEST ADDING USR
+            /*using (var db = new UserContext())
+            {
+                var newCredentials = new UserCredential
+                {
+                    Email = "bemol@gmail.com",
+                    Password = LoginHelper.HashGen("12345678")
+                };
+
+                var newUser = new User
+                {
+                    Name = "Coco",
+                    Surname = "Jumbo",
+                    CreatedDate = DateTime.Now,
+                    LastLogin = DateTime.Now,
+                    LastIp = "192.168.1.1",
+                    Credentials = newCredentials
+                };
+                db.UserCredentials.Add(newCredentials);
+                db.Users.Add(newUser);
+                db.SaveChanges();
+            }*/
+            //TEST
+            if (data.IsGuest)
+            {
+                return new ActionResponse { Status = true };
+            }
+
+            User result;
+            var validate = new EmailAddressAttribute();
+            if (validate.IsValid(data.Credential))
+            {
+                var pass = LoginHelper.HashGen(data.Password);
 
                     using (var db = new UserContext())
                     {
@@ -56,24 +83,22 @@ namespace eProiect.BusinessLogic.Core
                          return new ActionResponse { Status = false, ActionStatusMsg = "The username or password is incorrect." };
                     }
 
-                    using (var todo = new UserContext())
-                    {
-                         result.LastIp = data.LoginIp;
-                         result.LastLogin = data.LoginDateTime;
-                         todo.Entry(result).State = EntityState.Modified;
-                         todo.SaveChanges();
-                    }
-                    System.Diagnostics.Debug.WriteLine("ULoginResp returned status {TRUE}.");
-                    return new ActionResponse { Status = true };
-               }
-               else
-               {
-                    //logging with something other than email, like username
-                    //but there are no usernames here I think..
-                    System.Diagnostics.Debug.WriteLine("ULoginResp returned status {FALSE}. Invalid email address.");
-                    return new ActionResponse { Status = false, ActionStatusMsg = "Invalid email address." };
-               }
-          }
+                using (var todo=new UserContext())
+                {
+                    result.LastIp = data.LoginIp;
+                    result.LastLogin = data.LoginDateTime;
+                    todo.Entry(result).State= EntityState.Modified;
+                    todo.SaveChanges();
+                }
+                //System.Diagnostics.Debug.WriteLine("ULoginResp returned status {TRUE}.");
+                return new ActionResponse { Status = true };
+            }
+            else
+            {
+                //System.Diagnostics.Debug.WriteLine("ULoginResp returned status {FALSE}. Invalid email address.");
+                return new ActionResponse { Status = false, ActionStatusMsg = "Adresă email invalidă" };
+            }
+        }
 
           internal HttpCookie Cookie(string loginCredential)
           {
@@ -82,18 +107,18 @@ namespace eProiect.BusinessLogic.Core
                     Value = CookieBaker.Create(loginCredential)
                };
 
-               using (var db = new SessionContext())
-               {
-                    Session curent;
-                    var validate = new EmailAddressAttribute();
-                    if (validate.IsValid(loginCredential))
-                    {
-                         curent = (from e in db.Sessions where e.Email == loginCredential select e).FirstOrDefault();
-                    }
-                    else
-                    {
-                         curent = (from e in db.Sessions where e.Email == loginCredential select e).FirstOrDefault();
-                    }
+            using (var db = new SessionContext()) 
+            {
+                Session curent;
+                var validate = new EmailAddressAttribute();
+                if (validate.IsValid(loginCredential))
+                {
+                    curent = (from e in db.Sessions where e.Email == loginCredential select e).FirstOrDefault();
+                }
+                else
+                {
+                    curent = (from e in db.Sessions where e.Email == loginCredential select e).FirstOrDefault();
+                }
 
                     if (curent != null)
                     {

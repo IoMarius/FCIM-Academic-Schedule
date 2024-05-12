@@ -68,7 +68,7 @@ $(document).ready(function () {
         if (selectedYear != null) {
             $.ajax({
                 url: "/Home/GetOptionsByYear",
-                method: "POST",
+                method: "GET",
                 data: { year: selectedYear },
                 success: function (data) {
                     updateGroupSelect(data);

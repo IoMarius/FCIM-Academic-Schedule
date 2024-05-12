@@ -57,8 +57,8 @@ namespace eProiect.Controllers
             return View();
         }
 
-          
-          public ActionResult UserProfile()
+        [UserMode(UserRole.admin, UserRole.teacher)]
+        public ActionResult UserProfile()
         {
             SessionStatus();
             if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
@@ -223,8 +223,23 @@ namespace eProiect.Controllers
         //Home controller only for pages.
         //( Modify ajax requests :( )
 
-          [HttpGet]
-          [UserMode(UserRole.admin, UserRole.teacher)]
+        [HttpGet]
+        [UserMode(UserRole.admin, UserRole.teacher)]
+        public ActionResult GuestSchedule()
+        {
+            return View();
+        }
+
+        [UserMode(UserRole.admin, UserRole.teacher)]
+        public ActionResult Logout()
+        {
+            ClearSession();
+            return RedirectToAction("Login", "Login");
+        }
+
+        //move to management or smth controller.
+        [HttpGet]
+        [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetLoggedUserDisciplineTypes(int disciplineId)
         {
             SessionStatus();
@@ -267,7 +282,6 @@ namespace eProiect.Controllers
             var resultClass=_organizational.GetClassById(classId);
             return Json(resultClass, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpPost]
         [UserMode(UserRole.admin, UserRole.teacher)]
@@ -319,7 +333,6 @@ namespace eProiect.Controllers
             //get user 
             var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
 
-            //goteeem!!!
             //list if some groups are busy
             List<ActionResponse> responses = new List<ActionResponse>();
 
@@ -352,6 +365,7 @@ namespace eProiect.Controllers
             return Json(responses);
         }
         
+
         [HttpPost]
         [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetOptionsByYear(int year)
@@ -369,11 +383,11 @@ namespace eProiect.Controllers
             }
 
             groupList = _organizational.GetAcadGroupsList(year);
-            return Json(groupList);
+            return Json(groupList, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-          [UserMode(UserRole.admin, UserRole.teacher)]
+        [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetFreeClassroomsByFloor(FreeClassroomsMinimalRequest requestData)
         {
             SessionStatus();
@@ -490,11 +504,16 @@ namespace eProiect.Controllers
             return Json(result);
         }
 
-        [UserMode(UserRole.admin, UserRole.teacher)]
-         public ActionResult Logout()
-          {
-               ClearSession();
-               return RedirectToAction("Login", "Login");
-          }
+        [HttpGet]
+        public ActionResult GetGroupClasses(int groupId) {
+            var groupClases=_organizational.GetAcademicGroupClasses(groupId);
+            return Json(groupClases, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult IsCurrentWeekEven()
+        {
+            return Json(_organizational.IsCurrentWeekEven(), JsonRequestBehavior.AllowGet);
+        }
      }
 }

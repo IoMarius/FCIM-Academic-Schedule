@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "GuestSchedule";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <div id="academicGroupSelectors">
+            <div class="selector-row-wrapper">
+            <div class="selectors-row">
+                <div class="selector-col">
+                    <select id="yearGuestSelector" name="year-select" class="yearSelect form-control form-control-inverse">
+                        <option disabled selected value="-1">Anul de studii</option>
+                        <option value="1">anul 1</option>
+                        <option value="2">anul 2</option>
+                        <option value="3">anul 3</option>
+                        <option value="4">anul 4</option>
+                    </select>
+                </div>
+                <div class="selector-col">
+                    <select id="academicGroupSelector" name="group-select" class="yearSelect form-control form-control-inverse">
+                        <option disabled selected value="-1">Grupă</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        </div>
+        <hr />
+
+        <div class="table-wrapper">
+            <div id="divTable" class="guest-schedule-container">
+            </div>
+        </div>
+
+        <div id="userNotice" class="user-notice-msg">
+            <span>Selectați anul de studiu și grupa academică</span>
+        </div>
+    </div>
+</div>
+
+<div id="newsletterCard" class="card closed">
+    <div class="card-body newsletter-card">
+        <div class="newsletter-text-group">
+            <span style="font-weight: 600; font-size: 19px; }">Fii mereu la curent!</span>
+            <span>Înscrie-te pentru a primi notificări despre modificarea orarului grupei <span id="newsletter-message-groupname"></span>.</span>
+        </div>
+        <div class="newsletter-input-group">
+            <input type="text" class="form-control" placeholder="Email">
+            <button class="button btn btn-primary guest-login-button">Înscrie-te</button>
+        </div>
+    </div>
+</div>

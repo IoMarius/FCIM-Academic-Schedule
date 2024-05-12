@@ -66,5 +66,15 @@ namespace eProiect.BusinessLogic
         {
             return RemoveUserClassById(id);
         }
+
+        public List<Class> GetAcademicGroupClasses(int id)
+        {
+            return GetGroupClasses(id);
+        }
+
+        public bool IsCurrentWeekEven()
+        {
+            return IsEvenWeek();
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace eProiect.Domain.Entities.User
           public string Password { get; set; }
           public string LoginIp { get; set; }
           public DateTime LoginDateTime { get; set; }
+          public bool IsGuest { get; set; }
      }
 }

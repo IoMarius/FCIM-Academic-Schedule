@@ -130,9 +130,11 @@ namespace eProiect.BusinessLogic.Core
                 }
 
                 var overlapBusyGroup = db.Classes
+                    .Include(cl=> cl.UserDiscipline.User)
                     .FirstOrDefault(
                         c => c.AcademicGroupId == newClass.AcademicGroup.Id &&
                         c.WeekDayId == newClass.WeekDay.Id &&
+                        c.Frequency == newClass.Frequency &&
                         ((c.StartTime == newClass.StartTime) || (c.EndTime == newClass.EndTime))
                     );
 
@@ -211,7 +213,7 @@ namespace eProiect.BusinessLogic.Core
                     .Include(ud => ud.User)
                     .Include(ud => ud.Discipline)
                     .Include(ud => ud.Type)
-                    .FirstOrDefault(ud =>  ud.DisciplineId == newClass.UserDiscipline.Id && ud.ClassTypeId ==newClass.UserDiscipline.Type.Id);//does not work
+                    .FirstOrDefault(ud =>  ud.DisciplineId == newClass.UserDiscipline.Id && ud.ClassTypeId ==newClass.UserDiscipline.Type.Id && ud.UserId==newClass.UserDiscipline.User.Id);
 
                 var classType = db.ClassTypes
                     .FirstOrDefault(ud => ud.Id == newClass.UserDiscipline.Type.Id);
@@ -579,6 +581,41 @@ namespace eProiect.BusinessLogic.Core
                 Status = true,
                 ActionStatusMsg = "Perechea a fost ștearsă cu succes"
             };
+        }
+
+        internal List<Class> GetGroupClasses(int id)
+        {
+            var groupClasses=new List<Class>();
+            using (var db=new UserContext())
+            {
+                groupClasses = db.Classes
+                    .Include(cl => cl.UserDiscipline.User)
+                    .Include(cl => cl.UserDiscipline.Type)                    
+                    .Include(cl => cl.UserDiscipline.Discipline)                    
+                    .Include(cl => cl.ClassRoom)                    
+                    .Include(cl => cl.WeekDay)                    
+                    .Where(cl => cl.AcademicGroupId==id)
+                    .ToList();
+            }
+
+            //sort by weekdayId asc.
+            return groupClasses
+                .OrderBy(cl=>cl.WeekDayId)
+                .ThenBy(cl=>cl.StartTime)
+                .ToList();
+        }
+
+        internal bool IsEvenWeek()
+        {            
+            DateTime today = DateTime.Today;
+            DayOfWeek currentDayOfWeek = today.DayOfWeek;
+
+            int daysToSubtract = ((int)currentDayOfWeek - (int)DayOfWeek.Monday + 7) % 7;
+            var mondayDate = today.AddDays(-daysToSubtract);
+            
+            if (mondayDate.Day % 2 == 0)
+                return true;
+            return false;                        
         }
     }
 }

@@ -7,6 +7,7 @@
     background-color: #ffc55b;
     border-radius: 4px;
     padding: 5px;
+    margin:0;
 }
 
     .fail-auth-message-row i {

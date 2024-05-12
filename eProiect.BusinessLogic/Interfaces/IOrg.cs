@@ -93,10 +93,23 @@ namespace eProiect.BusinessLogic.Interfaces
         ActionResponse EditExistingClass(Class modifiedClasss);
 
         /// <summary>
-        /// Delete recors from "Classes" table by Id.
+        /// Delete records from "Classes" table by Id.
         /// </summary>
         /// <param name="id">Existing "Class" Id</param>
         /// <returns>ActionResponse</returns>
         ActionResponse DeleteClassById(int id);
+
+        /// <summary>
+        /// Used for getting all available classes for an academic group
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>List of Class instances</returns>
+        List<Class> GetAcademicGroupClasses(int id);
+
+        /// <summary>
+        /// Used for even odd lessons in schedule
+        /// </summary>
+        /// <returns>Self explainatory</returns>
+        bool IsCurrentWeekEven();
     }
 }

@@ -1,0 +1,79 @@
+﻿.nav-element {
+    display: flex;
+    justify-content: space-between;
+    background: #151a2b;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+.shaded-box {
+    box-shadow: 0px 5px 6px 0px rgb(0 0 0 / 12%);
+}
+
+.full-height {
+    height: 100%;
+}
+
+.view-content{
+    padding:10px;
+}
+
+.guest-login-button {
+    font-size: 18px !important;
+    padding: 4px 15px 4px 15px !important;
+}
+
+.button-container {
+    align-items: center;
+    padding-right: 9px;
+    display: flex;
+    justify-content: center;
+}
+
+.logo-container {
+    padding: 5px 0 5px 10px;
+    font-size: 27px;
+}
+
+.content-padding {
+    padding-top: 50px;
+}
+
+.guest-footer {
+    background: #151a2b;
+    color: white;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+}
+
+.subscriber-form {
+    display: flex;
+    padding: 6px;
+}
+
+.get-updates-button {
+    width:20%
+}
+
+.email-input-box{
+    width:75%;
+}
+
+@media (max-width: 750px) {
+    .logo-container {
+        padding: 12px;
+        font-size: 27px;
+    }
+
+    .content-padding {
+        padding-top: 64px;
+    }
+}

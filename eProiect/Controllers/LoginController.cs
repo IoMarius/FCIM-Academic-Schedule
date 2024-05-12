@@ -25,40 +25,40 @@ namespace eProiect.Controllers
 
           // GET : Login
           [HttpPost]
-          [ValidateAntiForgeryToken]
-        
+          [ValidateAntiForgeryToken]        
           public ActionResult Login(UserLogin data)
           {
                if (ModelState.IsValid)
                {
+                   
                     ULoginData uData = new ULoginData
                     {
-                         Credential = data.Credential,
-                         Password = data.Password,
-                         LoginIp = Request.UserHostAddress ,
-                         LoginDateTime = DateTime.Now
+                            Credential = data.Credential,
+                            Password = data.Password,
+                            LoginIp = Request.UserHostAddress ,
+                            LoginDateTime = DateTime.Now
                     };
 
                     ActionResponse resp = _session.UserLoginAction(uData);
                     ViewBag.LogSuccess = resp.Status;
                     if (resp.Status)
                     {
-                         //ADD COOKIE
-                         //coogie
-                         HttpCookie cookie=_session.GenCookie(uData.Credential);
-                         ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+                            //ADD COOKIE
+                            //coogie
+                            HttpCookie cookie=_session.GenCookie(uData.Credential);
+                            ControllerContext.HttpContext.Response.Cookies.Add(cookie);
 
-                         return RedirectToAction("Schedule", "Home" );
+                            return RedirectToAction("Schedule", "Home" );
                     }
                     else
                     {
-                         ModelState.AddModelError("", resp.ActionStatusMsg);
-                         return View();
-                    }
+                            ModelState.AddModelError("", resp.ActionStatusMsg);
+                            return View();
+                    }                    
+                    
                }
                return View();
           }
-
 
           public ActionResult Login()
           {

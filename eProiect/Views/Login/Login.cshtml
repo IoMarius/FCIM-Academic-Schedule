@@ -50,24 +50,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row m-t-30">
-                            <div class="col-md-12" style="margin-bottom: -11px">
-                                <button type="submit" id="Login" class="button btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign in</button>
-                            </div>
+                        <div class="row m-t-30" style="margin: 0; margin-bottom: 0.7rem; justify-content: space-between;">
+                            @*button btn btn-primary btn-md btn-block waves-effect text-center m-b-20*@
+                            <button type="submit" id="Login" name="LoginButton" class="button btn btn-primary text-center" style="width:100%">Sign in</button>                            
                         </div>
 
                         @{
                             var classString = "invisible";
                             if (ViewBag.LogSuccess != null && !ViewBag.LogSuccess)
                             {
-                                classString = "fail-auth-message-row";
+                                classString = "row fail-auth-message-row";
                             }
                         }
                         <div class="@classString">
-
                             <i class="ti-alert warning-icon"></i>
                             <span style="color: #444c67">Invalid credentials</span>
-
                         </div>
                     </div>
                 </form>

@@ -32,7 +32,8 @@ namespace eProiect.BusinessLogic
             return Cookie(loginCredential);
         }
 
-        public ReducedUser GetUserByCookie(string cookieString){
+        public ReducedUser GetUserByCookie(string cookieString)
+        {
             return UserByCookie(cookieString);
         }
 

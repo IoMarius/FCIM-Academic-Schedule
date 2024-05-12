@@ -968,6 +968,7 @@
     <Content Include="Vendor\assets\js\demo-dark.js" />
     <Content Include="Vendor\assets\js\demo-image.js" />
     <Content Include="Vendor\assets\js\demo-light-dark.js" />
+    <Content Include="Vendor\assets\js\guest-page.js" />
     <Content Include="Vendor\assets\js\jquery.easypiechart.min.js" />
     <Content Include="Vendor\assets\js\jquery.mCustomScrollbar.concat.min.js" />
     <Content Include="Vendor\assets\js\jquery.mousewheel.min.js" />
@@ -6034,6 +6035,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OrgController.cs" />
     <Compile Include="Extensions\HttpContextExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -6049,6 +6051,7 @@
     <Compile Include="Models\Users\UserSchedule.cs" />
     <Compile Include="Models\ViewModels\GeneralViewData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Vendor\assets\css\guest-layout-styles.css" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -6084,6 +6087,7 @@
     <Content Include="Views\Login\LoginError.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Schedule.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Home\AddLesson.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
     <Content Include="Views\Shared\_Layout _Admin.cshtml" />
@@ -6094,6 +6098,12 @@
     <Content Include="Views\Admin\AddDiscipline.cshtml" />
     <Content Include="Views\Admin\AddAcademicGroup.cshtml" />
     <Content Include="Views\Admin\AddClassRoom.cshtml" />
+=======
+    <Content Include="Views\Home\GuestSchedule.cshtml" />
+    <Content Include="Views\Shared\_GuestNavbar.cshtml" />
+    <Content Include="Views\Shared\_GuestLayout.cshtml" />
+    <Content Include="Views\Shared\_GuestFooter.cshtml" />
+>>>>>>> a7b1d05 (Added new student schedule page.)
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -6107,6 +6117,7 @@
     <Folder Include="Vendor\assets\pages\ckeditor\samples\toolbarconfigurator\lib\" />
     <Folder Include="Vendor\assets\pages\j-pro\form_files\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Org\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\eProiect.BusinessLogic\eProiect.BusinessLogic.csproj">

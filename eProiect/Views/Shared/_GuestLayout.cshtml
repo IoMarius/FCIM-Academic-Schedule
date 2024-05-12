@@ -1,0 +1,89 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+<html class="full-height">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="#">
+    <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="#">
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/Vendor/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+
+
+
+    <!-- Required Fremwork -->
+    @Styles.Render("~/bundles/bootstrap/css")
+    <!-- themify-icons line icon -->
+    @Styles.Render("~/bundles/themify-icons/css1")
+    <!-- ico font -->
+    @Styles.Render("~/bundles/ico-font/css2")
+    <!-- Menu-Search css -->
+    @Styles.Render("~/bundles/menu-search/css3")
+    <!-- Style.css -->
+    @Styles.Render("~/bundles/style/css4")
+    @Styles.Render("~/bundles/mCustomScrollbar/css5")
+
+    @Styles.Render("~/bundles/schedule-table/css")
+    @Styles.Render("~/bundles/navbar-user-styles/css")
+    @Styles.Render("~/bundles/guest-layout-styles/css")
+
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+
+</head>
+<body class="full-height">
+
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        @Html.Partial("_Preloader")
+    </div>
+    <!-- Pre-loader end -->
+
+    <div id="viewPage" class="full-height">
+        <nav class="nav-element shaded-box">
+            @Html.Partial("_GuestNavbar")
+        </nav>
+
+        <div class="full-height content-padding">
+            <!--Main content in page-->
+            <div class="view-content full-height">
+                @RenderBody()
+            </div>
+        </div>
+
+        <div id="footer">
+            @Html.Partial("_GuestFooter")
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery/js")
+
+    @Scripts.Render("~/bundles/jquery-ui/js")
+    @Scripts.Render("~/bundles/popper.js/js")
+
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/jquery-slimscroll/js")
+    @Scripts.Render("~/bundles/modernizr/js")
+    @Scripts.Render("~/bundles/widget/amcharts")
+    @Scripts.Render("~/bundles/widget/serial")
+    @Scripts.Render("~/bundles/chart.js/js")
+    @Scripts.Render("~/bundles/pages/todo")
+    @Scripts.Render("~/bundles/i18next/js")
+    @Scripts.Render("~/bundles/i18next-xhr-backend/js")
+    @Scripts.Render("~/bundles/i18next-browser-languagedetector/js")
+    @Scripts.Render("~/bundles/jquery-i18next/js")
+    @Scripts.Render("~/bundles/pcoded/js")
+    @Scripts.Render("~/bundles/demo-12/js")
+    @Scripts.Render("~/bundles/mCustomScrollbar/js")
+    @Scripts.Render("~/bundles/script/js")
+    @Scripts.Render("~/bundles/guest-page/js")
+
+</body>
+</html>

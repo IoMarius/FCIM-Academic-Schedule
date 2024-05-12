@@ -44,17 +44,17 @@ namespace eProiect.Controllers
         }
         public void ClearSession()
           {
-                    System.Web.HttpContext.Current.ClearError();
-                    if (ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("X-KEY"))
-                    {
-                        var cookie = ControllerContext.HttpContext.Request.Cookies["X-KEY"];
-                        if (cookie != null)
-                        {
-                            cookie.Expires = DateTime.Now.AddDays(-1);
-                            ControllerContext.HttpContext.Response.Cookies.Add(cookie);
-                        }
-                    }
-                    System.Web.HttpContext.Current.Session["LoginStatus"] = "logout";
+            System.Web.HttpContext.Current.ClearError();
+            if (ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("X-KEY"))
+            {
+                var cookie = ControllerContext.HttpContext.Request.Cookies["X-KEY"];
+                if (cookie != null)
+                {
+                    cookie.Expires = DateTime.Now.AddDays(-1);
+                    ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+                }
+            }
+            System.Web.HttpContext.Current.Session["LoginStatus"] = "logout";
 
           }
     }
