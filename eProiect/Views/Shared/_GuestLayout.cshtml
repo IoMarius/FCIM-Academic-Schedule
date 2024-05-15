@@ -37,7 +37,7 @@
 
 
 </head>
-<body class="full-height">
+<body>
 
     <!-- Pre-loader start -->
     <div class="theme-loader">
@@ -45,22 +45,21 @@
     </div>
     <!-- Pre-loader end -->
 
-    <div id="viewPage" class="full-height">
+    <div id="viewPage" class="test">
         <nav class="nav-element shaded-box">
             @Html.Partial("_GuestNavbar")
         </nav>
 
-        <div class="full-height content-padding">
             <!--Main content in page-->
             <div class="view-content full-height">
                 @RenderBody()
             </div>
-        </div>
 
-        <div id="footer">
+          <footer id="footer">
             @Html.Partial("_GuestFooter")
-        </div>
+        </footer>
     </div>
+
 
 
     @Scripts.Render("~/bundles/jquery/js")

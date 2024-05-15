@@ -76,5 +76,15 @@ namespace eProiect.BusinessLogic
         {
             return IsEvenWeek();
         }
+
+        public List<User> GetTeacherUsers()
+        {
+            return GetAllTeacherUsers();
+        }
+
+        public List<Class> GetUserClasses(int id)
+        {
+            return GetUserClassesById(id);
+        }
     }
 }

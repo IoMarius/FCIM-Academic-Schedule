@@ -3,6 +3,55 @@
     var lastSelectedGroup=-1;
     var lastSelectedYear=-1;
 
+    $('#teachersDropdown').click(function (event) {
+        if (event.target.id == 'spanOptionTeacher') {
+            var TeacherId = $(event.target).val();
+            $('#nameInput').toggleClass('opened-input');
+            $('#searchIconBox').toggleClass('closed');
+            $('#teachersDropdown').toggleClass('closed');
+
+            $('#nameInput').val($(event.target).text())
+            loadTeacherClasses(TeacherId);
+        }
+    });
+
+    $('#nameInput').on("focus", function () {
+        $(this).toggleClass('opened-input');
+        $('#searchIconBox').toggleClass('closed');
+        $('#teachersDropdown').toggleClass('closed');
+    });
+
+
+    $('#switchToGroups').click(function () {
+        if ($(this).hasClass('disabled')) {
+            $(this).toggleClass('disabled');
+            $('#switchToTeachers').toggleClass('disabled');
+            cleanTable();
+
+            $('#teachersSelectors').toggleClass('closed');
+            $('#academicGroupSelectors').toggleClass('closed');
+
+            $('#newsletterCard').toggleClass('closed')
+        }
+    })
+
+    $('#switchToTeachers').click(function () {
+        if ($(this).hasClass('disabled')){
+            $(this).toggleClass('disabled');
+            $('#switchToGroups').toggleClass('disabled');
+            cleanTable();
+
+            $('#teachersSelectors').toggleClass('closed');
+            $('#academicGroupSelectors').toggleClass('closed');
+
+            //close fii la curent thingy
+            $('#newsletterCard').toggleClass('closed')
+
+            //get teachers list...
+            loadTeachers();
+        }
+    })
+
     $('#loginGuest').click(function () {
         console.error("WAS CLICK")
         window.location.href = "/Login/Login"
@@ -23,13 +72,62 @@
             if (groupId != lastSelectedGroup) {
                 lastSelectedGroup = groupId;
                 $('#userNotice').addClass('closed')
-                $('#newsletterCard').removeClass('closed')
+                $('#newsletterCard').removeClass('invisible')
                 $('#newsletter-message-groupname').text($(this).find(':selected').text())
                 loadAcademicGroupClasses(groupId)                
             }
         }
     });
 });
+
+function cleanTable() {
+    $('.table-cell-wrapper').empty();
+    $('.table-cell-wrapper').addClass('table-empty-cell-hiddenmobile');
+    $('.collapsed').removeClass('collapsed')
+    $('.double-height').removeClass('double-height')
+    $('.mobile-visible-col-block').removeClass('mobile-visible-col-block')
+}
+
+function filterFunction() {
+    const input = document.getElementById("nameInput");
+    const filter = input.value.toUpperCase();
+    const div = document.getElementById("searchDropdown");
+    const a = div.getElementsByTagName("div");
+
+    for (let i = 0; i < a.length; i++) {
+        txtValue = a[i].textContent || a[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+        } else {
+            a[i].style.display = "none";
+        }
+    }
+}
+
+function loadTeachers() {
+    $.ajax({
+        url: "/Home/GetTeachers",
+        method: "GET",
+        success: function (data) {
+            InsertTeachersInDropdown(data)
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error("AJAX Error:", textStatus, errorThrown);
+            console.error("Full jqXHR object:", jqXHR);
+        }
+    });
+}
+
+function InsertTeachersInDropdown(teachers) {
+    $('#teachersDropdown').empty();
+    $.each(teachers, function (index, teacher) {
+        $('#teachersDropdown').append(
+            $('<div></div>').val(teacher.Id).addClass('pl-2 dropdown-span').attr('Id', 'spanOptionTeacher').append(
+                $('<span></span>').text(teacher.Name + ' ' + teacher.Surname)
+            )
+        )
+    });
+}
 
 function loadAcademicGroupsByYear(year) {
     if (year != null) {
@@ -54,6 +152,21 @@ function loadAcademicGroupsByYear(year) {
     }
 }
 
+function loadTeacherClasses(teacherId) {
+    $.ajax({
+        url: "/Home/GetUserClasses",
+        method: "GET",
+        data: { userId: teacherId },
+        success: function (data) {
+            insertClassesIntoSchedule(data, true)           
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error("AJAX Error:", textStatus, errorThrown);
+            console.error("Full jqXHR object:", jqXHR);
+        }
+    });
+}
+
 function loadAcademicGroupClasses(groupId) {
     $.ajax({
         url: "/Home/GetGroupClasses",
@@ -69,6 +182,7 @@ function loadAcademicGroupClasses(groupId) {
     });
 }
 
+
 function getTimeDiff(sHour, sMinute, eHour, eMinute) {
     const startTime = new Date(2024, 4, 11, sHour, sMinute);
     const endTime = new Date(2024, 4, 11, eHour, eMinute);
@@ -78,13 +192,8 @@ function getTimeDiff(sHour, sMinute, eHour, eMinute) {
     return hoursDiff;
 }
 
-function insertClassesIntoSchedule(classes) {
-    //cleanup
-    $('.table-cell-wrapper').empty();
-    $('.collapsed').removeClass('collapsed')
-    $('.double-height').removeClass('double-height')
-    $('.mobile-visible-col-block').removeClass('mobile-visible-col-block')
-
+function insertClassesIntoSchedule(classes, isTeacher) {
+    cleanTable();
 
     $.each(classes, function (index, item)
     {
@@ -121,10 +230,18 @@ function insertClassesIntoSchedule(classes) {
 
         var firstPair = $('<div></div>').addClass("mobile-itempair");
         var secondPair = $('<div></div>').addClass("mobile-itempair");
+
+        var newSpan;
+        if (isTeacher) {
+            newSpan = $('<span></span>').addClass("inner-cell-profname").text(item.AcademicGroup.Name)
+        } else {
+            newSpan = $('<span></span>').addClass("inner-cell-profname").text(item.UserDiscipline.User.Surname[0] + '. ' + item.UserDiscipline.User.Name)
+        }
+
         contentWrapper.append(
             firstPair.append(
-                $('<span></span>').addClass("inner-cell-disciplinename").text(item.UserDiscipline.Type.TypeName[0].toLowerCase() +'. '+item.UserDiscipline.Discipline.ShortName),
-                $('<span></span>').addClass("inner-cell-profname").text(item.UserDiscipline.User.Surname[0]+'. '+ item.UserDiscipline.User.Name)
+                $('<span></span>').addClass("inner-cell-disciplinename").text(item.UserDiscipline.Type.TypeName[0].toLowerCase() +'. '+item.UserDiscipline.Discipline.ShortName),                
+                newSpan
             ),
             secondPair.append(
                 $('<span></span>').addClass("inner-cell-classroom").text(item.ClassRoom.ClassroomName)

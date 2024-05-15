@@ -605,6 +605,37 @@ namespace eProiect.BusinessLogic.Core
                 .ToList();
         }
 
+        internal List<User> GetAllTeacherUsers()
+        {
+            var users = new List<User>();
+            using(var db=new UserContext())
+            {
+                users = db.UserDisciplines
+                    .Select(Ud => Ud.User)
+                    .Distinct()
+                    .ToList();
+            }
+            return users;
+        }
+
+        internal List<Class> GetUserClassesById(int id)
+        {
+            var classes = new List<Class>();
+            using(var db=new UserContext())
+            {
+                classes = db.Classes
+                    .Include(cl => cl.UserDiscipline.User)
+                    .Include(cl => cl.UserDiscipline.Type)
+                    .Include(cl => cl.UserDiscipline.Discipline)
+                    .Include(cl => cl.ClassRoom)
+                    .Include(cl => cl.WeekDay)
+                    .Include(cl => cl.AcademicGroup)
+                    .Where(cl => cl.UserDiscipline.UserId == id)
+                    .ToList();
+            }
+            return classes;
+        }
+
         internal bool IsEvenWeek()
         {            
             DateTime today = DateTime.Today;

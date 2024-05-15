@@ -106,6 +106,21 @@ namespace eProiect.BusinessLogic.Interfaces
         /// <returns>List of Class instances</returns>
         List<Class> GetAcademicGroupClasses(int id);
 
+
+        /// <summary>
+        /// Returns all users from database with level==1
+        /// teacher level. Excluding sensitive information.
+        /// </summary>
+        /// <returns></returns>
+        List<User> GetTeacherUsers();
+
+        /// <summary>
+        /// Used for getting all classes of a user from classes table
+        /// </summary>
+        /// <param name="id">User Id</param>
+        /// <returns>List of classes</returns>
+        List<Class> GetUserClasses(int id);
+
         /// <summary>
         /// Used for even odd lessons in schedule
         /// </summary>

@@ -48,10 +48,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 7px;
-    position: absolute;
-    bottom: 0;
     width: 100%;
-    left: 0;
 }
 
 .subscriber-form {

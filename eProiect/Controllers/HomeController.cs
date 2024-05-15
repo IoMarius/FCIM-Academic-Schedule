@@ -516,5 +516,31 @@ namespace eProiect.Controllers
         {
             return Json(_organizational.IsCurrentWeekEven(), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult GetTeachers()
+        {
+            var response = _organizational.GetTeacherUsers();
+            var teachers = new List<ReducedUser>();
+            foreach(var user in response)
+            {
+                teachers.Add(new ReducedUser()
+                {
+                    Id=user.Id,
+                    Name=user.Name,
+                    Surname=user.Surname,
+                });
+            }
+
+            return Json(teachers, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetUserClasses(int userId) {
+            return Json(
+                    _organizational.GetUserClasses(userId),
+                    JsonRequestBehavior.AllowGet
+                );
+        }
      }
 }
