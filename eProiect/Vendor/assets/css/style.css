@@ -37,7 +37,27 @@ body {
 .row{
     margin-bottom:10px;
 }
-    
+
+.vertical-al-mid{
+    vertical-align:middle;
+}
+
+.fs-17 {
+    font-size: 17px;
+}
+
+.icon-margin{
+    margin:0px 5px;
+}
+
+.fs-20 {
+    font-size: 20px !important;
+}
+
+.sidebar-option-li:hover {
+    background: #f5f6fa;
+}
+
 .iscollapsed {
     position: absolute;
     width: 100%;

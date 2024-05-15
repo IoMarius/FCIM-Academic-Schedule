@@ -7,70 +7,69 @@
      <ul class="pcoded-item pcoded-left-item">
           <!--Dashboard sidebar option-->
           <!--Tables example (temporary)-->
-          <li class=" ">
-               <a href="@Url.Action("Schedule", "Home")">
-                    <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Dynamic Schedule</span>
-                    <span class="pcoded-mcaret"></span>
+          <li class="sidebar-option-li">
+               <a href="@Url.Action("Schedule", "Home")" class="fs-20">
+                    <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
+                    <span class="fs-17" data-i18n="nav.foo-table.main">Orar personal</span>
+                    
                </a>
           </li>
           @{
                if (Model.UData.Level == UserRole.admin)
                {
-                    <li class=" ">
-                         <a href="@Url.Action("Users", "Admin")">
-                              <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
-                              <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Users</span>
-                              <span class="pcoded-mcaret"></span>
+                    <li class="sidebar-option-li">
+                         <a href="@Url.Action("Users", "Admin")" class="fs-20">
+                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
+                              <span class="fs-17" data-i18n="nav.foo-table.main">Utilizatori</span>                              
                          </a>
                     </li>
-                    <li class=" ">
-                         <a href="@Url.Action("Disciplines", "Admin")">
-                              <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
-                              <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Disciplines</span>
-                              <span class="pcoded-mcaret"></span>
+                    <li class="sidebar-option-li">
+                         <a href="@Url.Action("Disciplines", "Admin")" class="fs-20">
+                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
+                              <span class="fs-17" data-i18n="nav.foo-table.main">Discipline</span>
+                              
                          </a>
                     </li>
-                    <li class=" ">
-                         <a href="@Url.Action("AcademicGroups", "Admin")">
-                              <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
-                              <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Academic Groups</span>
-                              <span class="pcoded-mcaret"></span>
+                    <li class=" sidebar-option-li">
+                         <a href="@Url.Action("AcademicGroups", "Admin")" class="fs-20">
+                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
+                              <span class="fs-17" data-i18n="nav.foo-table.main">Grupe academice</span>
+                              
                          </a>
                     </li>
-                    <li class=" ">
-                         <a href="@Url.Action("ClassRooms", "Admin")">
-                              <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
-                              <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Classrooms</span>
-                              <span class="pcoded-mcaret"></span>
+                    <li class="sidebar-option-li ">
+                         <a href="@Url.Action("ClassRooms", "Admin")" class="fs-20">
+                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
+                              <span class="fs-17" data-i18n="nav.foo-table.main">Cabinete</span>
+                              
                          </a>
                     </li>
-                    <li class=" ">
-                         <a href="@Url.Action("AddUser", "Admin")">
-                              <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
-                              <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Add User</span>
-                              <span class="pcoded-mcaret"></span>
+                    <li class=" sidebar-option-li">
+                         <a href="@Url.Action("AddUser", "Admin")" class="fs-20">
+                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
+                              <span class="fs-17" data-i18n="nav.foo-table.main">Adaugă utilizatori</span>
+                              
                          </a>
                     </li>
-                    <li class=" ">
-                         <a href="@Url.Action("AddDiscipline", "Admin")">
-                              <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
-                              <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Add Discipline</span>
-                              <span class="pcoded-mcaret"></span>
+                    <li class=" sidebar-option-li">
+                         <a href="@Url.Action("AddDiscipline", "Admin")" class="fs-20">
+                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
+                              <span class="fs-17" data-i18n="nav.foo-table.main">Adaugă discipline</span>
+                              
                          </a>
                     </li>
-                    <li class=" ">
-                         <a href="@Url.Action("AddAcademicGroup", "Admin")">
-                              <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
-                              <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Add Academic Group</span>
-                              <span class="pcoded-mcaret"></span>
+                    <li class=" sidebar-option-li">
+                         <a href="@Url.Action("AddAcademicGroup", "Admin")" class="fs-20">
+                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
+                              <span class="fs-17" data-i18n="nav.foo-table.main">Adaugă grupe academice</span>
+                              
                          </a>
                     </li>
-                    <li class=" ">
-                         <a href="@Url.Action("AddClassRoom", "Admin")">
-                              <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>F</b></span>
-                              <span class="pcoded-mtext" data-i18n="nav.foo-table.main">Add Classroom</span>
-                              <span class="pcoded-mcaret"></span>
+                    <li class=" sidebar-option-li">
+                         <a href="@Url.Action("AddClassRoom", "Admin")" class="fs-20">
+                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
+                              <span class="fs-17" data-i18n="nav.foo-table.main">Adaugă cabinete</span>
+                              
                          </a>
                     </li>
                }
