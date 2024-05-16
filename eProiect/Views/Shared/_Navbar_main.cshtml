@@ -4,77 +4,80 @@
 <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
 
 <div class="pcoded-inner-navbar main-menu">
-     <ul class="pcoded-item pcoded-left-item">
-          <!--Dashboard sidebar option-->
-          <!--Tables example (temporary)-->
-          <li class="sidebar-option-li">
-               <a href="@Url.Action("Schedule", "Home")" class="fs-20">
-                    <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
-                    <span class="fs-17" data-i18n="nav.foo-table.main">Orar personal</span>
-                    
-               </a>
-          </li>
-          @{
-               if (Model.UData.Level == UserRole.admin)
-               {
-                    <li class="sidebar-option-li">
-                         <a href="@Url.Action("Users", "Admin")" class="fs-20">
-                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
-                              <span class="fs-17" data-i18n="nav.foo-table.main">Utilizatori</span>                              
-                         </a>
-                    </li>
-                    <li class="sidebar-option-li">
-                         <a href="@Url.Action("Disciplines", "Admin")" class="fs-20">
-                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
-                              <span class="fs-17" data-i18n="nav.foo-table.main">Discipline</span>
-                              
-                         </a>
-                    </li>
-                    <li class=" sidebar-option-li">
-                         <a href="@Url.Action("AcademicGroups", "Admin")" class="fs-20">
-                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
-                              <span class="fs-17" data-i18n="nav.foo-table.main">Grupe academice</span>
-                              
-                         </a>
-                    </li>
-                    <li class="sidebar-option-li ">
-                         <a href="@Url.Action("ClassRooms", "Admin")" class="fs-20">
-                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
-                              <span class="fs-17" data-i18n="nav.foo-table.main">Cabinete</span>
-                              
-                         </a>
-                    </li>
-                    <li class=" sidebar-option-li">
-                         <a href="@Url.Action("AddUser", "Admin")" class="fs-20">
-                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
-                              <span class="fs-17" data-i18n="nav.foo-table.main">Adaugă utilizatori</span>
-                              
-                         </a>
-                    </li>
-                    <li class=" sidebar-option-li">
-                         <a href="@Url.Action("AddDiscipline", "Admin")" class="fs-20">
-                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
-                              <span class="fs-17" data-i18n="nav.foo-table.main">Adaugă discipline</span>
-                              
-                         </a>
-                    </li>
-                    <li class=" sidebar-option-li">
-                         <a href="@Url.Action("AddAcademicGroup", "Admin")" class="fs-20">
-                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
-                              <span class="fs-17" data-i18n="nav.foo-table.main">Adaugă grupe academice</span>
-                              
-                         </a>
-                    </li>
-                    <li class=" sidebar-option-li">
-                         <a href="@Url.Action("AddClassRoom", "Admin")" class="fs-20">
-                              <span class="icon-margin"><i class="ti-pencil-alt vertical-al-mid"></i></span>
-                              <span class="fs-17" data-i18n="nav.foo-table.main">Adaugă cabinete</span>
-                              
-                         </a>
-                    </li>
-               }
+    <ul class="pcoded-item pcoded-left-item">
+        <!--Dashboard sidebar option-->
+        <!--Tables example (temporary)-->
+        <li><div class="sidebar-category">Personal</div></li>
+        <li class="sidebar-option-li">
+            <a href="@Url.Action("Schedule", "Home")" class="fs-20">
+                <span class="icon-margin pcoded-micon reset-pcoded-micon"><i class="icofont icofont-clock-time vertical-al-mid"></i></span>
+                <span class="fs-17" data-i18n="nav.foo-table.main">Orar</span>
 
-          }
-     </ul>
+            </a>
+        </li>
+        @{
+            if (Model.UData.Level == UserRole.admin)
+            {
+                <li><div class="sidebar-category">Management</div></li>
+                <li class="sidebar-option-li">
+                    <a href="@Url.Action("Users", "Admin")" class="fs-20">
+                        <span class="icon-margin pcoded-micon reset-pcoded-micon"><i class="icofont icofont-users vertical-al-mid"></i></span>
+                        <span class="fs-17" data-i18n="nav.foo-table.main">Utilizatori</span>
+                    </a>
+                </li>
+                <li class="sidebar-option-li">
+                    <a href="@Url.Action("Disciplines", "Admin")" class="fs-20">
+                        <span class="icon-margin pcoded-micon reset-pcoded-micon"><i class="icofont icofont-book-alt vertical-al-mid"></i></span>
+                        <span class="fs-17" data-i18n="nav.foo-table.main">Discipline</span>
+
+                    </a>
+                </li>
+                <li class=" sidebar-option-li">
+                    <a href="@Url.Action("AcademicGroups", "Admin")" class="fs-20">
+                        <span class="icon-margin pcoded-micon reset-pcoded-micon"><i class="icofont icofont-graduate vertical-al-mid"></i></span>
+                        <span class="fs-17" data-i18n="nav.foo-table.main">Grupe academice</span>
+
+                    </a>
+                </li>
+                <li class="sidebar-option-li ">
+                    <a href="@Url.Action("ClassRooms", "Admin")" class="fs-20">
+                        <span class="icon-margin pcoded-micon reset-pcoded-micon"><i class="icofont icofont-building vertical-al-mid"></i></span>
+                        <span class="fs-17" data-i18n="nav.foo-table.main">Cabinete</span>
+
+                    </a>
+                </li>
+                <li><div class="sidebar-category">Adăugare</div></li>
+                <li class=" sidebar-option-li">
+                    <a href="@Url.Action("AddUser", "Admin")" class="fs-20">
+                        <span class="icon-margin pcoded-micon reset-pcoded-micon"><i class="icofont icofont-ui-add vertical-al-mid"></i></span>
+                        <span class="fs-17" data-i18n="nav.foo-table.main">Adaugă utilizatori</span>
+
+                    </a>
+                </li>
+                <li class=" sidebar-option-li">
+                    <a href="@Url.Action("AddDiscipline", "Admin")" class="fs-20">
+                        <span class="icon-margin pcoded-micon reset-pcoded-micon"><i class="icofont icofont-ui-add vertical-al-mid"></i></span>
+                        <span class="fs-17" data-i18n="nav.foo-table.main">Adaugă discipline</span>
+
+                    </a>
+                </li>
+                <li class=" sidebar-option-li">
+                    <a href="@Url.Action("AddAcademicGroup", "Admin")" class="fs-20">
+                        <span class="icon-margin pcoded-micon reset-pcoded-micon"><i class="icofont icofont-ui-add vertical-al-mid"></i></span>
+                        <span class="fs-17" data-i18n="nav.foo-table.main">Adaugă grupe academice</span>
+
+                    </a>
+                </li>
+                <li class=" sidebar-option-li">
+                    <a href="@Url.Action("AddClassRoom", "Admin")" class="fs-20">
+                        <span class="icon-margin pcoded-micon reset-pcoded-micon"><i class="icofont icofont-ui-add vertical-al-mid"></i></span>
+                        <span class="fs-17" data-i18n="nav.foo-table.main">Adaugă cabinete</span>
+
+                    </a>
+                </li>
+            }
+
+        }
+    </ul>
 
 </div>
