@@ -25,8 +25,10 @@ namespace eProiect.Domain.Entities.Academic
         public LessonLength LessonLength { get; set; }
         public ClassFrequency WeekSpan { get; set; }
 
+        public bool IsConfirmed { get; set; }
+
         public Lesson(int _id, string _discipline, string _shortname, string _lessonType, string _weekday, string _classroom,
-            string _group, TimeSpan _start, TimeSpan _end, ClassFrequency _weekSpan = ClassFrequency.WEEKLY)
+            string _group, TimeSpan _start, TimeSpan _end, bool _isConfirmed,  ClassFrequency _weekSpan = ClassFrequency.WEEKLY)
         {
             Id = _id;
             Discipline = _discipline;
@@ -38,6 +40,7 @@ namespace eProiect.Domain.Entities.Academic
             Classroom = _classroom;
             GroupName = _group;
             WeekSpan = _weekSpan;
+            IsConfirmed = _isConfirmed;
 
             //lojic for lesson length.
             LessonLength = new LessonLength();

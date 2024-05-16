@@ -27,9 +27,11 @@ namespace eProiect.Models.Users
         public LessonLength LessonLength { get; set; }
         public LessonWeekType WeekSpan { get; set; }
 
+        public bool IsConfirmed { get; set; }
+
 
         public Lesson(int _id, string _discipline, string _shortname, string _lessonType, string _weekday, string _classroom, 
-            string _group, TimeSpan _start, TimeSpan _end, LessonWeekType _weekSpan=LessonWeekType.FULL)
+            string _group, TimeSpan _start, TimeSpan _end, bool _isConfirmed, LessonWeekType _weekSpan=LessonWeekType.FULL)
         {
             Id = _id;
             Discipline= _discipline;
@@ -41,6 +43,7 @@ namespace eProiect.Models.Users
             Classroom= _classroom;
             AcademicGroup= _group;
             WeekSpan= _weekSpan;
+            IsConfirmed = _isConfirmed;
 
             //lojic for lesson length.
             LessonLength = new LessonLength();

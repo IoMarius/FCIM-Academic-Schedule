@@ -15,17 +15,6 @@ using System.Data.Entity;
 using System.Security;
 
 
-//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
-//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
-//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
-//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
-//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
-//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
-//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
-//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
-//DELETE PERECHE////DELETE PERECHE////DELETE PERECHE////DELETE PERECHE//
-
-
 namespace eProiect.BusinessLogic.Core
 {
     public class OrgApi
@@ -73,6 +62,7 @@ namespace eProiect.BusinessLogic.Core
                             lesson.AcademicGroup.Name,
                             lesson.StartTime,
                             lesson.EndTime,
+                            lesson.IsConfirmed,
                             lesson.Frequency
                         )
                     );
@@ -109,6 +99,7 @@ namespace eProiect.BusinessLogic.Core
                     .FirstOrDefault(c =>
                         c.UserDiscipline.User.Id == newClass.UserDiscipline.User.Id &&
                         c.WeekDay.Id == newClass.WeekDay.Id &&
+                        c.IsConfirmed == true &&
                         ((c.StartTime == newClass.StartTime) || (c.EndTime == newClass.EndTime))
                     );
                 
@@ -135,6 +126,7 @@ namespace eProiect.BusinessLogic.Core
                         c => c.AcademicGroupId == newClass.AcademicGroup.Id &&
                         c.WeekDayId == newClass.WeekDay.Id &&
                         c.Frequency == newClass.Frequency &&
+                        c.IsConfirmed == true &&
                         ((c.StartTime == newClass.StartTime) || (c.EndTime == newClass.EndTime))
                     );
 
@@ -169,12 +161,14 @@ namespace eProiect.BusinessLogic.Core
                     var startsMidtime = db.Classes.FirstOrDefault(c =>
                         c.AcademicGroupId == newClass.AcademicGroup.Id &&
                         c.WeekDayId == newClass.WeekDay.Id &&
+                        c.IsConfirmed == true &&
                         c.StartTime == midTimeSpan
                     );
 
                     var endsMidtime = db.Classes.FirstOrDefault(c =>
                         c.AcademicGroupId == newClass.AcademicGroup.Id &&
                         c.WeekDayId == newClass.WeekDay.Id &&
+                        c.IsConfirmed == true &&
                         c.EndTime == midTimeSpan
                     );
 
@@ -238,8 +232,8 @@ namespace eProiect.BusinessLogic.Core
                         WeekDay = weekDay,
                         StartTime = newClass.StartTime,
                         EndTime = newClass.EndTime,
-                        Frequency = newClass.Frequency
-
+                        Frequency = newClass.Frequency,
+                        IsConfirmed = false
                     };
                     db.Classes.Add(veryNewClass);
                     db.SaveChanges();
@@ -344,6 +338,7 @@ namespace eProiect.BusinessLogic.Core
                 //caut cabinetele ocupate la ora dată //fixit
                 var busyClassrooms = db.Classes.Where(cl =>
                     cl.WeekDay.Id == data.WeekdayId &&
+                    cl.IsConfirmed == true &&
                     ((cl.StartTime == data.StartTime) || (cl.EndTime == endTime))
                 ).Select(cl => cl.ClassRoom).ToList();
 
@@ -363,12 +358,14 @@ namespace eProiect.BusinessLogic.Core
 
                     var ClassBusyMidtimeStart = db.Classes.Where(cl =>
                             cl.WeekDay.Id == data.WeekdayId &&
-                            cl.StartTime == midTimeSpan
+                            cl.StartTime == midTimeSpan &&
+                            cl.IsConfirmed == true 
                         ).Select(cl => cl.ClassRoom).ToList();
 
                     var ClassBusyMidtimeEnd = db.Classes.Where(cl =>
                             cl.WeekDay.Id == data.WeekdayId &&
-                            cl.EndTime == midTimeSpan
+                            cl.EndTime == midTimeSpan &&
+                            cl.IsConfirmed == true
                         ).Select(cl => cl.ClassRoom).ToList();
 
 
@@ -594,7 +591,7 @@ namespace eProiect.BusinessLogic.Core
                     .Include(cl => cl.UserDiscipline.Discipline)                    
                     .Include(cl => cl.ClassRoom)                    
                     .Include(cl => cl.WeekDay)                    
-                    .Where(cl => cl.AcademicGroupId==id)
+                    .Where(cl => cl.AcademicGroupId==id && cl.IsConfirmed==true)
                     .ToList();
             }
 
@@ -630,7 +627,7 @@ namespace eProiect.BusinessLogic.Core
                     .Include(cl => cl.ClassRoom)
                     .Include(cl => cl.WeekDay)
                     .Include(cl => cl.AcademicGroup)
-                    .Where(cl => cl.UserDiscipline.UserId == id)
+                    .Where(cl => cl.UserDiscipline.UserId == id && cl.IsConfirmed==true)
                     .ToList();
             }
             return classes;

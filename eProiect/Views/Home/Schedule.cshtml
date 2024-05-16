@@ -53,10 +53,14 @@
                                                 var oddLesson = sched.getLessonOdd(interval.Item1, cellNr);
 
 
+
                                                 //NORMAL LESSON
                                                 if (evenLesson == oddLesson)
                                                 {
-                                                    <td rowspan="@evenLesson.LessonLength.GetLength()" class="table-cell">
+                                                    var tdClass = "";
+                                                    if (!evenLesson.IsConfirmed) { tdClass = "not-confirmed-lesson"; }
+
+                                                    <td rowspan="@evenLesson.LessonLength.GetLength()" class="table-cell @tdClass">
                                                         <hidden id="cellClassData" data-class-id="@evenLesson.Id"></hidden>
                                                         <div class="edit-lesson-row">
                                                             <button id="deleteLessonButton" data-class-id="@evenLesson.Id" class="delete-lesson-button mod-lesson-button closed"><i class="ti-trash"></i></button>
@@ -119,8 +123,9 @@
                                                         evenClassParameter += " unfocused";
                                                         dividedCellClass = " full-size";
                                                     }
-
-                                                    <td class="table-cell">
+                                                    var tdClass = "";
+                                                    if (!evenLesson.IsConfirmed) { tdClass = "not-confirmed-lesson"; }
+                                                    <td class="table-cell @tdClass">
 
                                                         @if (evenLesson.StartTime.ToString("hh\\:mm") != "00:00")
                                                         {
@@ -137,49 +142,49 @@
 
 
                                                         <!--TWO DIVS, one left one right-->
-                                                    <div class="timetable-cell-divided @dividedCellClass">
-                                                        <hidden id="cellClassData" data-class-id="@evenLesson.Id"></hidden>
-                                                        <div class="edit-lesson-row @evenClassParameter" style="flex-direction: column; justify-content: flex-start">
-                                                            <button id="deleteLessonButton" data-class-id="@evenLesson.Id" class="delete-lesson-button mod-lesson-button closed"><i class="ti-trash"></i></button>
-                                                            <button id="editLessonButton" data-class-id="@evenLesson.Id" class="edit-lesson-button mod-lesson-button closed m-t-10"><i class="ti-pencil"></i></button>
+                                                        <div class="timetable-cell-divided @dividedCellClass">
+                                                            <hidden id="cellClassData" data-class-id="@evenLesson.Id"></hidden>
+                                                            <div class="edit-lesson-row @evenClassParameter" style="flex-direction: column; justify-content: flex-start">
+                                                                <button id="deleteLessonButton" data-class-id="@evenLesson.Id" class="delete-lesson-button mod-lesson-button closed"><i class="ti-trash"></i></button>
+                                                                <button id="editLessonButton" data-class-id="@evenLesson.Id" class="edit-lesson-button mod-lesson-button closed m-t-10"><i class="ti-pencil"></i></button>
+                                                            </div>
+                                                            <div class="timetable-cell-content-even @evenClassParameter">
+
+
+
+                                                                <div class="timetable-cell-class">@evenLesson.Type.Substring(0, 1).ToLower(). @evenLesson.ShortName<button id="editLessonButton" data-class-id="@evenLesson.Id" class="edit-lesson-button closed" style="margin-left: 7px;"><i class="ti-pencil"></i></button></div>
+                                                                <span class="timetable-label-even span-attributes">Par</span>
+
+                                                                @{if (evenLesson.Type != "Curs")
+                                                                    {
+                                                                        <span class="timetable-cell-acadgroup">@evenLesson.AcademicGroup</span>
+                                                                    }}
+                                                                <span class="timetable-cell-classroom span-attributes">@evenLesson.Classroom</span>
+
+                                                            </div>
+
+                                                            <div class="separator-line @separatorClass">&#8205;</div>
+
+                                                            <hidden id="cellClassData" data-class-id="@oddLesson.Id"></hidden>
+                                                            <div class="edit-lesson-row @oddClassParameter" style="flex-direction: column; justify-content: flex-start">
+                                                                <button id="deleteLessonButton" data-class-id="@oddLesson.Id" class="delete-lesson-button mod-lesson-button closed"><i class="ti-trash"></i></button>
+                                                                <button id="editLessonButton" data-class-id="@oddLesson.Id" class="edit-lesson-button mod-lesson-button closed m-t-10"><i class="ti-pencil"></i></button>
+                                                            </div>
+                                                            <div class="timetable-cell-content-odd @oddClassParameter">
+
+
+
+                                                                <div class="timetable-cell-class">@oddLesson.Type.Substring(0, 1).ToLower(). @oddLesson.ShortName <button id="editLessonButton" data-class-id="@oddLesson.Id" class="edit-lesson-button closed" style="margin-left: 7px;"><i class="ti-pencil"></i></button></div>
+                                                                <span class="timetable-label-odd span-attributes">Impar</span>
+                                                                <span class="timetable-cell-classroom span-attributes">@oddLesson.Classroom</span>
+
+                                                                @{if (evenLesson.Type != "Curs")
+                                                                    {
+                                                                        <span class="timetable-cell-acadgroup">@oddLesson.AcademicGroup</span>
+                                                                    }}
+                                                            </div>
+
                                                         </div>
-                                                        <div class="timetable-cell-content-even @evenClassParameter">
-
-
-
-                                                            <div class="timetable-cell-class">@evenLesson.Type.Substring(0, 1).ToLower(). @evenLesson.ShortName<button id="editLessonButton" data-class-id="@evenLesson.Id" class="edit-lesson-button closed" style="margin-left: 7px;"><i class="ti-pencil"></i></button></div>
-                                                            <span class="timetable-label-even span-attributes">Par</span>
-
-                                                            @{if (evenLesson.Type != "Curs")
-                                                                {
-                                                                    <span class="timetable-cell-acadgroup">@evenLesson.AcademicGroup</span>
-                                                                }}
-                                                            <span class="timetable-cell-classroom span-attributes">@evenLesson.Classroom</span>
-
-                                                        </div>
-
-                                                        <div class="separator-line @separatorClass">&#8205;</div>
-
-                                                        <hidden id="cellClassData" data-class-id="@oddLesson.Id"></hidden>
-                                                        <div class="edit-lesson-row @oddClassParameter" style="flex-direction: column; justify-content: flex-start">
-                                                            <button id="deleteLessonButton" data-class-id="@oddLesson.Id" class="delete-lesson-button mod-lesson-button closed"><i class="ti-trash"></i></button>
-                                                            <button id="editLessonButton" data-class-id="@oddLesson.Id" class="edit-lesson-button mod-lesson-button closed m-t-10"><i class="ti-pencil"></i></button>
-                                                        </div>
-                                                        <div class="timetable-cell-content-odd @oddClassParameter">
-
-
-
-                                                            <div class="timetable-cell-class">@oddLesson.Type.Substring(0, 1).ToLower(). @oddLesson.ShortName <button id="editLessonButton" data-class-id="@oddLesson.Id" class="edit-lesson-button closed" style="margin-left: 7px;"><i class="ti-pencil"></i></button></div>
-                                                            <span class="timetable-label-odd span-attributes">Impar</span>
-                                                            <span class="timetable-cell-classroom span-attributes">@oddLesson.Classroom</span>
-
-                                                            @{if (evenLesson.Type != "Curs")
-                                                                {
-                                                                    <span class="timetable-cell-acadgroup">@oddLesson.AcademicGroup</span>
-                                                                }}
-                                                        </div>
-
-                                                    </div>
                                                     </td>
                                                 }
                                             }
@@ -661,7 +666,7 @@
                             <button id="cancel-button-modlesson" class="addlesson-button addlesson-button-deny" style="width: 17%;"> <i class="ti-close"></i></button>
                             <!--FIND WHERE TO PUT DELETE BUTTON OR WHAT TO DO WITH IT + HOME CONTROLLER GET LESSON-->
                         </div>
-                        
+
                     </div>
                 </div>
 

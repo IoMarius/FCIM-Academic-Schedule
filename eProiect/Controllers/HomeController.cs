@@ -120,6 +120,7 @@ namespace eProiect.Controllers
                                     Classroom = currentSchedEven.Classroom,
                                     AcademicGroup = currentSchedEven.GroupName,
                                     LessonLength = new LessonLength(currentSchedEven.LessonLength.GetLength()),
+                                    IsConfirmed = currentSchedEven.IsConfirmed,
                                     WeekSpan = (LessonWeekType)currentSchedEven.WeekSpan
                                 },
                                 new Lesson
@@ -167,6 +168,7 @@ namespace eProiect.Controllers
                                     Classroom = currentSchedOdd.Classroom,
                                     AcademicGroup = currentSchedOdd.GroupName,
                                     LessonLength = new LessonLength(currentSchedOdd.LessonLength.GetLength()),
+                                    IsConfirmed=currentSchedOdd.IsConfirmed,
                                     WeekSpan = (LessonWeekType)currentSchedOdd.WeekSpan
                                 }
                             );
@@ -186,6 +188,7 @@ namespace eProiect.Controllers
                                     Classroom = currentSchedEven.Classroom,
                                     AcademicGroup = currentSchedEven.GroupName,
                                     LessonLength = new LessonLength(currentSchedEven.LessonLength.GetLength()),
+                                    IsConfirmed= currentSchedEven.IsConfirmed,
                                     WeekSpan = (LessonWeekType)currentSchedEven.WeekSpan
                                 },
                                 new Lesson
@@ -200,6 +203,7 @@ namespace eProiect.Controllers
                                     Classroom = currentSchedOdd.Classroom,
                                     AcademicGroup = currentSchedOdd.GroupName,
                                     LessonLength = new LessonLength(currentSchedOdd.LessonLength.GetLength()),
+                                    IsConfirmed=currentSchedOdd.IsConfirmed,
                                     WeekSpan = (LessonWeekType)currentSchedOdd.WeekSpan
                                 }
                             );

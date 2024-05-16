@@ -55,6 +55,13 @@ body {
     color: #6d6d6d;
 }
 
+.not-confirmed-lesson {
+    /* background: orange;*/
+    background: url(https://t3.ftcdn.net/jpg/01/45/20/02/360_F_145200273_450ViYipr5uU3WIwqzwjsRDHYTMcUH9P.jpg) no-repeat;
+    background-color:white;
+    background-size: 30px 30px;
+}
+
 .reset-pcoded-micon {
     font-size: 21px !important;
     padding: 0px !important;
