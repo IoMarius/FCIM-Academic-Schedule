@@ -36,6 +36,10 @@ namespace eProiect.BusinessLogic
           {
                return new ClassRoomBL();
           }
+          public IUserDiscipline GetUserDisciplineBL()
+        {
+            return new UserDisciplineBLL();
+        }
 
 
      }
