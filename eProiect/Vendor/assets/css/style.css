@@ -158,9 +158,35 @@ body {
     outline:none;
 }
 /*
+    ----------------------------------------------------------------------------PENDING-LESSONS-START
+*/
+.rowlike-tablecell {
+    border-right: 0;
+    border-left: 0;
+}
+
+.rowlike-tablecell-rb {
+    border-left: 0;
+}
+
+.gray-table-border {
+    border: 1px solid #e4e4e4;
+}
+
+.table-warning-row, .table-warning-row > th, .table-warning-row > td {
+    background-color: #ffeeba;
+    border: none;
+}
+/*
+    ----------------------------------------------------------------------------PENDING-LESSONS-END
+*/
+/*
     ----------------------------------------------------------------------------CUSTOM-DROPDOWN-START
 */
-    .dropdown-bar-input {
+/*
+    ----------------------------------------------------------------------------CUSTOM-DROPDOWN-START
+*/
+.dropdown-bar-input {
     border-radius: 12px;
     color: #303548;
     height: calc(2.25rem + 2px);

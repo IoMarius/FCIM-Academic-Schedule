@@ -19,6 +19,13 @@
             if (Model.UData.Level == UserRole.admin)
             {
                 <li><div class="sidebar-category">Management</div></li>
+              
+                <li class="sidebar-option-li">
+                    <a href="@Url.Action("PendingClasses", "Admin")" class="fs-20">
+                        <span class="icon-margin pcoded-micon reset-pcoded-micon"><i class="icofont icofont-list vertical-al-mid"></i></span>
+                        <span class="fs-17" data-i18n="nav.foo-table.main">Perechi neconfirmate</span>
+                    </a>
+                </li>
                 <li class="sidebar-option-li">
                     <a href="@Url.Action("Users", "Admin")" class="fs-20">
                         <span class="icon-margin pcoded-micon reset-pcoded-micon"><i class="icofont icofont-users vertical-al-mid"></i></span>

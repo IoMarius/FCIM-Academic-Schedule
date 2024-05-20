@@ -197,6 +197,11 @@ namespace eProiect.App_Start
             //---------------------GUEST-PAGE-SCRIPTS
             bundles.Add(new Bundle("~/bundles/guest-page/js").Include(
             "~/Vendor/assets/js/guest-page.js"));
+
+            //------------------PENDING-CLASSES-------
+
+            bundles.Add(new Bundle("~/bundles/pending-classes/js").Include(
+            "~/Vendor/assets/js/pending-classes.js"));
         }
     }
 

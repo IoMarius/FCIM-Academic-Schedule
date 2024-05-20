@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eProiect.Domain.Entities.Schedule;
 
 namespace eProiect.BusinessLogic.Interfaces
 {
@@ -16,5 +17,13 @@ namespace eProiect.BusinessLogic.Interfaces
           ActionResponse EditClassRooms(ClassRoom updateClassRoom);
           ActionResponse DeleteClassRooms(int Id);
 
-     }
+        /// <summary>
+        /// Queries the database table "Classrooms" for free classrooms at
+        /// given parameters(weekday, time, span, frequency);
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        List<ClassRoom> GetFreeClassroomsByFloorAndTime(FreeClassroomsRequest data);
+
+    }
 }

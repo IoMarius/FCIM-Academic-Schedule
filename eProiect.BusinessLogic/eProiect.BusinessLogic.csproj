@@ -86,9 +86,11 @@
     <Compile Include="AcademicGroupBL.cs" />
     <Compile Include="AdminBL.cs" />
     <Compile Include="BuissinesLogic.cs" />
+    <Compile Include="ClassBL.cs" />
     <Compile Include="ClassRoomBL.cs" />
     <Compile Include="Core\AcademicGroupApi.cs" />
     <Compile Include="Core\AdminApi.cs" />
+    <Compile Include="Core\ClassApi.cs" />
     <Compile Include="Core\OrgApi.cs" />
     <Compile Include="Core\ClassRoomApi.cs" />
     <Compile Include="Core\DisciplineApi.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="DBContext\FatherContext.cs" />
     <Compile Include="DBContext\SessionContext.cs" />
     <Compile Include="DBContext\UserContext.cs" />
+    <Compile Include="Interfaces\IClass.cs" />
     <Compile Include="Interfaces\IOrg.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="DisciplineBL.cs" />

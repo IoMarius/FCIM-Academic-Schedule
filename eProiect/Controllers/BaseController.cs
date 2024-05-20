@@ -13,12 +13,18 @@ namespace eProiect.Controllers
     {
         protected readonly ISession _session;
         protected readonly IOrg _organizational;
+        protected readonly IClass _class;
+        protected readonly IAcademicGroup _academicGrp;
+        protected readonly IClassRoom _classroom;
 
         public BaseController()
         {
             var bl = new BuissinesLogic();
             _session=bl.GetSessionBL();
             _organizational=bl.GetOrgBl();
+            _class=bl.GetClassBL();
+            _academicGrp=bl.GetAcademicGroupBL();
+            _classroom=bl.GetClassRoomBL(); 
         }
 
         public void SessionStatus()

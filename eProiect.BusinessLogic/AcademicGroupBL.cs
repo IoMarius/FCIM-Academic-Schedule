@@ -29,6 +29,14 @@ namespace eProiect.BusinessLogic
           {
                return DeleteAcademicGroup(Id);
           }
+            public List<AcademicGroup> GetAcadGroupsList()
+            {
+                return GetAcademicGroupsList();
+            }
 
+            public List<AcademicGroup> GetAcadGroupsList(int year)
+            {
+                return GetAcademicGroupsList(year);
+            }
      }
 }

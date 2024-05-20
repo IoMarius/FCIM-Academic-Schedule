@@ -37,6 +37,11 @@ namespace eProiect.BusinessLogic
                return new ClassRoomBL();
           }
 
+          public IClass GetClassBL()
+        {
+            return new ClassBL();
+        }
+
 
      }
 }

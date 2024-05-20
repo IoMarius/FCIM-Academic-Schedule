@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eProiect.Domain.Entities.Schedule;
 
 namespace eProiect.BusinessLogic.Core
 {
@@ -174,5 +175,74 @@ namespace eProiect.BusinessLogic.Core
                     Status = true
                };
           }
-     }
+          internal List<ClassRoom> GetClassroomsFreeAtTime(FreeClassroomsRequest data)
+        {
+            //determine end time by startime + 01:30*span $$ exception for pausa del masa span 2.
+            TimeSpan endTime;
+            if (data.Span == 2)
+            {
+                if (data.StartTime == new TimeSpan(11, 30, 0))
+                    endTime = data.StartTime + new TimeSpan(3, 30, 0);
+                else
+                    endTime = data.StartTime + new TimeSpan(3, 15, 0);
+            }
+            else
+            {
+                endTime = data.StartTime + new TimeSpan(1, 30, 0);
+            }
+
+            List<ClassRoom> freeClassrooms = new List<ClassRoom>();
+
+            using (var db = new UserContext())
+            {
+                ///MISSING-FREQUENCY//////MISSING-FREQUENCY//////MISSING-FREQUENCY//////MISSING-FREQUENCY//////MISSING-FREQUENCY///
+
+                //scot toate cabinetele de pe etaj
+                var classRoomsonFloor = db.ClassRooms.Where(cr => cr.Floor == data.Floor).ToList();
+
+                //caut cabinetele ocupate la ora dată //fixit
+                var busyClassrooms = db.Classes.Where(cl =>
+                    cl.WeekDay.Id == data.WeekdayId &&
+                    cl.IsConfirmed == true &&
+                    ((cl.StartTime == data.StartTime) || (cl.EndTime == endTime))
+                ).Select(cl => cl.ClassRoom).ToList();
+
+                //check span two for overlap (midSpan end start)
+                if (data.Span == 2)
+                {
+                    TimeSpan midTimeSpan;
+                    //check pausa del masa
+                    if (data.StartTime == new TimeSpan(11, 30, 0))
+                    {
+                        midTimeSpan = endTime - new TimeSpan(2, 0, 0);  //30 + 30 min accounts for pauză de masa
+                    }
+                    else
+                    {
+                        midTimeSpan = endTime - new TimeSpan(1, 45, 0); //30 + 15 min accounts for pauză
+                    }
+
+                    var ClassBusyMidtimeStart = db.Classes.Where(cl =>
+                            cl.WeekDay.Id == data.WeekdayId &&
+                            cl.StartTime == midTimeSpan &&
+                            cl.IsConfirmed == true
+                        ).Select(cl => cl.ClassRoom).ToList();
+
+                    var ClassBusyMidtimeEnd = db.Classes.Where(cl =>
+                            cl.WeekDay.Id == data.WeekdayId &&
+                            cl.EndTime == midTimeSpan &&
+                            cl.IsConfirmed == true
+                        ).Select(cl => cl.ClassRoom).ToList();
+
+
+                    busyClassrooms.AddRange(ClassBusyMidtimeStart);
+                    busyClassrooms.AddRange(ClassBusyMidtimeEnd);
+                }
+
+                //scad din toate cele ocupate 
+                freeClassrooms = classRoomsonFloor.Where(x => !busyClassrooms.Contains(x)).ToList();
+            }
+
+            return freeClassrooms;
+        }
+    }
 }

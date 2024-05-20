@@ -14,6 +14,7 @@ using eProiect.Domain.Entities.Academic;
 using eProiect.Domain.Entities.User.DBModel;
 using eProiect.Domain.Entities.Academic.DBModel;
 using AutoMapper.Configuration.Annotations;
+using eProiect.Domain.Entities.Schedule.DBModel;
 
 namespace eProiect.Controllers
 {
@@ -739,5 +740,39 @@ namespace eProiect.Controllers
                }
           }
 
+          [UserMode(UserRole.admin)]
+          public ActionResult PendingClasses()
+          {
+                var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+
+                GeneralViewData viewData = new GeneralViewData
+                {
+                    UDataList = new List<UserEsentialData>()
+                };
+                UserEsentialData UData = new UserEsentialData
+                {
+                    Name = loggedInUser.Name,
+                    Surname = loggedInUser.Surname,
+                    CreatedDate = loggedInUser.CreatedDate,
+                    Level = loggedInUser.Level
+                };
+                viewData.UData = UData;
+
+                return View(viewData);
+          }
+
+          [HttpGet]
+          [UserMode(UserRole.admin)]
+          public ActionResult GetPendingClasses()
+          {
+            var pendingClasses = _class.GetPendingConfirmClasses();
+            var groupedClasses = _class.GroupConflictingClasses(pendingClasses);
+
+
+            //  Manage conflicting classes.
+            //  get each overlap for current class.
+            //  put all overlapping classes inside List<OvpList>
+            return Json(groupedClasses, JsonRequestBehavior.AllowGet);
+          }
      }
 }

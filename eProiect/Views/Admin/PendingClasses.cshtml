@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "PendingClasses";
+    Layout = "~/Views/Shared/_Layout _Admin.cshtml";
+}
+
+<div class="page-header card">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <i class="icofont icofont-list bg-c-blue"></i>
+                <div class="d-inline">
+                    <h4>Perechi neconfirmate</h4>
+                    <span>
+                        Confirmă perechile adăugare de către profesori și rezolvă conflicte.
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item">
+                        <a href="/Home/Schedule">
+                            <i class="icofont icofont-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#"> Perechi</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="/Admin/PendingClasses"> Perechi neconfirmate</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <table class="gray-table-border" style=" max-width: 1096px;">
+            <thead>
+                <tr>
+                    <th class="rowlike-tablecell font-weight-bold" style="width: 20%;">Nr</th>
+                    <th class="rowlike-tablecell">Profesor</th>
+                    <th class="rowlike-tablecell">Disciplină</th>
+                    <th class="rowlike-tablecell">Tipul</th>
+                    <th class="rowlike-tablecell">Grupa</th>
+                    <th class="rowlike-tablecell">Cabinetul</th>
+                    <th class="rowlike-tablecell">Ziua</th>
+                    <th class="rowlike-tablecell">Început</th>
+                    <th class="rowlike-tablecell">Sfârșit</th>
+                    <th class="rowlike-tablecell">Frecvența</th>
+                    <th class="rowlike-tablecell">Detalii</th>
+                </tr>
+            </thead>
+            <tbody id="pendingClassesTable"></tbody>
+        </table>
+        <div id="conflictSolver" style="border: 1px solid">
+            <div style="display:flex; flex-direction:column; border:1px solid red">
+                <span>Jack Cimbrișor</span>
+                <span>AMS</span>
+                <span>Seminar</span>
+                <span>TI-221</span>
+                <span>202</span>
+                <span>Luni</span>
+                <span>08:00</span>
+                <span>09:30</span>
+                <span>Săptămânal</span>
+            </div>
+            <div style="display: flex; flex-direction: column; border: 1px solid red">
+                <span>Jack Cimbrișor</span>
+                <span>AMS</span>
+                <span>Seminar</span>
+                <span>TI-221</span>
+                <span>202</span>
+                <span>Luni</span>
+                <span>08:00</span>
+                <span>09:30</span>
+                <span>Săptămânal</span>
+            </div>
+        </div>
+    </div>
+</div>

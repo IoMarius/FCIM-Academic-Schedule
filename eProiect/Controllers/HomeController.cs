@@ -69,7 +69,6 @@ namespace eProiect.Controllers
             return View();         
         }
 
-
         [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult Schedule() 
         {
@@ -223,9 +222,6 @@ namespace eProiect.Controllers
 
             return View(viewData);
         }
-        //Move get post stuff to another controller
-        //Home controller only for pages.
-        //( Modify ajax requests :( )
 
         [HttpGet]
         [UserMode(UserRole.admin, UserRole.teacher)]
@@ -283,7 +279,7 @@ namespace eProiect.Controllers
             {
                 return RedirectToAction("Login", "Login");
             }
-            var resultClass=_organizational.GetClassById(classId);
+            var resultClass=_class.GetClassById(classId);
             return Json(resultClass, JsonRequestBehavior.AllowGet);
         }
 
@@ -362,8 +358,8 @@ namespace eProiect.Controllers
                     
                 };
 
-                var result = _organizational.AddNewClass(newClass);
-                responses.Add(result); //NOT WORKING 
+                var result = _class.AddNewClass(newClass);
+                responses.Add(result); 
             }
 
             return Json(responses);
@@ -387,7 +383,7 @@ namespace eProiect.Controllers
                 return Json(groupList);
             }
 
-            groupList = _organizational.GetAcadGroupsList(year);
+            groupList = _academicGrp.GetAcadGroupsList(year);
             return Json(groupList, JsonRequestBehavior.AllowGet);
         }
 
@@ -402,7 +398,7 @@ namespace eProiect.Controllers
             }
             /* var freeClassrooms = _organizational.GetFreeClassroomsByFloor(floor);
              return Json(freeClassrooms, JsonRequestBehavior.AllowGet);*/
-            var freeClassrooms = _organizational.GetFreeClassroomsByFloorAndTime(
+            var freeClassrooms = _classroom.GetFreeClassroomsByFloorAndTime(
                     new FreeClassroomsRequest()
                     {
                         Floor=requestData.Floor,
@@ -426,7 +422,7 @@ namespace eProiect.Controllers
                 return RedirectToAction("Login", "Login");
             }
             //check equality.
-            var UDClass = _organizational.GetClassById(data.ClassId);
+            var UDClass = _class.GetClassById(data.ClassId);
             var oldClassParam = new EditClassRequest()
             {
                 ClassId = UDClass.Id,
@@ -491,7 +487,7 @@ namespace eProiect.Controllers
                 Frequency = (Domain.Entities.Academic.ClassFrequency)data.Frequency,
             };
 
-            var response = _organizational.EditExistingClass(editClass);
+            var response = _class.EditExistingClass(editClass);
 
             return Json(response);
         }
@@ -505,13 +501,13 @@ namespace eProiect.Controllers
             {
                 return RedirectToAction("Login", "Login");
             }
-            var result = _organizational.DeleteClassById(id);
+            var result = _class.DeleteClassById(id);
             return Json(result);
         }
 
         [HttpGet]
         public ActionResult GetGroupClasses(int groupId) {
-            var groupClases=_organizational.GetAcademicGroupClasses(groupId);
+            var groupClases=_class.GetAcademicGroupClasses(groupId);
             return Json(groupClases, JsonRequestBehavior.AllowGet);
         }
 
@@ -542,7 +538,7 @@ namespace eProiect.Controllers
         [HttpGet]
         public ActionResult GetUserClasses(int userId) {
             return Json(
-                    _organizational.GetUserClasses(userId),
+                    _class.GetUserClasses(userId),
                     JsonRequestBehavior.AllowGet
                 );
         }
