@@ -165,8 +165,30 @@ body {
     border-left: 0;
 }
 
+.no-bg{
+    background: 0;   
+}
+
 .rowlike-tablecell-rb {
     border-left: 0;
+}
+
+.normal-state-row{
+    opacity: 1;
+    background-color: white;
+    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out !important;
+}
+
+.succes-row {
+    background-color: #c8ffd4;
+}
+
+.fail-row {
+    background-color: #ffe0e0;
+}
+
+.no-opacity{
+    opacity: 0;
 }
 
 .gray-table-border {
@@ -175,8 +197,18 @@ body {
 
 .table-warning-row, .table-warning-row > th, .table-warning-row > td {
     background-color: #ffeeba;
-    border: none;
+    /*border: none;*/
 }
+
+#pendingClassesTableWhole tbody tr {
+    transition: max-height 0.3s ease-in-out; /* Add a transition for max-height */
+    overflow: hidden; /* Hide overflow during the transition */
+}
+
+#pendingClassesTableWhole tbody tr.collapsing {
+    height: 0; /* Set max-height to 0 to collapse */
+}
+
 /*
     ----------------------------------------------------------------------------PENDING-LESSONS-END
 */

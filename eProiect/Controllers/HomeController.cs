@@ -542,5 +542,12 @@ namespace eProiect.Controllers
                     JsonRequestBehavior.AllowGet
                 );
         }
+
+        [HttpPost]
+        public ActionResult ConfirmPendingClass(int classId)
+        {
+            var result = _class.ConfirmPendingClass(classId);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
      }
 }
