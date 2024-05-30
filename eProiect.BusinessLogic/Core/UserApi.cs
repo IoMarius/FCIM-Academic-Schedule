@@ -38,29 +38,7 @@ namespace eProiect.BusinessLogic.Core
 
         internal ActionResponse RLoginUpService(ULoginData data)
         {
-            //TEST ADDING USR
-            /*using (var db = new UserContext())
-            {
-                var newCredentials = new UserCredential
-                {
-                    Email = "bemol@gmail.com",
-                    Password = LoginHelper.HashGen("12345678")
-                };
-
-                var newUser = new User
-                {
-                    Name = "Coco",
-                    Surname = "Jumbo",
-                    CreatedDate = DateTime.Now,
-                    LastLogin = DateTime.Now,
-                    LastIp = "192.168.1.1",
-                    Credentials = newCredentials
-                };
-                db.UserCredentials.Add(newCredentials);
-                db.Users.Add(newUser);
-                db.SaveChanges();
-            }*/
-            //TEST
+            
             if (data.IsGuest)
             {
                 return new ActionResponse { Status = true };

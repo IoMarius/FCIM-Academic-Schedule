@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Data.Entity;
 using System.Web.Security;
+using System.Collections.Generic;
 
 
 namespace eProiect.BusinessLogic.Core
@@ -33,7 +34,7 @@ namespace eProiect.BusinessLogic.Core
                {
                     return new ActionResponse
                     {
-                         ActionStatusMsg = "Is'n valid Email",
+                         ActionStatusMsg = "Isn't valid Email",
                          Status = false
                     };
                }
@@ -231,5 +232,30 @@ namespace eProiect.BusinessLogic.Core
 
           }
 
-     }
+        internal List<User> GetUsersRedusedUserData()
+        {
+            var user = new List<User>();
+
+            using (var db = new UserContext())
+            {
+                var userReduses = db.Users
+                    .Select(c => new
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        Surname = c.Surname
+                    })
+                    .ToList();
+                user = userReduses.Select(c => new User
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Surname = c.Surname
+                })
+                    .ToList();
+            }
+            return user;
+        }
+
+    }
 }

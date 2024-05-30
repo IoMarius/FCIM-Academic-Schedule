@@ -28,5 +28,9 @@ namespace eProiect.BusinessLogic
           {
                return DeleteUser(Id);
           }
-     }
+        public List<User> GetAllUserRedusedUserData()
+        {
+            return GetUsersRedusedUserData();
+        }
+    }
 }
