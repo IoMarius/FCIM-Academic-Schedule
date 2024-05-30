@@ -1,4 +1,5 @@
 ﻿using eProiect.Domain.Entities.Responce;
+using eProiect.Domain.Entities.User;
 using eProiect.Domain.Entities.User.DBModel;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,7 @@ namespace eProiect.BusinessLogic.Interfaces
         List<UserDiscipline> GetAllUserDiscipline();
         ActionResponse DeleteUserDisciplineById(int id);
         ActionResponse AddUserDiscipline(UserDiscipline newUserDiscipline);
+        List<UserDiscipline> GetUserDisciplineById(int userId);
+        
     }
 }

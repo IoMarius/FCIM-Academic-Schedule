@@ -1,0 +1,44 @@
+﻿/*!
+ * jQuery UI Accordion 1.11.4
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/accordion/#theming
+ */
+
+
+.userDisciline-cell-div-name{
+    margin-top: -2em;
+}
+
+.userDisciline-cell-div-edit-buton{
+    text-align: end;
+}
+
+.userDiscipline-checkbox-div-main{
+    display:flex;
+    justify-content:space-evenly;
+}
+
+.userDiscipline-checkbox-div-element{
+    display:flex;
+    height: 48px;
+    align-items:center;
+    justify-content:flex-end;
+    flex-direction:row-reverse;
+}
+
+
+.j-error-message {
+    background: #ffebee;
+    border-color: #b71c1c;
+    color: #b71c1c;
+}
+.j-success-message {
+    background: #e8f5e9;
+    border-color: #1b5e20;
+    color: #1b5e20;
+}

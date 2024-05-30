@@ -14,5 +14,6 @@ namespace eProiect.BusinessLogic.Interfaces
           ActionResponse AddNewUsers(NewUserData newUserData);
           ActionResponse EditUsers(User editedUserData);
           ActionResponse DeleteUsers(int Id);
+          List<User> GetAllUserRedusedUserData();
      }
 }

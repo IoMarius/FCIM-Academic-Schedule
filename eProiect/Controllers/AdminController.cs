@@ -741,8 +741,13 @@ namespace eProiect.Controllers
             }
         }
 
+
+
+
+
+
         [UserMode(UserRole.admin)]
-        public ActionResult UserDicipline()
+        public ActionResult UserDiscipline()
         {
             SessionStatus();
             if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
@@ -767,23 +772,43 @@ namespace eProiect.Controllers
 
         [HttpGet]
         [UserMode(UserRole.admin)]
-        public ActionResult GetAllUsers()
+        public ActionResult GetAllUsersDisciplines()
+        {
+            /*SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }*/
+
+            return Json
+                (
+                    _userDiscipline.GetAllUserDiscipline(),
+                    JsonRequestBehavior.AllowGet
+                );
+        }
+
+        [HttpGet]
+        [Route("Admin/GetDiscilineByUserId/{userId}")]
+        [UserMode(UserRole.admin)]
+        public ActionResult GetDiscilineByUserId(int userId)
         {
             SessionStatus();
             if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
             {
                 return RedirectToAction("Login", "Login");
+
             }
 
-            return Json(
-                _userDiscipline.GetAllUserDiscipline(),
-                JsonRequestBehavior.AllowGet
+            return Json
+                (
+                    _userDiscipline.GetUserDisciplineById(userId),
+                    JsonRequestBehavior.AllowGet
                 );
         }
 
         [HttpGet]
         [UserMode(UserRole.admin)]
-        public ActionResponse GetDiscilineByUserId(int userId)
+        public ActionResult GetAllDiscipline()
         {
             SessionStatus();
             if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
@@ -791,11 +816,109 @@ namespace eProiect.Controllers
                 return RedirectToAction("Login", "Login");
 
             }
-            return Json(
-                   ,
-                   JsonRequestBehavior.AllowGet
-               );
+            var listOfDisciplines = _discipline.GetAllDisciplines();
+
+            return Json
+                (
+                    listOfDisciplines.Disciplines,
+                    JsonRequestBehavior.AllowGet
+                );
+
+        }
+        [HttpPost]
+        [UserMode(UserRole.admin)]
+        public ActionResult AddUserDiscipline(List<UserDisciplineEsential> userDisciplineEsentials)
+        {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            if (ModelState.IsValid && userDisciplineEsentials != null)
+            {
+                try
+                {
+                    // Call session method to edit use
+                    foreach (var userDiscipline in userDisciplineEsentials)
+                    {
+                        var trueUserDiscipline = new UserDiscipline
+                        {
+                            UserId = userDiscipline.UserId,
+                            DisciplineId = userDiscipline.DisciplineId,
+                            ClassTypeId = userDiscipline.DisciplineTypeId
+                        };
+
+                        var response = _userDiscipline.AddUserDiscipline(trueUserDiscipline);
+                        if (!response.Status)
+                            return Json(new { success = response.Status, message = response.ActionStatusMsg });
+                    }
+                    return Json(new { success = true, message = " UserDiscipline was added" });
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions
+                    return Json(new { success = false, message = "An error occurred while added user discipline " + ex.Message });
+                }
+            }
+            else
+            {
+                // Return validation error message
+                return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+            }
+
+        }
+
+        [HttpPost]
+        [UserMode(UserRole.admin)]
+        public ActionResult DeleteUserDsiciplineByUserDisciplineId(int userDisciplineId)
+        {
+            SessionStatus();
+
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var response = _userDiscipline.DeleteUserDisciplineById(userDisciplineId);
+                    if (!response.Status)
+                    {
+                        return Json(new { success = response.Status, message = response.ActionStatusMsg });
+                    }
+                    else
+                    {
+                        return Json(new { success = true, message = "User discipline deleted successfully" });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { success = false, message = "An error occurred while deleting user discipline: " + ex.Message });
+                }
+            }
+            else
+            {
+                return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+            }
+        }
+
+
+        [HttpGet]
+        [UserMode(UserRole.admin)]
+        public ActionResult GetAllUserEsentialsData()
+        {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return Json
+                (
+                    _admin.GetAllUserRedusedUserData(),
+                    JsonRequestBehavior.AllowGet
+                ); ;
         }
     }
-
-
+}

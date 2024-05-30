@@ -10,6 +10,13 @@ using eProiect.Domain.Entities.Responce;
 using MDD4All.SpecIF.DataModels.DiagramInterchange.BaseElements;
 using System.Web.UI.WebControls.WebParts;
 using System.Net.Http.Headers;
+using System.Web.WebSockets;
+using eProiect.Domain.Entities.Academic.DBModel;
+using eProiect.Domain.Entities.Schedule;
+using eProiect.Domain.Entities.User;
+using System.Security.Cryptography.X509Certificates;
+using System.IO;
+using System.Dynamic;
 
 namespace eProiect.BusinessLogic.Core
 {
@@ -17,17 +24,65 @@ namespace eProiect.BusinessLogic.Core
     {
         internal List<UserDiscipline> GetAllUserDisciplineFromDb()
         {
-            var userDisciplines = new List<UserDiscipline>();
 
+            var userDisciplinesEntities = new List<UserDiscipline>();
             using (var db = new UserContext())
             {
-                userDisciplines = db.UserDisciplines
-                    .Include(c => c.User)
-                    .Include(c => c.Discipline)
-                    .Include(c => c.Type)
+                var userDisciplines = db.UserDisciplines
+                    .Select(c => new
+                    {
+                        Id = c.Id,
+                        UserId = c.UserId,
+                        User = new
+                        {
+                            Id = c.User.Id,
+                            Name = c.User.Name,
+                            Surname = c.User.Surname
+                        },
+                        DisciplineId = c.DisciplineId,
+                        Discipline = new
+                        {
+                            Id = c.Discipline.Id,
+                            Name = c.Discipline.Name,
+
+                        },
+                        ClassTypeId = c.ClassTypeId,
+                        Type = new
+                        {
+                            Id = c.Type.Id,
+                            TypeName = c.Type.TypeName
+                        }
+                    })
+                    .OrderBy(c => c.User.Surname)
                     .ToList();
+                userDisciplinesEntities = userDisciplines.Select(c => new UserDiscipline
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    User = new User
+                    {
+                        Id = c.User.Id,
+                        Name = c.User.Name,
+                        Surname = c.User.Surname
+                    },
+                    DisciplineId = c.DisciplineId,
+                    Discipline = new Discipline
+                    {
+                        Id = c.Discipline.Id,
+                        Name = c.Discipline.Name,
+
+                    },
+                    ClassTypeId = c.ClassTypeId,
+                    Type = new ClassType
+                    {
+                        Id = c.Type.Id,
+                        TypeName = c.Type.TypeName
+                    }
+                }).ToList();
             };
-            return userDisciplines;
+
+
+            return userDisciplinesEntities;
         }
 
         internal ActionResponse DeleteUserDisciplineByIdFromDb(int idToDelete)
@@ -141,6 +196,70 @@ namespace eProiect.BusinessLogic.Core
                 Status = true
             };
         }
+
+        internal List<UserDiscipline> GetUserDisciplinesByIdFromDb(int userId)
+        {
+            if (userId <= 0) return null;
+
+            var userDisciplinesEntities = new List<UserDiscipline>();
+
+            using (var db = new UserContext())
+            {
+                var userDisciplines = db.UserDisciplines
+                    .Select(c => new
+                    {
+                        Id = c.Id,
+                        UserId = c.UserId,
+                        User = new
+                        {
+                            Id = c.User.Id,
+                            Name = c.User.Name,
+                            Surname = c.User.Surname
+                        },
+                        DisciplineId = c.DisciplineId,
+                        Discipline = new
+                        {
+                            Id = c.Discipline.Id,
+                            ShortName = c.Discipline.ShortName
+
+                        },
+                        ClassTypeId = c.ClassTypeId,
+                        Type = new
+                        {
+                            Id = c.Type.Id,
+                            TypeName = c.Type.TypeName
+                        }
+                    })
+                    .Where(c => c.UserId == userId)
+                    .ToList();
+                userDisciplinesEntities = userDisciplines.Select(c => new UserDiscipline
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    User = new User
+                    {
+                        Id = c.User.Id,
+                        Name = c.User.Name,
+                        Surname = c.User.Surname
+                    },
+                    DisciplineId = c.DisciplineId,
+                    Discipline = new Discipline
+                    {
+                        Id = c.Discipline.Id,
+                        ShortName = c.Discipline.ShortName
+                    },
+                    ClassTypeId = c.ClassTypeId,
+                    Type = new ClassType
+                    {
+                        Id = c.Type.Id,
+                        TypeName = c.Type.TypeName
+                    }
+                }).ToList();
+            }
+            return userDisciplinesEntities;
+        }
+
+       
 
     }
 

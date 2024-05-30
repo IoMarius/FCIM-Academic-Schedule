@@ -1,6 +1,7 @@
 ﻿using eProiect.BusinessLogic.Core;
 using eProiect.BusinessLogic.Interfaces;
 using eProiect.Domain.Entities.Responce;
+using eProiect.Domain.Entities.User;
 using eProiect.Domain.Entities.User.DBModel;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,10 @@ namespace eProiect.BusinessLogic
         {
             return AddUserDisciplineToDb(newUserDiscipline);
         }
-
+        public List<UserDiscipline> GetUserDisciplineById(int userId) 
+        {
+            return GetUserDisciplinesByIdFromDb(userId);
+        }
+       
     }
 }
