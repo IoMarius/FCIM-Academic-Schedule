@@ -192,9 +192,15 @@ function getTimeDiff(sHour, sMinute, eHour, eMinute) {
     return hoursDiff;
 }
 
+function getLettersBeforeCharacter(str, char) {
+    const regex = new RegExp(`^[^${char}]+`); // Dynamically build regex
+    const match = str.match(regex);
+    return match ? match[0] : ''; // Handle case where no match is found
+}
+
 function insertClassesIntoSchedule(classes, isTeacher) {
     cleanTable();
-
+    
     $.each(classes, function (index, item)
     {
         //make the column visible for mobile
@@ -203,79 +209,107 @@ function insertClassesIntoSchedule(classes, isTeacher) {
 
         //default structure of cell
         var insertAt = $(".table-cell-wrapper[day='" + item.WeekDay.Id + "'][hour='" + item.StartTime.Hours + "']");
-        var mobileTime = $('<div></div>').addClass('table-mobile-interval-time').append(
-            $('<span></span>').addClass('table-time-block-interval').text(formatTime(item.StartTime.Hours, item.StartTime.Minutes) + ' - ' + formatTime(item.EndTime.Hours, item.EndTime.Minutes))
-        );
 
-        insertAt.removeClass('table-empty-cell-hiddenmobile')
-
-        //to only insert mobileTime once
-        var hasTime = insertAt.find('div.table-mobile-interval-time')
-        if (hasTime.length==0) {
-            insertAt.append(mobileTime)
+        var contents = $(insertAt).find('hidden');
+        var insertEntry = false;
+        if (contents.length == 1) {
+            //compare current ones 
+  
+            if (!(item.UserDiscipline.Type.Id == $(contents).attr('class-type-id') &&
+                item.UserDiscipline.Discipline.Id == $(contents).attr('class-discipline-id') &&
+                item.AcademicGroup.Name.split('-')[0] == $(contents).attr('class-acadgr-prefix'))
+            ) {                                        
+                //insert !
+                insertEntry = true;
+            }
+         
+        } else if (contents.length == 0) {
+            //insert ! 
+            insertEntry = true;
         } 
 
-        var contentWrapper = $('<div></div>').addClass('table-inner-cell') 
-
-        //compose general structure
-        insertAt.append(contentWrapper)
-
-        //identify cell span
-        var hoursDiff = getTimeDiff(item.StartTime.Hours, item.StartTime.Minutes, item.EndTime.Hours, item.EndTime.Minutes);
-        if (hoursDiff != 1) {
-            insertAt.addClass('double-height')
-            contentWrapper.addClass('table-simple-cell');
-            $(".table-cell-wrapper[day='" + item.WeekDay.Id + "'][classnr='" + (+insertAt.attr('classnr') + 1) + "']").addClass('collapsed');   
-        }
-
-        var firstPair = $('<div></div>').addClass("mobile-itempair");
-        var secondPair = $('<div></div>').addClass("mobile-itempair");
-
-        var newSpan;
-        if (isTeacher) {
-            newSpan = $('<span></span>').addClass("inner-cell-profname").text(item.AcademicGroup.Name)
-        } else {
-            newSpan = $('<span></span>').addClass("inner-cell-profname").text(item.UserDiscipline.User.Surname[0] + '. ' + item.UserDiscipline.User.Name)
-        }
-
-        contentWrapper.append(
-            firstPair.append(
-                $('<span></span>').addClass("inner-cell-disciplinename").text(item.UserDiscipline.Type.TypeName[0].toLowerCase() +'. '+item.UserDiscipline.Discipline.ShortName),                
-                newSpan
-            ),
-            secondPair.append(
-                $('<span></span>').addClass("inner-cell-classroom").text(item.ClassRoom.ClassroomName)
-            )
-        );
-
-        //frequency if necessary
-        if (item.Frequency == 0) {
-            contentWrapper.addClass('table-simple-cell');
-        }else if (item.Frequency == 1) {            
-            contentWrapper.append(
-                secondPair.append(
-                    $('<span></span>').addClass("inner-cell-frequency").text('par')
+        if (insertEntry) {
+            if (isTeacher) {
+                insertAt.append(
+                    $('<hidden></hidden>')
+                        .attr('class-type-id', item.UserDiscipline.Type.Id)
+                        .attr('class-discipline-id', item.UserDiscipline.Discipline.Id)
+                        .attr('class-acadgr-prefix', item.AcademicGroup.Name.split('-')[0])
                 )
-            )
-            contentWrapper.addClass('mobile-left-border');
-            if (!$('#currentWeekFrequency').attr('even')) {
-                contentWrapper.addClass("inner-disabled-lesson")
             }
-        }else if(item.Frequency==2){
-            contentWrapper.append(
-                secondPair.append(
-                    $('<span></span>').addClass("inner-cell-frequency").text('impar')
-                )
-            )
-            contentWrapper.addClass('mobile-left-border');
-            if ($('#currentWeekFrequency').attr('even')) {
-                contentWrapper.addClass("inner-disabled-lesson")
-            }
-        }
 
-        
-        if ($('#currentWeekFrequency').attr('even')) {
-            contentWrapper.addClass()
+            var mobileTime = $('<div></div>').addClass('table-mobile-interval-time').append(
+                $('<span></span>').addClass('table-time-block-interval').text(formatTime(item.StartTime.Hours, item.StartTime.Minutes) + ' - ' + formatTime(item.EndTime.Hours, item.EndTime.Minutes))
+            );
+
+            insertAt.removeClass('table-empty-cell-hiddenmobile')
+
+            //to only insert mobileTime once
+            var hasTime = insertAt.find('div.table-mobile-interval-time')
+            if (hasTime.length == 0) {
+                insertAt.append(mobileTime)
+            }
+
+            var contentWrapper = $('<div></div>').addClass('table-inner-cell')
+            //compose general structure
+            insertAt.append(contentWrapper)
+
+            //identify cell span
+            var hoursDiff = getTimeDiff(item.StartTime.Hours, item.StartTime.Minutes, item.EndTime.Hours, item.EndTime.Minutes);
+            if (hoursDiff != 1) {
+                insertAt.addClass('double-height')
+                contentWrapper.addClass('table-simple-cell');
+                $(".table-cell-wrapper[day='" + item.WeekDay.Id + "'][classnr='" + (+insertAt.attr('classnr') + 1) + "']").addClass('collapsed');
+            }
+
+            var firstPair = $('<div></div>').addClass("mobile-itempair");
+            var secondPair = $('<div></div>').addClass("mobile-itempair");
+
+            var newSpan;
+            if (isTeacher) {
+                if (item.UserDiscipline.Type.Id == 1) {
+                    newSpan = $('<span></span>').addClass("inner-cell-profname").text(item.AcademicGroup.Name.split('-')[0])
+                } else {
+                    newSpan = $('<span></span>').addClass("inner-cell-profname").text(item.AcademicGroup.Name)
+                }
+            } else {
+                newSpan = $('<span></span>').addClass("inner-cell-profname").text(item.UserDiscipline.User.Surname[0] + '. ' + item.UserDiscipline.User.Name)
+            }
+
+            contentWrapper.append(
+                firstPair.append(
+                    $('<span></span>').addClass("inner-cell-disciplinename").text(item.UserDiscipline.Type.TypeName[0].toLowerCase() + '. ' + item.UserDiscipline.Discipline.ShortName),
+                    newSpan
+                ),
+                secondPair.append(
+                    $('<span></span>').addClass("inner-cell-classroom").text(item.ClassRoom.ClassroomName)
+                )
+            );
+
+            //frequency if necessary
+            if (item.Frequency == 0) {
+                contentWrapper.addClass('table-simple-cell');
+            } else if (item.Frequency == 1) {
+                contentWrapper.append(
+                    secondPair.append(
+                        $('<span></span>').addClass("inner-cell-frequency").text('par')
+                    )
+                )
+                contentWrapper.addClass('mobile-left-border');
+                if (!$('#currentWeekFrequency').attr('even')) {
+                    contentWrapper.addClass("inner-disabled-lesson")
+                }
+            } else if (item.Frequency == 2) {
+                contentWrapper.append(
+                    secondPair.append(
+                        $('<span></span>').addClass("inner-cell-frequency").text('impar')
+                    )
+                )
+                contentWrapper.addClass('mobile-left-border');
+                if ($('#currentWeekFrequency').attr('even')) {
+                    contentWrapper.addClass("inner-disabled-lesson")
+                }
+            }
         }
     })
 }
