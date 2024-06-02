@@ -826,6 +826,7 @@ namespace eProiect.Controllers
                 );
 
         }
+
         [HttpPost]
         [UserMode(UserRole.admin)]
         public ActionResult AddUserDiscipline(List<UserDisciplineEsential> userDisciplineEsentials)
@@ -905,7 +906,6 @@ namespace eProiect.Controllers
             }
         }
 
-<<<<<<< HEAD
 
         [HttpGet]
         [UserMode(UserRole.admin)]
@@ -922,9 +922,7 @@ namespace eProiect.Controllers
                     JsonRequestBehavior.AllowGet
                 ); ;
         }
-    }
-}
-=======
+
           [UserMode(UserRole.admin)]
           public ActionResult PendingClasses()
           {
@@ -946,13 +944,13 @@ namespace eProiect.Controllers
                 return View(viewData);
           }
 
-            [HttpPost]
+        [HttpPost]
         [UserMode(UserRole.admin)]
         public ActionResult ConfirmPendingClass(int classId)
-            {
-                var result = _class.ConfirmPendingClass(classId);
-                return Json(result, JsonRequestBehavior.AllowGet);
-            }
+        {
+            var result = _class.ConfirmPendingClass(classId);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
           [HttpGet]
           [UserMode(UserRole.admin)]
@@ -971,4 +969,3 @@ namespace eProiect.Controllers
           }
      }
 }
->>>>>>> classes-confirm-backend
