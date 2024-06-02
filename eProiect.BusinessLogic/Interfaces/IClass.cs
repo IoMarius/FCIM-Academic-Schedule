@@ -1,4 +1,5 @@
 ﻿using eProiect.Domain.Entities.Academic;
+using eProiect.Domain.Entities.Academic.DBModel;
 using eProiect.Domain.Entities.Responce;
 using eProiect.Domain.Entities.Schedule.DBModel;
 using System;
@@ -56,10 +57,16 @@ namespace eProiect.BusinessLogic.Interfaces
         List<Class> GetUserClasses(int id);
 
         /// <summary>
-        /// Get all unconfirmed classes.
+        /// Get all unconfirmed classes that cause conflicts with other classes.
         /// </summary>
         /// <returns></returns>
-        List<Class> GetPendingConfirmClasses();
+        List<ConflictGroup> GetPendingConflictingClasses();
+
+        /// <summary>
+        /// Get all pending clasess that do not cause conflicts.
+        /// </summary>
+        /// <returns></returns>
+        List<Class> GetPendingClasses();
 
         /// <summary>
         /// Groups all classes overlapping classes into a list.

@@ -25,7 +25,6 @@ namespace eProiect.BusinessLogic.DBModel
             Database.SetInitializer<UserContext>(null);
         }
 
-
         //modelul contextului
         public virtual DbSet<User> Users { set; get; }
         public virtual DbSet<UserCredential> UserCredentials { set; get; }
@@ -34,6 +33,7 @@ namespace eProiect.BusinessLogic.DBModel
 
         public virtual DbSet<WeekDay> WeekDays { set; get; }
         public virtual DbSet<Class> Classes { set; get; }
+        public virtual DbSet<ConflictingClass> ClassConflicts { get; set; }
 
 
 
@@ -42,7 +42,18 @@ namespace eProiect.BusinessLogic.DBModel
         public virtual DbSet<ClassType> ClassTypes { set; get; }
         public virtual DbSet<Students> Students { set; get; }
         public virtual DbSet<AcademicGroup> AcademicGroups { set; get; }
-     
 
-     }    
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ConflictingClass>()
+                .HasRequired(cc => cc.MainClass)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ConflictingClass>()
+                .HasRequired(cc => cc.ConflictingWith)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+        }
+    }    
 }

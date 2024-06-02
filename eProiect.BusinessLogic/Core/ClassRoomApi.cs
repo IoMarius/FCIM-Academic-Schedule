@@ -195,54 +195,40 @@ namespace eProiect.BusinessLogic.Core
 
             using (var db = new UserContext())
             {
-                ///MISSING-FREQUENCY//////MISSING-FREQUENCY//////MISSING-FREQUENCY//////MISSING-FREQUENCY//////MISSING-FREQUENCY///
 
-                //scot toate cabinetele de pe etaj
-                var classRoomsonFloor = db.ClassRooms.Where(cr => cr.Floor == data.Floor).ToList();
-
-                //caut cabinetele ocupate la ora dată //fixit
-                var busyClassrooms = db.Classes.Where(cl =>
-                    cl.WeekDay.Id == data.WeekdayId &&
-                    cl.IsConfirmed == true &&
-                    ((cl.StartTime == data.StartTime) || (cl.EndTime == endTime))
-                ).Select(cl => cl.ClassRoom).ToList();
-
-                //check span two for overlap (midSpan end start)
-                if (data.Span == 2)
-                {
-                    TimeSpan midTimeSpan;
-                    //check pausa del masa
-                    if (data.StartTime == new TimeSpan(11, 30, 0))
-                    {
-                        midTimeSpan = endTime - new TimeSpan(2, 0, 0);  //30 + 30 min accounts for pauză de masa
-                    }
-                    else
-                    {
-                        midTimeSpan = endTime - new TimeSpan(1, 45, 0); //30 + 15 min accounts for pauză
-                    }
-
-                    var ClassBusyMidtimeStart = db.Classes.Where(cl =>
-                            cl.WeekDay.Id == data.WeekdayId &&
-                            cl.StartTime == midTimeSpan &&
-                            cl.IsConfirmed == true
-                        ).Select(cl => cl.ClassRoom).ToList();
-
-                    var ClassBusyMidtimeEnd = db.Classes.Where(cl =>
-                            cl.WeekDay.Id == data.WeekdayId &&
-                            cl.EndTime == midTimeSpan &&
-                            cl.IsConfirmed == true
-                        ).Select(cl => cl.ClassRoom).ToList();
-
-
-                    busyClassrooms.AddRange(ClassBusyMidtimeStart);
-                    busyClassrooms.AddRange(ClassBusyMidtimeEnd);
-                }
-
-                //scad din toate cele ocupate 
-                freeClassrooms = classRoomsonFloor.Where(x => !busyClassrooms.Contains(x)).ToList();
+                freeClassrooms = db.ClassRooms
+                    .Where(cl => cl.Floor == data.Floor)
+                    .Except(
+                        db.Classes
+                            .Where(cl =>
+                                cl.ClassRoom.Floor == data.Floor &&
+                                cl.Frequency == data.Frequency &&
+                                cl.WeekDay.Id == data.WeekdayId &&
+                                ((cl.StartTime >= data.StartTime) || (cl.EndTime <= endTime))
+                            )
+                            .Select(cl => cl.ClassRoom)
+                            .Distinct()
+                        )
+                    .ToList();               
             }
 
             return freeClassrooms;
+        }
+          
+        internal List<ClassRoom> GetClassroomsByFloor(int floor)
+        {
+            try
+            {
+                using(var db = new UserContext())
+                {
+                    var classrooms = db.ClassRooms.Where(cr => cr.Floor == floor).ToList();
+                    return classrooms;
+                }
+            }            
+            catch (Exception ex) {
+                System.Diagnostics.Debug.WriteLine($"GetClassrooms(Class) Exception caught:{ex.Message}");
+                return null;
+            }
         }
     }
 }

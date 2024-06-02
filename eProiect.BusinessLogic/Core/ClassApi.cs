@@ -10,6 +10,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eProiect.BusinessLogic.Migrations;
 
 namespace eProiect.BusinessLogic.Core
 {
@@ -174,181 +175,93 @@ namespace eProiect.BusinessLogic.Core
         {
             if (newClass == null)
             {
+                System.Diagnostics.Debug.WriteLine("AddNewClassToDb(Class): New class cannot be null.");
                 return new ActionResponse()
                 {
                     Status = false,
-                    ActionStatusMsg = "Internal error."
+                    ActionStatusMsg = "Internal error"
                 };
             }
+            
+            /*List<Class> conflicts;*/
 
-            string responseMsg = $"Succes";
-            //to check before insertion !!
-            // free classroom +
-            // free group at given time (do not forget span) + 
-
-            using (var db = new UserContext())
+            try
             {
-
-                //check overlap with own schedule, if busy as a human.
-                var overlapWithSelf = db.Classes
-                    .Include(c => c.UserDiscipline)
-                    .Include(c => c.WeekDay)
-                    .Include(c => c.UserDiscipline.User)
-                    .Include(c => c.UserDiscipline.Type)
-                    .Include(c => c.AcademicGroup)
-                    .FirstOrDefault(c =>
-                        c.UserDiscipline.User.Id == newClass.UserDiscipline.User.Id &&
-                        c.WeekDay.Id == newClass.WeekDay.Id &&
-                        c.IsConfirmed == true &&
-                        ((c.StartTime == newClass.StartTime) || (c.EndTime == newClass.EndTime))
-                    );
-
-
-                if (overlapWithSelf != null)
+                //get conflicts
+                /*using (var db = new UserContext())
                 {
-                    if (
-                        !((overlapWithSelf.UserDiscipline.Type.Id == newClass.UserDiscipline.Type.Id) &&
-                        (overlapWithSelf.AcademicGroup.Year == newClass.AcademicGroup.Year))
-                      )
+                    conflicts = db.Classes
+                        .Include(c => c.UserDiscipline)
+                        .Include(c => c.WeekDay)
+                        .Include(c => c.UserDiscipline.User)
+                        .Include(c => c.UserDiscipline.Type)
+                        .Include(c => c.AcademicGroup)
+                        .Where(c =>
+                            ((c.UserDiscipline.User.Id == newClass.UserDiscipline.User.Id) || (c.AcademicGroupId == newClass.AcademicGroup.Id)) &&
+                            c.WeekDay.Id == newClass.WeekDay.Id &&
+                            c.IsConfirmed == true &&
+                            ((c.StartTime >= newClass.StartTime) || (c.EndTime <= newClass.EndTime))
+                        )
+                        .ToList();
+                }*/
+
+                //inserting the new class in the database.
+                using (var db = new UserContext())
+                {
+                    var userDiscipline = db.UserDisciplines
+                        .Include(ud => ud.User)
+                        .Include(ud => ud.Discipline)
+                        .Include(ud => ud.Type)
+                        .FirstOrDefault(ud => ud.DisciplineId == newClass.UserDiscipline.Id && ud.ClassTypeId == newClass.UserDiscipline.Type.Id && ud.UserId == newClass.UserDiscipline.User.Id);
+
+                    var classType = db.ClassTypes
+                        .FirstOrDefault(ud => ud.Id == newClass.UserDiscipline.Type.Id);
+
+                    var academicGroup = db.AcademicGroups
+                        .FirstOrDefault(ag => ag.Id == newClass.AcademicGroup.Id);
+
+                    var classRoom = db.ClassRooms
+                        .FirstOrDefault(cr => cr.Id == newClass.ClassRoom.Id);
+
+                    var weekDay = db.WeekDays
+                        .FirstOrDefault(wd => wd.Id == newClass.WeekDay.Id);
+                    userDiscipline.Type = classType;
+
+                    if (userDiscipline != null && academicGroup != null && classRoom != null && weekDay != null)
                     {
-                        return new ActionResponse()
+
+                        var veryNewClass = new Class
                         {
-                            ActionStatusMsg = $"Deja există perechi în acest interval: {newClass.StartTime:hh\\:mm}-{newClass.EndTime:hh\\:mm}",
-                            OverlapClassId = overlapWithSelf.Id,
-                            Status = false
+                            UserDiscipline = userDiscipline,
+                            AcademicGroup = academicGroup,
+                            ClassRoom = classRoom,
+                            WeekDay = weekDay,
+                            StartTime = newClass.StartTime,
+                            EndTime = newClass.EndTime,
+                            Frequency = newClass.Frequency,
+                            IsConfirmed = false
                         };
-                    }
-                }
-
-                var overlapBusyGroup = db.Classes
-                    .Include(cl => cl.UserDiscipline.User)
-                    .FirstOrDefault(
-                        c => c.AcademicGroupId == newClass.AcademicGroup.Id &&
-                        c.WeekDayId == newClass.WeekDay.Id &&
-                        c.Frequency == newClass.Frequency &&
-                        c.IsConfirmed == true &&
-                        ((c.StartTime == newClass.StartTime) || (c.EndTime == newClass.EndTime))
-                    );
-
-                if (overlapBusyGroup != null)
-                {
-                    //get group name
-                    var overlapGroup = db.AcademicGroups.FirstOrDefault(ag => ag.Id == newClass.AcademicGroup.Id);
-                    /* return new ActionResponse()
-                     {
-                         ActionStatusMsg = $"Grupa {overlapGroup.Name} este ocupată {newClass.StartTime:hh\\:mm}-{newClass.EndTime:hh\\:mm}",
-                         OverlapClassId = overlapBusyGroup.Id,
-                         Status = false
-                     };*/
-                    responseMsg = $"Grupa {overlapGroup.Name} este ocupată {newClass.StartTime:hh\\:mm}-{newClass.EndTime:hh\\:mm}";
-                }
-
-
-                //check mid time span for long classes (add to cabinete Too)
-                if (newClass.EndTime - newClass.StartTime != new TimeSpan(1, 30, 0))
-                {
-
-                    TimeSpan midTimeSpan;
-                    //check pausa del masa
-                    if (newClass.StartTime == new TimeSpan(11, 30, 0))
-                    {
-                        midTimeSpan = newClass.EndTime - new TimeSpan(2, 0, 0);
+                        db.Classes.Add(veryNewClass);
+                        db.SaveChanges();
                     }
                     else
                     {
-                        midTimeSpan = newClass.EndTime - new TimeSpan(1, 45, 0); //30 + 15 min accounts for pauză
+                        return new ActionResponse { Status = false, ActionStatusMsg = "Success" };
                     }
 
-                    var startsMidtime = db.Classes.FirstOrDefault(c =>
-                        c.AcademicGroupId == newClass.AcademicGroup.Id &&
-                        c.WeekDayId == newClass.WeekDay.Id &&
-                        c.IsConfirmed == true &&
-                        c.StartTime == midTimeSpan
-                    );
-
-                    var endsMidtime = db.Classes.FirstOrDefault(c =>
-                        c.AcademicGroupId == newClass.AcademicGroup.Id &&
-                        c.WeekDayId == newClass.WeekDay.Id &&
-                        c.IsConfirmed == true &&
-                        c.EndTime == midTimeSpan
-                    );
-
-                    if (startsMidtime != null)//test it 
-                    {
-                        var overlapGroup = db.AcademicGroups.FirstOrDefault(ag => ag.Id == newClass.AcademicGroup.Id);
-                        /*return new ActionResponse()
-                        {
-                            ActionStatusMsg = $"Grupa {overlapGroup.Name} este ocupată {midTimeSpan:hh\\:mm}-{newClass.EndTime:hh\\:mm}",
-                            OverlapClassId = startsMidtime.Id,
-                            Status = false
-                        };*/
-                        responseMsg = $"Grupa {overlapGroup.Name} este ocupată {midTimeSpan:hh\\:mm}-{newClass.EndTime:hh\\:mm}";
-                    }
-
-                    if (endsMidtime != null)
-                    {
-                        var overlapGroup = db.AcademicGroups.FirstOrDefault(ag => ag.Id == newClass.AcademicGroup.Id);
-                        /*return new ActionResponse()
-                        {
-                            ActionStatusMsg = $"Grupa {overlapGroup.Name} este ocupată {newClass.StartTime:hh\\:mm}-{midTimeSpan:hh\\:mm}",
-                            OverlapClassId = endsMidtime.Id,
-                            Status = false
-                        };*/
-                        responseMsg = $"Grupa {overlapGroup.Name} este ocupată {newClass.StartTime:hh\\:mm}-{midTimeSpan:hh\\:mm}";
-                    }
                 }
-            }
 
-            AcademicGroup groupNameMessage;
-            //insert stage
-            using (var db = new UserContext())
+                 
+                return new ActionResponse { Status = true, ActionStatusMsg="Success"};
+            }
+            catch(Exception ex)
             {
-                groupNameMessage = db.AcademicGroups.FirstOrDefault(ag => ag.Id == newClass.AcademicGroup.Id);
-
-                //get tables UserDiscipline, AcademicGroup, ClassRoom, Weekday, types
-                var userDiscipline = db.UserDisciplines
-                    .Include(ud => ud.User)
-                    .Include(ud => ud.Discipline)
-                    .Include(ud => ud.Type)
-                    .FirstOrDefault(ud => ud.DisciplineId == newClass.UserDiscipline.Id && ud.ClassTypeId == newClass.UserDiscipline.Type.Id && ud.UserId == newClass.UserDiscipline.User.Id);
-
-                var classType = db.ClassTypes
-                    .FirstOrDefault(ud => ud.Id == newClass.UserDiscipline.Type.Id);
-
-                var academicGroup = db.AcademicGroups
-                    .FirstOrDefault(ag => ag.Id == newClass.AcademicGroup.Id);
-
-                var classRoom = db.ClassRooms
-                    .FirstOrDefault(cr => cr.Id == newClass.ClassRoom.Id);
-
-                var weekDay = db.WeekDays
-                    .FirstOrDefault(wd => wd.Id == newClass.WeekDay.Id);
-                userDiscipline.Type = classType;
-
-                if (userDiscipline != null && academicGroup != null && classRoom != null && weekDay != null)
-                {
-                    var veryNewClass = new Class
-                    {
-                        UserDiscipline = userDiscipline,
-                        AcademicGroup = academicGroup,
-                        ClassRoom = classRoom,
-                        WeekDay = weekDay,
-                        StartTime = newClass.StartTime,
-                        EndTime = newClass.EndTime,
-                        Frequency = newClass.Frequency,
-                        IsConfirmed = false
-                    };
-                    db.Classes.Add(veryNewClass);
-                    db.SaveChanges();
-                }
-                else
-                {
-                    return new ActionResponse { Status = false, ActionStatusMsg = "Internal server error" };
-                }
+                System.Diagnostics.Debug.WriteLine($"AddNewClassToDb(Class) Exception caught:{ex.Message}\n Details:{ex.InnerException}");
+                return new ActionResponse() {
+                    Status = false,
+                    ActionStatusMsg = "Internal error"
+                };
             }
-
-
-            return new ActionResponse { Status = true, ActionStatusMsg = responseMsg };
         }
 
         internal Class GetClass(int id)
@@ -363,6 +276,7 @@ namespace eProiect.BusinessLogic.Core
                     .Include(cl => cl.UserDiscipline)
                     .Include(cl => cl.UserDiscipline.Type)
                     .Include(cl => cl.UserDiscipline.Discipline)
+                    .Include(cl => cl.UserDiscipline.User)
                     .FirstOrDefault(cl => cl.Id == id);
             }
             return result;
@@ -439,9 +353,88 @@ namespace eProiect.BusinessLogic.Core
                 .ToList();
         }
 
-        internal List<Class> GetPendingClasses()
+        internal List<Class> GetClassesPending()
         {
-            var classes = new List<Class>();
+            try
+            {
+                using(var db = new UserContext())
+                {
+                    var pending = db.Classes
+                        .Include(cl=>cl.UserDiscipline)
+                        .Include(cl=>cl.UserDiscipline.User)
+                        .Include(cl=>cl.UserDiscipline.Discipline)
+                        .Include(cl=>cl.UserDiscipline.Type)
+                        .Include(cl=>cl.AcademicGroup)
+                        .Include(cl=>cl.ClassRoom)
+                        .Include(cl=>cl.WeekDay)
+                        .Where(cl => !cl.IsConfirmed).ToList();
+                    return pending;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetPendingClasses(Class) Exception caught:{ex.Message}");
+                return new List<Class>();
+            }
+        }
+
+        internal List<ConflictGroup> GetConflictingClasses()
+        {
+            try { 
+                using(var db = new UserContext())
+                {
+                    var classes = db.Classes
+                        .Include(cl=>cl.AcademicGroup)
+                        .Include(cl=>cl.ClassRoom)
+                        .Include(cl=>cl.UserDiscipline)
+                        .Include(cl=>cl.UserDiscipline.User)
+                        .Include(cl=>cl.UserDiscipline.Discipline)
+                        .Include(cl=>cl.UserDiscipline.Type)
+                        .Include(cl=>cl.WeekDay)
+                        .ToList();
+
+                    var groupedClasses = classes.SelectMany(cls =>
+                        classes.Where(ocls =>
+                            cls.Id != ocls.Id &&
+                            ((cls.AcademicGroup.Id == ocls.AcademicGroup.Id)||(cls.ClassRoom == ocls.ClassRoom)) &&
+                            cls.WeekDay.Id == ocls.WeekDay.Id &&
+                            cls.StartTime < ocls.EndTime &&
+                            cls.EndTime > ocls.StartTime &&
+                            cls.UserDiscipline.User.Id != ocls.UserDiscipline.User.Id
+                        ).Select(ocls => new { cls, ocls }))
+                        .GroupBy(pair => pair.cls)
+                        .Select(group => new
+                        {
+                            Class = group.Key,
+                            OverlappingClasses = group.Select(x => x.ocls).ToList()
+                        })
+                        .ToList();
+
+                    var result = new List<ConflictGroup>();
+                    foreach(var group in groupedClasses)
+                    {
+                        /*var conflictList = group.OverlappingClasses.ToList();*/
+                        //conflictList.Add(group.Class);
+
+                        result.Add(new ConflictGroup()
+                        {
+                            MainClass = group.Class,
+                            OverlappingClasses = group.OverlappingClasses.ToList()
+                        });
+                    }
+                           
+                  // db.SaveChanges();                                         
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetPendingClasses(Class) Exception caught:{ex.Message}");
+                return null;
+            }
+
+            /*var classes = new List<Class>();
             using (var db = new UserContext())
             {
                 classes = db.Classes
@@ -453,7 +446,7 @@ namespace eProiect.BusinessLogic.Core
                     .Include(cl => cl.AcademicGroup)
                     .Where(cl => cl.IsConfirmed == false).ToList();
             }
-            return classes;
+            return classes;*/
         }
 
         internal List<OverlapClassGroup> GroupOverlappingClasses(List<Class> classes)

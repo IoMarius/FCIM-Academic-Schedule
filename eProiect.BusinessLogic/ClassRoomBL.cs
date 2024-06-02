@@ -35,5 +35,10 @@ namespace eProiect.BusinessLogic
         {
             return GetClassroomsFreeAtTime(data);
         }
+
+        public List<ClassRoom> GetClassRoomsByFloor(int floor)
+        {
+            return GetClassroomsByFloor(floor);
+        }
     }
 }

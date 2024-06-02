@@ -118,6 +118,14 @@
     <Compile Include="Migrations\202405162112333_classesConfirm.Designer.cs">
       <DependentUpon>202405162112333_classesConfirm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202405242120400_conflictIntegration.cs" />
+    <Compile Include="Migrations\202405242120400_conflictIntegration.Designer.cs">
+      <DependentUpon>202405242120400_conflictIntegration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405261912425_conflictsIntegration.cs" />
+    <Compile Include="Migrations\202405261912425_conflictsIntegration.Designer.cs">
+      <DependentUpon>202405261912425_conflictsIntegration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrgBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,6 +154,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202405162112333_classesConfirm.resx">
       <DependentUpon>202405162112333_classesConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405242120400_conflictIntegration.resx">
+      <DependentUpon>202405242120400_conflictIntegration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405261912425_conflictsIntegration.resx">
+      <DependentUpon>202405261912425_conflictsIntegration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

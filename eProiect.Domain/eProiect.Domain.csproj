@@ -79,7 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Academic\AcademicGroupsList.cs" />
+    <Compile Include="Entities\Academic\DBModel\ConflictingClass.cs" />
     <Compile Include="Entities\Academic\GroupOfCassRooms.cs" />
+    <Compile Include="Entities\Academic\ConflictGroup.cs" />
     <Compile Include="Entities\Academic\GroupOfDisciplines.cs" />
     <Compile Include="Entities\Academic\ClassFrequency.cs" />
     <Compile Include="Entities\Academic\DBModel\AcademicGroup.cs" />

@@ -9,9 +9,7 @@ namespace eProiect.Models.Schedule
     {
         public int StartHour { get; set; }
         public int StartMinute { get; set; }
-
         public int Span { get; set; }
-
         public int Floor { get; set; }
         public int WeekdayId { get; set; }
         public int Frequency { get; set; }

@@ -761,18 +761,28 @@ namespace eProiect.Controllers
                 return View(viewData);
           }
 
+            [HttpPost]
+        [UserMode(UserRole.admin)]
+        public ActionResult ConfirmPendingClass(int classId)
+            {
+                var result = _class.ConfirmPendingClass(classId);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
           [HttpGet]
           [UserMode(UserRole.admin)]
           public ActionResult GetPendingClasses()
           {
-            var pendingClasses = _class.GetPendingConfirmClasses();
-            var groupedClasses = _class.GroupConflictingClasses(pendingClasses);
+            var pendingClasses = _class.GetPendingClasses();
+            return Json(pendingClasses, JsonRequestBehavior.AllowGet);
+          }
 
-
-            //  Manage conflicting classes.
-            //  get each overlap for current class.
-            //  put all overlapping classes inside List<OvpList>
-            return Json(groupedClasses, JsonRequestBehavior.AllowGet);
+          [HttpGet]
+          [UserMode(UserRole.admin)]          
+          public ActionResult GetConflictingClasses()
+          {
+            var conflicts = _class.GetPendingConflictingClasses();
+            return Json(conflicts, JsonRequestBehavior.AllowGet);
           }
      }
 }

@@ -1,6 +1,7 @@
 ﻿using eProiect.BusinessLogic.Core;
 using eProiect.BusinessLogic.Interfaces;
 using eProiect.Domain.Entities.Academic;
+using eProiect.Domain.Entities.Academic.DBModel;
 using eProiect.Domain.Entities.Responce;
 using eProiect.Domain.Entities.Schedule.DBModel;
 using System;
@@ -43,9 +44,9 @@ namespace eProiect.BusinessLogic
             return GetUserClassesById(id);
         }
 
-        public List<Class> GetPendingConfirmClasses()
+        public List<ConflictGroup> GetPendingConflictingClasses()
         {
-            return GetPendingClasses();
+            return GetConflictingClasses();
         }
 
         public List<OverlapClassGroup> GroupConflictingClasses(List<Class> classes)
@@ -57,5 +58,12 @@ namespace eProiect.BusinessLogic
         {
             return ConfirmPendingClassById(id);
         }
+
+        public List<Class> GetPendingClasses()
+        {
+            return GetClassesPending();
+        }
+
+
     }
 }

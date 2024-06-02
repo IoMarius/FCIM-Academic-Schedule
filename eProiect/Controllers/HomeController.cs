@@ -412,6 +412,14 @@ namespace eProiect.Controllers
             return Json(freeClassrooms, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        [UserMode(UserRole.admin, UserRole.teacher)]
+        public ActionResult GetClassRoomsByFloor(int floor)
+        {
+            var classrooms = _classroom.GetClassRoomsByFloor(floor);
+            return Json(classrooms, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult EditExistingClassroom(EditClassRequest data)
@@ -542,12 +550,6 @@ namespace eProiect.Controllers
                     JsonRequestBehavior.AllowGet
                 );
         }
-
-        [HttpPost]
-        public ActionResult ConfirmPendingClass(int classId)
-        {
-            var result = _class.ConfirmPendingClass(classId);
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        
      }
 }

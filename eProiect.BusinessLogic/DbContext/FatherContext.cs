@@ -26,6 +26,7 @@ namespace eProiect.BusinessLogic.DBContext
 
         public virtual DbSet<WeekDay> WeekDays { set; get; }
         public virtual DbSet<Class> Classes { set; get; }
+        public virtual DbSet<ConflictingClass> ClassConflicts { get; set; }
 
 
         public virtual DbSet<ClassRoom> ClassRooms { set; get; }
@@ -33,6 +34,19 @@ namespace eProiect.BusinessLogic.DBContext
         public virtual DbSet<ClassType> ClassTypes { set; get; }
         public virtual DbSet<Students> Students { set; get; }
         public virtual DbSet<AcademicGroup> AcademicGroups { set; get; }
-          public virtual DbSet<Session> Sessions { get; set; }
+        public virtual DbSet<Session> Sessions { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ConflictingClass>()
+                .HasRequired(cc => cc.MainClass)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ConflictingClass>()
+                .HasRequired(cc => cc.ConflictingWith)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+        }
     }
 }

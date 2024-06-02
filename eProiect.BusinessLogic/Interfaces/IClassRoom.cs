@@ -25,5 +25,7 @@ namespace eProiect.BusinessLogic.Interfaces
         /// <returns></returns>
         List<ClassRoom> GetFreeClassroomsByFloorAndTime(FreeClassroomsRequest data);
 
+        List<ClassRoom> GetClassRoomsByFloor(int floor);
+
     }
 }
