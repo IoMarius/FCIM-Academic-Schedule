@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using eProiect.BusinessLogic.Core;
 using eProiect.BusinessLogic.Interfaces;
+using eProiect.Domain.Entities.Schedule;
 
 namespace eProiect.BusinessLogic
 {
-     public class ClassRoomBL :ClassRoomApi ,IClassRoom
+    public class ClassRoomBL : ClassRoomApi, IClassRoom
      {
           public GroupOfCassRooms GetAllCassRooms()
           {
@@ -30,5 +31,14 @@ namespace eProiect.BusinessLogic
                return DeleteClassRoom(Id);
           }
 
-     }
+        public List<ClassRoom> GetFreeClassroomsByFloorAndTime(FreeClassroomsRequest data)
+        {
+            return GetClassroomsFreeAtTime(data);
+        }
+
+        public List<ClassRoom> GetClassRoomsByFloor(int floor)
+        {
+            return GetClassroomsByFloor(floor);
+        }
+    }
 }

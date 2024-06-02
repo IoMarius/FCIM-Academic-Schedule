@@ -86,9 +86,11 @@
     <Compile Include="AcademicGroupBL.cs" />
     <Compile Include="AdminBL.cs" />
     <Compile Include="BuissinesLogic.cs" />
+    <Compile Include="ClassBL.cs" />
     <Compile Include="ClassRoomBL.cs" />
     <Compile Include="Core\AcademicGroupApi.cs" />
     <Compile Include="Core\AdminApi.cs" />
+    <Compile Include="Core\ClassApi.cs" />
     <Compile Include="Core\OrgApi.cs" />
     <Compile Include="Core\ClassRoomApi.cs" />
     <Compile Include="Core\DisciplineApi.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="DBContext\FatherContext.cs" />
     <Compile Include="DBContext\SessionContext.cs" />
     <Compile Include="DBContext\UserContext.cs" />
+    <Compile Include="Interfaces\IClass.cs" />
     <Compile Include="Interfaces\IOrg.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="DisciplineBL.cs" />
@@ -112,6 +115,18 @@
     <Compile Include="Migrations\202404211100479_UserRole Change.cs" />
     <Compile Include="Migrations\202404211100479_UserRole Change.Designer.cs">
       <DependentUpon>202404211100479_UserRole Change.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405162112333_classesConfirm.cs" />
+    <Compile Include="Migrations\202405162112333_classesConfirm.Designer.cs">
+      <DependentUpon>202405162112333_classesConfirm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405242120400_conflictIntegration.cs" />
+    <Compile Include="Migrations\202405242120400_conflictIntegration.Designer.cs">
+      <DependentUpon>202405242120400_conflictIntegration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405261912425_conflictsIntegration.cs" />
+    <Compile Include="Migrations\202405261912425_conflictsIntegration.Designer.cs">
+      <DependentUpon>202405261912425_conflictsIntegration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrgBL.cs" />
@@ -139,6 +154,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202404211100479_UserRole Change.resx">
       <DependentUpon>202404211100479_UserRole Change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405162112333_classesConfirm.resx">
+      <DependentUpon>202405162112333_classesConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405242120400_conflictIntegration.resx">
+      <DependentUpon>202405242120400_conflictIntegration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405261912425_conflictsIntegration.resx">
+      <DependentUpon>202405261912425_conflictsIntegration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

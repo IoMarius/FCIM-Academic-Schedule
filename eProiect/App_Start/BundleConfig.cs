@@ -235,6 +235,10 @@ namespace eProiect.App_Start
             bundles.Add(new Bundle("~/bundles/pages/UserDisciplineJavaScript.js").Include(
             "~/Content/themes/Admin/UserDiscipline/UserDisciplineJavaScript.js"));
 
+            //------------------PENDING-CLASSES-------
+
+            bundles.Add(new Bundle("~/bundles/pending-classes/js").Include(
+            "~/Vendor/assets/js/pending-classes.js"));
         }
     }
 

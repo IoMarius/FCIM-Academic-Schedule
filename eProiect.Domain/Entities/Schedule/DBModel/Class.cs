@@ -45,5 +45,9 @@ namespace eProiect.Domain.Entities.Schedule.DBModel
         [Required]
         [DefaultValue(ClassFrequency.WEEKLY)]
         public ClassFrequency Frequency { get; set; }
+
+        [Required]
+        [DefaultValue(false)]
+        public bool IsConfirmed { get; set; }
     }
 }

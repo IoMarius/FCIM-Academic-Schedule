@@ -5,11 +5,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="#">
     <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="#">
     <!-- Favicon icon -->
+<<<<<<< HEAD
 
     <link rel="icon" href="~/Vendor/assets/images/favicon.ico" type="image/x-icon">
 
@@ -46,6 +48,35 @@
 
 
 
+=======
+    <
+    <link rel="icon" href="~/Vendor/assets/images/favicon.ico" type="image/x-icon">
+    @*  Google font*@
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+
+    @Styles.Render("~/bundles/bootstrap/css")
+
+    @Styles.Render("~/bundles/themify-icons/css1")
+
+    @Styles.Render("~/bundles/ico-font/css2")
+
+    @Styles.Render("~/bundles/menu-search/css3")
+
+    @Styles.Render("~/bundles/style/css4")
+    @Styles.Render("~/bundles/mCustomScrollbar/css5")
+
+
+    @Styles.Render("~/bundles/schedule-table/css")
+    @Styles.Render("~/bundles/navbar-user-styles/css");
+
+    @Styles.Render("~/bundles/j-pro-modern/css");
+
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+
+
+>>>>>>> classes-confirm-backend
 
 </head>
 <body>
@@ -115,19 +146,19 @@
     @Scripts.Render("~/bundles/i18next/js")
     @Scripts.Render("~/bundles/i18next-xhr-backend/js")
     @Scripts.Render("~/bundles/i18next-browser-languagedetector/js")
-
     @Scripts.Render("~/bundles/jquery-i18next/js")
-    @Scripts.Render("~/bundles/pages/dashboard")
-
     @Scripts.Render("~/bundles/pcoded/js")
+
     @Scripts.Render("~/bundles/demo-12/js")
-
     @Scripts.Render("~/bundles/mCustomScrollbar/js")
+
     @Scripts.Render("~/bundles/script/js")
-
     @Scripts.Render("~/bundles/CheckValues/js")
-    @Scripts.Render("~/bundles/SendPagesNewValues/js")
 
+    @Scripts.Render("~/bundles/SendPagesNewValues/js")
+    @Scripts.Render("~/bundles/pending-classes/js");
+
+    @{
 
     @{
 
@@ -222,6 +253,30 @@
 
                             if (firstRow) {
                                 var userCell = $('<td rowspan="' + rowspan + '">');
+        if (Model.AcademicGroupsDataList != null)
+        {
+
+            @Scripts.Render("~/bundles/edittablesAG/js")
+            @Scripts.Render("~/bundles/editableAG/js")
+        }
+        else if (Model.CassRoomsDataList != null)
+        {
+            @Scripts.Render("~/bundles/editableCR/js")
+            @Scripts.Render("~/bundles/edittablesCR/js")
+
+        }
+        else if (Model.DisciplinesDataList != null)
+        {
+            @Scripts.Render("~/bundles/edittablesD/js")
+            @Scripts.Render("~/bundles/editableD/js")
+        }
+        else if (Model.UDataList != null)
+        {
+            @Scripts.Render("~/bundles/edittablesU/js")
+            @Scripts.Render("~/bundles/editableU/js")
+        }
+
+    }
 
 
                                 var nameDiv = $('<div class="userDisciline-cell-div-name">').text(userName);

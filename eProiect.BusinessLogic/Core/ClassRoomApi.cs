@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eProiect.Domain.Entities.Schedule;
 
 namespace eProiect.BusinessLogic.Core
 {
@@ -174,5 +175,60 @@ namespace eProiect.BusinessLogic.Core
                     Status = true
                };
           }
-     }
+          internal List<ClassRoom> GetClassroomsFreeAtTime(FreeClassroomsRequest data)
+        {
+            //determine end time by startime + 01:30*span $$ exception for pausa del masa span 2.
+            TimeSpan endTime;
+            if (data.Span == 2)
+            {
+                if (data.StartTime == new TimeSpan(11, 30, 0))
+                    endTime = data.StartTime + new TimeSpan(3, 30, 0);
+                else
+                    endTime = data.StartTime + new TimeSpan(3, 15, 0);
+            }
+            else
+            {
+                endTime = data.StartTime + new TimeSpan(1, 30, 0);
+            }
+
+            List<ClassRoom> freeClassrooms = new List<ClassRoom>();
+
+            using (var db = new UserContext())
+            {
+
+                freeClassrooms = db.ClassRooms
+                    .Where(cl => cl.Floor == data.Floor)
+                    .Except(
+                        db.Classes
+                            .Where(cl =>
+                                cl.ClassRoom.Floor == data.Floor &&
+                                cl.Frequency == data.Frequency &&
+                                cl.WeekDay.Id == data.WeekdayId &&
+                                ((cl.StartTime >= data.StartTime) || (cl.EndTime <= endTime))
+                            )
+                            .Select(cl => cl.ClassRoom)
+                            .Distinct()
+                        )
+                    .ToList();               
+            }
+
+            return freeClassrooms;
+        }
+          
+        internal List<ClassRoom> GetClassroomsByFloor(int floor)
+        {
+            try
+            {
+                using(var db = new UserContext())
+                {
+                    var classrooms = db.ClassRooms.Where(cr => cr.Floor == floor).ToList();
+                    return classrooms;
+                }
+            }            
+            catch (Exception ex) {
+                System.Diagnostics.Debug.WriteLine($"GetClassrooms(Class) Exception caught:{ex.Message}");
+                return null;
+            }
+        }
+    }
 }

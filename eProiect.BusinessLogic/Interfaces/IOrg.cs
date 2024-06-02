@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eProiect.Domain.Entities.Academic;
 
 namespace eProiect.BusinessLogic.Interfaces
 {
@@ -28,36 +29,12 @@ namespace eProiect.BusinessLogic.Interfaces
         UserSchedule GetScheduleById(int id);
 
         /// <summary>
-        /// Queries the database table "AcademicGroups" selecting all
-        /// academic groups available.
-        /// </summary>
-        /// <returns>List of class instance "AcademicGroup".</returns>
-        List<AcademicGroup> GetAcadGroupsList();
-
-        /// <summary>
-        /// (Overloaded "GetAcadGroupsList()")
-        /// Queries the database table "AcademicGroups" selecting all
-        /// academic groups of a coresponding year.
-        /// </summary>
-        /// <param name="year">Academic group year</param>
-        /// <returns></returns>
-        List<AcademicGroup> GetAcadGroupsList(int year);
-
-        /// <summary>
         /// Queries the database table "UserDisciplines" for the disciplines
         /// linked to the user.
         /// </summary>
         /// <param name="id"></param>
         /// <returns>List of instances of "Discipline" class</returns>
         List<Discipline> GetDisciplinesById(int id);
-
-        /// <summary>
-        /// Queries the database table "Classrooms" for free classrooms at
-        /// given parameters(weekday, time, span, frequency);
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        List<ClassRoom> GetFreeClassroomsByFloorAndTime(FreeClassroomsRequest data);
 
         /// <summary>
         /// Queries the database table "UserDisciplines" for "Types" of disciplines
@@ -69,57 +46,11 @@ namespace eProiect.BusinessLogic.Interfaces
         List<ClassType> GetTypesByDisciplineForUser(int disciplineId, int userId);
 
         /// <summary>
-        /// Queries the database table "Classes" for a single class
-        /// with the given id.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Returns an instance of "Class"</returns>
-        Class GetClassById(int id);
-
-        /// <summary>
-        /// Adds a new entry in the table "Classes".
-        /// </summary>
-        /// <param name="newClass"></param>
-        /// <returns>Status of the action.</returns>
-        ActionResponse AddNewClass(Class newClass);
-
-
-        /// <summary>
-        /// Edit an existing entry from table "Classses"
-        /// where modifiedClasss.Id is met.
-        /// </summary>
-        /// <param name="modifiedClasss"></param>
-        /// <returns>Status of the action.</returnsa>
-        ActionResponse EditExistingClass(Class modifiedClasss);
-
-        /// <summary>
-        /// Delete records from "Classes" table by Id.
-        /// </summary>
-        /// <param name="id">Existing "Class" Id</param>
-        /// <returns>ActionResponse</returns>
-        ActionResponse DeleteClassById(int id);
-
-        /// <summary>
-        /// Used for getting all available classes for an academic group
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>List of Class instances</returns>
-        List<Class> GetAcademicGroupClasses(int id);
-
-
-        /// <summary>
         /// Returns all users from database with level==1
         /// teacher level. Excluding sensitive information.
         /// </summary>
         /// <returns></returns>
         List<User> GetTeacherUsers();
-
-        /// <summary>
-        /// Used for getting all classes of a user from classes table
-        /// </summary>
-        /// <param name="id">User Id</param>
-        /// <returns>List of classes</returns>
-        List<Class> GetUserClasses(int id);
 
         /// <summary>
         /// Used for even odd lessons in schedule

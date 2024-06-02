@@ -188,5 +188,33 @@ namespace eProiect.BusinessLogic.Core
                     Status = true
                };
           }
-     }
+
+            internal List<AcademicGroup> GetAcademicGroupsList()
+            {
+                List<AcademicGroup> groupList;
+                using (var db = new UserContext())
+                {
+                    groupList = db.AcademicGroups.ToList();
+                }
+                if (groupList == null)
+                    return null;
+
+                return groupList;
+            }
+
+            internal List<AcademicGroup> GetAcademicGroupsList(int year)
+            {
+                List<AcademicGroup> groupList;
+                using (var db = new UserContext())
+                {
+                    groupList = db.AcademicGroups
+                        .Where(a => a.Year == year)
+                        .ToList();
+                }
+                if (groupList == null)
+                    return null;
+
+                return groupList;
+            }
+    }
 }

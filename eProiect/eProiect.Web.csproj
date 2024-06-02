@@ -981,6 +981,7 @@
     <Content Include="Vendor\assets\js\modalEffects.js" />
     <Content Include="Vendor\assets\js\owl-custom.js" />
     <Content Include="Vendor\assets\js\pcoded.min.js" />
+    <Content Include="Vendor\assets\js\pending-classes.js" />
     <Content Include="Vendor\assets\js\rating.js" />
     <Content Include="Vendor\assets\js\script.js" />
     <Content Include="Vendor\assets\js\script.min.js" />
@@ -6085,7 +6086,6 @@
     <Content Include="Views\Login\LoginError.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Schedule.cshtml" />
-    <Content Include="Views\Home\AddLesson.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
     <Content Include="Views\Shared\_Layout _Admin.cshtml" />
     <Content Include="Views\Admin\Disciplines.cshtml" />
@@ -6100,6 +6100,7 @@
     <Content Include="Views\Shared\_GuestLayout.cshtml" />
     <Content Include="Views\Shared\_GuestFooter.cshtml" />
     <Content Include="Views\Admin\UserDiscipline.cshtml" />
+    <Content Include="Views\Admin\PendingClasses.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

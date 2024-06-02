@@ -15,6 +15,7 @@ using eProiect.Domain.Entities.User.DBModel;
 using eProiect.Domain.Entities.Academic.DBModel;
 using AutoMapper.Configuration.Annotations;
 using System.Runtime.CompilerServices;
+using eProiect.Domain.Entities.Schedule.DBModel;
 
 namespace eProiect.Controllers
 {
@@ -904,6 +905,7 @@ namespace eProiect.Controllers
             }
         }
 
+<<<<<<< HEAD
 
         [HttpGet]
         [UserMode(UserRole.admin)]
@@ -922,3 +924,51 @@ namespace eProiect.Controllers
         }
     }
 }
+=======
+          [UserMode(UserRole.admin)]
+          public ActionResult PendingClasses()
+          {
+                var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+
+                GeneralViewData viewData = new GeneralViewData
+                {
+                    UDataList = new List<UserEsentialData>()
+                };
+                UserEsentialData UData = new UserEsentialData
+                {
+                    Name = loggedInUser.Name,
+                    Surname = loggedInUser.Surname,
+                    CreatedDate = loggedInUser.CreatedDate,
+                    Level = loggedInUser.Level
+                };
+                viewData.UData = UData;
+
+                return View(viewData);
+          }
+
+            [HttpPost]
+        [UserMode(UserRole.admin)]
+        public ActionResult ConfirmPendingClass(int classId)
+            {
+                var result = _class.ConfirmPendingClass(classId);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+          [HttpGet]
+          [UserMode(UserRole.admin)]
+          public ActionResult GetPendingClasses()
+          {
+            var pendingClasses = _class.GetPendingClasses();
+            return Json(pendingClasses, JsonRequestBehavior.AllowGet);
+          }
+
+          [HttpGet]
+          [UserMode(UserRole.admin)]          
+          public ActionResult GetConflictingClasses()
+          {
+            var conflicts = _class.GetPendingConflictingClasses();
+            return Json(conflicts, JsonRequestBehavior.AllowGet);
+          }
+     }
+}
+>>>>>>> classes-confirm-backend

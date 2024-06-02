@@ -15,5 +15,21 @@ namespace eProiect.BusinessLogic.Interfaces
           ActionResponse AddNewAcademicGroups(AcademicGroup academicGroup);
           ActionResponse EditAcademicGroups(AcademicGroup updateAcademicGroup);
           ActionResponse DeleteAcademicGroups(int Id);
-     }
+
+        /// <summary>
+        /// Queries the database table "AcademicGroups" selecting all
+        /// academic groups available.
+        /// </summary>
+        /// <returns>List of class instance "AcademicGroup".</returns>
+        List<AcademicGroup> GetAcadGroupsList();
+
+        /// <summary>
+        /// (Overloaded "GetAcadGroupsList()")
+        /// Queries the database table "AcademicGroups" selecting all
+        /// academic groups of a coresponding year.
+        /// </summary>
+        /// <param name="year">Academic group year</param>
+        /// <returns></returns>
+        List<AcademicGroup> GetAcadGroupsList(int year);
+    }
 }
