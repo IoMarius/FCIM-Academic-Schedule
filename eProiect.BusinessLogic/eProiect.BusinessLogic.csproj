@@ -128,6 +128,14 @@
     <Compile Include="Migrations\202405261912425_conflictsIntegration.Designer.cs">
       <DependentUpon>202405261912425_conflictsIntegration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202406051240210_Add_UserResetTable.cs" />
+    <Compile Include="Migrations\202406051240210_Add_UserResetTable.designer.cs">
+      <DependentUpon>202406051240210_Add_UserResetTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202406051243443_Add_UserResetTable_test1.cs" />
+    <Compile Include="Migrations\202406051243443_Add_UserResetTable_test1.designer.cs">
+      <DependentUpon>202406051243443_Add_UserResetTable_test1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrgBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -163,6 +171,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202405261912425_conflictsIntegration.resx">
       <DependentUpon>202405261912425_conflictsIntegration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202406051240210_Add_UserResetTable.resx">
+      <DependentUpon>202406051240210_Add_UserResetTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202406051243443_Add_UserResetTable_test1.resx">
+      <DependentUpon>202406051243443_Add_UserResetTable_test1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -19,7 +19,7 @@
             if (Model.UData.Level == UserRole.admin)
             {
                 <li><div class="sidebar-category">Management</div></li>
-              
+
                 <li class="sidebar-option-li">
                     <a href="@Url.Action("PendingClasses", "Admin")" class="fs-20">
                         <span class="icon-margin pcoded-micon reset-pcoded-micon"><i class="icofont icofont-list vertical-al-mid"></i></span>
@@ -53,6 +53,15 @@
 
                     </a>
                 </li>
+
+                <li class="sidebar-option-li ">
+                    <a href="@Url.Action("UserDiscipline", "Admin")" class="fs-20">
+                        <span class="icon-margin pcoded-micon reset-pcoded-micon"><i class="icofont icofont-users-alt-4 vertical-al-mid"></i></span>
+                        <span class="fs-17" data-i18n="nav.foo-table.main">Profesorii la discipline</span>
+
+                    </a>
+                </li>
+
                 <li><div class="sidebar-category">Adăugare</div></li>
                 <li class=" sidebar-option-li">
                     <a href="@Url.Action("AddUser", "Admin")" class="fs-20">
