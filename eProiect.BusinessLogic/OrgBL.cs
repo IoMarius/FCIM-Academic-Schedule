@@ -43,5 +43,9 @@ namespace eProiect.BusinessLogic
             return GetAllTeacherUsers();
         }
 
+        ActionResponse IOrg.SubscribeUserToNewsletter(SubscribeUserRequest data)
+        {
+            return SubscribeUserToNewsletterAction(data);
+        }
     }
 }

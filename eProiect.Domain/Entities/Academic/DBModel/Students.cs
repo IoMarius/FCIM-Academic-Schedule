@@ -21,9 +21,7 @@ namespace eProiect.Domain.Entities.Academic.DBModel
 
           [Required]
           [Display(Name = "Email Address")]
-          [StringLength(30)]
+          [StringLength(90)]
           public string Email { get; set; }
-
-
      }
 }

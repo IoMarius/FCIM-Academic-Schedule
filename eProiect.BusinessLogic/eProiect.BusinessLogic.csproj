@@ -128,6 +128,10 @@
     <Compile Include="Migrations\202405261912425_conflictsIntegration.Designer.cs">
       <DependentUpon>202405261912425_conflictsIntegration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202406051102274_UpdateStudents.cs" />
+    <Compile Include="Migrations\202406051102274_UpdateStudents.Designer.cs">
+      <DependentUpon>202406051102274_UpdateStudents.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrgBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -163,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202405261912425_conflictsIntegration.resx">
       <DependentUpon>202405261912425_conflictsIntegration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202406051102274_UpdateStudents.resx">
+      <DependentUpon>202406051102274_UpdateStudents.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

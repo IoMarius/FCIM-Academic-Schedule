@@ -550,6 +550,12 @@ namespace eProiect.Controllers
                     JsonRequestBehavior.AllowGet
                 );
         }
-        
+
+        [HttpPost]
+        public ActionResult SubscribeUserToNewsletter(SubscribeUserRequest data)
+        {
+            var response = _organizational.SubscribeUserToNewsletter(data);
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
      }
 }

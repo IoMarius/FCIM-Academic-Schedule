@@ -11,11 +11,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eProiect.BusinessLogic.Migrations;
+using eProiect.Helper;
 
 namespace eProiect.BusinessLogic.Core
 {
     public class ClassApi
     {
+        private void NotifyUsersAboutChange(int groupId)
+        {
+            using (var db = new UserContext())
+            {
+                var academicGroup = db.AcademicGroups
+                .FirstOrDefault(ag => ag.Id == groupId);
+
+                var emails =  db.Students
+                    .Where(st => st.AcademicGroupId == groupId)
+                    .Select(st => st.Email)
+                    .ToList();
+
+                var subNotifier = new SubscriberNotifier();
+                subNotifier.NotifySubscribersAboutGroupChange(
+                    emails,
+                    academicGroup.Name
+                );
+            }
+        }
+
         internal ActionResponse EditClass(Class editedClass)
         {
             if (editedClass == null)
@@ -183,28 +204,8 @@ namespace eProiect.BusinessLogic.Core
                 };
             }
             
-            /*List<Class> conflicts;*/
-
             try
-            {
-                //get conflicts
-                /*using (var db = new UserContext())
-                {
-                    conflicts = db.Classes
-                        .Include(c => c.UserDiscipline)
-                        .Include(c => c.WeekDay)
-                        .Include(c => c.UserDiscipline.User)
-                        .Include(c => c.UserDiscipline.Type)
-                        .Include(c => c.AcademicGroup)
-                        .Where(c =>
-                            ((c.UserDiscipline.User.Id == newClass.UserDiscipline.User.Id) || (c.AcademicGroupId == newClass.AcademicGroup.Id)) &&
-                            c.WeekDay.Id == newClass.WeekDay.Id &&
-                            c.IsConfirmed == true &&
-                            ((c.StartTime >= newClass.StartTime) || (c.EndTime <= newClass.EndTime))
-                        )
-                        .ToList();
-                }*/
-
+            {             
                 //inserting the new class in the database.
                 using (var db = new UserContext())
                 {
@@ -246,12 +247,13 @@ namespace eProiect.BusinessLogic.Core
                     }
                     else
                     {
-                        return new ActionResponse { Status = false, ActionStatusMsg = "Success" };
+                        return new ActionResponse { Status = false, ActionStatusMsg = "Internal error" };
                     }
 
                 }
 
-                 
+                
+
                 return new ActionResponse { Status = true, ActionStatusMsg="Success"};
             }
             catch(Exception ex)
@@ -566,6 +568,8 @@ namespace eProiect.BusinessLogic.Core
                         cls.IsConfirmed = true;
                         db.SaveChanges();
 
+                        NotifyUsersAboutChange(cls.AcademicGroupId);
+                        
                         return new ActionResponse { Status = true };
                     }
                     else

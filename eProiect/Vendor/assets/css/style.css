@@ -259,6 +259,18 @@ body {
     transition: background 0.5s ease-in-out;
 }
 
+.h-0{
+    height:0;
+}
+
+.color-green {
+    color: #00b800;
+}
+
+.color-red{
+    color:red;
+}
+
 .f-s-18{
     font-size:18px !important;
 }
