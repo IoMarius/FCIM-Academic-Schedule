@@ -283,7 +283,7 @@ namespace eProiect.BusinessLogic.Core
         }
 
         internal List<Class> GetUserClassesById(int id)
-        {
+        {                        
             var classes = new List<Class>();
             using (var db = new UserContext())
             {

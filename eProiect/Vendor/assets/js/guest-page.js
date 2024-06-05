@@ -80,6 +80,11 @@
     });
 });
 
+async function subscribeToNewsletter() {
+    console.error($('#emailInputField'));
+    
+}
+
 function cleanTable() {
     $('.table-cell-wrapper').empty();
     $('.table-cell-wrapper').addClass('table-empty-cell-hiddenmobile');
@@ -181,7 +186,6 @@ function loadAcademicGroupClasses(groupId) {
         }
     });
 }
-
 
 function getTimeDiff(sHour, sMinute, eHour, eMinute) {
     const startTime = new Date(2024, 4, 11, sHour, sMinute);

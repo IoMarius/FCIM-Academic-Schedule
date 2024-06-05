@@ -127,16 +127,16 @@ namespace eProiect.BusinessLogic.Core
         {
             Session session;
             User currentUser;
-
+            
             using (var db = new SessionContext())
             {
                 //checking if the cookie exists in the database and it has not expired yet.
                 session = db.Sessions.FirstOrDefault(s => s.CookieString == cookieString && s.ExpireTime > DateTime.Now);
             }
 
-            if (session == null)
+            if (session == null)                
                 return null;
-
+            
             using (var db = new UserContext())
             {
                 //query existing users and identify to which the email belongs from the cookies table.

@@ -15,6 +15,7 @@ namespace eProiect.Domain.Entities.Schedule.DBModel
 
     public class Class
     {
+
         [Key]
         [Index(IsUnique = true)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,7 +23,7 @@ namespace eProiect.Domain.Entities.Schedule.DBModel
 
         [Required]
         public int UserDisciplineId {  get; set; }
-        public UserDiscipline UserDiscipline { get; set; }
+        public UserDiscipline UserDiscipline { get; set; }        
 
         [Required]
         public int AcademicGroupId { get; set; }
