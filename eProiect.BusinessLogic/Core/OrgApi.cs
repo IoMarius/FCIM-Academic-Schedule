@@ -15,6 +15,7 @@ using System.Data.Entity;
 using System.Security;
 using System.Net.Security;
 using System.Data.Entity.Infrastructure;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace eProiect.BusinessLogic.Core
@@ -117,6 +118,56 @@ namespace eProiect.BusinessLogic.Core
                     .ToList();
             }
             return users;
+        }
+
+        internal ActionResponse SubscribeUserToNewsletterAction(SubscribeUserRequest data)
+        {
+            var EmailValid = new EmailAddressAttribute();
+            
+            if (!EmailValid.IsValid(data.GuestEmail))
+            {
+                return new ActionResponse() { Status = false, ActionStatusMsg = "Adresă email eronată" };
+            }
+            if(data.GuestEmail == null)
+            {
+                return new ActionResponse() { Status = false, ActionStatusMsg = "Introduceți adresa email" };
+            }
+            if(data.GuestEmail.Length > 90)
+            {
+                return new ActionResponse() { Status = false, ActionStatusMsg = "Adresa email depășește limita de lungime(90 caractere)." };
+            }
+            
+
+            try
+            {
+                using (var db = new UserContext())
+                {
+                    var subscriber = db.Students.FirstOrDefault(s => s.AcademicGroupId == data.AcademicGroupId && s.Email == data.GuestEmail);
+
+                    if (subscriber != null)
+                    {
+                        return new ActionResponse() { Status = false, ActionStatusMsg = "Deja sunteți abonat" };
+                    }
+                    else
+                    {
+                        var newStudent = new Students
+                        {
+                            AcademicGroupId = data.AcademicGroupId,
+                            Email = data.GuestEmail,
+                        };
+
+                        db.Students.Add(newStudent);                                               
+                        db.SaveChanges();
+
+                        return new ActionResponse() { Status = true, ActionStatusMsg = "Success" };
+                    }
+                }            
+            }catch(Exception ex)
+            {
+                System.Diagnostics.Debug
+                    .WriteLine($"SubscribeUserToNewsletter(Email:{data.GuestEmail}|GroupId:{data.AcademicGroupId}):{ex.Message}. Details: {ex.InnerException}");
+                return new ActionResponse() { Status = false, ActionStatusMsg = "Internal error" };
+            }
         }
 
         internal bool IsEvenWeek()

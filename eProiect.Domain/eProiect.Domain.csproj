@@ -101,6 +101,7 @@
     <Compile Include="Entities\User\DBModel\Session.cs" />
     <Compile Include="Entities\User\DBModel\UserCredential.cs" />
     <Compile Include="Entities\User\DBModel\UserDiscipline.cs" />
+    <Compile Include="Entities\User\SubscribeUserRequest.cs" />
     <Compile Include="Entities\User\UserRole.cs" />
     <Compile Include="Entities\User\DBModel\User.cs" />
     <Compile Include="Entities\User\ULoginData.cs" />

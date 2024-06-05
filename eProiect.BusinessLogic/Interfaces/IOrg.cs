@@ -57,5 +57,13 @@ namespace eProiect.BusinessLogic.Interfaces
         /// </summary>
         /// <returns>Self explainatory</returns>
         bool IsCurrentWeekEven();
+
+        /// <summary>
+        /// Subscribe an user to email notifications when the desired academic group 
+        /// schedule is being modified
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        ActionResponse SubscribeUserToNewsletter(SubscribeUserRequest data);
     }
 }

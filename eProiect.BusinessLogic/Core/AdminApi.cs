@@ -42,7 +42,8 @@ namespace eProiect.BusinessLogic.Core
 
 
                var _password = Membership.GeneratePassword(12, 0);
-               var mesages = "This is your password " + _password;
+               var mesages = $"Salut {newUserData.Name} {newUserData.Surname},\n Parola de acces la platforma orar FCIM: {_password}";
+
                var newCredentials = new UserCredential
                {
                     Email = newUserData.Email,

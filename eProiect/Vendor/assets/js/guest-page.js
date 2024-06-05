@@ -81,8 +81,43 @@
 });
 
 async function subscribeToNewsletter() {
-    console.error($('#emailInputField'));
-    
+
+    const email = $('#emailInputField').val();
+    const groupId = $('#academicGroupSelector').find(':selected').val();
+
+    var request = {
+        GuestEmail: email,
+        AcademicGroupId: groupId
+    };
+
+    $.ajax({
+        url: "/Home/SubscribeUserToNewsletter",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify( { data: request }),
+        success: function (respone) {
+            responseBlock = $('<p></p>').text(respone.ActionStatusMsg);
+
+            if (respone.Status == true) {
+                responseBlock.addClass('color-green');
+                $('#emailInputField').val("");
+            } else {
+                responseBlock.addClass('color-red');                                                
+            }
+
+            $('#subscribeStatusMessage').empty().append(
+                responseBlock
+            );
+
+            setTimeout(function () { $('#subscribeStatusMessage').empty() }, 2000);
+        },
+
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error("AJAX Error:", textStatus, errorThrown);
+            console.error("Full jqXHR object:", jqXHR);
+        }
+    });
 }
 
 function cleanTable() {
