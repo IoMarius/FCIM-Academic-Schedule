@@ -25,15 +25,15 @@ namespace eProiect.Controllers
         private readonly IAdmin _admin;
         private readonly IDiscipline _discipline;
         private readonly IUserDiscipline _userDiscipline;
-        private readonly IAcademicGroup _academicGroup;
-        private readonly IClassRoom _classRoom;
+        /*private readonly IAcademicGroup _academicGroup;*/
+       /* private readonly IClassRoom _classRoom;*/
 
         public AdminController()
         {
             var bl = new BusinessLogic.BuissinesLogic();
             _admin = bl.GetAdminBL();
-            _academicGroup = bl.GetAcademicGroupBL();
-            _classRoom = bl.GetClassRoomBL();
+           /* _academicGroup = bl.GetAcademicGroupBL();*/
+            /*_classRoom = bl.GetClassRoomBL();*/
             _discipline = bl.GetDisciplineBL();
             _userDiscipline = bl.GetUserDisciplineBL();
         }

@@ -383,7 +383,7 @@ namespace eProiect.Controllers
                 return Json(groupList);
             }
 
-            groupList = _academicGrp.GetAcadGroupsList(year);
+            groupList = _academicGroup.GetAcadGroupsList(year);
             return Json(groupList, JsonRequestBehavior.AllowGet);
         }
 
@@ -398,7 +398,7 @@ namespace eProiect.Controllers
             }
             /* var freeClassrooms = _organizational.GetFreeClassroomsByFloor(floor);
              return Json(freeClassrooms, JsonRequestBehavior.AllowGet);*/
-            var freeClassrooms = _classroom.GetFreeClassroomsByFloorAndTime(
+            var freeClassrooms = _classRoom.GetFreeClassroomsByFloorAndTime(
                     new FreeClassroomsRequest()
                     {
                         Floor=requestData.Floor,
@@ -416,7 +416,7 @@ namespace eProiect.Controllers
         [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetClassRoomsByFloor(int floor)
         {
-            var classrooms = _classroom.GetClassRoomsByFloor(floor);
+            var classrooms = _classRoom.GetClassRoomsByFloor(floor);
             return Json(classrooms, JsonRequestBehavior.AllowGet);
         }
 

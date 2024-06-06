@@ -14,8 +14,8 @@ namespace eProiect.Controllers
         protected readonly ISession _session;
         protected readonly IOrg _organizational;
         protected readonly IClass _class;
-        protected readonly IAcademicGroup _academicGrp;
-        protected readonly IClassRoom _classroom;
+        protected readonly IAcademicGroup _academicGroup;
+        protected readonly IClassRoom _classRoom;
 
         public BaseController()
         {
@@ -23,8 +23,8 @@ namespace eProiect.Controllers
             _session=bl.GetSessionBL();
             _organizational=bl.GetOrgBl();
             _class=bl.GetClassBL();
-            _academicGrp=bl.GetAcademicGroupBL();
-            _classroom=bl.GetClassRoomBL(); 
+            _academicGroup=bl.GetAcademicGroupBL();
+            _classRoom=bl.GetClassRoomBL(); 
         }
 
         public void SessionStatus()

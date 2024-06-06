@@ -254,6 +254,10 @@ body {
     height: fit-content;
 }
 
+.f-s-35 {
+    font-size: 35px !important;
+}
+
 .float-card{
     background: white;
     transition: background 0.5s ease-in-out;
@@ -261,6 +265,10 @@ body {
 
 .h-0{
     height:0;
+}
+
+m-t-20i{
+    margin-top:20px!important;
 }
 
 .color-green {
