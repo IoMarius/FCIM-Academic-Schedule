@@ -252,8 +252,6 @@ namespace eProiect.BusinessLogic.Core
 
                 }
 
-                
-
                 return new ActionResponse { Status = true, ActionStatusMsg="Success"};
             }
             catch(Exception ex)
@@ -264,6 +262,8 @@ namespace eProiect.BusinessLogic.Core
                     ActionStatusMsg = "Internal error"
                 };
             }
+
+
         }
 
         internal Class GetClass(int id)
@@ -325,6 +325,8 @@ namespace eProiect.BusinessLogic.Core
                 db.Classes.Remove(toDelete);
                 db.SaveChanges();
             }
+
+            NotifyUsersAboutChange(toDelete.AcademicGroupId);
 
             return new ActionResponse()
             {
