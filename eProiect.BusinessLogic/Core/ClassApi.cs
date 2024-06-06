@@ -189,6 +189,8 @@ namespace eProiect.BusinessLogic.Core
                 db.SaveChanges();
             }
 
+            NotifyUsersAboutChange(editedClass.AcademicGroupId);
+
             return new ActionResponse() { Status = true, ActionStatusMsg = "Salvat" };
         }
 
