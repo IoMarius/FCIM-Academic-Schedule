@@ -29,6 +29,7 @@ using System.Data.SqlClient;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI.WebControls.WebParts;
+using System.Xml.Schema;
 
 
 namespace eProiect.BusinessLogic.Core
@@ -159,7 +160,92 @@ namespace eProiect.BusinessLogic.Core
             };
 
             return reducedUser;
-        }        
-    }
 
+        }        
+
+        internal ActionResponse SendUserResetPasswordCodeByEmail( string email)
+        {
+
+            Random rnd = new Random();
+
+            var validate = new EmailAddressAttribute();
+            if (email == null || !validate.IsValid(email) ) return new ActionResponse { Status = false, ActionStatusMsg = "Invalide email!" };
+
+            UserResetPassword resetUserPassword;
+            using (var db = new UserContext())
+            {
+
+                if (!db.Users.Any(c => c.Credentials.Email == email))
+                    return new ActionResponse
+                    {
+                        Status = false,
+                        ActionStatusMsg = "User with this email address does not exist."
+                    };
+
+
+                resetUserPassword = new UserResetPassword
+                {
+                    Email = email,
+                    ResetCode = rnd.Next(100000, 999999),
+                    ExpireTime = DateTime.Now.AddMinutes(2)
+                };
+
+                db.UserResetPasswords.Add(resetUserPassword); 
+                db.SaveChanges(); 
+            }
+
+
+            var mesages = "This is your reset password code " + resetUserPassword.ResetCode ;
+            if (!SendEmail.SendEmailToUser(resetUserPassword.Email, "User" , "Reset Password Code for Shedules Platform Account", mesages))
+                return new ActionResponse
+                {
+                    ActionStatusMsg = "The messaging service is temporarily not working or email is wrong!",
+                    Status = false
+                };
+
+
+            return new ActionResponse
+            {
+                Status = true,
+                ActionStatusMsg = "Send Email."
+            };
+        }
+       
+        internal ActionResponse SetNewUserPasswordActionByResetCode( ResetUserPasswordData resetUserPasswordData)
+        {
+            if (resetUserPasswordData == null) return new ActionResponse { Status = false };
+
+            using ( var db = new UserContext())
+            {
+               var validate =  db.UserResetPasswords.Any(c => c.Email == resetUserPasswordData.Email &&
+                c.ResetCode == resetUserPasswordData.ResetCode &&
+                c.ExpireTime > DateTime.Now);
+
+                if (!validate) 
+                    return new ActionResponse
+                    {
+                        Status = false,
+                        ActionStatusMsg = "Error reset password"
+                    };
+                var userCredentials = db.UserCredentials.FirstOrDefault(c => c.Email == resetUserPasswordData.Email);
+                
+                if (userCredentials == null)
+                    return new ActionResponse
+                    {
+                        Status = false,
+                        ActionStatusMsg = "Error reset password"
+                    };
+                userCredentials.Password= LoginHelper.HashGen(resetUserPasswordData.Password);
+                db.SaveChanges();
+            }
+
+            return new ActionResponse
+            {
+                Status = true,
+                ActionStatusMsg = "Password reseted! "
+            };
+
+        }
+
+    }
 }

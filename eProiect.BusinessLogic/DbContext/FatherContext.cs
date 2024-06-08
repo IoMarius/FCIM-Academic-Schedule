@@ -35,6 +35,7 @@ namespace eProiect.BusinessLogic.DBContext
         public virtual DbSet<Students> Students { set; get; }
         public virtual DbSet<AcademicGroup> AcademicGroups { set; get; }
         public virtual DbSet<Session> Sessions { get; set; }
+        public virtual DbSet<UserResetPassword> UserResetPasswords { set; get; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

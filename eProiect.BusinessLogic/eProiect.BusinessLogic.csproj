@@ -139,9 +139,14 @@
       <DependentUpon>202406051243443_Add_UserResetTable_test1.cs</DependentUpon>
     </Compile>
 
+
     <Compile Include="Migrations\202406051102274_UpdateStudents.cs" />
     <Compile Include="Migrations\202406051102274_UpdateStudents.Designer.cs">
       <DependentUpon>202406051102274_UpdateStudents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202406051255594_Add_UserResetTable_test2.cs" />
+    <Compile Include="Migrations\202406051255594_Add_UserResetTable_test2.designer.cs">
+      <DependentUpon>202406051255594_Add_UserResetTable_test2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrgBL.cs" />
@@ -189,8 +194,14 @@
     <EmbeddedResource Include="Migrations\202406051243443_Add_UserResetTable_test1.resx">
       <DependentUpon>202406051243443_Add_UserResetTable_test1.cs</DependentUpon>
     </EmbeddedResource>
+
     <EmbeddedResource Include="Migrations\202406051102274_UpdateStudents.resx">
       <DependentUpon>202406051102274_UpdateStudents.cs</DependentUpon>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Migrations\202406051255594_Add_UserResetTable_test2.resx">
+      <DependentUpon>202406051255594_Add_UserResetTable_test2.cs</DependentUpon>
+
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

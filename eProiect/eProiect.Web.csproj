@@ -6045,6 +6045,7 @@
     <Compile Include="Models\Schedule\ComposedClassInfo.cs" />
     <Compile Include="Models\Schedule\FreeClassroomsMinimalRequest.cs" />
     <Compile Include="Models\Schedule\ScheduleFrame.cs" />
+    <Compile Include="Models\Users\ResetUserPasswordViewModel.cs" />
     <Compile Include="Models\Users\UserDisciplineEsential.cs" />
     <Compile Include="Models\Users\UserEsentialData.cs" />
     <Compile Include="Models\Users\UserLogin.cs" />

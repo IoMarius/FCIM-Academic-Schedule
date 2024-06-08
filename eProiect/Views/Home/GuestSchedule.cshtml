@@ -69,12 +69,18 @@
             <span style="font-weight: 600; font-size: 19px; }">Fii mereu la curent!</span>
             <span>Înscrie-te pentru a primi notificări despre modificarea orarului grupei <span id="newsletter-message-groupname"></span>.</span>
         </div>
-        <div class="newsletter-input-group flex-column">
-            <div class="d-flex">
-                <input id="emailInputField" type="text" class="form-control" placeholder="Email">
-                <button onclick="subscribeToNewsletter()" class="button btn btn-primary guest-login-button">Înscrie-te</button>
-            </div>
+        <div class="newsletter-input-group">
+            <input id="emailInputField" type="text" class="form-control" placeholder="Email">
+            <button onclick="subscribeToNewsletter()" class="button btn btn-primary guest-login-button">Înscrie-te</button>
             <div id="subscribeStatusMessage" class="d-flex h-0 f-w-600"></div>
+            <div>
+                <button id="savePdf"  class="button btn btn-primary guest-login-button" >Descarca PDF</button>
+                <button id="savePng"  class="button btn btn-primary guest-login-button">Descarca PNG</button>
+            </div>
+
         </div>
     </div>
 </div>
+
+"
+"

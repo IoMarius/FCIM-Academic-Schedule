@@ -13,7 +13,7 @@
             <div class="login-card card-block auth-body mr-auto ml-auto">
                 <form class="md-float-material">
 
-                    <div class="auth-box">
+                    <div class="auth-box" id="emailBox" style="display: block;">
                         <div class="row m-b-20">
                             <div class="col-md-12">
                                 <h3 class="text-left">Recover you password</h3>
@@ -21,16 +21,50 @@
                         </div>
                         <p class="text-inverse b-b-default text-right">Back to <a href="@Url.Action("Login", "Login")">Login.</a></p>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Your Email Address">
+                            <input type="text" id="Recover" class="form-control" placeholder="Your Email Address">
                             <span class="md-line"></span>
+                        </div>
+                        <div class="j-row">
+                            <span class="j-error-message" id="error_span" style="align-content: center;height: 48px; display: none; margin: 0px 10px 25px;"></span>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Reset Password</button>
+                                <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" onclick="sendEmail()">Reset Password</button>
                             </div>
                         </div>
 
                     </div>
+
+                    <div class="auth-box" id="codeBox" style="display: none;">
+                        <div class="row m-b-20">
+                            <div class="col-md-12">
+                                <h3 class="text-left">Write code from email</h3>
+                            </div>
+                        </div>
+                        <p class="text-inverse b-b-default text-right">Back to <a href="@Url.Action("Login", "Login")">Login.</a></p>
+                        <div class="input-group">
+                            <input type="text" id="Code" class="form-control" placeholder="Code">
+                            <span class="md-line"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" id="Password" class="form-control" placeholder="Password">
+                            <span class="md-line"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" id="ConfirmPassword" class="form-control" placeholder="Confirm Password">
+                            <span class="md-line"></span>
+                        </div>
+                        <div class="j-row">
+                            <span class="j-error-message" id="errorspan" style="align-content: center;height: 48px; display: none; margin: 0px 10px 25px;"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" onclick="sendNewPassword()">Reset Password</button>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </form>
                 <!-- end of form -->
             </div>
@@ -40,4 +74,4 @@
     </div>
     <!-- end of row -->
 </div>
-<!-- end of container-fluid -->
+<!-- end of container-fluid -->              
