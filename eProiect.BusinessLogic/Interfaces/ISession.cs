@@ -27,6 +27,10 @@ namespace eProiect.BusinessLogic.Interfaces
           HttpCookie GenCookie(string loginCredential);
 
           ReducedUser GetUserByCookie(string cookieString);
+          
+        ActionResponse SendResetPasswordCodeByEmail(string loginEmail);
+
+        ActionResponse SetNewPasswordByResetCode(ResetUserPasswordData resetUserPasswordData);
 
 
      }

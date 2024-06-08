@@ -952,20 +952,58 @@ namespace eProiect.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-          [HttpGet]
-          [UserMode(UserRole.admin)]
-          public ActionResult GetPendingClasses()
-          {
-            var pendingClasses = _class.GetPendingClasses();
-            return Json(pendingClasses, JsonRequestBehavior.AllowGet);
-          }
+        [HttpGet]
+        [UserMode(UserRole.admin)]
+        public ActionResult GetPendingClasses()
+        {
+        var pendingClasses = _class.GetPendingClasses();
+        return Json(pendingClasses, JsonRequestBehavior.AllowGet);
+        }
 
-          [HttpGet]
-          [UserMode(UserRole.admin)]          
-          public ActionResult GetConflictingClasses()
-          {
-            var conflicts = _class.GetPendingConflictingClasses();
-            return Json(conflicts, JsonRequestBehavior.AllowGet);
-          }
+        [HttpGet]
+        [UserMode(UserRole.admin)]          
+        public ActionResult GetConflictingClasses()
+        {
+        var conflicts = _class.GetPendingConflictingClasses();
+        return Json(conflicts, JsonRequestBehavior.AllowGet);
+        }
+
+
+       /* public ActionResult UserProfile()
+        {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            GeneralViewData viewData = new GeneralViewData();
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+            UserEsentialData UData = new UserEsentialData
+            {
+                Name = loggedInUser.Name,
+                Surname = loggedInUser.Surname,
+                CreatedDate = loggedInUser.CreatedDate,
+                Level = loggedInUser.Level
+            };
+            viewData.UData = UData;
+
+            return View(viewData);
+        }
+
+        [HttpGet]
+        [UserMode(UserRole.admin , UserRole.teacher)]
+        public ActionResult GetUserProfileData() {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+
+            
+
+        }*/
      }
 }

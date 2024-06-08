@@ -42,7 +42,8 @@ namespace eProiect.BusinessLogic.DBModel
         public virtual DbSet<ClassType> ClassTypes { set; get; }
         public virtual DbSet<Students> Students { set; get; }
         public virtual DbSet<AcademicGroup> AcademicGroups { set; get; }
-
+        public virtual DbSet<UserResetPassword> UserResetPasswords { set; get; }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ConflictingClass>()

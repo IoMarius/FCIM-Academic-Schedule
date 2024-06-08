@@ -14,7 +14,8 @@
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <!-- Required Fremwork -->
     @Styles.Render("~/bundles/bootstrap/css")
@@ -83,6 +84,57 @@
     @Scripts.Render("~/bundles/mCustomScrollbar/js")
     @Scripts.Render("~/bundles/script/js")
     @Scripts.Render("~/bundles/guest-page/js")
+
+    <script>
+
+        document.getElementById('savePdf').addEventListener('click', function () {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                unit: 'in',
+                format: 'letter',
+                orientation: 'landscape'
+            });
+
+            html2canvas(document.getElementById('divTable')).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const imgProps = doc.getImageProperties(imgData);
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                // Scale down the image by reducing the width and height
+                const scale = 0.75; // Adjust this value to scale the image
+                const scaledWidth = pdfWidth * scale;
+                const scaledHeight = pdfHeight * scale;
+
+                // Center the image in the PDF
+                const xOffset = (pdfWidth - scaledWidth) / 2;
+                const yOffset = (doc.internal.pageSize.getHeight() - scaledHeight) / 2;
+
+                doc.addImage(imgData, 'PNG', xOffset, yOffset, scaledWidth, scaledHeight);
+                doc.save('schedule.pdf');
+            });
+        });
+
+        document.getElementById('savePng').addEventListener('click', function () {
+            html2canvas(document.getElementById('divTable')).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+
+                // Create a link element
+                const link = document.createElement('a');
+                link.href = imgData;
+                link.download = 'schedule.png';
+
+                // Append the link to the body
+                document.body.appendChild(link);
+
+                // Programmatically click the link to trigger the download
+                link.click();
+
+                // Remove the link from the document
+                document.body.removeChild(link);
+            });
+        });
+    </script>
 
 </body>
 </html>

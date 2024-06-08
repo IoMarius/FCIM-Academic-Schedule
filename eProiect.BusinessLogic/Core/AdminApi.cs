@@ -55,7 +55,7 @@ namespace eProiect.BusinessLogic.Core
                     Surname = newUserData.Surname,
                     Level = newUserData.Level,
                     CreatedDate = DateTime.Now,
-                    LastLogin = DateTime.Now,
+                    LastLogin = new DateTime(2000, 1, 1),
                     Credentials = newCredentials
                };
                if (!SendEmail.SendEmailToUser(newUserData.Email, newUserData.Name, "Password for Shedules Platform", mesages)) 
@@ -256,6 +256,17 @@ namespace eProiect.BusinessLogic.Core
             }
             return user;
         }
+
+        /*internal User GetUserProfileById()
+        {
+            var user = new User();
+            using (var db = new UserContext())
+            {
+                user = db.Users.Include(c => c.Credentials)
+            }
+
+
+        }*/
 
     }
 }

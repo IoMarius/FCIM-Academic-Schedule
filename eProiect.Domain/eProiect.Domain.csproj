@@ -95,12 +95,14 @@
     <Compile Include="Entities\Schedule\DBModel\Class.cs" />
     <Compile Include="Entities\Schedule\DBModel\WeekDay.cs" />
     <Compile Include="Entities\Schedule\FreeClassroomRequest.cs" />
+    <Compile Include="Entities\User\DBModel\UserResetPassword.cs" />
     <Compile Include="Entities\User\GroupOfUsers.cs" />
     <Compile Include="Entities\User\NewUserData.cs" />
     <Compile Include="Entities\User\ReducedUser.cs" />
     <Compile Include="Entities\User\DBModel\Session.cs" />
     <Compile Include="Entities\User\DBModel\UserCredential.cs" />
     <Compile Include="Entities\User\DBModel\UserDiscipline.cs" />
+    <Compile Include="Entities\User\ResetUserPasswordData.cs" />
     <Compile Include="Entities\User\UserRole.cs" />
     <Compile Include="Entities\User\DBModel\User.cs" />
     <Compile Include="Entities\User\ULoginData.cs" />
