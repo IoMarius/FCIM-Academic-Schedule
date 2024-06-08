@@ -6101,6 +6101,7 @@
     <Content Include="Views\Shared\_GuestFooter.cshtml" />
     <Content Include="Views\Admin\UserDiscipline.cshtml" />
     <Content Include="Views\Admin\PendingClasses.cshtml" />
+    <Content Include="Views\Admin\TeacherSchedules.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

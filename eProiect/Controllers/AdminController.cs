@@ -237,7 +237,11 @@ namespace eProiect.Controllers
 
 
 
-
+        [UserMode(UserRole.admin)]
+        public ActionResult TeacherSchedules()
+        {
+            return View();
+        }
 
 
         /// <summary>

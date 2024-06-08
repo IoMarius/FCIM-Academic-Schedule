@@ -351,11 +351,17 @@ function highlightConflicts() {
 
     if (new Set(frequencies).size === 1) {
         for (let i = 0; i < activeConflicts.length; i++) {
-            for (let j = i + 1; j < activeConflicts.length; j++) {
+            for (let j = 0; j < activeConflicts.length; j++) {
+                if (i == j) {
+                    continue;
+                }
 
+                console.error(`i:${i}, j:${j}_di:${hours[i]} | dj:${hours[j]}`);
                 //mark hours if days are the same:
                 if (days[i] == days[j]) {
-                    if (hours[i] == hours[j]) {        
+                    if (hours[i] == hours[j]) {      
+                    
+                        
                         missingConflict = false;
                         markConflict(`#modStartimeSelector${$(activeConflicts[i]).attr("value")}`);
                         markConflict(`#modStartimeSelector${$(activeConflicts[j]).attr("value")}`);
