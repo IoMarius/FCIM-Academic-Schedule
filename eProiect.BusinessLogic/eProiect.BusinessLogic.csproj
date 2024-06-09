@@ -107,6 +107,7 @@
     <Compile Include="Interfaces\IAdmin.cs" />
     <Compile Include="Interfaces\IClassRoom.cs" />
     <Compile Include="Interfaces\IDiscipline.cs" />
+    <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Interfaces\IUserDiscipline.cs" />
     <Compile Include="Migrations\202404171310503_UpdateAcademicTeble.cs" />
     <Compile Include="Migrations\202404171310503_UpdateAcademicTeble.Designer.cs">
@@ -148,6 +149,10 @@
     <Compile Include="Migrations\202406051255594_Add_UserResetTable_test2.designer.cs">
       <DependentUpon>202406051255594_Add_UserResetTable_test2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202406081509350_AddBirthdayIntoUserTable.cs" />
+    <Compile Include="Migrations\202406081509350_AddBirthdayIntoUserTable.designer.cs">
+      <DependentUpon>202406081509350_AddBirthdayIntoUserTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrgBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -155,7 +160,7 @@
 
     <Compile Include="SessionBL.cs" />
 
-
+    <Compile Include="UserBL.cs" />
     <Compile Include="UserDisciplineBLL.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +207,9 @@
     <EmbeddedResource Include="Migrations\202406051255594_Add_UserResetTable_test2.resx">
       <DependentUpon>202406051255594_Add_UserResetTable_test2.cs</DependentUpon>
 
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202406081509350_AddBirthdayIntoUserTable.resx">
+      <DependentUpon>202406081509350_AddBirthdayIntoUserTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

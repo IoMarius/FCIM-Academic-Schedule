@@ -104,6 +104,8 @@
     <Compile Include="Entities\User\DBModel\UserDiscipline.cs" />
     <Compile Include="Entities\User\SubscribeUserRequest.cs" />
     <Compile Include="Entities\User\ResetUserPasswordData.cs" />
+    <Compile Include="Entities\User\UserPasswordChange.cs" />
+    <Compile Include="Entities\User\UserProfileData.cs" />
     <Compile Include="Entities\User\UserRole.cs" />
     <Compile Include="Entities\User\DBModel\User.cs" />
     <Compile Include="Entities\User\ULoginData.cs" />

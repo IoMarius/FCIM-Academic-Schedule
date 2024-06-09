@@ -46,6 +46,10 @@ namespace eProiect.BusinessLogic
             return new ClassBL();
         }
 
+          public IUser GetUserBL()
+        {
+            return new UserBL();
+        }
 
      }
 }

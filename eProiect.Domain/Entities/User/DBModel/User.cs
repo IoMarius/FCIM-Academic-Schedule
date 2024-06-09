@@ -27,7 +27,9 @@ namespace eProiect.Domain.Entities.User
         [StringLength(30, MinimumLength =3, ErrorMessage ="Short surname")]
         public string Surname { get; set; }
 
-        
+        [Display(Name="Birthday")]
+        public DateTime Birthday { get; set; }
+       
         [Required]
         public DateTime CreatedDate { get; set; }
 

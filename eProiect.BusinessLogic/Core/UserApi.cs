@@ -34,12 +34,12 @@ using System.Xml.Schema;
 
 namespace eProiect.BusinessLogic.Core
 {
-     public class UserApi
-     {
+    public class UserApi
+    {
 
         internal ActionResponse RLoginUpService(ULoginData data)
         {
-            
+
             if (data.IsGuest)
             {
                 return new ActionResponse { Status = true };
@@ -51,22 +51,22 @@ namespace eProiect.BusinessLogic.Core
             {
                 var pass = LoginHelper.HashGen(data.Password);
 
-                    using (var db = new UserContext())
-                    {
-                         result = db.Users.FirstOrDefault(u => u.Credentials.Email == data.Credential && u.Credentials.Password == pass);
-                    }
+                using (var db = new UserContext())
+                {
+                    result = db.Users.FirstOrDefault(u => u.Credentials.Email == data.Credential && u.Credentials.Password == pass);
+                }
 
-                    if (result == null)
-                    {
-                         System.Diagnostics.Debug.WriteLine("ULoginResp returned status {FALSE}. Incorrect password or username.");
-                         return new ActionResponse { Status = false, ActionStatusMsg = "The username or password is incorrect." };
-                    }
+                if (result == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("ULoginResp returned status {FALSE}. Incorrect password or username.");
+                    return new ActionResponse { Status = false, ActionStatusMsg = "The username or password is incorrect." };
+                }
 
-                using (var todo=new UserContext())
+                using (var todo = new UserContext())
                 {
                     result.LastIp = data.LoginIp;
                     result.LastLogin = data.LoginDateTime;
-                    todo.Entry(result).State= EntityState.Modified;
+                    todo.Entry(result).State = EntityState.Modified;
                     todo.SaveChanges();
                 }
                 //System.Diagnostics.Debug.WriteLine("ULoginResp returned status {TRUE}.");
@@ -80,13 +80,13 @@ namespace eProiect.BusinessLogic.Core
         }
 
         internal HttpCookie Cookie(string loginCredential)
-          {
-               var apiCookie = new HttpCookie("X-KEY")
-               {
-                    Value = CookieBaker.Create(loginCredential)
-               };
+        {
+            var apiCookie = new HttpCookie("X-KEY")
+            {
+                Value = CookieBaker.Create(loginCredential)
+            };
 
-            using (var db = new SessionContext()) 
+            using (var db = new SessionContext())
             {
                 Session curent;
                 var validate = new EmailAddressAttribute();
@@ -99,30 +99,30 @@ namespace eProiect.BusinessLogic.Core
                     curent = (from e in db.Sessions where e.Email == loginCredential select e).FirstOrDefault();
                 }
 
-                    if (curent != null)
+                if (curent != null)
+                {
+                    curent.CookieString = apiCookie.Value;
+                    curent.ExpireTime = DateTime.Now.AddMinutes(60);
+                    using (var todo = new SessionContext())
                     {
-                         curent.CookieString = apiCookie.Value;
-                         curent.ExpireTime = DateTime.Now.AddMinutes(60);
-                         using (var todo = new SessionContext())
-                         {
-                              todo.Entry(curent).State = EntityState.Modified;
-                              todo.SaveChanges();
-                         }
+                        todo.Entry(curent).State = EntityState.Modified;
+                        todo.SaveChanges();
                     }
-                    else
+                }
+                else
+                {
+                    db.Sessions.Add(new Session
                     {
-                         db.Sessions.Add(new Session
-                         {
-                              Email = loginCredential,
-                              CookieString = apiCookie.Value,
-                              ExpireTime = DateTime.Now.AddMinutes(60)
-                         });
-                         db.SaveChanges();
-                    }
-               }
+                        Email = loginCredential,
+                        CookieString = apiCookie.Value,
+                        ExpireTime = DateTime.Now.AddMinutes(60)
+                    });
+                    db.SaveChanges();
+                }
+            }
 
-               return apiCookie;
-          }
+            return apiCookie;
+        }
 
         internal ReducedUser UserByCookie(string cookieString)
         {
@@ -163,13 +163,13 @@ namespace eProiect.BusinessLogic.Core
 
         }        
 
-        internal ActionResponse SendUserResetPasswordCodeByEmail( string email)
+        internal ActionResponse SendUserResetPasswordCodeByEmail(string email)
         {
 
             Random rnd = new Random();
 
             var validate = new EmailAddressAttribute();
-            if (email == null || !validate.IsValid(email) ) return new ActionResponse { Status = false, ActionStatusMsg = "Invalide email!" };
+            if (email == null || !validate.IsValid(email)) return new ActionResponse { Status = false, ActionStatusMsg = "Invalide email!" };
 
             UserResetPassword resetUserPassword;
             using (var db = new UserContext())
@@ -190,13 +190,13 @@ namespace eProiect.BusinessLogic.Core
                     ExpireTime = DateTime.Now.AddMinutes(2)
                 };
 
-                db.UserResetPasswords.Add(resetUserPassword); 
-                db.SaveChanges(); 
+                db.UserResetPasswords.Add(resetUserPassword);
+                db.SaveChanges();
             }
 
 
-            var mesages = "This is your reset password code " + resetUserPassword.ResetCode ;
-            if (!SendEmail.SendEmailToUser(resetUserPassword.Email, "User" , "Reset Password Code for Shedules Platform Account", mesages))
+            var mesages = "This is your reset password code " + resetUserPassword.ResetCode;
+            if (!SendEmail.SendEmailToUser(resetUserPassword.Email, "User", "Reset Password Code for Shedules Platform Account", mesages))
                 return new ActionResponse
                 {
                     ActionStatusMsg = "The messaging service is temporarily not working or email is wrong!",
@@ -210,32 +210,32 @@ namespace eProiect.BusinessLogic.Core
                 ActionStatusMsg = "Send Email."
             };
         }
-       
-        internal ActionResponse SetNewUserPasswordActionByResetCode( ResetUserPasswordData resetUserPasswordData)
+
+        internal ActionResponse SetNewUserPasswordActionByResetCode(ResetUserPasswordData resetUserPasswordData)
         {
             if (resetUserPasswordData == null) return new ActionResponse { Status = false };
 
-            using ( var db = new UserContext())
+            using (var db = new UserContext())
             {
-               var validate =  db.UserResetPasswords.Any(c => c.Email == resetUserPasswordData.Email &&
-                c.ResetCode == resetUserPasswordData.ResetCode &&
-                c.ExpireTime > DateTime.Now);
+                var validate = db.UserResetPasswords.Any(c => c.Email == resetUserPasswordData.Email &&
+                 c.ResetCode == resetUserPasswordData.ResetCode &&
+                 c.ExpireTime > DateTime.Now);
 
-                if (!validate) 
+                if (!validate)
                     return new ActionResponse
                     {
                         Status = false,
                         ActionStatusMsg = "Error reset password"
                     };
                 var userCredentials = db.UserCredentials.FirstOrDefault(c => c.Email == resetUserPasswordData.Email);
-                
+
                 if (userCredentials == null)
                     return new ActionResponse
                     {
                         Status = false,
                         ActionStatusMsg = "Error reset password"
                     };
-                userCredentials.Password= LoginHelper.HashGen(resetUserPasswordData.Password);
+                userCredentials.Password = LoginHelper.HashGen(resetUserPasswordData.Password);
                 db.SaveChanges();
             }
 
@@ -247,5 +247,111 @@ namespace eProiect.BusinessLogic.Core
 
         }
 
+        internal UserProfileData GetUserProfileById(int userId)
+        {
+            UserProfileData userProfile = new UserProfileData();
+            using (var db = new UserContext())
+            {
+                var user = db.Users.Include(c => c.Credentials).FirstOrDefault(c => c.Id == userId);
+
+                if (user != null)
+                {
+                    userProfile.Id = user.Id;
+                    userProfile.Name = user.Name;
+                    userProfile.Surname = user.Surname;
+                    userProfile.Email = user.Credentials.Email;
+                    userProfile.Birthday = user.Birthday;
+
+                }
+            }
+
+            return userProfile;
+
+        }
+
+        internal ActionResponse EditUserPrifileAction(UserProfileData userProfileData)
+        {
+            if (userProfileData == null)
+            {
+                return new ActionResponse
+                {
+                    ActionStatusMsg = "Null parametre user",
+                    Status = false
+                };
+            }
+            if (userProfileData.Birthday == new DateTime(0001, 1, 1))
+            {
+                userProfileData.Birthday = new DateTime(1900, 1, 1);
+            }
+            var validate = new EmailAddressAttribute();
+            if (!validate.IsValid(userProfileData.Email))
+            {
+                return new ActionResponse
+                {
+                    ActionStatusMsg = "Is'n valid Email",
+                    Status = false
+                };
+            }
+
+            try
+            {
+                using (var db = new UserContext())
+                {
+                    var _user = db.Users.Include(u => u.Credentials).FirstOrDefault(u => u.Id == userProfileData.Id);
+                    if (_user == null)
+                    {
+                        return new ActionResponse
+                        {
+                            ActionStatusMsg = "User not found or invalid ID",
+                            Status = false
+                        };
+                    }
+
+                    _user.Name = userProfileData.Name;
+                    _user.Surname = userProfileData.Surname;
+                    _user.Credentials.Email = userProfileData.Email;
+                    _user.Birthday = userProfileData.Birthday;
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ActionResponse
+                {
+                    ActionStatusMsg = $"An error occurred while updating user data: {ex.Message}",
+                    Status = false
+                };
+            }
+
+            return new ActionResponse
+            {
+                ActionStatusMsg = "User data updated successfully",
+                Status = true
+            };
+        }
+
+        internal ActionResponse ChangeUserPasswordAction(UserPasswordChange userPasswordChange)
+        {
+            if (userPasswordChange == null) return new ActionResponse { Status = false, ActionStatusMsg = "Error data" };
+
+            var oldPass = LoginHelper.HashGen(userPasswordChange.OldPassword);
+            var newPass = LoginHelper.HashGen(userPasswordChange.NewPassword);
+
+            using ( var db = new UserContext())
+            {
+                var user = db.Users.Include(c => c.Credentials).FirstOrDefault(c => c.Id == userPasswordChange.UserId);
+                if (user == null) return new ActionResponse { Status = false, ActionStatusMsg = "User dose not exist whit this id" };
+                if (user.Credentials.Password != oldPass ) return new ActionResponse { Status = false, ActionStatusMsg = "User's curent password isn't true" };
+                
+                user.Credentials.Password = newPass;
+                db.SaveChanges();
+            }
+            return new ActionResponse
+            {
+                ActionStatusMsg = "User's password change successfully",
+                Status = true
+            };
+
+        }
     }
 }

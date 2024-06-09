@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_Layout _Admin.cshtml";
+}
+
+<div class="page-header card">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <i class="icofont icofont-justify-all bg-c-green"></i>
+                <div class="d-inline">
+                    <h4>User Profile</h4>
+                    <span>Provilul utilizatorului</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Schedule", "Home")">
+                            <i class="icofont icofont-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#!">User Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-header-text">About Me</h5>
+        <button id="edit-btn" type="button" class="btn btn-sm btn-primary waves-effect waves-light f-right">
+            <i class="icofont icofont-edit"></i>
+        </button>
+    </div>
+    <div class="card-block">
+        <div class="view-info" id="profile" style="">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="general-info">
+                        <div class="row">
+                            <div class="col-lg-12 col-xl-6">
+                                <div class="table-responsive">
+                                    <table class="table m-0">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Name</th>
+                                                <td id="name"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Surname</th>
+                                                <td id="surname"></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- end of table col-lg-6 -->
+                            <div class="col-lg-12 col-xl-6">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Birth Date</th>
+                                                <td id="birthDate"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Email</th>
+                                                <td id="email"></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- end of table col-lg-6 -->
+                        </div>
+                        <!-- end of row -->
+                    </div>
+                    <!-- end of general info -->
+                </div>
+                <!-- end of col-lg-12 -->
+            </div>
+            <!-- end of row -->
+        </div>
+        <!-- end of view-info -->
+        <div class="edit-info" id="edit_profile" style="display: none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="general-info">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="icofont icofont-user"></i></span>
+                                                    <input type="text" class="form-control" placeholder="Name">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="icofont icofont-user"></i></span>
+                                                    <input type="text" class="form-control" placeholder="Surname">
+                                                </div>
+                                            </td>
+                                        </tr>
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- end of table col-lg-6 -->
+                            <div class="col-lg-6">
+                                <table class="table">
+                                    <tbody>
+                                       
+                                        <tr>
+                                            <td>
+                                                
+                                                    <input id="dropper-default" class="form-control" type="date">
+                                                
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="icofont icofont-earth"></i></span>
+                                                    <input type="text" class="form-control" placeholder="Email">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- end of table col-lg-6 -->
+                        </div>
+                        <!-- end of row -->
+                        <div class="text-center">
+                            <a href="#!" id="save-profil" class="btn btn-primary waves-effect waves-light m-r-20">Save</a>
+                            <a href="#!" id="edit-cancel" class="btn btn-default waves-effect">Cancel</a>
+                        </div>
+                    </div>
+                    <!-- end of edit info -->
+                </div>
+                <!-- end of col-lg-12 -->
+            </div>
+            <!-- end of row -->
+        </div>
+        <!-- end of edit-info -->
+    </div>
+    <!-- end of card-block -->
+</div>
