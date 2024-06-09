@@ -390,6 +390,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\themes\schedule-table\schedule-table.js" />
+    <Content Include="Content\themes\Admin\UserProfile.js" />
     <None Include="Properties\PublishProfiles\fcim - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
@@ -6044,6 +6045,7 @@
     <Compile Include="Models\Schedule\ComposedClassInfo.cs" />
     <Compile Include="Models\Schedule\FreeClassroomsMinimalRequest.cs" />
     <Compile Include="Models\Schedule\ScheduleFrame.cs" />
+    <Compile Include="Models\Users\ChangeUserPasswordViewModel.cs" />
     <Compile Include="Models\Users\ResetUserPasswordViewModel.cs" />
     <Compile Include="Models\Users\UserDisciplineEsential.cs" />
     <Compile Include="Models\Users\UserEsentialData.cs" />
@@ -6102,6 +6104,8 @@
     <Content Include="Views\Shared\_GuestFooter.cshtml" />
     <Content Include="Views\Admin\UserDiscipline.cshtml" />
     <Content Include="Views\Admin\PendingClasses.cshtml" />
+    <Content Include="Views\Admin\UserProfile.cshtml" />
+    <Content Include="Views\Admin\UserChangePassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Data.Entity;
 using System.Web.Security;
 using System.Collections.Generic;
+using NLog.LayoutRenderers.Wrappers;
 
 
 namespace eProiect.BusinessLogic.Core
@@ -54,6 +55,7 @@ namespace eProiect.BusinessLogic.Core
                     Name = newUserData.Name,
                     Surname = newUserData.Surname,
                     Level = newUserData.Level,
+                    Birthday = new DateTime(1900, 1, 1),
                     CreatedDate = DateTime.Now,
                     LastLogin = new DateTime(2000, 1, 1),
                     Credentials = newCredentials
@@ -184,6 +186,10 @@ namespace eProiect.BusinessLogic.Core
                          Status = false
                     };
                }
+               if (newUserData.Birthday == new DateTime(0001, 1, 1)) 
+               {
+                    newUserData.Birthday = new DateTime(1900, 1, 1);
+               }
                var validate = new EmailAddressAttribute();
                if (!validate.IsValid(newUserData.Credentials.Email))
                {
@@ -209,7 +215,8 @@ namespace eProiect.BusinessLogic.Core
 
                          _user.Name = newUserData.Name;
                          _user.Surname = newUserData.Surname;
-                         _user.Credentials.Email = newUserData.Credentials.Email;
+                         _user.Credentials.Email = newUserData.Credentials.Email;              
+                         _user.Birthday = newUserData.Birthday;
                          _user.Level = newUserData.Level;
                          db.SaveChanges();
                     }
@@ -257,16 +264,7 @@ namespace eProiect.BusinessLogic.Core
             return user;
         }
 
-        /*internal User GetUserProfileById()
-        {
-            var user = new User();
-            using (var db = new UserContext())
-            {
-                user = db.Users.Include(c => c.Credentials)
-            }
-
-
-        }*/
+        
 
     }
 }

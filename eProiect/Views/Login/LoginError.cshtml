@@ -16,12 +16,12 @@
                     <div class="auth-box" id="emailBox" style="display: block;">
                         <div class="row m-b-20">
                             <div class="col-md-12">
-                                <h3 class="text-left">Recover you password</h3>
+                                <h3 class="text-left">Resetează Parola</h3>
                             </div>
                         </div>
                         <p class="text-inverse b-b-default text-right">Back to <a href="@Url.Action("Login", "Login")">Login.</a></p>
                         <div class="input-group">
-                            <input type="text" id="Recover" class="form-control" placeholder="Your Email Address">
+                            <input type="text" id="Recover" class="form-control" placeholder="Email">
                             <span class="md-line"></span>
                         </div>
                         <div class="j-row">
@@ -29,7 +29,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" onclick="sendEmail()">Reset Password</button>
+                                <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" onclick="sendEmail()">Resetează Parola</button>
                             </div>
                         </div>
 
@@ -38,20 +38,20 @@
                     <div class="auth-box" id="codeBox" style="display: none;">
                         <div class="row m-b-20">
                             <div class="col-md-12">
-                                <h3 class="text-left">Write code from email</h3>
+                                <h3 class="text-left">Resetarea parolei</h3>
                             </div>
                         </div>
                         <p class="text-inverse b-b-default text-right">Back to <a href="@Url.Action("Login", "Login")">Login.</a></p>
                         <div class="input-group">
-                            <input type="text" id="Code" class="form-control" placeholder="Code">
+                            <input type="text" id="Code" class="form-control" placeholder="Codul de resetare">
                             <span class="md-line"></span>
                         </div>
                         <div class="input-group">
-                            <input type="password" id="Password" class="form-control" placeholder="Password">
+                            <input type="password" id="Password" class="form-control" placeholder="Parola">
                             <span class="md-line"></span>
                         </div>
                         <div class="input-group">
-                            <input type="password" id="ConfirmPassword" class="form-control" placeholder="Confirm Password">
+                            <input type="password" id="ConfirmPassword" class="form-control" placeholder="Confirmă parola">
                             <span class="md-line"></span>
                         </div>
                         <div class="j-row">
@@ -59,7 +59,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" onclick="sendNewPassword()">Reset Password</button>
+                                <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" onclick="sendNewPassword()">Resetează Parola</button>
                             </div>
                         </div>
 

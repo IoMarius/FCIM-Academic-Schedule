@@ -11,12 +11,11 @@
     <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="#">
     <!-- Favicon icon -->
-<<<<<<< HEAD
+
 
     <link rel="icon" href="~/Vendor/assets/images/favicon.ico" type="image/x-icon">
-
-
-
+   
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 
     @Styles.Render("~/bundles/bootstrap/css")
 
@@ -38,45 +37,14 @@
     @Styles.Render("~/bundles/UserDisciplineEditStyle/css");
     @Styles.Render("~/bundles/select2.min/css");
 
-    @Styles.Render("~/bundles/schedule-table/css")
-    @Styles.Render("~/bundles/navbar-user-styles/css")
+ 
     @Styles.Render("~/bundles/guest-layout-styles/css")
 
 
-    @if (IsSectionDefined("Styles"))
-    {@RenderSection("Styles", required: false)}
-
-
-
-=======
-    <
-    <link rel="icon" href="~/Vendor/assets/images/favicon.ico" type="image/x-icon">
-    @*  Google font*@
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
-
-    @Styles.Render("~/bundles/bootstrap/css")
-
-    @Styles.Render("~/bundles/themify-icons/css1")
-
-    @Styles.Render("~/bundles/ico-font/css2")
-
-    @Styles.Render("~/bundles/menu-search/css3")
-
-    @Styles.Render("~/bundles/style/css4")
-    @Styles.Render("~/bundles/mCustomScrollbar/css5")
-
-
-    @Styles.Render("~/bundles/schedule-table/css")
-    @Styles.Render("~/bundles/navbar-user-styles/css");
-
-    @Styles.Render("~/bundles/j-pro-modern/css");
 
     @if (IsSectionDefined("Styles"))
     {@RenderSection("Styles", required: false)}
 
-
-
->>>>>>> classes-confirm-backend
 
 </head>
 <body>
@@ -192,7 +160,9 @@
     @Scripts.Render("~/bundles/js/jquery-cloneya.min.js")
     @Scripts.Render("~/bundles/js/custom/cloned-form.js")
     @Scripts.Render("~/bundles/pages/UserDisciplineJavaScript.js")
+    @Scripts.Render("~/bundles/UserProfile/js")
 
+  
     
 </body>
 </html>
