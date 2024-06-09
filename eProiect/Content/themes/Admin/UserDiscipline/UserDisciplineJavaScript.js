@@ -1,11 +1,11 @@
-﻿window.onload = function () {
+﻿/*window.onload = function () {
 
     var currentURL = window.location.pathname;
 
     if (currentURL.includes('Admin/UserDiscipline')) {
         getAllUsersDisciplines();
     }
-}
+}*/
 
 function getAllUsersDisciplines() {
 
@@ -706,6 +706,7 @@ function postNewUserDisciplinesForNewThec() {
                 spanError.style.display = 'block';
             }
             else {
+                getAllUsersDisciplines();
                 toggleCardBlocks(1);
                 spanError.classList.remove('j-error-message');
                 spanError.classList.add('j-success-message');

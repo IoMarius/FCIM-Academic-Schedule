@@ -240,9 +240,15 @@ namespace eProiect.App_Start
             bundles.Add(new Bundle("~/bundles/pending-classes/js").Include(
             "~/Vendor/assets/js/pending-classes.js"));
 
+
             //-------------ADMIN-VIEW-CLASSESS
             bundles.Add(new Bundle("~/bundles/admin-teacher-view/js").Include(
             "~/Vendor/assets/js/admin-teacher-view.js"));
+
+            //-----------------User-Profile-----------------------------
+            bundles.Add(new Bundle("~/bundles/UserProfile/js").Include(
+          "~/Content/themes/Admin/UserProfile.js"));
+
         }
     }
 

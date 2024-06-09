@@ -100,6 +100,101 @@
                 window.location.href = "/Home/GuestSchedule";
             })
         })
+
+        function sendEmail() {
+            var inputEmail = document.getElementById('Recover');
+            $.ajax({
+                url: '/Login/LoginError',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ userEmail: inputEmail.value }),
+                dataType: "json",
+                success: function (response) {
+                    var spanError = document.getElementById('error_span');
+                    if (!response.success) {
+                        spanError.classList.add('j-error-message');
+                        spanError.textContent = response.message; // Display the error message
+                        spanError.style.display = 'block'; // Make sure the error message is displayed
+                        setTimeout(function () {
+                            spanError.textContent = '';
+                            spanError.style.display = 'none';
+                        }, 3000);
+
+                    } else {
+                        spanError.classList.remove('j-error-message');
+                        spanError.classList.add('j-success-message');
+                        spanError.textContent = response.message; // Display the success message
+                        spanError.style.display = 'block'; // Make sure the success message is displayed
+                        setTimeout(function () {
+                            spanError.classList.remove('j-success-message');
+                            spanError.textContent = '';
+                            spanError.style.display = 'none';
+                            var boxEmail = document.getElementById('emailBox');
+                            boxEmail.style.display = 'none';
+                            var boxCode = document.getElementById('codeBox');
+                            boxCode.style.display = 'block';
+                        }, 3000);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error sending data to the backend:', error);
+                    var spanError = document.getElementById('error_span');
+                    spanError.classList.add('j-error-message');
+                    spanError.textContent = 'An error occurred: ' + error;
+                    spanError.style.display = 'block'; // Make sure the error message is displayed
+                }
+            });
+        }
+
+        function sendNewPassword() {
+            var resetUserPasswordViewModel = {
+                Email: document.getElementById('Recover').value,
+                Password: document.getElementById('Password').value,
+                ConfirmePassword: document.getElementById('ConfirmPassword').value,
+                ResetCode: document.getElementById('Code').value
+            };
+            $.ajax({
+                url: '/Login/ResetPassword',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(resetUserPasswordViewModel),
+                dataType: "json",
+                success: function (response) {
+                    var spanError = document.getElementById('errorspan');
+                    if (!response.success) {
+                        spanError.classList.add('j-error-message');
+                        spanError.textContent = response.message; // Display the error message
+                        spanError.style.display = 'block'; // Make sure the error message is displayed
+                        setTimeout(function () {
+                            spanError.textContent = '';
+                            spanError.style.display = 'none';
+                           
+                        }, 3000);
+
+                    } else {
+                        spanError.classList.remove('j-error-message');
+                        spanError.classList.add('j-success-message');
+                        spanError.textContent = response.message; // Display the success message
+                        spanError.style.display = 'block'; // Make sure the success message is displayed
+                        setTimeout(function () {
+                            spanError.classList.remove('j-success-message');
+                            spanError.textContent = '';
+                            window.location.href = "/Login/Login";
+
+                        }, 3000);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error sending data to the backend:', error);
+                    var spanError = document.getElementById('errorspan');
+                    spanError.classList.add('j-error-message');
+                    spanError.textContent = 'An error occurred: ' + error;
+                    spanError.style.display = 'block'; // Make sure the error message is displayed
+                }
+            });
+        }
+
+        
     </script>
 
 </body>

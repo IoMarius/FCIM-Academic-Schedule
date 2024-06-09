@@ -25,8 +25,11 @@ namespace eProiect.Controllers
         private readonly IAdmin _admin;
         private readonly IDiscipline _discipline;
         private readonly IUserDiscipline _userDiscipline;
-        /*private readonly IAcademicGroup _academicGroup;*/
-       /* private readonly IClassRoom _classRoom;*/
+       
+
+     
+        private readonly IUser _user;
+
 
         public AdminController()
         {
@@ -36,6 +39,7 @@ namespace eProiect.Controllers
             /*_classRoom = bl.GetClassRoomBL();*/
             _discipline = bl.GetDisciplineBL();
             _userDiscipline = bl.GetUserDisciplineBL();
+            _user = bl.GetUserBL();
         }
 
         /// <summary>
@@ -970,20 +974,187 @@ namespace eProiect.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-          [HttpGet]
-          [UserMode(UserRole.admin)]
-          public ActionResult GetPendingClasses()
-          {
-            var pendingClasses = _class.GetPendingClasses();
-            return Json(pendingClasses, JsonRequestBehavior.AllowGet);
-          }
+        [HttpGet]
+        [UserMode(UserRole.admin)]
+        public ActionResult GetPendingClasses()
+        {
+        var pendingClasses = _class.GetPendingClasses();
+        return Json(pendingClasses, JsonRequestBehavior.AllowGet);
+        }
 
-          [HttpGet]
-          [UserMode(UserRole.admin)]          
-          public ActionResult GetConflictingClasses()
-          {
-            var conflicts = _class.GetPendingConflictingClasses();
-            return Json(conflicts, JsonRequestBehavior.AllowGet);
-          }
-     }
+        [HttpGet]
+        [UserMode(UserRole.admin)]          
+        public ActionResult GetConflictingClasses()
+        {
+        var conflicts = _class.GetPendingConflictingClasses();
+        return Json(conflicts, JsonRequestBehavior.AllowGet);
+        }
+
+        [UserMode(UserRole.admin, UserRole.teacher)]
+        public ActionResult UserProfile()
+        {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            GeneralViewData viewData = new GeneralViewData();
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+            UserEsentialData UData = new UserEsentialData
+            {
+                Name = loggedInUser.Name,
+                Surname = loggedInUser.Surname,
+                CreatedDate = loggedInUser.CreatedDate,
+                Level = loggedInUser.Level
+            };
+            viewData.UData = UData;
+
+            return View(viewData);
+        }
+
+        [HttpGet]
+        [UserMode(UserRole.admin, UserRole.teacher)]
+        public ActionResult GetUserProfileData()
+        {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+
+            var userProfile = _user.GetProfileData(loggedInUser.Id);
+
+           if (userProfile != null)
+            {
+                return Json( userProfile, JsonRequestBehavior.AllowGet );
+            }
+            return Json(new { success = false, message = "userProfile is null" });
+        }
+
+
+        [HttpPost]
+        [UserMode(UserRole.admin, UserRole.teacher)]
+        public ActionResult PostUserProfileData( UserProfileData userProfile) 
+        {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+
+                    var userData = new UserProfileData()
+                    {
+                        Id = loggedInUser.Id,
+                        Name = userProfile.Name,
+                        Surname = userProfile.Surname,
+                        Email = userProfile.Email,
+                        Birthday = userProfile.Birthday
+                    };
+
+                    var response = _user.EditUserPrifile(userData);
+
+                    // Return success or failure message
+                    return Json(new { success = response.Status, message = response.ActionStatusMsg });
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions
+                    return Json(new { success = false, message = "An error occurred while editing user data: " + ex.Message });
+                }
+            }
+            else
+            {
+                // Return validation error message
+                return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+            }
+        }
+
+
+
+        [UserMode(UserRole.admin, UserRole.teacher)]
+        public ActionResult UserChangePassword()
+        {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            GeneralViewData viewData = new GeneralViewData();
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+            UserEsentialData UData = new UserEsentialData
+            {
+                Name = loggedInUser.Name,
+                Surname = loggedInUser.Surname,
+                CreatedDate = loggedInUser.CreatedDate,
+                Level = loggedInUser.Level
+            };
+            viewData.UData = UData;
+
+            return View(viewData);
+        }
+        [HttpPost]
+        [UserMode(UserRole.admin, UserRole.teacher)]
+        public ActionResult PostUserChangePassword(ChangeUserPasswordViewModel changeUserPasswordViewModel)
+        {
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] != "login")
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+
+            if(changeUserPasswordViewModel == null)
+            {
+                Json(new { success = false, message = "Invalid data. Please check the provided information." });
+            }
+            if (changeUserPasswordViewModel.NewPassword != changeUserPasswordViewModel.ConfirmPassword)
+            {
+                Json(new { success = false, message = "Confirm Password isn't same." });
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+
+                    var userData = new UserPasswordChange()
+                    {
+                        UserId = loggedInUser.Id,
+                        NewPassword = changeUserPasswordViewModel.NewPassword,
+                        OldPassword = changeUserPasswordViewModel.OldPassword
+                    };
+
+                    var response = _user.ChangeUserPassword(userData);
+
+                    // Return success or failure message
+                    return Json(new { success = response.Status, message = response.ActionStatusMsg });
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions
+                    return Json(new { success = false, message = "An error occurred while editing user data: " + ex.Message });
+                }
+            }
+            else
+            {
+                // Return validation error message
+                return Json(new { success = false, message = "Invalid data. Please check the provided information." });
+            }
+
+
+        }
+    }
 }

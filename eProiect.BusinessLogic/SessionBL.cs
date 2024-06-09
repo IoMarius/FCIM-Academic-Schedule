@@ -37,8 +37,16 @@ namespace eProiect.BusinessLogic
             return UserByCookie(cookieString);
         }
 
+        public ActionResponse SendResetPasswordCodeByEmail(string loginEmail)
+        {
+            return SendUserResetPasswordCodeByEmail(loginEmail);
+        }
 
-     }
+        public ActionResponse SetNewPasswordByResetCode(ResetUserPasswordData resetUserPasswordData)
+        {
+            return SetNewUserPasswordActionByResetCode(resetUserPasswordData);
+        }
+    }
 
 
 }
