@@ -81,5 +81,8 @@ namespace eProiect.BusinessLogic.Interfaces
         /// <param name="id">Class id in classes db table</param>
         /// <returns>Action response with action status and message.</returns>
         ActionResponse ConfirmPendingClass(int id);
+
+
+        List<Class> GetClassroomSchedule(int id);
     }
 }

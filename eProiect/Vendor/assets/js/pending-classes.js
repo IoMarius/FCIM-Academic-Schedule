@@ -259,7 +259,8 @@ async function saveClassChanges(id) {
 
         ClassTypeId: $(`#modCardData${id}`).attr("class-type-id"),
         AcademicGroupId: $(`#modCardData${id}`).attr("academic-group-id"),
-        AcademicGroupYear: $(`#modCardData${id}`).attr("academic-group-year")
+        AcademicGroupYear: $(`#modCardData${id}`).attr("academic-group-year"),
+        Self: false
     }
 
     $.ajax({
@@ -383,20 +384,24 @@ function highlightConflicts() {
                 }                
                 //mark hours if days are the same:
                 if (days[i] == days[j]) {
-                    if (hours[i] == hours[j]) {      
-                    
-                        
-                        missingConflict = false;
-                        markConflict(`#modStartimeSelector${$(activeConflicts[i]).attr("value")}`);
-                        markConflict(`#modStartimeSelector${$(activeConflicts[j]).attr("value")}`);
-                    } else {                        
-                        unmarkConflict(`#modStartimeSelector${$(activeConflicts[i]).attr("value")}`);
-                        unmarkConflict(`#modStartimeSelector${$(activeConflicts[j]).attr("value")}`);
-                    }
+                    if (classrooms[i] != undefined) {
+                        if (classrooms[i] == classrooms[j]) {
+                            if (hours[i] == hours[j]) {
+                                missingConflict = false;
+                                markConflict(`#modStartimeSelector${$(activeConflicts[i]).attr("value")}`);
+                                markConflict(`#modStartimeSelector${$(activeConflicts[j]).attr("value")}`);
+                            } else {
+                                unmarkConflict(`#modStartimeSelector${$(activeConflicts[i]).attr("value")}`);
+                                unmarkConflict(`#modStartimeSelector${$(activeConflicts[j]).attr("value")}`);
+                            }
+                        }
+                    }                    
                 } else {
                     unmarkConflict(`#modStartimeSelector${$(activeConflicts[i]).attr("value")}`);
                     unmarkConflict(`#modStartimeSelector${$(activeConflicts[j]).attr("value")}`);
                 }
+
+                
 
                 if (classrooms[i] != undefined) {                    
                     if (classrooms[i] == classrooms[j]) {        

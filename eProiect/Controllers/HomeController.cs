@@ -387,6 +387,20 @@ namespace eProiect.Controllers
             return Json(groupList, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult GetClassroomSchedule(int classroomId)
+        {
+            var classes=_class.GetClassroomSchedule(classroomId);
+            return Json(classes, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetBusyClassRoomsOnFloor(int floorId)
+        {
+            var classrooms = _classRoom.GetBusyClassroomsByFloor(floorId);
+            return Json(classrooms, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [UserMode(UserRole.admin, UserRole.teacher)]
         public ActionResult GetFreeClassroomsByFloor(FreeClassroomsMinimalRequest requestData)

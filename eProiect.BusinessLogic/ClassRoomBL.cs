@@ -40,5 +40,10 @@ namespace eProiect.BusinessLogic
         {
             return GetClassroomsByFloor(floor);
         }
+
+        public List<ClassRoom> GetBusyClassroomsByFloor(int floor)
+        {
+            return GetBusyClassroomsByFloorAction(floor);
+        }
     }
 }

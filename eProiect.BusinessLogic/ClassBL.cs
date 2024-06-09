@@ -64,6 +64,9 @@ namespace eProiect.BusinessLogic
             return GetClassesPending();
         }
 
-
+        public List<Class> GetClassroomSchedule(int id)
+        {
+            return GetClassroomScheduleAction(id);
+        }
     }
 }

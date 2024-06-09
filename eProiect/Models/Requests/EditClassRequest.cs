@@ -19,6 +19,7 @@ namespace eProiect.Models.Requests
         public int ClassTypeId { get; set; }
         public int AcademicGroupId { get; set; }
         public int AcademicGroupYear { get; set; }
+        public bool Self { get; set; }
 
         public override bool Equals(object obj)
         {

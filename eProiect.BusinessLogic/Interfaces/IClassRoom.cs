@@ -27,5 +27,8 @@ namespace eProiect.BusinessLogic.Interfaces
 
         List<ClassRoom> GetClassRoomsByFloor(int floor);
 
+
+
+        List<ClassRoom> GetBusyClassroomsByFloor(int floor);
     }
 }

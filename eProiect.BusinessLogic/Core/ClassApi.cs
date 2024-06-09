@@ -51,7 +51,7 @@ namespace eProiect.BusinessLogic.Core
             //checkups
             using (var db = new UserContext())
             {
-                //overlap with self
+                //overlap with self    
                 var selfOverlap = db.Classes
                     .Include(c => c.UserDiscipline)
                     .Include(c => c.WeekDay)
@@ -605,6 +605,33 @@ namespace eProiect.BusinessLogic.Core
                     Status = false,
                     ActionStatusMsg = $"An errror occured confirming the class. Details: {ex.Message}"
                 };
+            }
+        }
+
+        internal List<Class> GetClassroomScheduleAction(int id)
+        {
+            try 
+            {   
+                var classes = new List<Class>();
+                using(var db = new UserContext())
+                {
+                    classes = db.Classes
+                        .Include(cl => cl.ClassRoom)
+                        .Include(cl => cl.AcademicGroup)
+                        .Include(cl => cl.WeekDay)
+                        .Include(cl => cl.UserDiscipline)
+                        .Include(cl => cl.UserDiscipline.Type)
+                        .Include(cl => cl.UserDiscipline.Discipline)
+                        .Include(cl => cl.UserDiscipline.User)
+                        .Where(cl=>cl.ClassRoom.Id==id)
+                        .ToList();
+                }
+                return classes;
+            }
+            catch(Exception ex) 
+            {
+                System.Diagnostics.Debug.WriteLine($"GetClassroomScheduleAction(int): Exception caught {ex.Message}\n Details: {ex.InnerException}, Stack Trace: {ex.StackTrace}");
+                return new List<Class>();
             }
         }
     }

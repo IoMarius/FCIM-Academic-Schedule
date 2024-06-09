@@ -5,11 +5,14 @@ using eProiect.Domain.Entities.Responce;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eProiect.Domain.Entities.Schedule;
+using eProiect.Domain.Entities.Schedule.DBModel;
+
 
 namespace eProiect.BusinessLogic.Core
 {
@@ -228,6 +231,31 @@ namespace eProiect.BusinessLogic.Core
             catch (Exception ex) {
                 System.Diagnostics.Debug.WriteLine($"GetClassrooms(Class) Exception caught:{ex.Message}");
                 return null;
+            }
+        }
+
+        internal List<ClassRoom> GetBusyClassroomsByFloorAction(int floor)
+        {
+            try
+            {
+                var rooms = new List<ClassRoom>();
+                using (var db = new UserContext())
+                {
+                    rooms = db.Classes
+                        .Include(cl => cl.ClassRoom)                        
+                        .Where(cl => cl.ClassRoom.Floor==floor)
+                        .Select(cl => cl.ClassRoom)
+                        .Distinct()
+                        .ToList();
+
+                    
+                }
+                return rooms;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetClassroomScheduleAction(int): Exception caught {ex.Message}\n Details: {ex.InnerException}, Stack Trace: {ex.StackTrace}");
+                return new List<ClassRoom>();
             }
         }
     }
