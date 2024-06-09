@@ -168,6 +168,10 @@ body {
     color: white;
 }
 
+.m-l-5{
+    margin-left:5px;
+}
+
 .hour-column{
     padding:0;
 }
@@ -175,6 +179,7 @@ body {
 .w-fc{
     width:fit-content;
 }
+
 
 .invisible{
     display:none;
@@ -216,6 +221,8 @@ body {
     color:white;
     background:none;
 }
+
+
 
 .enable-edit-button:focus{
     outline:none;
