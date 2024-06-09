@@ -199,18 +199,6 @@
     <EmbeddedResource Include="Migrations\202406051243443_Add_UserResetTable_test1.resx">
       <DependentUpon>202406051243443_Add_UserResetTable_test1.cs</DependentUpon>
     </EmbeddedResource>
-
-    <EmbeddedResource Include="Migrations\202406051102274_UpdateStudents.resx">
-      <DependentUpon>202406051102274_UpdateStudents.cs</DependentUpon>
-    </EmbeddedResource>
-
-    <EmbeddedResource Include="Migrations\202406051255594_Add_UserResetTable_test2.resx">
-      <DependentUpon>202406051255594_Add_UserResetTable_test2.cs</DependentUpon>
-
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202406081509350_AddBirthdayIntoUserTable.resx">
-      <DependentUpon>202406081509350_AddBirthdayIntoUserTable.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

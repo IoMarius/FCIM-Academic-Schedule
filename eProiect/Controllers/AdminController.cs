@@ -25,9 +25,7 @@ namespace eProiect.Controllers
         private readonly IAdmin _admin;
         private readonly IDiscipline _discipline;
         private readonly IUserDiscipline _userDiscipline;
-
-        /*private readonly IAcademicGroup _academicGroup;*/
-       /* private readonly IClassRoom _classRoom;*/
+       
 
      
         private readonly IUser _user;

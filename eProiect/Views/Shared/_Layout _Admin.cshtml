@@ -42,6 +42,9 @@
 
 
 
+
+    @Styles.Render("~/bundles/j-pro-modern/css");
+
     @if (IsSectionDefined("Styles"))
     {@RenderSection("Styles", required: false)}
 
@@ -161,14 +164,6 @@
     @Scripts.Render("~/bundles/js/custom/cloned-form.js")
     @Scripts.Render("~/bundles/pages/UserDisciplineJavaScript.js")
 
-    @Scripts.Render("~/bundles/admin-teacher-view/js")
-
-
-
-    @Scripts.Render("~/bundles/UserProfile/js")
-
-  
     
-
 </body>
 </html>
