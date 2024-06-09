@@ -10,10 +10,11 @@ namespace eProiect.BusinessLogic.Interfaces
 {
      public interface IAdmin 
      {
-          GroupOfUsers GetAllUsers();
-          ActionResponse AddNewUsers(NewUserData newUserData);
-          ActionResponse EditUsers(User editedUserData);
-          ActionResponse DeleteUsers(int Id);
-          List<User> GetAllUserRedusedUserData();
+        GroupOfUsers GetAllUsers();
+        ActionResponse AddNewUsers(NewUserData newUserData);
+        ActionResponse EditUsers(User editedUserData);
+        ActionResponse DeleteUsers(int Id);
+        List<User> GetAllUserRedusedUserData();
+       
      }
 }
