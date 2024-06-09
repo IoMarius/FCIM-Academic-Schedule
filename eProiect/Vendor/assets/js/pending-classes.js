@@ -1,5 +1,4 @@
-﻿$(document).ready(function () {
-    var inEditor = [];
+﻿$(document).ready(function () {    
     const weekDays = ["Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă"];
     const timeIntervals = [
         new TimeInterval(8, 0, 9, 30),
@@ -83,7 +82,6 @@
                             )
                                 .attr("lessonId", item.Id)
                                 .addClass("approve-class"),
-
                             $("<button></button>").addClass("generic-button generic-button-negative decision-button").append(
                                 $("<i></i>").addClass('ti-close')
                             )
@@ -105,6 +103,8 @@
     $('#pendingClassesTable').click(function (event) {
         const button = $(event.target).closest('button');
         const row = $(event.target).closest('tr');
+
+        checkConflictsState();
 
         if (button.length > 0 && button.hasClass('approve-class')) {
             $.ajax({
@@ -201,6 +201,23 @@
 
 });
 
+async function checkConflictsState() {      
+    if ($('.active-conflict-element').length == 0)
+    {
+        if (!$('#conflictMessage').hasClass('closed')){
+            $('#conflictMessage').addClass('closed');
+        }
+    }
+
+
+    if ($('.normal-state-row').length==0)
+    {
+        if (!$('#pendingClassesTableWhole').hasClass('closed')){            
+            $('#pendingClassesTableWhole').addClass('closed');
+        }
+    }
+}
+
 function returnToConflictList() {
     $('#conflictsList').toggleClass("closed");
     $('#inEditConflicts').toggleClass("closed");
@@ -209,13 +226,14 @@ function returnToConflictList() {
 function solveConflict() {
     if (highlightConflicts()) {
         const activeConflicts = $(".conflict-in-edit");
+        $('#responseBlock').empty();
         $.each(activeConflicts, function (index, conflict) {
             var conId = $(conflict).attr("value");
             saveClassChanges(conId);
         })
 
         //restart page
-        window.location.href = "/Admin/PendingClasses";
+        
 
     } else {
         //notify user that conflicts are present.
@@ -252,7 +270,15 @@ async function saveClassChanges(id) {
         data: JSON.stringify({ data: modifyClassRequest }),
 
         success: function (response) {
-            console.error(response);
+            if (response.Status == false) {                
+                $('#responseBlock').append(
+                    $('<div></div>').addClass('response-message-card error-response-addclass').append(
+                        $('<p></p>').addClass('m-b-0').text(response.ActionStatusMsg)
+                    )
+                );
+            } else {
+                window.location.href = "/Admin/PendingClasses";
+            }    
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error("AJAX Error:", textStatus, errorThrown);
@@ -354,9 +380,7 @@ function highlightConflicts() {
             for (let j = 0; j < activeConflicts.length; j++) {
                 if (i == j) {
                     continue;
-                }
-
-                console.error(`i:${i}, j:${j}_di:${hours[i]} | dj:${hours[j]}`);
+                }                
                 //mark hours if days are the same:
                 if (days[i] == days[j]) {
                     if (hours[i] == hours[j]) {      
@@ -628,7 +652,7 @@ function createElement(elementContainer, data, index, rowClass) {
 
 function insertConflicts(container, conflicts) {
     $.each(conflicts, function (index, conflict) {        
-        var conflictWrapper = $("<div>").addClass("m-b-20 d-inline-flex w-100");
+        var conflictWrapper = $("<div>").addClass("m-b-20 d-inline-flex w-100 active-conflict-element");
         var conflictContainer = $("<div>").addClass("d-flex flex-column conflict-table-border w-100")
         var inspectButton = $("<button>").addClass("w-100 h-100 inspect-conflict-button").append($("<i>").addClass("ti-pencil"));
     

@@ -952,6 +952,7 @@
     <Content Include="Vendor\assets\images\widget\user2.png" />
     <Content Include="Vendor\assets\images\widget\user3.png" />
     <Content Include="Vendor\assets\images\widget\user4.png" />
+    <Content Include="Vendor\assets\js\admin-teacher-view.js" />
     <Content Include="Vendor\assets\js\animation.js" />
     <Content Include="Vendor\assets\js\bootstrap-growl.min.js" />
     <Content Include="Vendor\assets\js\classie.js" />

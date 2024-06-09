@@ -24,6 +24,10 @@ namespace eProiect.BusinessLogic.Core
                 var academicGroup = db.AcademicGroups
                 .FirstOrDefault(ag => ag.Id == groupId);
 
+
+                if (academicGroup == null)
+                    return;
+
                 var emails =  db.Students
                     .Where(st => st.AcademicGroupId == groupId)
                     .Select(st => st.Email)

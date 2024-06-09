@@ -237,6 +237,20 @@ body {
     transition: opacity 0.2s ease-in-out !important;
 }
 
+.reset-empty-block {
+    border-radius: 0 !important;
+    opacity: 1 !important;
+    color: #151a2b !important
+}
+
+.h-3prc{
+    height: 3% !important;
+}
+
+.m-b-16 {
+    margin-bottom: -16px;
+}
+
 .content-wrapper{
     filter: blur(0px);
     transition: filter 0.3s ease-in-out !important;

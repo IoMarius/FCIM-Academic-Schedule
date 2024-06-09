@@ -45,14 +45,14 @@
             <div><p class="f-s-18">Rezolvă conflicte</p></div>
 
             <div class="d-flex justify-content-center align-content-center flex-wrap flex-column">
-                <div id="conflictMessage" class="d-flex justify-content-center dashed-gray-border height-7-rem flex-wrap align-content-center closed"><p class="m-b-0 f-s-16 light-gray-col h-fit-content">Nu există conflicte active</p></div>
+                <div id="conflictMessage" class="d-flex justify-content-center dashed-gray-border height-7-rem flex-wrap align-content-center w-100 closed"><p class="m-b-0 f-s-16 light-gray-col h-fit-content">Nu există conflicte active</p></div>
                 <div id="conflictsContainer" class="justify-content-center" style=" max-width: 1096px; width: 95%;"></div>
             </div>
 
             <br />
 
             <div><p class="f-s-18">Confirmă perechi</p></div>
-            <div id="pendingMessage" class="d-flex justify-content-center dashed-gray-border height-7-rem flex-wrap align-content-center closed"><p class="m-b-0 f-s-16 light-gray-col h-fit-content">Nu sunt perechi ce necesită aprobare</p></div>
+            <div id="pendingMessage" class="d-flex justify-content-center dashed-gray-border height-7-rem flex-wrap align-content-center  closed"><p class="m-b-0 f-s-16 light-gray-col h-fit-content">Nu sunt perechi ce necesită aprobare</p></div>
             <table id="pendingClassesTableWhole" class="gray-table-border" style=" max-width: 1096px;">
                 <thead>
                     <tr>
@@ -81,10 +81,12 @@
             <div id="conflictSolverCard" class=" d-flex flex-wrap justify-content-center">
 
             </div>
+            <div id="responseBlock"></div>
             <div class="col d-flex justify-content-end m-t-20">
-                <button id="submit-button-modlesson" onclick="solveConflict()"  type="submit" class="addlesson-button addlesson-button-confirm conflict-button" style="">Salvează</button>
+                <button id="submit-button-modlesson" onclick="solveConflict()" type="submit" class="addlesson-button addlesson-button-confirm conflict-button" style="">Salvează</button>
                 <button id="cancel-button-modlesson" onclick="returnToConflictList()" class="addlesson-button addlesson-button-deny conflict-button" style=""> <i class="ti-close"></i></button>
             </div>
+
         </div>
     </div>
 </div>

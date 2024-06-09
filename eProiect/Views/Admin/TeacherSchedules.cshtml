@@ -4,5 +4,69 @@
     Layout = "~/Views/Shared/_Layout _Admin.cshtml";
 }
 
-<h2>TeacherSchedules Right here negga! </h2>
+<div class="page-header card">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <i class="icofont icofont-teacher bg-c-blue"></i>
+                <div class="d-inline">
+                    <h4>Orarul profesorilor</h4>
+                    <span>
+                        Vizualizează și editează orarul profesorilor.
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item">
+                        <a href="/Home/Schedule">
+                            <i class="icofont icofont-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#"> Profesori</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="/Admin/PendingClasses"> Orarul profesorilor</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
+
+<div class="card">
+    <div class="card-body">
+                
+        <div id="teachersSelectors">
+            <div class="selector-row-wrapper">
+                <div class="selectors-row">
+                    <div class="selector-col w-100">
+                        <div id="searchDropdown" class="pos-relative">
+                            <hidden id="selectedTeacher"></hidden>
+                            <div class="d-flex">
+                                <input type="text" placeholder="Nume profesor" id="nameInput" class="dropdown-bar-input" onkeyup="filterFunction()" />
+                                <div id="searchIconBox" class="right-input-icon"><i class="ti-search"></i></div>
+                            </div>
+                            <div id="teachersDropdown" class="dropdown-list closed">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+
+        <div class="table-wrapper">
+            <div id="divTable" class="guest-schedule-container">
+            </div>
+        </div>
+
+        <div id="userNotice" class="user-notice-msg">
+            <span>Selectați anul de studiu și grupa academică</span>
+        </div>
+    </div>
+</div>

@@ -240,7 +240,21 @@ namespace eProiect.Controllers
         [UserMode(UserRole.admin)]
         public ActionResult TeacherSchedules()
         {
-            return View();
+            var loggedInUser = System.Web.HttpContext.Current.GetMySessionObject();
+
+            GeneralViewData viewData = new GeneralViewData
+            {
+                UDataList = new List<UserEsentialData>()
+            };
+            UserEsentialData UData = new UserEsentialData
+            {
+                Name = loggedInUser.Name,
+                Surname = loggedInUser.Surname,
+                CreatedDate = loggedInUser.CreatedDate,
+                Level = loggedInUser.Level
+            };
+            viewData.UData = UData;
+            return View(viewData);
         }
 
 
