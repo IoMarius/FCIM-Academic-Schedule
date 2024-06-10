@@ -169,8 +169,10 @@ namespace eProiect.BusinessLogic.Core
                 var classroomEdit = db.ClassRooms
                     .FirstOrDefault(cr => cr.Id == editedClass.ClassRoom.Id);
 
-                var weekdayEdit = db.WeekDays
+                var weekdayEdito = db.WeekDays
                     .FirstOrDefault(wd => wd.Id == editedClass.WeekDay.Id);
+
+                var weekdayEdit = db.WeekDays.FirstOrDefault(w => w.Id == editedClass.WeekDay.Id);
 
                 if (classroomEdit is null || weekdayEdit is null)
                 {

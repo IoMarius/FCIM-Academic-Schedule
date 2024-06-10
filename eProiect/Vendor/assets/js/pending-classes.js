@@ -229,6 +229,7 @@ function solveConflict() {
         $('#responseBlock').empty();
         $.each(activeConflicts, function (index, conflict) {
             var conId = $(conflict).attr("value");
+            console.error(conId);
             saveClassChanges(conId);
         })
 
@@ -248,7 +249,7 @@ function solveConflict() {
 async function saveClassChanges(id) {
     modifyClassRequest = {
         ClassId: id,
-        WeekdayId: $(`#modWeekdaySelector${id}`).find(':selected').val() - 1,
+        WeekdayId: $(`#modWeekdaySelector${id}`).find(':selected').val() ,
         StartHours: $(`#modStartimeSelector${id}`).find(':selected').attr("value"),
         StartMinutes: $(`#modStartimeSelector${id}`).find(':selected').attr("value-minutes"),
         Span: $(`input[name='modLength${id}']:checked`).val(),
@@ -262,7 +263,7 @@ async function saveClassChanges(id) {
         AcademicGroupYear: $(`#modCardData${id}`).attr("academic-group-year"),
         Self: false
     }
-
+    
     $.ajax({
         url: "/Home/EditExistingClassroom",
         type: "POST",
@@ -384,18 +385,19 @@ function highlightConflicts() {
                 }                
                 //mark hours if days are the same:
                 if (days[i] == days[j]) {
-                    if (classrooms[i] != undefined) {
+                    /*if (classrooms[i] != undefined) {
                         if (classrooms[i] == classrooms[j]) {
-                            if (hours[i] == hours[j]) {
-                                missingConflict = false;
-                                markConflict(`#modStartimeSelector${$(activeConflicts[i]).attr("value")}`);
-                                markConflict(`#modStartimeSelector${$(activeConflicts[j]).attr("value")}`);
-                            } else {
-                                unmarkConflict(`#modStartimeSelector${$(activeConflicts[i]).attr("value")}`);
-                                unmarkConflict(`#modStartimeSelector${$(activeConflicts[j]).attr("value")}`);
-                            }
+                            
                         }
-                    }                    
+                    } */
+                    if (hours[i] == hours[j]) {
+                        missingConflict = false;
+                        markConflict(`#modStartimeSelector${$(activeConflicts[i]).attr("value")}`);
+                        markConflict(`#modStartimeSelector${$(activeConflicts[j]).attr("value")}`);
+                    } else {
+                        unmarkConflict(`#modStartimeSelector${$(activeConflicts[i]).attr("value")}`);
+                        unmarkConflict(`#modStartimeSelector${$(activeConflicts[j]).attr("value")}`);
+                    }
                 } else {
                     unmarkConflict(`#modStartimeSelector${$(activeConflicts[i]).attr("value")}`);
                     unmarkConflict(`#modStartimeSelector${$(activeConflicts[j]).attr("value")}`);
