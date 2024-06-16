@@ -17,7 +17,7 @@ namespace eProiect.Helper
                          client.DeliveryMethod = SmtpDeliveryMethod.Network;
                          client.UseDefaultCredentials = false;
                          client.EnableSsl = true;
-                         client.Credentials = new NetworkCredential("utmtest@mail.ru", "EBCTmsdZ6u7S54DNYCjp\r\n");
+                         client.Credentials = new NetworkCredential(",,,,", ",,,,");
                          using (var message = new MailMessage(
                              from: new MailAddress("utmtest@mail.ru", "FCIM Schedule bot"),
                              to: new MailAddress(email, name)
